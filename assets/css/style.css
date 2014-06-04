@@ -1,0 +1,67 @@
+body {
+  /*padding-top: 40px;*/
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.text-underline{
+	text-decoration: underline;
+}
+input.error{
+	border: 2px solid red;
+}
+
+span#idcard_error{
+	color: red;
+}
+
+td.table-label{
+	text-align: right;
+}
+
+input[type='text']{
+	padding: 5px;
+}
+
+select{
+	padding: 5px;
+}
+
+select.error{
+	border: 3px red solid;
+}
+
+div.error span{
+	
+}
+
+span#idcard_error{
+	color: red;
+}
+
+div.container{
+	/*padding-bottom: 200px;*/
+}
+
+table#history_data tr td{
+	vertical-align: middle;
+}
+
+.highlight{
+	background-color: #FFFF88;
+}
+
+.right-top{
+	color: red;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+
+.table-responsive{
+	overflow-x: auto;
+}
+
+
+
+
