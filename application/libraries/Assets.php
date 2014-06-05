@@ -29,8 +29,8 @@ class Assets {
 		//define default css
 		$default = array(
 						'bootstrap/dist/css/bootstrap.min.css',
-						// 'bootstrap/dist/css/bootstrap-theme.min.css',		
-						'bootflatv2/bootflat/css/bootflat.css'		
+						'bootstrap/dist/css/bootstrap-theme.min.css',		
+						// 'bootflatv2/bootflat/css/bootflat.css'		
 					);
 											
 		//check $data

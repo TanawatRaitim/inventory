@@ -16,16 +16,9 @@ class Input extends CI_Controller {
 		
 		// $this->load->library('grocery_CRUD');
 	}
-
-	public function index($type)
-	{
-		echo $type;
-		
-	}
 	
-	public function in()
+	public function main($input_type)
 	{
-		
 		$this->load->library('assets');
 		$css = array(
 					'css/style.css'
@@ -36,12 +29,32 @@ class Input extends CI_Controller {
 					
 		$this->data['css'] = $this->assets->get_css($css);
 		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['title'] = "สินค้าเข้า";
+		$this->data['title'] = $input_type;
 		// $this->data['job_dropdown'] = job_dropdown();
 		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		$this->data['content'] = $this->load->view('input/in',$this->data,TRUE);
+		$this->data['content'] = $this->load->view('input/main',$this->data,TRUE);
 		$this->load->view('template/main',$this->data);
-		
 	}
+	
+	
+	public function in()
+	{
+		$this->load->library('assets');
+		$css = array(
+					'css/style.css'
+					);
+		$js = array(
+					//'bootflatv2/bootflat/js/icheck.min.js'
+					);
+					
+		$this->data['css'] = $this->assets->get_css($css);
+		$this->data['js'] = $this->assets->get_js($js);
+		$this->data['title'] = "นำสินค้าเข้า";
+		// $this->data['job_dropdown'] = job_dropdown();
+		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->data['content'] = $this->load->view('input/main',$this->data,TRUE);
+		$this->load->view('template/main',$this->data);
+	}
+	
 
 }
