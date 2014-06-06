@@ -229,7 +229,7 @@
 			    		</tr>
 			    	</tfoot>
 			    </table>
-			    <div class="col-md-6 col-md-offset-3">
+			    <div class="col-md-10 col-md-offset-2">
 			    	<button class="btn btn-primary btn-sm">บันทึก Ticket</button>
 			  		<button class="btn btn-danger btn-sm">ยกเลิกการบันทึก Ticket</button>
 			    </div>
