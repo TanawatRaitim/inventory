@@ -27,7 +27,7 @@
 						  <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-4 control-label">รหัสสินค้า</label>
 						    <div class="col-sm-6">
-						      <input type="text" class="form-control input-sm" id="inputEmail3" placeholder="Product ID">
+						      <input type="text" class="form-control input-sm" id="product_id" placeholder="Product ID">
 						    </div>
 						  </div>
 						
@@ -106,7 +106,7 @@
 								</tr>
 								<tr>	
 									<th>Vol.</th>
-									<td></td>
+									<td>375</td>
 								</tr>
 								<tr>	
 									<th>คลังหลัก</th>
@@ -142,7 +142,7 @@
 								</tr>
 								<tr>	
 									<th>สถานะ</th>
-									<td></td>
+									<td>active</td>
 								</tr>
 							</tbody>
 						</table>
@@ -241,3 +241,14 @@
 	</div><!-- end .row -->
 	
 </div> <!-- end .container-fluid -->
+
+<script>
+	$(function(){
+		// alert('hello ims');
+		$("#product_id").blur(function(){
+			var str = $(this).val();
+			str = str.toUpperCase();
+			$(this).val(str);
+		});
+	});
+</script>

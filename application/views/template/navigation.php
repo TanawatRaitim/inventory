@@ -37,10 +37,10 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">หมวดสินค้าเข้า <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('input/main/in')?>">สินค้าใหม่ (IN)</a></li>
-            <li><a href="#">สินค้าดัดแปลง (IR)</a></li>
-            <li><a href="#">สินค้าคืน (SR)</a></li>
-            <li><a href="#">วัตถุดิบสำเร็จรูป (RA)</a></li>
+            <li><a href="<?php echo site_url('input/main/IN')?>">สินค้าใหม่ (IN)</a></li>
+            <li><a href="<?php echo site_url('input/main/IR')?>">สินค้าดัดแปลง (IR)</a></li>
+            <li><a href="<?php echo site_url('input/main/SR')?>">สินค้าคืน (SR)</a></li>
+            <li><a href="<?php echo site_url('input/main/RA')?>">วัตถุดิบสำเร็จรูป (RA)</a></li>
             <!-- 
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>
