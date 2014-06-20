@@ -15,13 +15,11 @@
 |
 */
 
-$config['base_url']	= 'http://localhost/inventory/';
+$config['base_url']	= 'http://172.168.0.184/inventory/';
 
 /*
  * Base assets URL
  */ 
- 
- 
  
 
 $config['base_assets'] = $config['base_url'].'assets/';
