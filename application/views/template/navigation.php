@@ -141,6 +141,10 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">อื่นๆ <b class="caret"></b></a>
           <ul class="dropdown-menu">
+            <li><a href="<?php echo site_url('')?>">โอนย้ายคลัง ()</a></li>
+            <li><a href="<?php echo site_url('')?>">คลังพักสินค้า ()</a></li>
+            <li><a href="<?php echo site_url('')?>">ปรับยอด ()</a></li>
+            
             <li><a href="<?php echo site_url('product/product_get')?>">บันทึกสินค้า</a></li>
             <li><a href="<?php echo site_url('product/customer_get')?>">บันทึกลูกค้า</a></li>
             <!-- 
@@ -183,8 +187,6 @@
             <li><a href="<?php echo site_url('auth/logout')?>">ออกจากโปรแกรม</a></li>
           </ul>
         </li>
-        
-        <!-- <li><a href="<?php echo site_url('auth/logout')?>">ออกจากโปรแกรม</a></li> -->
       </ul>
       
       
