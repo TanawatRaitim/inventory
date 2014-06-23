@@ -120,12 +120,14 @@ class Test extends CI_Controller {
 		
 		
 		//$object = 
-		
-		
-		
-		
-		
-		
-		
 	}
+	
+	public function server()
+	{
+		echo '<pre>';
+		print_r($_SERVER);
+		echo '</pre>';
+	}
+	
+	
 }
