@@ -45,8 +45,6 @@ $config['jquery_ui_widget'] = 'js/jqueryui/js/jquery-ui-1.10.4.custom.js';
 $config['jquery_validation'] = 'js/jquery_validation/dist/jquery.validate.min.js';
 $config['jquery_validation_additional'] = 'js/jquery_validation/dist/additional-methods.min.js';
 $config['css'] = 'css/style.css';
-
-
 //$config['alertify_base'] = 'js/alertify/themes/alertify.core.css';
 //$config['alertify_default'] = 'js/alertify/themes/alertify.default.css';
 //$config['alertify_js'] = 'js/alertify/lib/alertify.min.js';
@@ -54,11 +52,38 @@ $config['css'] = 'css/style.css';
 
 
 
+/**
+ * Config Theme
+ * 
+ * ----List of themes avalible
+ * - bs3 (bootstrap3)
+ * - bs3_2(bootstrap3 with theme)
+ * - bootflat
+ * - amelia
+ * - cerulean
+ * - cosmo
+ * - cyborg
+ * - darkly
+ * - flatly
+ * - journal
+ * - lumen
+ * - readable
+ * - simplex
+ * - slate
+ * - spacelab
+ * - superhero
+ * - united
+ * - yeti
+ * 
+ */
+ 
+ $config['theme'] = '';
+
+
+
 
 /**
- * 
  * Text
- * 
  */
 $config['system_name'] = 'Warehouse Management System';
 

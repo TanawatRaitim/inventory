@@ -37,10 +37,10 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">สินค้าเข้า <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('input/main/IN')?>">สินค้าใหม่ (IN)</a></li>
-            <li><a href="<?php echo site_url('input/main/IR')?>">สินค้าดัดแปลง (IR)</a></li>
-            <li><a href="<?php echo site_url('input/main/SR')?>">สินค้าคืน (SR)</a></li>
-            <li><a href="<?php echo site_url('input/main/RA')?>">วัตถุดิบสำเร็จรูป (RA)</a></li>
+            <li><a href="<?php echo site_url('input/in')?>">สินค้าใหม่ (IN)</a></li>
+            <li><a href="<?php echo site_url('input/ir')?>">สินค้าดัดแปลง (IR)</a></li>
+            <li><a href="<?php echo site_url('input/sr')?>">สินค้าคืน (SR)</a></li>
+            <li><a href="<?php echo site_url('input/ra')?>">วัตถุดิบสำเร็จรูป (RA)</a></li>
             <!-- 
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>
@@ -54,13 +54,13 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">สินค้าตัดขาย <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('input/main/SA')?>">ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</a></li>
-            <li><a href="<?php echo site_url('input/main/SS')?>">ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS)</a></li>
-            <li><a href="<?php echo site_url('input/main/SC')?>">ลูกค้าเงินสดหนังสือออกประจำ (SC)</a></li>
-            <li><a href="<?php echo site_url('input/main/SZ')?>">ขายเลหลัง (SZ)</a></li>
-            <li><a href="<?php echo site_url('input/main/SM')?>">ขายลูกค้าสมาชิก (SM)</a></li>
-            <li><a href="<?php echo site_url('input/main/SD')?>">ขายลูกค้าไปรษณีย์ (SD)</a></li>
-            <li><a href="<?php echo site_url('input/main/SE')?>">กิจกรรมพิเศษ (SE)</a></li>
+            <li><a href="<?php echo site_url('input/sa')?>">ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</a></li>
+            <li><a href="<?php echo site_url('input/ss')?>">ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS)</a></li>
+            <li><a href="<?php echo site_url('input/sc')?>">ลูกค้าเงินสดหนังสือออกประจำ (SC)</a></li>
+            <li><a href="<?php echo site_url('input/sz')?>">ขายเลหลัง (SZ)</a></li>
+            <li><a href="<?php echo site_url('input/sm')?>">ขายลูกค้าสมาชิก (SM)</a></li>
+            <li><a href="<?php echo site_url('input/sd')?>">ขายลูกค้าไปรษณีย์ (SD)</a></li>
+            <li><a href="<?php echo site_url('input/se')?>">กิจกรรมพิเศษ (SE)</a></li>
             <!-- 
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>
@@ -75,12 +75,12 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">สินค้าตัดจ่าย <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('input/main/')?>">อภินันท์ (FR)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">ดัดแปลง/รวมเล่มใหม่ (TT)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">ตัดเคลียร์สต๊อก (ZZ)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">เบิกชั่วคราวเพื่อดัดแปลง (MO)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">เบิกสินค้าตัวอย่าง (XS)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">เบิกวัสดุประกอบ (PD)</a></li>
+            <li><a href="<?php echo site_url('input/fr')?>">อภินันท์ (FR)</a></li>
+            <li><a href="<?php echo site_url('input/tt')?>">ดัดแปลง/รวมเล่มใหม่ (TT)</a></li>
+            <li><a href="<?php echo site_url('input/zz')?>">ตัดเคลียร์สต๊อก (ZZ)</a></li>
+            <li><a href="<?php echo site_url('input/mo')?>">เบิกชั่วคราวเพื่อดัดแปลง (MO)</a></li>
+            <li><a href="<?php echo site_url('input/xs')?>">เบิกสินค้าตัวอย่าง (XS)</a></li>
+            <li><a href="<?php echo site_url('input/pd')?>">เบิกวัสดุประกอบ (PD)</a></li>
             
             <!-- 
             <li class="divider"></li>
@@ -145,8 +145,8 @@
             <li><a href="<?php echo site_url('')?>">คลังพักสินค้า ()</a></li>
             <li><a href="<?php echo site_url('')?>">ปรับยอด ()</a></li>
             
-            <li><a href="<?php echo site_url('product/product_get')?>">บันทึกสินค้า</a></li>
-            <li><a href="<?php echo site_url('product/customer_get')?>">บันทึกลูกค้า</a></li>
+            <li><a href="<?php echo site_url('product/add')?>">บันทึกข้อมูลสินค้า</a></li>
+            <li><a href="<?php echo site_url('customer/add')?>">บันทึกข้อมูลลูกค้า</a></li>
             <!-- 
             <li><a href="<?php echo site_url('input/main/IR')?>">สินค้าดัดแปลง (IR)</a></li>
             <li><a href="<?php echo site_url('input/main/SR')?>">สินค้าคืน (SR)</a></li>

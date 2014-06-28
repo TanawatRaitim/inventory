@@ -14,65 +14,22 @@ class Product extends CI_Controller {
 			exit();
 		}
 		
-		// $this->load->library('grocery_CRUD');
+		$this->load->library('assets');
+		
 	}
 	
-	public function product_get()
+	
+	public function add()
 	{
-		$this->load->library('assets');
-		$css = array(
-					'css/style.css'
-					);
-		$js = array(
-					//'bootflatv2/bootflat/js/icheck.min.js'
-					);
-					
-		$this->data['css'] = $this->assets->get_css($css);
-		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['title'] = 'เพิ่มข้อมูลสินค้า';
+		$this->data['css'] = $this->assets->get_css();
+		$this->data['js'] = $this->assets->get_js();
+		$this->data['title'] = "เพิ่มข้อมูลสินค้า";
 		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		$this->data['content'] = $this->load->view('product/product_get',$this->data,TRUE);
+		$this->data['content'] = $this->load->view('product/add',$this->data,TRUE);
 		$this->load->view('template/main',$this->data);
 	}
+
 	
-	public function main($input_type)
-	{
-		$this->load->library('assets');
-		$css = array(
-					'css/style.css'
-					);
-		$js = array(
-					//'bootflatv2/bootflat/js/icheck.min.js'
-					);
-					
-		$this->data['css'] = $this->assets->get_css($css);
-		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['title'] = $input_type;
-		// $this->data['job_dropdown'] = job_dropdown();
-		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		$this->data['content'] = $this->load->view('input/main',$this->data,TRUE);
-		$this->load->view('template/main',$this->data);
-	}
-	
-	
-	public function in()
-	{
-		$this->load->library('assets');
-		$css = array(
-					'css/style.css'
-					);
-		$js = array(
-					//'bootflatv2/bootflat/js/icheck.min.js'
-					);
-					
-		$this->data['css'] = $this->assets->get_css($css);
-		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['title'] = "นำสินค้าเข้า";
-		// $this->data['job_dropdown'] = job_dropdown();
-		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		$this->data['content'] = $this->load->view('input/main',$this->data,TRUE);
-		$this->load->view('template/main',$this->data);
-	}
 	
 
 }

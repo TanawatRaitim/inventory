@@ -3,10 +3,15 @@
 class Assets {
 	
 	private $ci;
+	private $theme;
+	private $asset_path;
 	
 	public function __construct()
 	{
 		$this->ci =& get_instance();
+		
+		$this->theme = $this->ci->config->item('theme');
+		$this->asset_path = $this->ci->config->item('base_assets');
 		//$this->ci->load->model('member_model');
 	}
 	
@@ -15,7 +20,7 @@ class Assets {
 
 	}
 	
-		/**
+	/**
 	 *default project css
 	 * 
 	 * @param array
@@ -24,15 +29,35 @@ class Assets {
 	 */
 	public function get_css($data=array())
 	{
-		$asset_path = $this->ci->config->item('base_assets');
+		//$asset_path = $this->asset_path;
+		$theme = $this->theme;
 		
-		//define default css
-		$default = array(
+		if($theme == '' || $theme == 'default' || $theme == 'bs3'){
+			$default = array(
 						'bootstrap/dist/css/bootstrap.min.css',
-						'bootstrap/dist/css/bootstrap-theme.min.css',		
-						// 'bootflatv2/bootflat/css/bootflat.css'		
+						'css/style.css'	
+					);	
+		}elseif($theme == 'bs3_2'){
+			$default = array(
+						'bootstrap/dist/css/bootstrap.min.css',
+						'bootstrap/dist/css/bootstrap-theme.min.css',
+						'css/style.css'	
 					);
-											
+		}elseif($theme == 'bootflat'){
+			$default = array(
+						'bootstrap/dist/css/bootstrap.min.css',
+						'bootflatv2/bootflat/css/bootflat.css',
+						'css/style.css'		
+					);
+		}else{
+			$default = array(
+						'bootstrap/dist/css/bootstrap.min.css',
+						'bootstrap/dist/css/'.$theme.'.min.css',
+						'css/style.css'
+					);
+		}
+		
+									
 		//check $data
 		if(!empty($data)){
 			//mearge array with default css	
@@ -44,7 +69,7 @@ class Assets {
 		//looping css with html tag
 		$css = "";		
 		foreach ($default as $value) {
-			$css .= "<link href='".$asset_path.$value."' rel='stylesheet'>\n";
+			$css .= "<link href='".$this->asset_path.$value."' rel='stylesheet'>\n";
 		}
 
 		//return script	
@@ -60,7 +85,7 @@ class Assets {
 	 */
 	public function get_js($data=array())
 	{
-		$asset_path = $this->ci->config->item('base_assets');
+		//$asset_path = $this->asset_path;
 		
 		//define default script
 		$default = array(
@@ -79,15 +104,13 @@ class Assets {
 		//looping script with html tag
 		$scripts = '';		
 		foreach ($default as $script) {
-			$scripts .= "<script src='".$asset_path.$script."'></script>\n";
+			$scripts .= "<script src='".$this->asset_path.$script."'></script>\n";
 		}
 
 		//return script	
 		return $scripts;
 	}
 	
-	
-		
 }
 
 /* End of file Assets.php */

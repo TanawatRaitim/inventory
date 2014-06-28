@@ -27,9 +27,7 @@ class Main extends CI_Controller {
 	public function index()
 	{
 		$this->load->library('assets');
-		$css = array(
-					'css/style.css'
-					);
+		$css = array();
 		$js = array();
 					
 		$this->data['css'] = $this->assets->get_css($css);
