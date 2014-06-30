@@ -115,6 +115,8 @@
 										</td>
 									</tr>
 								</table>
+								<br />
+								<span class="alert alert-warning">//เลือกคลัง</span>
 
 							</form>
 						</div>

@@ -2,35 +2,10 @@
 	<div class="row">
 		<div class="col-md-12">
 			<!-- <h3><?php echo $title;?></h3> -->
-			<fieldset id="" class="">
-			  <legend><?php echo $title;?></legend>
-				<form role="form" class="form-horizontal">
-					<!--
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-5 control-label label label-warning">รหัสสินค้า</label>
-							<div class="col-sm-7">
-								<input type="text" class="form-control input-sm" id="product_id" placeholder="Product ID">
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-5 control-label text-right">เอกสารอ้างอิง</label>
-							<div class="col-sm-7">
-								<input type="text" class="form-control input-sm" id="product_id" placeholder="">
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-5 control-label">เอกสารอ้างอิง</label>
-							<div class="col-sm-7">
-								<input type="text" class="form-control input-sm" id="product_id" placeholder="">
-							</div>
-						</div>
-					</div>
-					-->
+			
+			<form role="form" class="form-horizontal">
+				<fieldset id="" class="">
+			  		<legend>ข้อมูลสินค้า</legend>
 					<div class="col-md-8">
 						<table class="table">
 							<tr>
@@ -61,11 +36,110 @@
 									</select>
 								</td>
 							</tr>
+							<tr>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">อายุกานวางขาย</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ราคา</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">คลังหลัก</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+							</tr>
+							<tr>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+							</tr>
+							<tr>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+							</tr>
+							<tr>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+							</tr>
 						</table>
 					</div>
-					
-				</form>				 
-			</fieldset>
+				</fieldset>
+				<fieldset id="" class="">
+			  		<legend>ข้อมูลการผลิต</legend>
+					<div class="col-md-8">
+						<table class="table">
+							<tr>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+							</tr>
+							<tr>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ประเภท</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">กลุ่ม</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">หมวด</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">อายุกานวางขาย</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ราคา</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">คลังหลัก</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</fieldset>
+			</form>				 
+			
 		</div>
 	</div><!-- end .row -->
 </div>

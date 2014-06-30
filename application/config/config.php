@@ -77,7 +77,7 @@ $config['css'] = 'css/style.css';
  * 
  */
  
- $config['theme'] = '';
+ $config['theme'] = 'slate';
 
 
 
