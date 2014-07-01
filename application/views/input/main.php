@@ -48,7 +48,8 @@
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-5 control-label">วันที่</label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="product_id" placeholder="วันที่ของเอกสารอ้างอิง">
+									<input type="text" class="form-control input-sm" id="refer_date" placeholder="วันที่ของเอกสารอ้างอิง">
+									<!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
 								</div>
 							</div>
 						</div>
@@ -88,6 +89,14 @@
 										<input type="text" class="form-control input-sm" id="product_id" placeholder="Product ID">
 									</div>
 								</div>
+								<div class="form-group">
+									<label for="inputEmail3" class="col-sm-4 control-label">คลัง</label>
+									<div class="col-sm-6">
+										<select class="form-control input-sm">
+											<option>Please select</option>
+										</select>
+									</div>
+								</div>
 
 								<table>
 									<tr>
@@ -116,8 +125,6 @@
 									</tr>
 								</table>
 								<br />
-								<span class="alert alert-warning">//เลือกคลัง</span>
-
 							</form>
 						</div>
 					</div>
@@ -325,6 +332,8 @@
 			str = str.toUpperCase();
 			$(this).val(str);
 		});
+		
+		$("#refer_date").datetimepicker();
 
 
 		$("#product_good, #product_unusable, #product_deteriorate").blur(function(e) {
