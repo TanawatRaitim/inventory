@@ -147,6 +147,7 @@
             
             <li><a href="<?php echo site_url('product/add')?>">บันทึกข้อมูลสินค้า</a></li>
             <li><a href="<?php echo site_url('customer/add')?>">บันทึกข้อมูลลูกค้า</a></li>
+            <li><a href="<?php echo site_url('input/rs')?>">จองสินค้า (RS)</a></li>
             <!-- 
             <li><a href="<?php echo site_url('input/main/IR')?>">สินค้าดัดแปลง (IR)</a></li>
             <li><a href="<?php echo site_url('input/main/SR')?>">สินค้าคืน (SR)</a></li>
