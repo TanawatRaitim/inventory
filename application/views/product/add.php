@@ -10,11 +10,17 @@
 						<table class="table">
 							<tr>
 								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td><input type="text" name="" id="" class="col-sm-5 form-control input-sm" autofocus /></td>
 								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
 								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
 								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
 								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+							</tr>
+							<tr>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">รูปภาพ</label></td>
+								<td colspan="5">
+									    <input type="file" id="exampleInputFile">
+								</td>
 							</tr>
 							<tr>
 								<td class="text-right info"><label for="inputEmail3" class="control-label">ประเภท</label></td>
@@ -37,14 +43,22 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">อายุกานวางขาย</label></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">อายุการวางขาย</label></td>
 								<td>
 									<select name="" id="" class="form-control input-sm">
 										<option>please select one</option>
 									</select>
 								</td>
 								<td class="text-right info"><label for="inputEmail3" class="control-label">ราคา</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td>
+									<input type="text" name="" id="" class="form-control input-sm" placeholder="บาท" />
+									<!-- 
+									<div class="input-group">
+									  <input type="text" class="form-control input-sm">
+									  <span class="input-group-addon">บาท</span>
+									</div>
+									 -->
+								</td>
 								<td class="text-right info"><label for="inputEmail3" class="control-label">คลังหลัก</label></td>
 								<td>
 									<select name="" id="" class="form-control input-sm">
@@ -53,36 +67,58 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ทะเบียน</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">Barcode</label></td>
 								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">น้ำหนัก</label></td>
+								<td>
+									<input type="text" name="" id="" class="form-control input-sm" placeholder="กก." />
+									<!-- 
+									<div class="input-group">
+									  <input type="text" class="form-control input-sm">
+									  <span class="input-group-addon">กก.</span>
+									</div> -->
+								</td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">กว้าง</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" placeholder="มม." /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ยาว</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" placeholder="มม." /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">หนา</label></td>
+								<td><input type="text" name="" id="" class="form-control input-sm" placeholder="มม." /></td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">อายุรับคืน</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">อายุคงคลัง</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label"></label></td>
+								<td></td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">คำอธิบาย</label></td>
+								<td colspan="3"><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">สถานะ</label></td>
+								<td>
+									<select name="" id="" class="form-control input-sm">
+										<option>please select one</option>
+									</select>
+								</td>
+								
 							</tr>
 						</table>
 					</div>
@@ -92,27 +128,23 @@
 					<div class="col-md-8">
 						<table class="table">
 							<tr>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">รหัสสินค้า</label></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">เลขที่ใบสั่งผลิต</label></td>
 								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">ชื่อสินค้า</label></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ครั้งที่ผลิต</label></td>
 								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">เล่มที่</label></td>
-								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">วันที่ผลิต</label></td>
+								<td><input type="text" name="" id="manufacture-start" class="form-control input-sm" /></td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">ประเภท</label></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">วันผลิตเสร็จ</label></td>
+								<td><input type="text" name="" id="manufacture-end" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ยอดสั่งผลิต1</label></td>
 								<td>
 									<select name="" id="" class="form-control input-sm">
 										<option>please select one</option>
 									</select>
 								</td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">กลุ่ม</label></td>
-								<td>
-									<select name="" id="" class="form-control input-sm">
-										<option>please select one</option>
-									</select>
-								</td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">หมวด</label></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ยอดสั่งผลิต2</label></td>
 								<td>
 									<select name="" id="" class="form-control input-sm">
 										<option>please select one</option>
@@ -120,15 +152,15 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">อายุกานวางขาย</label></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ยอดสำรองสินค้า</label></td>
 								<td>
 									<select name="" id="" class="form-control input-sm">
 										<option>please select one</option>
 									</select>
 								</td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">ราคา</label></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ยอดตัวอย่าง</label></td>
 								<td><input type="text" name="" id="" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">คลังหลัก</label></td>
+								<td class="text-right info"><label for="inputEmail3" class="control-label">ผลิตโดยกอง</label></td>
 								<td>
 									<select name="" id="" class="form-control input-sm">
 										<option>please select one</option>
@@ -136,6 +168,10 @@
 								</td>
 							</tr>
 						</table>
+					</div>	<!-- col-md-8 -->
+					<div class="col-md-6 col-md-offset-3 col-md-offset-3">
+						<input type="submit" class="btn btn-primary" value="บันทึกข้อมูลสินค้า" />
+						<input type="submit" class="btn btn-danger" value="ยกเลิก" />
 					</div>
 				</fieldset>
 			</form>				 
@@ -153,6 +189,10 @@
 			var str = $(this).val();
 			str = str.toUpperCase();
 			$(this).val(str);
+		});
+		
+		$("#manufacture-start, #manufacture-end").datetimepicker({
+			pickTime: false
 		});
 
 

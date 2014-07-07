@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Product extends CI_Controller {
+class Customer extends CI_Controller {
 	
 	private $data;
 	
@@ -29,9 +29,9 @@ class Product extends CI_Controller {
 		
 		$this->data['css'] = $this->assets->get_css($css);
 		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['title'] = "เพิ่มข้อมูลสินค้า";
+		$this->data['title'] = "เพิ่มข้อมูลลูกค้า";
 		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		$this->data['content'] = $this->load->view('product/add',$this->data,TRUE);
+		$this->data['content'] = $this->load->view('customer/add',$this->data,TRUE);
 		$this->load->view('template/main',$this->data);
 	}
 

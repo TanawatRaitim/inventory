@@ -335,7 +335,9 @@
 			$(this).val(str);
 		});
 		
-		$("#refer_date").datetimepicker();
+		$("#refer_date").datetimepicker({
+			pickTime: false
+		});
 
 
 		$("#product_good, #product_unusable, #product_deteriorate").blur(function(e) {

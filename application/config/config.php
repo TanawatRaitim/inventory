@@ -77,7 +77,7 @@ $config['css'] = 'css/style.css';
  * 
  */
  
- $config['theme'] = 'slate';
+ $config['theme'] = 'spacelab';
 
 
 
@@ -85,7 +85,7 @@ $config['css'] = 'css/style.css';
 /**
  * Text
  */
-$config['system_name'] = 'Warehouse Management System';
+$config['system_name'] = 'Inventory Management System';
 
 
 

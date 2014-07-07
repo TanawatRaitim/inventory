@@ -177,6 +177,17 @@ class Auth extends CI_Controller {
 	//change password
 	function change_password()
 	{
+		$this->data['title'] = "เปลี่ยนรหัสผ่าน";
+		$css = array(
+					'css/signin.css'
+					);
+		$js = array(
+					'js/jquery_validation/dist/jquery.validate.min.js'
+					);
+		$this->data['css'] = $this->assets->get_css($css);
+		$this->data['js'] = $this->assets->get_js($js);			
+					
+		
 		$this->form_validation->set_rules('old', $this->lang->line('change_password_validation_old_password_label'), 'required');
 		$this->form_validation->set_rules('new', $this->lang->line('change_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
 		$this->form_validation->set_rules('new_confirm', $this->lang->line('change_password_validation_new_password_confirm_label'), 'required');
@@ -245,6 +256,16 @@ class Auth extends CI_Controller {
 	//forgot password
 	function forgot_password()
 	{
+		$this->data['title'] = "ลืมรหัสผ่าน";
+		$css = array(
+					'css/signin.css'
+					);
+		$js = array(
+					'js/jquery_validation/dist/jquery.validate.min.js'
+					);
+		$this->data['css'] = $this->assets->get_css($css);
+		$this->data['js'] = $this->assets->get_js($js);
+		
 		$this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required');
 		if ($this->form_validation->run() == false)
 		{
@@ -295,6 +316,16 @@ class Auth extends CI_Controller {
 	//reset password - final step for forgotten password
 	public function reset_password($code = NULL)
 	{
+		$this->data['title'] = "reset password";
+		$css = array(
+					'css/signin.css'
+					);
+		$js = array(
+					'js/jquery_validation/dist/jquery.validate.min.js'
+					);
+		$this->data['css'] = $this->assets->get_css($css);
+		$this->data['js'] = $this->assets->get_js($js);
+		
 		if (!$code)
 		{
 			show_404();
@@ -452,6 +483,17 @@ class Auth extends CI_Controller {
 	//create a new user
 	function create_user()
 	{
+		$this->data['title'] = "เปลี่ยนรหัสผ่าน";
+		$css = array(
+					'css/signin.css'
+					);
+		$js = array(
+					'js/jquery_validation/dist/jquery.validate.min.js'
+					);
+		$this->data['css'] = $this->assets->get_css($css);
+		$this->data['js'] = $this->assets->get_js($js);
+		
+		
 		$this->data['title'] = "Create User";
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
@@ -544,6 +586,16 @@ class Auth extends CI_Controller {
 	//edit a user
 	function edit_user($id)
 	{
+		$this->data['title'] = "เปลี่ยนรหัสผ่าน";
+		$css = array(
+					'css/signin.css'
+					);
+		$js = array(
+					'js/jquery_validation/dist/jquery.validate.min.js'
+					);
+		$this->data['css'] = $this->assets->get_css($css);
+		$this->data['js'] = $this->assets->get_js($js);
+		
 		$this->data['title'] = "Edit User";
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
@@ -662,6 +714,16 @@ class Auth extends CI_Controller {
 	// create a new group
 	function create_group()
 	{
+		$this->data['title'] = "เปลี่ยนรหัสผ่าน";
+		$css = array(
+					'css/signin.css'
+					);
+		$js = array(
+					'js/jquery_validation/dist/jquery.validate.min.js'
+					);
+		$this->data['css'] = $this->assets->get_css($css);
+		$this->data['js'] = $this->assets->get_js($js);
+		
 		$this->data['title'] = $this->lang->line('create_group_title');
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
@@ -710,6 +772,16 @@ class Auth extends CI_Controller {
 	//edit a group
 	function edit_group($id)
 	{
+		$this->data['title'] = "เปลี่ยนรหัสผ่าน";
+		$css = array(
+					'css/signin.css'
+					);
+		$js = array(
+					'js/jquery_validation/dist/jquery.validate.min.js'
+					);
+		$this->data['css'] = $this->assets->get_css($css);
+		$this->data['js'] = $this->assets->get_js($js);
+		
 		// bail if no group id given
 		if(!$id || empty($id))
 		{

@@ -11,7 +11,7 @@
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-5 col-md-2 control-label text-right" style="padding-right: 5px;"><?php echo $input_type;?> - </label>
 								<div class="col-sm-3" style="padding-left: 20px;">
-									<input type="text" class="form-control input-sm" id="product_id" placeholder="Ticket ID" autofocus>
+									<input type="text" class="form-control input-sm" id="ticket_id" placeholder="Ticket ID" autofocus>
 								</div>
 							</div>
 						</div>
@@ -89,6 +89,7 @@
 										<input type="text" class="form-control input-sm" id="product_id" placeholder="Product ID">
 									</div>
 								</div>
+								
 								<div class="form-group">
 									<label for="inputEmail3" class="col-sm-4 control-label">คลัง</label>
 									<div class="col-sm-6">
@@ -97,7 +98,21 @@
 										</select>
 									</div>
 								</div>
-
+								
+								<div class="form-group">
+									<label for="inputEmail3" class="col-sm-4 control-label">จำนวน</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control input-sm" id="product_id" placeholder="Quantity">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-4"></div>
+									<div class="col-sm-6">
+										<input type="button" class="btn btn-success" value="จองสินค้า" />
+									</div>
+									
+								</div>
+								<!-- 
 								<table>
 									<tr>
 										<th class="text-center">ดี</th>
@@ -123,8 +138,10 @@
 											<input type="button" class="btn btn-success" value="เพิ่ม" />
 										</td>
 									</tr>
-								</table>
+								</table> 
 								<br />
+								-->								
+								
 							</form>
 						</div>
 					</div>
@@ -241,10 +258,8 @@
 								<tr>
 									<th>#</th>
 									<th>Product ID</th>
-									<th>ดี</th>
-									<th>เสีย</th>
-									<th>ชำรุด</th>
-									<th>Total</th>
+									<th class="text-center">ยอดในคลัง</th>
+									<th class="text-center">ยอดจอง</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -252,10 +267,8 @@
 								<tr>
 									<td>1</td>
 									<td>GMAG#15</td>
-									<td>15</td>
-									<td>20</td>
-									<td>30</td>
-									<td>65</td>
+									<td class="text-center">15</td>
+									<td class="text-center">20</td>
 									<td><!-- Single button -->
 										<div class="btn-group">
 											<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
@@ -275,10 +288,8 @@
 								<tr>
 									<td>2</td>
 									<td>GMAG#16</td>
-									<td>15</td>
-									<td>20</td>
-									<td>30</td>
-									<td>65</td>
+									<td class="text-center">15</td>
+									<td class="text-center">20</td>
 									<td><!-- Single button -->
 										<div class="btn-group">
 											<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
@@ -298,22 +309,21 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<td colspan="3" class="text-center">รวม</td>
-									<td>30</td>
-									<td>40</td>
-									<td>60</td>
-									<td>130</td>
+									<td colspan="2" class="text-center">รวม</td>
+									<td class="text-center">30</td>
+									<td class="text-center">40</td>
 									<td></td>
 								</tr>
 							</tfoot>
 						</table>
 					</div>
 					<div class="col-md-10 col-md-offset-2">
+
 						<button class="btn btn-primary btn-sm">
-							บันทึก Ticket
+							บันทึกการจองสินค้า
 						</button>
 						<button class="btn btn-danger btn-sm">
-							ยกเลิกการบันทึก Ticket
+							ยกเลิกการจองสินค้าทั้งหมด
 						</button>
 					</div>
 
@@ -335,7 +345,9 @@
 			$(this).val(str);
 		});
 		
-		$("#refer_date").datetimepicker();
+		$("#refer_date").datetimepicker({
+			pickTime: false
+		});
 
 
 		$("#product_good, #product_unusable, #product_deteriorate").blur(function(e) {
