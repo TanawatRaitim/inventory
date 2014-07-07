@@ -98,6 +98,7 @@
           	
             <li><a href="<?php echo site_url('input/main/')?>">ข้อมูลสินค้า</a></li>
             <li><a href="<?php echo site_url('input/main/')?>">ข้อมูลลูกค้า</a></li>
+            <li><a href="<?php echo site_url('input/main/')?>">ข้อมูลการจองสินค้า</a></li>
             <li><a href="<?php echo site_url('input/main/')?>">Ticket</a></li>
             <!--
             <li><a href="<?php echo site_url('input/main/')?>">ดัดแปลง/รวมเล่มใหม่ (TT)</a></li>
@@ -182,6 +183,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->userdata('identity');?> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             
+            <li><a href="#">แบบร่างที่บันทึกไว้</a></li>
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li class="divider"></li>
