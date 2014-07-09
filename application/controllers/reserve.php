@@ -1,8 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Product extends CI_Controller {
+class Reserve extends CI_Controller {
 	
 	private $data;
+	
 	
 	public function __construct()
 	{
@@ -15,7 +16,6 @@ class Product extends CI_Controller {
 		}
 		
 		$this->load->library('assets');
-		
 	}
 	
 	public function index()
@@ -25,7 +25,8 @@ class Product extends CI_Controller {
 				
 		$this->data['css'] = $this->assets->get_css($css);
 		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['title'] = 'ข้อมูลสินค้า';
+		$this->data['title'] = 'ข้อมูลการจองสินค้า';
+		// $this->data['input_type'] = 'RS';
 		$this->data['breadcrumb'] = array(
 									0 => array(
 										'name'=>'หน้าหลัก',
@@ -33,14 +34,15 @@ class Product extends CI_Controller {
 										'class'=>''
 									),
 									1 => array(
-										'name'=>'ข้อมูลสินค้า',
+										'name'=>'ข้อมูลการจองสินค้า',
 										'link'=>'',
 										'class'=>'active'
 									)
 								);
-								
+		
+							
 		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		$this->data['content'] = $this->load->view('product/main',$this->data,TRUE);
+		$this->data['content'] = $this->load->view('reserve/main',$this->data,TRUE);
 		
 		$this->load->view('template/main',$this->data);
 	}
@@ -52,16 +54,16 @@ class Product extends CI_Controller {
 			'js/moment/min/moment.min.js',
 			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
 			);
-		
+				
 		$this->data['css'] = $this->assets->get_css($css);
 		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['title'] = "เพิ่มข้อมูลสินค้า";
+		$this->data['title'] = 'จองสินค้า  (RS)';
+		$this->data['input_type'] = 'RS';
 		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		$this->data['content'] = $this->load->view('product/add',$this->data,TRUE);
+		$this->data['content'] = $this->load->view('input/rs',$this->data,TRUE);
+		
 		$this->load->view('template/main',$this->data);
 	}
-
-	
 	
 
 }

@@ -96,9 +96,9 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">ค้นหา <b class="caret"></b></a>
           <ul class="dropdown-menu">
           	
-            <li><a href="<?php echo site_url('input/main/')?>">ข้อมูลสินค้า</a></li>
+            <li><a href="<?php echo site_url('product/')?>">ข้อมูลสินค้า</a></li>
             <li><a href="<?php echo site_url('input/main/')?>">ข้อมูลลูกค้า</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">ข้อมูลการจองสินค้า</a></li>
+            <li><a href="<?php echo site_url('reserve/')?>">ข้อมูลการจองสินค้า</a></li>
             <li><a href="<?php echo site_url('input/main/')?>">Ticket</a></li>
             <!--
             <li><a href="<?php echo site_url('input/main/')?>">ดัดแปลง/รวมเล่มใหม่ (TT)</a></li>
@@ -148,7 +148,7 @@
             
             <li><a href="<?php echo site_url('product/add')?>">บันทึกข้อมูลสินค้า</a></li>
             <li><a href="<?php echo site_url('customer/add')?>">บันทึกข้อมูลลูกค้า</a></li>
-            <li><a href="<?php echo site_url('input/rs')?>">จองสินค้า (RS)</a></li>
+            <li><a href="<?php echo site_url('reserve/add')?>">จองสินค้า (RS)</a></li>
             <!-- 
             <li><a href="<?php echo site_url('input/main/IR')?>">สินค้าดัดแปลง (IR)</a></li>
             <li><a href="<?php echo site_url('input/main/SR')?>">สินค้าคืน (SR)</a></li>

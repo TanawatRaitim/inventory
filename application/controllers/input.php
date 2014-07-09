@@ -37,27 +37,7 @@ class Input extends CI_Controller {
 		$this->load->view('template/main',$this->data);
 	}
 	
-	/*
-	 * จองสินค้า
-	 */
-	public function rs()
-	{
-		$css = array('bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css');
-		$js = array(
-			'js/moment/min/moment.min.js',
-			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
-			);
-		
-					
-		$this->data['css'] = $this->assets->get_css($css);
-		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['title'] = 'จองสินค้า  (RS)';
-		$this->data['input_type'] = 'RS';
-		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		$this->data['content'] = $this->load->view('input/rs',$this->data,TRUE);
-		
-		$this->load->view('template/main',$this->data);
-	}
+	
 	
 
 }

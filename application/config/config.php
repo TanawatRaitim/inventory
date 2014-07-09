@@ -15,7 +15,7 @@
 |
 */
 
-$config['base_url']	= 'http://172.168.0.184/inventory/';
+$config['base_url']	= 'http://172.168.0.184:8080/inventory/';
 
 /*
  * Base assets URL
@@ -77,7 +77,7 @@ $config['css'] = 'css/style.css';
  * 
  */
  
- $config['theme'] = 'spacelab';
+ $config['theme'] = 'readable';
 
 
 
