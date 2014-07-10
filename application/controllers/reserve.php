@@ -65,5 +65,4 @@ class Reserve extends CI_Controller {
 		$this->load->view('template/main',$this->data);
 	}
 	
-
 }

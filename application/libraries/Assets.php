@@ -67,9 +67,20 @@ class Assets {
 		}
 
 		//looping css with html tag
-		$css = "";		
+		$css = "";
+		
+				
 		foreach ($default as $value) {
-			$css .= "<link href='".$this->asset_path.$value."' rel='stylesheet'>\n";
+			
+			if($this->is_cdn($value)){
+				//if is cdn
+				$css .= "<link href='".$value."' rel='stylesheet'>\n";
+			}else{
+				//local file
+				$css .= "<link href='".$this->asset_path.$value."' rel='stylesheet'>\n";
+			}
+			
+			
 		}
 
 		//return script	
@@ -104,11 +115,45 @@ class Assets {
 		//looping script with html tag
 		$scripts = '';		
 		foreach ($default as $script) {
-			$scripts .= "<script src='".$this->asset_path.$script."'></script>\n";
+			
+			if($this->is_cdn($script)){
+				$scripts .= "<script src='".$script."'></script>\n";
+			}else{
+				$scripts .= "<script src='".$this->asset_path.$script."'></script>\n";
+			}
+			
+			
 		}
 
 		//return script	
 		return $scripts;
+	}
+
+	public function get_source_datatable()
+	{
+		//for get all source for datatable
+	}
+
+	
+	/**
+	 * Check CDN or Local file
+	 * @param
+	 * - string
+	 * 
+	 * @return
+	 * - Boolean
+	 */
+	private function is_cdn($link)
+	{
+		//check 
+		$cdn = trim(substr($link, 0, 5));
+		
+		if($cdn == '//cdn'){
+			return TRUE;
+		}
+			
+		return FALSE;	
+		
 	}
 	
 }

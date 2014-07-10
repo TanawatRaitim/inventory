@@ -34,6 +34,7 @@ class Customer extends CI_Controller {
 		$this->data['content'] = $this->load->view('customer/add',$this->data,TRUE);
 		$this->load->view('template/main',$this->data);
 	}
+	
 
 	
 	
