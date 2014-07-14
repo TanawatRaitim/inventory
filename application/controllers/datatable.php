@@ -53,6 +53,40 @@ class Datatable extends CI_Controller {
 		$this->load->view('template/main',$this->data);
 	}
 
+	public function main2()
+	{
+		$css = array(
+				'//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css'
+		);
+		$js = array(
+				'//cdn.datatables.net/1.10.0/js/jquery.dataTables.js',
+				'//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js'
+		);
+				
+		$this->data['css'] = $this->assets->get_css($css);
+		$this->data['js'] = $this->assets->get_js($js);
+		$this->data['title'] = 'Datatable & Editing Extension';
+		// $this->data['input_type'] = 'RS';
+		$this->data['breadcrumb'] = array(
+									0 => array(
+										'name'=>'หน้าหลัก',
+										'link'=>'/inventory',
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'Datatable2',
+										'link'=>'',
+										'class'=>'active'
+									)
+								);
+		
+							
+		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->data['content'] = $this->load->view('datatable/main2',$this->data,TRUE);
+		
+		$this->load->view('template/main',$this->data);
+	}
+
 
 	public function get_data()
 	{
@@ -81,6 +115,11 @@ class Datatable extends CI_Controller {
 	public function delete($id)
 	{
 		echo "delete".$id;
+	}
+	
+	public function show($id)
+	{
+		echo "show ".$id;
 	}
 	
 

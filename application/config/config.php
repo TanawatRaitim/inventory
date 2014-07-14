@@ -77,7 +77,7 @@ $config['css'] = 'css/style.css';
  * 
  */
  
- $config['theme'] = 'readable';
+ $config['theme'] = 'yeti';
 
 
 

@@ -51,7 +51,7 @@
 		$('#example').dataTable( {
 			//"processing": true,
 			//"serverSide": true,
-	        "ajax": 'datatable/get_data',
+	        "ajax": 'get_data',
 	        "columns": [
 	        	{"data": "prod_id"},
 	        	{"data":"prod_name"},
@@ -72,7 +72,7 @@
 	        		"render": function(data, type, row){
 	        			// return row.id_prod;
 	        			//return "<a href='datatable/edit/"+row.id_prod+"' >Edit</a>";
-	        			return "<a href='datatable/show/"+row.id_prod+"'>Show</a>|<a href='datatable/edit/"+row.id_prod+"'>Edit</a>|<a href='datatable/delete/"+row.id_prod+"'>Delete</a>";
+	        			return "<a href='show/"+row.id_prod+"'>Show</a>|<a href='edit/"+row.id_prod+"'>Edit</a>|<a href='delete/"+row.id_prod+"'>Delete</a>";
 	        		}
 	        	}
 	        	
