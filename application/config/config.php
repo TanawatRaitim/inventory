@@ -77,7 +77,7 @@ $config['css'] = 'css/style.css';
  * 
  */
  
- $config['theme'] = 'yeti';
+ $config['theme'] = 'simplex';
 
 
 

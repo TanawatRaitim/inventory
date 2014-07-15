@@ -47,8 +47,20 @@ table#history_data tr td{
 	vertical-align: middle;
 }
 
+/*
 .highlight{
 	background-color: #FFFF88;
+}
+*/
+
+td.highlight{
+	background-color: whitesmoke !important;
+}
+
+.table-striped tbody tr:nth-child(odd):hover td,
+.table-striped tbody tr:nth-child(odd):hover th {
+  /*background-color: #f9f9f9;*/
+  /*background-color: red;*/
 }
 
 .right-top{

@@ -52,6 +52,7 @@
 			//"processing": true,
 			//"serverSide": true,
 	        "ajax": 'get_data',
+	        "stateSave": true,
 	        "columns": [
 	        	{"data": "prod_id"},
 	        	{"data":"prod_name"},
