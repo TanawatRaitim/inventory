@@ -22,12 +22,16 @@ class Datatable extends CI_Controller {
 	public function index()
 	{
 		$css = array(
-				'//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css',
+				// '//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css',
+				'datatable/media/css/dataTables.bootstrap.css',
 				'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
 		);
+		
 		$js = array(
-				'//cdn.datatables.net/1.10.0/js/jquery.dataTables.js',
-				'//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js',
+				// '//cdn.datatables.net/1.10.0/js/jquery.dataTables.js',
+				'datatable/media/js/jquery.dataTables.min.js',
+				// '//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js',
+				'datatable/media/js/dataTables.bootstrap.js',
 				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js'
 		);
 				
@@ -58,11 +62,14 @@ class Datatable extends CI_Controller {
 	public function main2()
 	{
 		$css = array(
-				'//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css'
+				'datatable/media/css/dataTables.bootstrap.css',
+				'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
 		);
+		
 		$js = array(
-				'//cdn.datatables.net/1.10.0/js/jquery.dataTables.js',
-				'//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js'
+				'datatable/media/js/jquery.dataTables.min.js',
+				'datatable/media/js/dataTables.bootstrap.js',
+				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js'
 		);
 				
 		$this->data['css'] = $this->assets->get_css($css);
@@ -92,20 +99,15 @@ class Datatable extends CI_Controller {
 
 	public function get_data()
 	{
-		// $this->db->select('id_prod, prod_id');
+		
+		$this->db->order_by('id_prod', 'desc');
 		$query = $this->db->get('product_test');	
-		
 		$products = $query->result_array();
-		// echo '<pre>';
-		
 		$json = array(
 			'data'=>$products
 		);
 		$products = json_encode($json);
-		
-	//	echo $products;
-		// echo '</pre>';
-		// print_r($products);
+
 		echo $products;
 	}
 	
