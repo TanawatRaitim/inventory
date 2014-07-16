@@ -20,12 +20,11 @@ class Product extends CI_Controller {
 	
 	public function index()
 	{
-		$css = array();
-		$js = array();
-				
-		$this->data['css'] = $this->assets->get_css($css);
-		$this->data['js'] = $this->assets->get_js($js);
+		
+		//initial content		
 		$this->data['title'] = 'ข้อมูลสินค้า';
+		$this->data['create_text'] = "เพิ่มข้อมูล";
+		$this->data['create_link'] = site_url('product/add');
 		$this->data['breadcrumb'] = array(
 									0 => array(
 										'name'=>'หน้าหลัก',
@@ -38,11 +37,32 @@ class Product extends CI_Controller {
 										'class'=>'active'
 									)
 								);
-								
+		$this->data['content'] = $this->load->view('product/main',$this->data,TRUE);	
+		
+			
+		//initail template	
+		$css = array(
+				'datatable/media/css/dataTables.bootstrap.css',
+				'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
+		);
+		
+		$js = array(
+				'datatable/media/js/jquery.dataTables.min.js',
+				'datatable/media/js/dataTables.bootstrap.js',
+				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+				'js/app/product/product.js'
+		);
+				
+		$this->data['css'] = $this->assets->get_css($css);
+		$this->data['js'] = $this->assets->get_js($js);
 		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		$this->data['content'] = $this->load->view('product/main',$this->data,TRUE);
 		
 		$this->load->view('template/main',$this->data);
+	}
+
+	public function test()
+	{
+
 	}
 	
 	public function add()

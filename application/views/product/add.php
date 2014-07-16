@@ -169,9 +169,12 @@
 							</tr>
 						</table>
 					</div>	<!-- col-md-8 -->
-					<div class="col-md-6 col-md-offset-3 col-md-offset-3">
-						<input type="submit" class="btn btn-primary" value="บันทึกข้อมูลสินค้า" />
-						<input type="submit" class="btn btn-danger" value="ยกเลิก" />
+					<div class="col-md-6 col-md-offset-1">
+						<input type="submit" class="btn btn-primary" value="บันทึก" />
+						<input type="submit" class="btn btn-primary" value="บันทึกและกลับสู่หน้าหลัก" />
+						<input type="submit" class="btn btn-primary" value="บันทึกและเพิ่มใหม่" />
+						<input type="reset" class="btn btn-danger" value="ล้างฟอร์ม" />
+						<input type="submit" class="btn btn-danger" value="ยกเลิกและกลับสู่หน้าหลัก" />
 					</div>
 				</fieldset>
 			</form>				 

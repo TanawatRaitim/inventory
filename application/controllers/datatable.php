@@ -22,15 +22,12 @@ class Datatable extends CI_Controller {
 	public function index()
 	{
 		$css = array(
-				// '//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.css',
 				'datatable/media/css/dataTables.bootstrap.css',
 				'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
 		);
 		
 		$js = array(
-				// '//cdn.datatables.net/1.10.0/js/jquery.dataTables.js',
 				'datatable/media/js/jquery.dataTables.min.js',
-				// '//cdn.datatables.net/plug-ins/be7019ee387/integration/bootstrap/3/dataTables.bootstrap.js',
 				'datatable/media/js/dataTables.bootstrap.js',
 				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js'
 		);
