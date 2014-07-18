@@ -21,7 +21,8 @@ class Product extends CI_Controller {
 	public function index()
 	{
 		
-		//initial content		
+		//initial content	
+			
 		$this->data['title'] = 'ข้อมูลสินค้า';
 		$this->data['create_text'] = "เพิ่มข้อมูล";
 		$this->data['create_link'] = site_url('product/add');
@@ -37,6 +38,7 @@ class Product extends CI_Controller {
 										'class'=>'active'
 									)
 								);
+		
 		$this->data['content'] = $this->load->view('product/main',$this->data,TRUE);	
 		
 			

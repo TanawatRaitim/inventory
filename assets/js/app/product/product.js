@@ -38,7 +38,7 @@ $(function(){
 	        		"data":"prod_name",
 	        		"render": function(data, type, meta){
 	        			var img_path = meta.prod_images;
-	        			var tooltip = "<a href='#' class='text-danger' data-toggle='tooltip' title='"+data+" # "+meta.book_num+"' data-trigger='hover' data-content='<img height=250 src=assets/images/product_test/"+img_path+">' >"+data+" # "+meta.book_num+"</a>";
+	        			var tooltip = "<a href='#' id='product_tooltip' class='text-danger' data-toggle='tooltip' title='"+data+" # "+meta.book_num+"' data-trigger='hover' data-content='<img height=250 src=assets/images/product_test/"+img_path+">' >"+data+" # "+meta.book_num+"</a>";
 	        			return tooltip;
 	        		},
 	        		"fnCreatedCell": function(nTd, sData, oData, iRow, iCol){
@@ -57,7 +57,7 @@ $(function(){
 	        	{
 	        		// "width": "10%",
 	        		"render": function(data, type, row){
-	        			return "<a class='btn btn-xs btn-primary' href='datatable/show/"+row.id_prod+"'>Show</a> <a class='btn btn-xs btn-warning' href='datatable/edit/"+row.id_prod+"'>Edit</a> <a class='btn btn-xs btn-danger' href='datatable/delete/"+row.id_prod+"'>Delete</a>";
+	        			return "<a id='test_tooltip' title='test' class='btn btn-xs btn-primary' href='datatable/show/"+row.id_prod+"'>Show</a> <a class='btn btn-xs btn-warning' href='datatable/edit/"+row.id_prod+"'>Edit</a> <a class='btn btn-xs btn-danger' href='datatable/delete/"+row.id_prod+"'>Delete</a>";
 	        		}
 	        	}
 	        ],
@@ -78,6 +78,14 @@ $(function(){
     	$('#example tbody').on( 'click', 'tr', function () {
         	$(this).toggleClass('danger');
 	    } );
+	    
+	    //prevent default product link
+	    $('body').on('click','a#product_tooltip',function(e){
+	    	e.preventDefault();
+	    });
+	    
+	    // $("#test_tooltip").tooltip();
+	    // $("a").hide();
 	    
 	 
 	});

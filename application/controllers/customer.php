@@ -21,17 +21,22 @@ class Customer extends CI_Controller {
 	
 	public function add()
 	{
-		$css = array('bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css');
+		$css = array(
+			//'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+			);
 		$js = array(
-			'js/moment/min/moment.min.js',
-			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
+			//'js/moment/min/moment.min.js',
+			//'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'js/app/customer/customer_add.js'
 			);
 		
 		$this->data['css'] = $this->assets->get_css($css);
 		$this->data['js'] = $this->assets->get_js($js);
 		$this->data['title'] = "เพิ่มข้อมูลลูกค้า";
-		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		$this->data['content'] = $this->load->view('customer/add',$this->data,TRUE);
+		
+		
+		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		$this->load->view('template/main',$this->data);
 	}
 	

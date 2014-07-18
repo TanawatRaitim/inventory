@@ -23,17 +23,18 @@ class Input extends CI_Controller {
 		$css = array('bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css');
 		$js = array(
 			'js/moment/min/moment.min.js',
-			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'js/app/input/main.js'
 			);
-		
-					
+			
+			
 		$this->data['css'] = $this->assets->get_css($css);
 		$this->data['js'] = $this->assets->get_js($js);
 		$this->data['title'] = 'สินค้าใหม่  (IN)';
 		$this->data['input_type'] = 'IN';
-		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		$this->data['content'] = $this->load->view('input/main',$this->data,TRUE);
 		
+		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		$this->load->view('template/main',$this->data);
 	}
 	
