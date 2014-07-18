@@ -62,7 +62,7 @@ class Product extends CI_Controller {
 
 	public function test()
 	{
-
+		echo "big";
 	}
 	
 	public function add()

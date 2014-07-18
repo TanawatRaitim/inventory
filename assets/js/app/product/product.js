@@ -4,7 +4,7 @@ $(function(){
 		var table_id = 'example';
 		
 		//Set up - add a text input to each footer cell
-		$("#example tfoot th").each(function(){
+		$("#example tfoot th#filter").each(function(){
 			var title = $("#example thead th").eq($(this).index()).text();
 			$(this).html( '<input type="text" class="form-control input-sm" style="width:100%;" placeholder="Search '+title+'" />' );
 		});
@@ -57,7 +57,7 @@ $(function(){
 	        	{
 	        		// "width": "10%",
 	        		"render": function(data, type, row){
-	        			return "<a href='datatable/show/"+row.id_prod+"'>Show</a> | <a href='datatable/edit/"+row.id_prod+"'>Edit</a> | <a href='datatable/delete/"+row.id_prod+"'>Delete</a>";
+	        			return "<a class='btn btn-xs btn-primary' href='datatable/show/"+row.id_prod+"'>Show</a> <a class='btn btn-xs btn-warning' href='datatable/edit/"+row.id_prod+"'>Edit</a> <a class='btn btn-xs btn-danger' href='datatable/delete/"+row.id_prod+"'>Delete</a>";
 	        		}
 	        	}
 	        ],
