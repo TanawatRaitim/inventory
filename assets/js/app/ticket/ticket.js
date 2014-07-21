@@ -1,5 +1,5 @@
 $(function(){
-		
+
 		//table id
 		var table_id = 'example';
 		
@@ -12,21 +12,9 @@ $(function(){
 		
 		//Datatable
 		var table = $("#"+table_id).DataTable( {
-			// "dom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
-			"language": {
-				"lengthMenu": "แสดง  _MENU_ แถวต่อหน้า",
-				"search":"ค้นหา ",
-				"info": "แสดงผล _START_ ถึง _END_ จาก _TOTAL_ แถว",
-				"paginate": {
-			        "first":      "หน้าแรก",
-			        "last":       "หน้าสุดท้าย",
-			        "next":       "ถัดไป",
-			        "previous":   "ก่อนหน้า"
-			    }
-			},
 			"order": [],
 			"dom": 'T<"clear">lfrtip',
-	        "ajax": 'product/get_data',
+	        "ajax": 'ticket/get_data',
 	        "stateSave": true,
 	        "tableTools": {
 	        	"aButtons": [
@@ -45,7 +33,21 @@ $(function(){
 	        	]
 	        },
 	        "columns": [
+	        	{
+	        		"data": "id_stock",
+	        		"render": function(data, type, meta){
+	        			return meta.ticket_code+meta.ticket_id;
+	        		}
+	        		
+	        	},
+	        	{"data": "dtime"},
 	        	{"data": "prod_id"},
+	        	{"data": "prod_id"},
+	        	{"data": "prod_id"},
+	        	{"data": "prod_id"},
+	        	{"data": "prod_id"},
+	        	{"data": "cus_id"},
+	        	/*
 	        	{
 	        		"data":"prod_name",
 	        		"render": function(data, type, meta){
@@ -58,7 +60,6 @@ $(function(){
 			        		html: 'false'
 			        	});
 			        }
-			        // "width": "auto"
 	        		
 	        	},
 	        	{"data":"book_num"},
@@ -77,6 +78,7 @@ $(function(){
 			        	});
 			        }
 	        	}
+	        	*/
 	        ],
 	        
 	    } );//data table
@@ -101,11 +103,6 @@ $(function(){
 	    	e.preventDefault();
 	    });
 	    
-	    /*
-	    $("table").on("click",'tr',function(e){
-	    	// alert('big');
-	    	$(this).hide('slow');
-	    });
-	    */
+	    // $("a[data-toggle='tooltip']").tooltip();
 	 
 	});

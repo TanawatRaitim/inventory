@@ -57,13 +57,13 @@ $config['css'] = 'css/style.css';
  * 
  * ----List of themes avalible
  * - bs3 (bootstrap3)
- * - bs3_2(bootstrap3 with theme)
- * - bootflat
- * - amelia
- * - cerulean
+ * - bs3_2 (bootstrap3 with theme)  ******
+ * - bootflat (date picker conflict)
+ * - amelia  (date picker conflict)
+ * - cerulean*******
  * - cosmo
  * - cyborg
- * - darkly
+ * - darkly   (date picker conflict)
  * - flatly
  * - journal
  * - lumen
@@ -77,7 +77,7 @@ $config['css'] = 'css/style.css';
  * 
  */
  
- $config['theme'] = 'yeti';
+ $config['theme'] = 'bs3_2';
 
 
 

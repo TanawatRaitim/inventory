@@ -23,8 +23,8 @@
 			<table id="example" class="table table-bordered table-condensed table-striped table-hover hover">
 		        <thead>
 		        	<tr>
-		                <th>Product ID</th>
-		                <th>Name</th>
+		                <th>Ticket ID</th>
+		                <th>Date</th>
 		                <th>No.</th>
 		                <th>Category</th>
 		                <th>Group</th>
@@ -37,8 +37,8 @@
 		     
 		        <tfoot>
 		            <tr>
-		                <th id="filter">Product ID</th>
-		                <th id="filter">Name</th>
+		                <th id="filter">Ticket ID</th>
+		                <th id="filter">Date</th>
 		                <th id="filter">No.</th>
 		                <th>Category</th>
 		                <th>Group</th>

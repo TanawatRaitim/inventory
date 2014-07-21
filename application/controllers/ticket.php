@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Product extends CI_Controller {
+class Ticket extends CI_Controller {
 	
 	private $data;
 	
@@ -20,12 +20,10 @@ class Product extends CI_Controller {
 	
 	public function index()
 	{
-		
 		//initial content	
-			
-		$this->data['title'] = 'ข้อมูลสินค้า';
+		$this->data['title'] = 'ข้อมูล Ticket';
 		$this->data['create_text'] = "เพิ่มข้อมูล";
-		$this->data['create_link'] = site_url('product/add');
+		$this->data['create_link'] = site_url('ticket/add');
 		$this->data['breadcrumb'] = array(
 									0 => array(
 										'name'=>'หน้าหลัก',
@@ -33,13 +31,13 @@ class Product extends CI_Controller {
 										'class'=>''
 									),
 									1 => array(
-										'name'=>'ข้อมูลสินค้า',
+										'name'=>'ข้อมูล Ticket',
 										'link'=>'',
 										'class'=>'active'
 									)
 								);
 		
-		$this->data['content'] = $this->load->view('product/main',$this->data,TRUE);	
+		$this->data['content'] = $this->load->view('ticket/main',$this->data,TRUE);	
 		
 			
 		//initail template	
@@ -52,7 +50,7 @@ class Product extends CI_Controller {
 				'datatable/media/js/jquery.dataTables.min.js',
 				'datatable/media/js/dataTables.bootstrap.js',
 				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
-				'js/app/product/product.js'
+				'js/app/ticket/ticket.js'
 		);
 				
 		$this->data['css'] = $this->assets->get_css($css);
@@ -62,24 +60,6 @@ class Product extends CI_Controller {
 		$this->load->view('template/main',$this->data);
 	}
 
-	public function test()
-	{
-		echo "big";
-	}
-	
-	public function get_data()
-	{
-		
-		$this->db->order_by('id_prod', 'desc');
-		$query = $this->db->get('product_test');	
-		$products = $query->result_array();
-		$json = array(
-			'data'=>$products
-		);
-		$products = json_encode($json);
-
-		echo $products;
-	}
 	
 	public function add()
 	{
@@ -95,6 +75,39 @@ class Product extends CI_Controller {
 		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		$this->data['content'] = $this->load->view('product/add',$this->data,TRUE);
 		$this->load->view('template/main',$this->data);
+	}
+
+	public function test_get_data()
+	{
+		$sql = "SELECT *, concat(ticket_code,ticket_id) as ticket 
+				FROM tb_stock_ed_test 
+				GROUP BY ticket";
+		
+		
+		// $this->db->order_by('id_stock', 'desc');
+		// $query = $this->db->get('tb_stock_ed_test');	
+		$query = $this->db->query($sql);
+		print_r($query);
+	}
+	
+
+	public function get_data()
+	{
+		$sql = "SELECT *, concat(ticket_code,ticket_id) as ticket 
+				FROM tb_stock_ed_test 
+				GROUP BY ticket
+				ORDER BY dtime DESC
+				";
+		$query = $this->db->query($sql);
+		$tickets = $query->result_array();
+		
+		$json = array(
+			'data'=>$tickets
+		);
+		
+		$tickets = json_encode($json);
+
+		echo $tickets;
 	}
 
 	

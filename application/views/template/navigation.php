@@ -50,7 +50,6 @@
           </ul>
         </li>
         
-        
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">สินค้าตัดขาย <b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -70,8 +69,6 @@
           </ul>
         </li>
         
-        
-        
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">สินค้าตัดจ่าย <b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -90,7 +87,6 @@
              -->
           </ul>
         </li>
-        
         
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">ค้นหา <b class="caret"></b></a>
@@ -116,7 +112,6 @@
           </ul>
         </li>
         
-        
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">รายงาน <b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -136,8 +131,6 @@
              -->
           </ul>
         </li>
-        
-        
         
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">อื่นๆ <b class="caret"></b></a>
@@ -162,8 +155,6 @@
              -->
           </ul>
         </li>
-        
-        
       </ul>
       
       <!-- search form -->
