@@ -64,7 +64,7 @@ class Product extends CI_Controller {
 
 	public function test()
 	{
-		echo "big";
+		$this->load->view('test');
 	}
 	
 	public function get_data()
