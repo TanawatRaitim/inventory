@@ -171,7 +171,7 @@
       <ul class="nav navbar-nav navbar-right">
     
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->userdata('identity');?> <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->userdata('Inven_User');?> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             
             <li><a href="#">แบบร่างที่บันทึกไว้</a></li>

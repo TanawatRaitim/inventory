@@ -53,21 +53,24 @@
 <body>
 	<div class="container">
 
-      <?php echo form_open("auth/login",array('id'=>'form_login','name'=>'form_login','class'=>'form-signin','role'=>'form'));?>
+      <?php echo form_open("auth/check",array('id'=>'form_login','name'=>'form_login','class'=>'form-signin','role'=>'form'));?>
         <h3 class="form-signin-heading"><?php echo $this->config->item('system_name');?></h3>
         <h5 class="form-signin-heading">กรุณาลงชื่อเข้าสู่ระบบ</h5>
         <input type="text" class="form-control" name="identity" id="identity" placeholder="Email address" required autofocus>
         <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-        <!--
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me" name="remember" id="remember"> Remember me
-        </label>
-        -->
+        
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" id="submit">Sign in</button>
         
         <div id="error_message"></div>
 		<div id="infoMessage">
-			<?php echo $message;?>
+			<?php
+			
+				if(isset($global_msg))
+				{
+					echo $global_msg;
+				}
+				echo $this->session->flashdata('flash_msg');
+			?>
 		</div>
 		
       <?php echo form_close();?>

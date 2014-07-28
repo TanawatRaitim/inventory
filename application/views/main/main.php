@@ -60,6 +60,7 @@
 			  </div>
 			  <div class="panel-body">
 			    Panel content
+			    <?php print_r($this->session->userdata('user_session'));?>
 			  </div>
 			</div>
 		</div>

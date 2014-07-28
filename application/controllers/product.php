@@ -8,7 +8,7 @@ class Product extends CI_Controller {
 	{
 		parent::__construct();
 		
-		if (!$this->ion_auth->logged_in())	
+		if (!$this->auth2->logged_in())	
 		{
 			redirect('auth/login', 'refresh');
 			exit();
@@ -61,17 +61,12 @@ class Product extends CI_Controller {
 		
 		$this->load->view('template/main',$this->data);
 	}
-
-	public function test()
-	{
-		$this->load->view('test');
-	}
 	
 	public function get_data()
 	{
 		
-		$this->db->order_by('id_prod', 'desc');
-		$query = $this->db->get('product_test');	
+		$this->db->order_by('Product_AutoID', 'desc');
+		$query = $this->db->get('Products');	
 		$products = $query->result_array();
 		$json = array(
 			'data'=>$products

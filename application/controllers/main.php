@@ -8,11 +8,18 @@ class Main extends CI_Controller {
 	{
 		parent::__construct();
 		
+		/*
 		if (!$this->ion_auth->logged_in())	
 		{
 			redirect('auth/login', 'refresh');
 			exit();
 		}
+		 * 
+		 * */
+		if(!$this->auth2->logged_in()){
+			redirect('auth/login', 'refresh');
+			exit();
+		} 
 		
 		$this->load->library('grocery_CRUD');
 	}

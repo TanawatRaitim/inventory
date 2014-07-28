@@ -4,12 +4,11 @@ class Input extends CI_Controller {
 	
 	private $data;
 	
-	
 	public function __construct()
 	{
 		parent::__construct();
 		
-		if (!$this->ion_auth->logged_in())	
+		if (!$this->auth2->logged_in())	
 		{
 			redirect('auth/login', 'refresh');
 			exit();
@@ -27,7 +26,6 @@ class Input extends CI_Controller {
 			'js/app/input/main.js'
 			);
 			
-			
 		$this->data['css'] = $this->assets->get_css($css);
 		$this->data['js'] = $this->assets->get_js($js);
 		$this->data['title'] = 'สินค้าใหม่  (IN)';
@@ -37,8 +35,6 @@ class Input extends CI_Controller {
 		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		$this->load->view('template/main',$this->data);
 	}
-	
-	
 	
 
 }
