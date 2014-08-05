@@ -4,15 +4,15 @@
 if ( ! function_exists('career_dropdown'))
 {
 		
-		function job_dropdown($selected = "")
+		function career_dropdown($selected = "")
 		{
 			$ci =& get_instance();
-			// $ci->db->where('is_delete','no');
-			// $ci->db->where('status','active');
-			$ci->db->order_by('name');
-			$query = $ci->db->get('jobs');
+			$ci->db->where('is_delete','no');
+			$ci->db->where('status','active');
+			$ci->db->order_by('sort_order');
+			$query = $ci->db->get('careers');
 			$dropdown = "";
-			$dropdown .= "<option value='0'>-งาน-</option>";
+			$dropdown .= "<option value='0'>-อาชีพ-</option>";
 			
 			if($selected != "")
 			{

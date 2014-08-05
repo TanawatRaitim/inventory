@@ -7,6 +7,7 @@ class Onload{
 	public function __construct()
 	{
 		//echo 'construct';
+		// parent::__construct();
 		$this->ci =& get_instance();
 	}
 	

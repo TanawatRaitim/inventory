@@ -22,7 +22,7 @@ class Auth extends CI_Controller {
 			exit();
 		}	
 		
-		$this->data['title'] = "เข้าสู่ระบบ";
+		$data['title'] = "เข้าสู่ระบบ";
 		$css = array(
 					'css/signin.css'
 					);
@@ -31,10 +31,10 @@ class Auth extends CI_Controller {
 					);
 					
 					
-		$this->data['css'] = $this->assets->get_css($css);
-		$this->data['js'] = $this->assets->get_js($js);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
 		
-		$this->load->view('auth/login', $this->data);
+		$this->load->view('auth/login', $data);
 		
 	}
 	
@@ -48,7 +48,8 @@ class Auth extends CI_Controller {
 		}else{
 			
 			$this->session->set_flashdata('flash_msg','ไม่สามารถเข้าระบบได้');
-			$this->login();
+			
+			redirect('auth/login');
 		}
 	}
 	

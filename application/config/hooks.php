@@ -11,10 +11,13 @@
 */
 
 // $hook['post_controller_constructor'] = array(
-$hook['post_controller_constructor'] = array(
-								'class'=>'onload',
-								'function'=>'check_login',
-								'filename'=>'onload.php',
+
+
+
+$hook['post_controller'] = array(
+								'class'=>'appHooks',
+								'function'=>'enable_profiler',
+								'filename'=>'appHooks.php',
 								'filepath'=>'hooks'		
 								);
 

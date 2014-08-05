@@ -1,9 +1,6 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8">
-			<h4><?php echo $title;?> <small><a href="<?php echo $create_link;?>" class="btn btn-info btn-sm"> <?php echo $create_text?></a></small></h4>
-		</div>	<!-- end .col-md-6 -->
-		<div class="col-md-4">
+		<div class="col-md-12">
 			<ol class="breadcrumb">
 				<?php foreach ($breadcrumb as $attr): ?>
 					
@@ -15,6 +12,11 @@
 				<?php endforeach ?>
 			</ol>
 		</div>
+		<!-- 
+		<div class="col-md-8">
+			<h4><?php echo $title;?> <small><a href="<?php echo $create_link;?>" class="btn btn-info btn-sm"> <?php echo $create_text?></a></small></h4>
+		</div>	
+		 -->
 		
 	</div> <!-- end .row -->
 	
@@ -24,12 +26,12 @@
 		        <thead>
 		        	<tr>
 		                <th>Ticket ID</th>
-		                <th>Date</th>
-		                <th>No.</th>
-		                <th>Category</th>
-		                <th>Group</th>
-		                <th>Type</th>
-		                <th>Issue</th>
+		                <th>รายละเอียด</th>
+		                <th>ผู้บันทึก</th>
+		                <th>รหัสลูกค้า</th>
+		                <th>วันที่บันทึก</th>
+		                <th></th>
+		                <th></th>
 		                <th>Action</th>
 		            </tr>
 		        	
@@ -38,12 +40,12 @@
 		        <tfoot>
 		            <tr>
 		                <th id="filter">Ticket ID</th>
-		                <th id="filter">Date</th>
-		                <th id="filter">No.</th>
-		                <th>Category</th>
-		                <th>Group</th>
-		                <th>Type</th>
-		                <th>Issue</th>
+		                <th id="filter">รายละเอียด</th>
+		                <th id="filter">ผู้บันทึก</th>
+		                <th id="filter">รหัสลูกค้า</th>
+		                <th id="filter">วันที่บันทึก</th>
+		                <th></th>
+		                <th></th>
 		                <th></th>
 		            </tr>
 		        </tfoot>

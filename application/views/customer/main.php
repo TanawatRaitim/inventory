@@ -1,9 +1,6 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8">
-			<h4><?php echo $title;?> <small><a href="<?php echo $create_link;?>" class="btn btn-info btn-sm"> <?php echo $create_text?></a></small></h4>
-		</div>	<!-- end .col-md-6 -->
-		<div class="col-md-4">
+		<div class="col-md-12">
 			<ol class="breadcrumb">
 				<?php foreach ($breadcrumb as $attr): ?>
 					
@@ -15,6 +12,10 @@
 				<?php endforeach ?>
 			</ol>
 		</div>
+		<div class="col-md-8">
+			<h4><?php echo $title;?> <small><a href="<?php echo $create_link;?>" class="btn btn-info btn-sm"> <?php echo $create_text?></a></small></h4>
+		</div>	<!-- end .col-md-6 -->
+		
 		
 	</div> <!-- end .row -->
 	
@@ -23,27 +24,29 @@
 			<table id="example" class="table table-bordered table-condensed table-striped table-hover hover">
 		        <thead>
 		        	<tr>
-		                <th>Product ID</th>
+		                <th>Customer ID</th>
 		                <th>Name</th>
-		                <th>No.</th>
-		                <th>Category</th>
-		                <th>Group</th>
-		                <th>Type</th>
-		                <th>Issue</th>
-		                <th>Action</th>
+		                <th>Contact</th>
+		                <th>Address</th>
+		                <th>Sub-District</th>
+		                <th>District</th>
+		                <th>Province</th>
+		                <th>Phone</th>
+		                <!-- <th></th> -->
 		            </tr>
 		        </thead>
 		     
 		        <tfoot>
 		            <tr>
-		                <th id="filter">Product ID</th>
+		                <th id="filter">Customer ID</th>
 		                <th id="filter">Name</th>
-		                <th id="filter">No.</th>
-		                <th>Category</th>
-		                <th>Group</th>
-		                <th>Type</th>
-		                <th>Issue</th>
-		                <th></th>
+		                <th id="filter">Contact</th>
+		                <th id="filter">Address</th>
+		                <th id="filter">Sub-District</th>
+		                <th id="filter">District</th>
+		                <th id="filter">Province</th>
+		                <th>Phone</th>
+		                <!-- <th></th> -->
 		            </tr>
 		        </tfoot>
  

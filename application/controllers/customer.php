@@ -22,23 +22,33 @@ class Customer extends CI_Controller {
 	{
 		//initial content	
 			
-		$this->data['title'] = 'ข้อมูลลูกค้า';
-		$this->data['create_text'] = "เพิ่มข้อมูล";
-		$this->data['create_link'] = site_url('customer/add');
-		$this->data['breadcrumb'] = array(
+		$content['title'] = 'ข้อมูลลูกค้า';
+		$content['create_text'] = "เพิ่มข้อมูล";
+		$content['create_link'] = site_url('customer/add');
+		$content['breadcrumb'] = array(
 									0 => array(
-										'name'=>'หน้าหลัก',
-										'link'=>'/inventory',
-										'class'=>''
+										'name'=>'ค้นหาข้อมูล',
+										'link'=>'all',
+										'class'=>'active'
 									),
 									1 => array(
-										'name'=>'ข้อมูลลูกค้า',
-										'link'=>'',
-										'class'=>'active'
+										'name'=>'ค้นหาข้อมูลสินค้า',
+										'link'=>'product',
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'ค้นหาข้อมูลลูกค้า',
+										'link'=>'customer',
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ค้นหาข้อมูล Ticket',
+										'link'=>'ticket',
+										'class'=>''
 									)
 								);
 		
-		$this->data['content'] = $this->load->view('customer/main',$this->data,TRUE);	
+		$data['content'] = $this->load->view('customer/main',$content,TRUE);	
 		
 			
 		//initail template	
@@ -54,18 +64,19 @@ class Customer extends CI_Controller {
 				'js/app/customer/customer.js'
 		);
 				
-		$this->data['css'] = $this->assets->get_css($css);
-		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		
-		$this->load->view('template/main',$this->data);
+		$this->load->view('template/main',$data);
 	}
 
 	public function get_data()
 	{
-		
-		$this->db->order_by('id_customer', 'desc');
-		$query = $this->db->get('tb_customer_test');	
+		$local = $this->load->database('local', TRUE);	
+		$local->order_by('id_customer', 'desc');
+		$query = $local->get('tb_customer_test');	
+		$local->close();
 		$customers = $query->result_array();
 		$json = array(
 			'data'=>$customers

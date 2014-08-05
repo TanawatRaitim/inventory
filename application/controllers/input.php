@@ -19,6 +19,10 @@ class Input extends CI_Controller {
 	
 	public function in()
 	{
+		$content['title'] = 'สินค้าใหม่  (IN)';
+		$content['input_type'] = 'IN';
+		$data['content'] = $this->load->view('input/main',$content,TRUE);
+		
 		$css = array('bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css');
 		$js = array(
 			'js/moment/min/moment.min.js',
@@ -26,15 +30,42 @@ class Input extends CI_Controller {
 			'js/app/input/main.js'
 			);
 			
-		$this->data['css'] = $this->assets->get_css($css);
-		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['title'] = 'สินค้าใหม่  (IN)';
-		$this->data['input_type'] = 'IN';
-		$this->data['content'] = $this->load->view('input/main',$this->data,TRUE);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
 		
-		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		$this->load->view('template/main',$this->data);
+		
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);
 	}
+	
+	public function sa()
+	{
+		//$this->output->enable_profiler(TRUE);		
+		$content['title'] = 'ลูกค้าเงินเชื่อสินค้าออกประจำ (SA)';
+		$content['input_type'] = 'SA';
+		// $content['product_list'] = $this->get_product();	
+		$data['content'] = $this->load->view('input/sa_add',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css'
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'js/app/input/sa_add.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+	
 	
 
 }

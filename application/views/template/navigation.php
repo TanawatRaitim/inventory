@@ -14,26 +14,18 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <!-- <li class="active"><a href="#">Link</a></li> -->
-        <!-- <li><a href="<?php echo site_url('plan')?>">วางแผน</a></li> -->
-        <!-- <li><a href="#">Link</a></li> -->
-        
+        <li class="active"><a href="<?php echo site_url('reserve/all')?>">จองสินค้า</a></li>
+        <li class="active"><a href="<?php echo site_url('sale/all')?>">ตัดขาย</a></li>
+        <li class="active"><a href="<?php echo site_url('cut/all')?>">ตัดจ่าย</a></li>
+        <li class="active"><a href="<?php echo site_url('in/all')?>">นำสินค้าเข้า</a></li>
+        <li class="active"><a href="<?php echo site_url('return_p/all')?>">รับคืนสินค้า</a></li>
+        <li class="active"><a href="<?php echo site_url('move/all')?>">โอนย้ายสินค้า</a></li>
+        <li class="active"><a href="<?php echo site_url('adjust/all')?>">ปรับยอดสินค้า</a></li>
+        <li class="active"><a href="<?php echo site_url('search')?>">ค้นหาข้อมูล</a></li>
+        <li class="active"><a href="<?php echo site_url('report')?>">รายงาน</a></li>
+        <li class="active"><a href="<?php echo site_url('manage')?>">จัดการข้อมูล</a></li>
+        <li class="active"><a href="<?php echo site_url('admin')?>">Administrator</a></li>
         <!-- 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">จัดการระบบ <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('main/papers')?>">ประเภทกระดาษ</a></li>
-            <li><a href="<?php echo site_url('main/jobs')?>">งาน / เครื่องจักร</a></li>
-            <li><a href="<?php echo site_url('main/technician')?>">ผู้รับผิดชอบ</a></li>
-            <li><a href="<?php echo site_url('main/duration')?>">ช่วงเวลา</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-         -->
-        
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">สินค้าเข้า <b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -41,13 +33,7 @@
             <li><a href="<?php echo site_url('input/ir')?>">สินค้าดัดแปลง (IR)</a></li>
             <li><a href="<?php echo site_url('input/sr')?>">สินค้าคืน (SR)</a></li>
             <li><a href="<?php echo site_url('input/ra')?>">วัตถุดิบสำเร็จรูป (RA)</a></li>
-            <!-- 
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-             -->
-          </ul>
+            </ul>
         </li>
         
         <li class="dropdown">
@@ -60,12 +46,6 @@
             <li><a href="<?php echo site_url('input/sm')?>">ขายลูกค้าสมาชิก (SM)</a></li>
             <li><a href="<?php echo site_url('input/sd')?>">ขายลูกค้าไปรษณีย์ (SD)</a></li>
             <li><a href="<?php echo site_url('input/se')?>">กิจกรรมพิเศษ (SE)</a></li>
-            <!-- 
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-             -->
           </ul>
         </li>
         
@@ -79,12 +59,6 @@
             <li><a href="<?php echo site_url('input/xs')?>">เบิกสินค้าตัวอย่าง (XS)</a></li>
             <li><a href="<?php echo site_url('input/pd')?>">เบิกวัสดุประกอบ (PD)</a></li>
             
-            <!-- 
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-             -->
           </ul>
         </li>
         
@@ -93,42 +67,17 @@
           <ul class="dropdown-menu">
           	
             <li><a href="<?php echo site_url('product/')?>">ข้อมูลสินค้า</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">ข้อมูลลูกค้า</a></li>
+            <li><a href="<?php echo site_url('customer/')?>">ข้อมูลลูกค้า</a></li>
             <li><a href="<?php echo site_url('reserve/')?>">ข้อมูลการจองสินค้า</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">Ticket</a></li>
-            <!--
-            <li><a href="<?php echo site_url('input/main/')?>">ดัดแปลง/รวมเล่มใหม่ (TT)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">ตัดเคลียร์สต๊อก (ZZ)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">เบิกชั่วคราวเพื่อดัดแปลง (MO)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">เบิกสินค้าตัวอย่าง (XS)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">เบิกวัสดุประกอบ (PD)</a></li>
+            <li><a href="<?php echo site_url('ticket/')?>">Ticket</a></li>
             
-             
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-             -->
           </ul>
         </li>
         
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">รายงาน <b class="caret"></b></a>
           <ul class="dropdown-menu">
-          	<!--
-            <li><a href="<?php echo site_url('input/main/')?>">อภินันท์ (FR)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">ดัดแปลง/รวมเล่มใหม่ (TT)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">ตัดเคลียร์สต๊อก (ZZ)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">เบิกชั่วคราวเพื่อดัดแปลง (MO)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">เบิกสินค้าตัวอย่าง (XS)</a></li>
-            <li><a href="<?php echo site_url('input/main/')?>">เบิกวัสดุประกอบ (PD)</a></li>
-            
-             
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-             -->
+          	
           </ul>
         </li>
         
@@ -142,31 +91,11 @@
             <li><a href="<?php echo site_url('product/add')?>">บันทึกข้อมูลสินค้า</a></li>
             <li><a href="<?php echo site_url('customer/add')?>">บันทึกข้อมูลลูกค้า</a></li>
             <li><a href="<?php echo site_url('reserve/add')?>">จองสินค้า (RS)</a></li>
-            <!-- 
-            <li><a href="<?php echo site_url('input/main/IR')?>">สินค้าดัดแปลง (IR)</a></li>
-            <li><a href="<?php echo site_url('input/main/SR')?>">สินค้าคืน (SR)</a></li>
-            <li><a href="<?php echo site_url('input/main/RA')?>">วัตถุดิบสำเร็จรูป (RA)</a></li>
-             -->
-            <!-- 
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-             -->
+            
           </ul>
         </li>
+         -->
       </ul>
-      
-      <!-- search form -->
-      <!--
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      -->
-      <!-- end search form -->
       
       <ul class="nav navbar-nav navbar-right">
     
@@ -182,7 +111,7 @@
           </ul>
         </li>
       </ul>
-      
+    
       
       
     </div><!-- /.navbar-collapse -->

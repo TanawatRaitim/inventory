@@ -40,13 +40,13 @@ $(function(){
 	        		}
 	        		
 	        	},
-	        	{"data": "dtime"},
-	        	{"data": "prod_id"},
-	        	{"data": "prod_id"},
-	        	{"data": "prod_id"},
-	        	{"data": "prod_id"},
-	        	{"data": "prod_id"},
+	        	{"data": "comment_sub"},
+	        	{"data": "admin_id"},
 	        	{"data": "cus_id"},
+	        	{"data": "dtime"},
+	        	{"data": null},
+	        	{"data": null},
+	        	{"data": null},
 	        	/*
 	        	{
 	        		"data":"prod_name",

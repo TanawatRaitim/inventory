@@ -1,12 +1,26 @@
 <?php
 	class Product_model extends CI_Model{
 		
-		private $search_row;
+		//private $search_row;
 		
 		public function __construct()
 		{
 			parent::__construct();
 		}
+		
+		public function get_all()
+		{
+			$this->db->order_by('Product_AutoID', 'desc');
+			$query = $this->db->get('Products');	
+			
+			return $query->result_array();
+		}
+
+
+
+
+// *********************************************************************************************************
+
 
 		public function is_member($idcard)
 		{

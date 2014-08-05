@@ -2,7 +2,7 @@
 
 class Ticket extends CI_Controller {
 	
-	private $data;
+	//private $data;
 	
 	public function __construct()
 	{
@@ -20,24 +20,35 @@ class Ticket extends CI_Controller {
 	
 	public function index()
 	{
+		$this->output->enable_profiler(TRUE);
 		//initial content	
-		$this->data['title'] = 'ข้อมูล Ticket';
-		$this->data['create_text'] = "เพิ่มข้อมูล";
-		$this->data['create_link'] = site_url('ticket/add');
-		$this->data['breadcrumb'] = array(
+		$content['title'] = 'ข้อมูล Ticket';
+		$content['create_text'] = "เพิ่มข้อมูล";
+		$content['create_link'] = site_url('ticket/add');
+		$content['breadcrumb'] = array(
 									0 => array(
-										'name'=>'หน้าหลัก',
-										'link'=>'/inventory',
-										'class'=>''
+										'name'=>'ค้นหาข้อมูล',
+										'link'=>'all',
+										'class'=>'active'
 									),
 									1 => array(
-										'name'=>'ข้อมูล Ticket',
-										'link'=>'',
-										'class'=>'active'
+										'name'=>'ค้นหาข้อมูลสินค้า',
+										'link'=>'product',
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'ค้นหาข้อมูลลูกค้า',
+										'link'=>'customer',
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ค้นหาข้อมูล Ticket',
+										'link'=>'ticket',
+										'class'=>''
 									)
 								);
 		
-		$this->data['content'] = $this->load->view('ticket/main',$this->data,TRUE);	
+		$data['content'] = $this->load->view('ticket/main',$content ,TRUE);	
 		
 			
 		//initail template	
@@ -53,11 +64,11 @@ class Ticket extends CI_Controller {
 				'js/app/ticket/ticket.js'
 		);
 				
-		$this->data['css'] = $this->assets->get_css($css);
-		$this->data['js'] = $this->assets->get_js($js);
-		$this->data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		
-		$this->load->view('template/main',$this->data);
+		$this->load->view('template/main',$data);
 	}
 
 	
@@ -98,7 +109,11 @@ class Ticket extends CI_Controller {
 				GROUP BY ticket
 				ORDER BY dtime DESC
 				";
-		$query = $this->db->query($sql);
+		
+		$local = $this->load->database('local', TRUE);		
+				
+		$query = $local->query($sql);
+		$local->close();
 		$tickets = $query->result_array();
 		
 		$json = array(
