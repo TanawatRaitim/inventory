@@ -114,6 +114,16 @@ class Main extends CI_Controller {
 		$this->load->view('template/main',$this->data);
 	}
 
+	public function customer_line()
+	{
+		$crud = new grocery_CRUD();
+		$crud->set_table('Customer_Line');
+		// $crud->set_relation('type','job_type','name');
+		$crud->set_subject('สายลูกค้า');
+		$output = $crud->render();
+		$this->_data_output($output);
+	}
+
 	public function jobs()
 	{
 			$crud = new grocery_CRUD();

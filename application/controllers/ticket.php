@@ -20,7 +20,7 @@ class Ticket extends CI_Controller {
 	
 	public function index()
 	{
-		$this->output->enable_profiler(TRUE);
+		// $this->output->enable_profiler(TRUE);
 		//initial content	
 		$content['title'] = 'ข้อมูล Ticket';
 		$content['create_text'] = "เพิ่มข้อมูล";
@@ -29,7 +29,7 @@ class Ticket extends CI_Controller {
 									0 => array(
 										'name'=>'ค้นหาข้อมูล',
 										'link'=>'all',
-										'class'=>'active'
+										'class'=>''
 									),
 									1 => array(
 										'name'=>'ค้นหาข้อมูลสินค้า',
@@ -44,7 +44,7 @@ class Ticket extends CI_Controller {
 									3 => array(
 										'name'=>'ค้นหาข้อมูล Ticket',
 										'link'=>'ticket',
-										'class'=>''
+										'class'=>'active'
 									)
 								);
 		

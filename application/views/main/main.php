@@ -1,11 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			Main Page
-			<ul>
-				<li>System Information</li>
-				<li>Other Information</li>
-			</ul>
+			<h1 id="">Dashboard</h1>
 		</div>	<!-- end .col-md-12 -->
 	</div> <!-- end .row -->
 	

@@ -22,7 +22,7 @@
 					<thead>
 						<tr>
 							<th class="text-center">#</th>
-							<th class="text-center">เลขที่ใบจอง</th>
+							<th class="text-center">เลขที่</th>
 							<th class="text-center">เพื่อนำไปใช้เป็น</th>
 							<th class="text-center">จำนวนรายการ</th>
 							<th class="text-center">วันที่จอง</th>
@@ -35,359 +35,275 @@
 					<tbody>
 						<tr>
 							<td class="text-center">1</td>
-							<td class="text-center">RS-57-08-001</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-001</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+							<td class="text-center">ผ่านการอนุมัติ</td>
+							<td style="width:250px;">
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">2</td>
-							<td class="text-center">RS-57-08-002</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-002</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
+							<td class="text-center">ผ่านการอนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">3</td>
-							<td class="text-center">RS-57-08-003</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-003</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">4</td>
-							<td class="text-center">RS-57-08-004</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-004</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">5</td>
-							<td class="text-center">RS-57-08-005</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-005</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">6</td>
-							<td class="text-center">RS-57-08-006</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-006</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">7</td>
-							<td class="text-center">RS-57-08-007</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-007</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">8</td>
-							<td class="text-center">RS-57-08-008</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-008</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">9</td>
-							<td class="text-center">RS-57-08-009</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-009</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">10</td>
-							<td class="text-center">RS-57-08-010</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-010</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">11</td>
-							<td class="text-center">RS-57-08-011</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-011</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">12</td>
-							<td class="text-center">RS-57-08-012</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-012</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">13</td>
-							<td class="text-center">RS-57-08-013</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-013</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">14</td>
-							<td class="text-center">RS-57-08-0141</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-0141</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">15</td>
-							<td class="text-center">RS-57-08-015</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-015</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">16</td>
-							<td class="text-center">RS-57-08-016</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-016</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">17</td>
-							<td class="text-center">RS-57-08-017</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-017</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">18</td>
-							<td class="text-center">RS-57-08-018</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-018</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">19</td>
-							<td class="text-center">RS-57-08-019</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-019</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">20</td>
-							<td class="text-center">RS-57-08-020</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-020</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-center">21</td>
-							<td class="text-center">RS-57-08-021</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
+							<td class="text-center">SR-57-08-021</td>
+							<td>รับคืน (SR)</td>
 							<td class="text-center">10</td>
 							<td class="text-center">04/08/2014</td>
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">รออนุมัติ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
 							</td>
 						</tr>
 						

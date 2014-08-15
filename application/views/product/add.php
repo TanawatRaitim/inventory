@@ -19,7 +19,7 @@
 			<form role="form" class="form-horizontal" name="form_product" id="form_product" method="post" action="<?php echo site_url('product/insert')?>">
 				<fieldset id="" class="">
 			  		<legend>ข้อมูลสินค้า</legend>
-					<div class="col-md-8">
+					<div class="col-md-10">
 						<table class="table">
 							<tr>
 								<td class="text-right info"><label for="Product_ID" class="control-label">รหัสสินค้า</label></td>
@@ -30,28 +30,42 @@
 								<td><input type="text" name="Product_Vol" id="Product_Vol" class="form-control input-sm" /></td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="Product_Img" class="control-label">รูปภาพ</label></td>
-								<td colspan="5">
-									    <input type="file" id="Product_Img" name="Product_Img">
+								<td class="text-right info"><label for="Product_Photo" class="control-label">รูปภาพ</label></td>
+								<td>
+									    <input type="file" id="Product_Photo" name="Product_Photo">
+								</td>
+								<td class="text-right info"><label for="Product_SpecSheet" class="control-label">Spec Sheet</label></td>
+								<td>
+									    <input type="file" id="Product_SpecSheet" name="Product_SpecSheet">
+								</td>
+							</tr>
+							<tr>
+								<td class="text-right info"><label for="Product_SaleSheet" class="control-label">Sale Sheet</label></td>
+								<td>
+									    <input type="file" id="Product_SaleSheet" name="Product_SaleSheet">
+								</td>
+								<td class="text-right info"><label for="Product_DocOther" class="control-label">รูปภาพ</label></td>
+								<td>
+									    <input type="file" id="Product_DocOther" name="Product_DocOther">
 								</td>
 							</tr>
 							<tr>
 								<td class="text-right info"><label for="ProCate_ID" class="control-label">ประเภท</label></td>
 								<td>
 									<select name="ProCate_ID" id="ProCate_ID" class="form-control input-sm">
-										<option>please select one</option>
+										<?php echo $product_type_dropdown;?>
 									</select>
 								</td>
 								<td class="text-right info"><label for="ProGroup_ID" class="control-label">กลุ่ม</label></td>
 								<td>
 									<select name="ProGroup_ID" id="ProGroup_ID" class="form-control input-sm">
-										<option>please select one</option>
+										<?php echo $product_group_dropdown;?>
 									</select>
 								</td>
 								<td class="text-right info"><label for="ProType_ID" class="control-label">หมวด</label></td>
 								<td>
 									<select name="ProType_ID" id="ProType_ID" class="form-control input-sm">
-										<option>please select one</option>
+										<?php echo $product_category_dropdown;?>
 									</select>
 								</td>
 							</tr>
@@ -59,7 +73,7 @@
 								<td class="text-right info"><label for="ProFreq_ID" class="control-label">อายุการวางขาย</label></td>
 								<td>
 									<select name="ProFreq_ID" id="ProFreq_ID" class="form-control input-sm">
-										<option>please select one</option>
+										<?php echo $product_frequency_dropdown;?>
 									</select>
 								</td>
 								<td class="text-right info"><label for="Price" class="control-label">ราคา</label></td>
@@ -69,7 +83,7 @@
 								<td class="text-right info"><label for="Main_Inventory" class="control-label">คลังหลัก</label></td>
 								<td>
 									<select name="Main_Inventory" id="Main_Inventory" class="form-control input-sm">
-										<option>please select one</option>
+										<?php echo $inventory_dropdown;?>
 									</select>
 								</td>
 							</tr>
@@ -77,7 +91,7 @@
 								<td class="text-right info"><label for="TypeReg_ID" class="control-label">ทะเบียน</label></td>
 								<td>
 									<select name="TypeReg_ID" id="TypeReg_ID" class="form-control input-sm">
-										<option>please select one</option>
+										<?php echo $product_register_dropdown;?>
 									</select>
 								</td>
 								<td class="text-right info"><label for="Barcode_Main" class="control-label">Barcode</label></td>
@@ -103,13 +117,13 @@
 								<td class="text-right info"><label for="Age_AverageReturn" class="control-label">อายุรับคืน</label></td>
 								<td>
 									<select name="Age_AverageReturn" id="Age_AverageReturn" class="form-control input-sm">
-										<option>please select one</option>
+										<option value="0">please select one</option>
 									</select>
 								</td>
 								<td class="text-right info"><label for="Age_Inventory" class="control-label">อายุคงคลัง</label></td>
 								<td>
 									<select name="Age_Inventory" id="Age_Inventory" class="form-control input-sm">
-										<option>please select one</option>
+										<option value="0">please select one</option>
 									</select>
 								</td>
 								
@@ -120,7 +134,7 @@
 								<td class="text-right info"><label for="RowStatus" class="control-label">สถานะ</label></td>
 								<td>
 									<select name="RowStatus" id="RowStatus" class="form-control input-sm">
-										<option>please select one</option>
+										<option value="0">please select one</option>
 									</select>
 								</td>
 								
@@ -160,7 +174,7 @@
 								<td class="text-right info"><label for="inputEmail3" class="control-label">ผลิตโดยกอง</label></td>
 								<td>
 									<select name="" id="" class="form-control input-sm">
-										<option>please select one</option>
+										<?php echo $department_dropdown;?>
 									</select>
 								</td>
 								

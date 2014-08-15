@@ -3,14 +3,14 @@
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">ข้อมูลการจองสินค้า</h3>
+					<h3 class="panel-title">ข้อมูล</h3>
 				</div>
 				<div class="panel-body">
 					<form class="form-horizontal" role="form">
 						
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-3 control-label">เลขที่ใบจอง</label>
+								<label for="inputEmail3" class="col-sm-3 control-label">เลขที่</label>
 								<div class="col-sm-7">
 									<div class="input-group input-group-sm">
 								      <input type="text" class="form-control" placeholder="เลขที่ใบจอง" autofocus>
@@ -40,15 +40,9 @@
 										<td>dd-mm-yyyy</td>
 									</tr>
 									<tr>
-										<th class="info text-right">ผู้ทำรายการจอง</th>
+										<th class="info text-right">ผู้ทำรายการ</th>
 										<td>xxxxxxx</td>
-										<th class="info text-right">วันที่จอง</th>
-										<td>dd-mm-yyyy</td>
-									</tr>
-									<tr>
-										<th class="info text-right">ผู้อนุมัติการจอง</th>
-										<td>xxxxxxx</td>
-										<th class="info text-right">วันที่อนุมัติ</th>
+										<th class="info text-right">วันที่</th>
 										<td>dd-mm-yyyy</td>
 									</tr>
 								</tbody>
@@ -105,7 +99,7 @@
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">รายการสินค้าที่จอง</h3>
+					<h3 class="panel-title">รายการสินค้า</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
@@ -199,7 +193,7 @@
 							<div class="radio">
 							  <label>
 							    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-							   ปฏิเสธการจอง
+							   ปฏิเสธ
 							  </label>
 							</div>
 						</div>

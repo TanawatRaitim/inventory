@@ -29,12 +29,12 @@ class Product extends CI_Controller {
 									0 => array(
 										'name'=>'ค้นหาข้อมูล',
 										'link'=>'all',
-										'class'=>'active'
+										'class'=>''
 									),
 									1 => array(
 										'name'=>'ค้นหาข้อมูลสินค้า',
 										'link'=>'product',
-										'class'=>''
+										'class'=>'active'
 									),
 									2 => array(
 										'name'=>'ค้นหาข้อมูลลูกค้า',
@@ -48,8 +48,7 @@ class Product extends CI_Controller {
 									)
 								);
 		
-		$data['content'] = $this->load->view('product/main', $content,TRUE);	
-		
+		$data['content'] = $this->load->view('product/main', $content,TRUE);
 			
 		//initail template	
 		$css = array(
@@ -73,24 +72,30 @@ class Product extends CI_Controller {
 	
 	public function get_data()
 	{
-		//$this->load->library('product_b');
-		
-		//$products = $this->product_b->get_all_json();
-		
-		//echo $products;
-		
-		$local = $this->load->database('local', TRUE);
-		$query = $local->get('product_test');
-		$local->close();
+		$query = $this->db->get('Products');
 		$products = $query->result_array();
+		
 		
 		$json = array(
 			'data'=>$products
 		);
 		
 		echo json_encode($json);
-
-		
+	}
+	
+	public function show($id)
+	{
+		echo $id;
+	}
+	
+	public function edit($id)
+	{
+		echo $id;
+	}
+	
+	public function delete($id)
+	{
+		echo $id;
 	}
 	
 	public function add()
@@ -109,8 +114,16 @@ class Product extends CI_Controller {
 										'class'=>'active'
 									)
 								);
+								
+		$content['department_dropdown'] = department_dropdown();						
+		$content['product_type_dropdown'] = product_type_dropdown();	
+		$content['product_group_dropdown'] = product_group_dropdown();	
+		$content['product_category_dropdown'] = product_category_dropdown();	
+		$content['product_frequency_dropdown'] = product_frequency_dropdown();	
+		$content['product_register_dropdown'] = product_register_dropdown();	
+		$content['inventory_dropdown'] = inventory_dropdown();	
+							
 		$data['content'] = $this->load->view('product/add',$content ,TRUE);
-		
 		
 		$css = array(
 				'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
@@ -133,6 +146,14 @@ class Product extends CI_Controller {
 		$data['js'] = $this->assets->get_js($js);
 		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		$this->load->view('template/main',$data);
+	}
+
+	public function insert()
+	{
+		$post = $this->input->post();
+		unset($post['save_and_edit']);
+		$this->db->insert('Products', $post);
+		
 	}
 
 	

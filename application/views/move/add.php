@@ -23,12 +23,7 @@
 						
 						<div class="col-md-5">
 							<div class="form-group">
-								<!-- <label for="inputEmail3" class="col-sm-5 control-label"></label> -->
-								<div class="col-md-5 text-right">
-									<select autofocus>
-										<option>RL</option>
-									</select>
-								</div>
+								<label for="inputEmail3" class="col-sm-5 control-label">RL-</label>
 								<div class="col-sm-7">
 									<input type="text" class="form-control input-sm" id="product_id" placeholder="">
 									

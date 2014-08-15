@@ -8,7 +8,7 @@ class History extends CI_Controller {
 	{
 		parent::__construct();
 		
-		if (!$this->ion_auth->logged_in())	
+		if (!$this->auth2->logged_in())	
 		{
 			redirect('auth/login', 'refresh');
 			exit();

@@ -42,12 +42,8 @@
 							<td class="text-center">06/08/2014</td>
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">ปฏิเสธ</td>
-							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+							<td style="width:250px;">
+								<a href="detail" class="btn btn-danger btn-xs">View Detail(SDB)</a>  <a href="approve" class="btn btn-info btn-xs">View Detail(WAR)</a>
 							</td>
 						</tr>
 						<tr>
@@ -60,11 +56,7 @@
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">ปฏิเสธ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="detail" class="btn btn-danger btn-xs">View Detail(SDB)</a>  <a href="approve" class="btn btn-info btn-xs">View Detail(WAR)</a>
 							</td>
 						</tr>
 						<tr>
@@ -77,11 +69,7 @@
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">ปฏิเสธ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="detail" class="btn btn-danger btn-xs">View Detail(SDB)</a>  <a href="approve" class="btn btn-info btn-xs">View Detail(WAR)</a>
 							</td>
 						</tr>
 						<tr>
@@ -94,11 +82,7 @@
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">ปฏิเสธ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="detail" class="btn btn-danger btn-xs">View Detail(SDB)</a>  <a href="approve" class="btn btn-info btn-xs">View Detail(WAR)</a>
 							</td>
 						</tr>
 						<tr>
@@ -111,11 +95,7 @@
 							<td class="text-center">prapaporn.s</td>
 							<td class="text-center">ปฏิเสธ</td>
 							<td style="width:20px;">
-								<div class="btn-group btn-group-xs">
-								  <button type="button" class="btn btn-info">View Detail</button>
-								  <!-- <button type="button" class="btn btn-default">Middle</button>
-								  <button type="button" class="btn btn-default">Right</button> -->
-								</div>
+								<a href="detail" class="btn btn-danger btn-xs">View Detail(SDB)</a>  <a href="approve" class="btn btn-info btn-xs">View Detail(WAR)</a>
 							</td>
 						</tr>
 						

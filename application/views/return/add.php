@@ -23,12 +23,7 @@
 						
 						<div class="col-md-5">
 							<div class="form-group">
-								<!-- <label for="inputEmail3" class="col-sm-5 control-label"></label> -->
-								<div class="col-md-5 text-right">
-									<select autofocus>
-										<option>SR</option>
-									</select>
-								</div>
+								<label for="inputEmail3" class="col-sm-5 control-label">SR -</label>
 								<div class="col-sm-7">
 									<input type="text" class="form-control input-sm" id="product_id" placeholder="">
 									
@@ -582,13 +577,13 @@
 					</div>
 					<div class="col-md-12">
 						<button class="btn btn-primary btn-sm">
-							บันทึกการจองสินค้า
+							บันทึก
 						</button>
 						<button class="btn btn-warning btn-sm">
 							บันทึกแบบร่่าง
 						</button>
 						<button class="btn btn-danger btn-sm" id="test_noty">
-							ยกเลิกการจองสินค้าทั้งหมด
+							ยกเลิก
 						</button>
 						
 					</div>

@@ -66,7 +66,10 @@ $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 
-
+/*
+ * DB local group
+ * 
+ * */
 $db['local']['hostname'] = 'localhost';
 $db['local']['username'] = 'root';
 $db['local']['password'] = 'test';
@@ -83,6 +86,30 @@ $db['local']['dbcollat'] = 'utf8_general_ci';
 $db['local']['swap_pre'] = '';
 $db['local']['autoinit'] = TRUE;
 $db['local']['stricton'] = FALSE;
+
+
+/**
+ *	DB MySQL from 172.168.1.109:90 
+ * 
+ */
+$db['stock']['hostname'] = '172.168.1.109:90';
+$db['stock']['username'] = 'root';
+$db['stock']['password'] = 'test';
+$db['stock']['database'] = 'stock';
+$db['stock']['dbdriver'] = 'mysql';
+$db['stock']['dbprefix'] = '';
+$db['stock']['pconnect'] = TRUE;
+$db['stock']['db_debug'] = TRUE;
+$db['stock']['cache_on'] = FALSE;
+$db['stock']['cachedir'] = '';
+$db['stock']['char_set'] = 'utf8';
+$db['stock']['dbcollat'] = 'utf8_general_ci';
+$db['stock']['swap_pre'] = '';
+$db['stock']['autoinit'] = TRUE;
+$db['stock']['stricton'] = FALSE;
+// $db['stock']['port'] = 90;
+ 
+
 
 
 /* End of file database.php */

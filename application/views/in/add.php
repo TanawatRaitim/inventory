@@ -583,13 +583,13 @@
 					</div>
 					<div class="col-md-12">
 						<button class="btn btn-primary btn-sm">
-							บันทึกการจองสินค้าเข้า
+							บันทึก
 						</button>
 						<button class="btn btn-warning btn-sm">
 							บันทึกแบบร่่าง
 						</button>
 						<button class="btn btn-danger btn-sm" id="test_noty">
-							ยกเลิกการจองสินค้าเข้าทั้งหมด
+							ยกเลิก
 						</button>
 						
 					</div>

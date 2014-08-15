@@ -45,9 +45,9 @@ $(function(){
 	        	]
 	        },
 	        "columns": [
-	        	{"data": "prod_id"},
+	        	{"data": "Product_ID"},
 	        	{
-	        		"data":"prod_name",
+	        		"data":"Product_Name",
 	        		"render": function(data, type, meta){
 	        			var img_path = meta.prod_images;
 	        			var tooltip = "<a href='#' class='text-danger' title='"+data+" # "+meta.book_num+"' data-trigger='hover' data-content='<img height=250 src=assets/images/product_test/"+img_path+">' >"+data+" # "+meta.book_num+"</a>";
@@ -61,15 +61,15 @@ $(function(){
 			        // "width": "auto"
 	        		
 	        	},
-	        	{"data":"book_num"},
-	        	{"data":"category_p"},
-	        	{"data":"group_p"},
-	        	{"data":"type_p"},
-	        	{"data":"out_p"},
+	        	{"data":"Product_Vol"},
+	        	{"data":"ProCate_ID"},
+	        	{"data":"ProGroup_ID"},
+	        	{"data":"ProType_ID"},
+	        	{"data":"ProFreq_ID"},
 	        	{
 	        		// "width": "10%",
 	        		"render": function(data, type, row){
-	        			return "<a data-toggle='tooltip' title='ดูรายละเอียด' class='btn btn-xs btn-primary' href='datatable/show/"+row.id_prod+"'>Show</a> <a data-toggle='tooltip' title='แก้ไข' class='btn btn-xs btn-warning' href='datatable/edit/"+row.id_prod+"'>Edit</a> <a data-toggle='tooltip' title='ลบ'  class='btn btn-xs btn-danger' href='datatable/delete/"+row.id_prod+"'>Delete</a>";
+	        			return "<a data-toggle='tooltip' title='ดูรายละเอียด' class='btn btn-xs btn-primary' href='product/show/"+row.Product_AutoID+"'>ดู</a> <a data-toggle='tooltip' title='แก้ไข' class='btn btn-xs btn-warning' href='product/edit/"+row.Product_AutoID+"'>แก้ไข</a> <a data-toggle='tooltip' title='ลบ'  class='btn btn-xs btn-danger' href='product/delete/"+row.Product_AutoID+"'>ลบ</a>";
 	        		},
 	        		"fnCreatedCell": function(nTd, sData, oData, iRow, iCol){
 			        	$("a", nTd).tooltip({
@@ -101,11 +101,5 @@ $(function(){
 	    	e.preventDefault();
 	    });
 	    
-	    /*
-	    $("table").on("click",'tr',function(e){
-	    	// alert('big');
-	    	$(this).hide('slow');
-	    });
-	    */
 	 
 	});

@@ -202,7 +202,7 @@
 						
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-4 control-label">เลขที่ใบสั่งขาย</label>
+								<label for="inputEmail3" class="col-sm-4 control-label">เลขที่ใบตัดจ่าย</label>
 								<div class="col-sm-7">
 									<input type="text" class="form-control input-sm" id="product_id" placeholder="เลขที่ใบสั่งขาย">
 								</div>
@@ -211,7 +211,7 @@
 
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-4 control-label">วันที่บนใบสั่งขาย</label>
+								<label for="inputEmail3" class="col-sm-4 control-label">วันที่บนใบตัดจ่าย</label>
 								<div class="col-sm-7">
 									<input type="text" class="form-control input-sm" id="product_id" placeholder="วันที่บนใบสั่งขาย">
 								</div>

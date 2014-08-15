@@ -29,7 +29,7 @@ class Customer extends CI_Controller {
 									0 => array(
 										'name'=>'ค้นหาข้อมูล',
 										'link'=>'all',
-										'class'=>'active'
+										'class'=>''
 									),
 									1 => array(
 										'name'=>'ค้นหาข้อมูลสินค้า',
@@ -39,7 +39,7 @@ class Customer extends CI_Controller {
 									2 => array(
 										'name'=>'ค้นหาข้อมูลลูกค้า',
 										'link'=>'customer',
-										'class'=>''
+										'class'=>'active'
 									),
 									3 => array(
 										'name'=>'ค้นหาข้อมูล Ticket',

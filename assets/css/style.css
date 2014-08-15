@@ -47,6 +47,10 @@ table#history_data tr td{
 	vertical-align: middle;
 }
 
+.cursor-pointer{
+	cursor: pointer;
+}
+
 /*
 .highlight{
 	background-color: #FFFF88;
@@ -73,6 +77,8 @@ td.highlight{
 .table-responsive{
 	overflow-x: auto;
 }
+
+
 
 
 
