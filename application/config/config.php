@@ -24,6 +24,12 @@ $config['base_url']	= 'http://172.168.0.184:8080/inventory/';
 
 $config['base_assets'] = $config['base_url'].'assets/';
 $config['base_assets_images'] = $config['base_url'].'assets/images/';
+
+$config['salesheet_path'] = $config['base_url'].'assets/uploads/doc/product/salesheet/';
+$config['specsheet_path'] = $config['base_url'].'assets/uploads/doc/product/specsheet/';
+$config['docother_path'] = $config['base_url'].'assets/uploads/doc/product/other/';
+$config['productimg_path'] = $config['base_url'].'assets/uploads/img/products/';
+
 //$config['base_history_image'] = $config['base_url'].'assets/images/history/';
 //$config['base_history_thumbs'] = $config['base_url'].'assets/images/history/thumbs/';
 //$config['base_history_attachment'] = $config['base_url'].'assets/uploads/files/';
@@ -318,7 +324,8 @@ $config['encryption_key'] = 'my_encryption_key';
 |
 */
 $config['sess_cookie_name']		= 'ci_session';
-$config['sess_expiration']		= 7200;
+// $config['sess_expiration']		= 7200;
+$config['sess_expiration']		= 21600;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= FALSE;

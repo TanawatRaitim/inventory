@@ -267,6 +267,45 @@ if ( ! function_exists('inventory_dropdown'))
 		}
 }//end if
 
+if ( ! function_exists('product_inventory_dropdown'))
+{
+		
+		function product_inventory_dropdown($selected = "")
+		{
+			$ci =& get_instance();
+			//id = 1 คลังทั่วไป
+			$ci->db->where('Inventory_TypeID','1');
+			//$ci->db->where('RowStatus','active');
+			//$ci->db->order_by('TypeReg_Name');
+			$query = $ci->db->get('Inventory');
+			$dropdown = "";
+			$dropdown .= "<option value='0'>-คลัง -</option>";
+			
+			if($selected != "")
+			{
+				foreach($query->result_array() as $row){
+					
+					if($selected == $row['Stock_AutoID'])
+					{
+						$dropdown .= '<option value="'.$row['Stock_AutoID'].'" selected="selected">'.$row['Stock_Name'].'</option>';
+						continue;
+					}
+					
+					$dropdown .= '<option value="'.$row['Stock_AutoID'].'">'.$row['Stock_Name'].'</option>';
+				}
+			}
+			else
+			{
+				foreach($query->result_array() as $row){
+					$dropdown .= '<option value="'.$row['Stock_AutoID'].'">'.$row['Stock_Name'].'</option>';
+				}	
+			}
+			
+			return $dropdown;
+
+		}
+}//end if
+
 if ( ! function_exists('doc_refer_dropdown'))
 {
 		

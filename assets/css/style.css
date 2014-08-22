@@ -7,6 +7,7 @@ body {
 .text-underline{
 	text-decoration: underline;
 }
+
 input.error{
 	border: 2px solid red;
 }
@@ -76,6 +77,19 @@ td.highlight{
 
 .table-responsive{
 	overflow-x: auto;
+}
+
+label.error2{
+	display: none;
+	visibility: hidden;
+}
+
+input.error2{
+	boder: 2px solid red;
+}
+
+.badge-error{
+	background-color: red;
 }
 
 

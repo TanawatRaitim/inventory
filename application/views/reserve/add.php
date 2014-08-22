@@ -19,33 +19,8 @@
 					<h3 class="panel-title">รายละเอียดหลักของ Ticket</h3>
 				</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" name="main_ticket" id="main_ticket">
+					<form class="form-horizontal" method="post" role="form" name="main_ticket" id="main_ticket" action="">
 						
-						<div class="col-md-5">
-							<div class="form-group">
-								<label class="col-sm-5 control-label"><?php echo $input_type;?> - </label>
-								<label class="col-sm-7 control-label" id="TK_ID_Present"  style="text-align: left;">XX-XX-XXXX</label>
-								<!-- <input type="hidden" name="Transact_AutoID" id="Transact_AutoID" value="" /> -->
-								<input type="hidden" name="TK_ID" id="TK_ID" value="" />
-								<input type="hidden" name="TK_Code" id="TK_Code" value="RS" />
-								<!-- <div class="col-sm-7"> -->
-									<!-- 
-									<div class="input-group input-group-sm">
-								      <input type="text" class="form-control input-sm" name="TK_ID" id="TK_ID" placeholder="รหัสการจอง" autofocus="">
-								      <span class="input-group-btn">
-								        <button class="btn btn-default" type="button" id="btn_gen_id" data-toggle="tooltip" title="ออกรหัสการจอง">
-								        	<span class="glyphicon glyphicon-transfer"></span>
-								        </button>
-								      </span>
-								    </div>
-								    <!-- /input-group -->
-
-								     <!-- <span id="TK_ID_present">1234</span> -->
-								     <!-- <input type="hidden" name="TK_ID" id="TK_ID" value="new" /> -->
-								<!-- </div> -->
-							</div>
-						</div>
-
 						<div class="col-md-5">
 							<div class="form-group">
 								<label for="Transaction_For" class="col-sm-5 control-label">จองสำหรับ <span class="text-danger">*</span></label>
@@ -56,6 +31,18 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="col-md-5">
+							<div class="form-group">
+								<label class="col-sm-5 control-label"><?php echo $input_type;?> - </label>
+								<label class="col-sm-7 control-label" id="TK_ID_Present"  style="text-align: left;">XX-XX-XXXX</label>
+								<input type="hidden" name="TK_ID" id="TK_ID" value="" />
+								<input type="hidden" name="TK_Code" id="TK_Code" value="RS" />
+
+							</div>
+						</div>
+
+						<div class="row"></div>
 						
 						<div class="col-md-5">
 							<div class="form-group">
@@ -132,7 +119,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-12">
+						<div class="col-md-12" id="main_ticket_msg">
 							
 						</div>
 						<!-- 
@@ -156,7 +143,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="col-md-12">
-								<form class="form-horizontal" role="form" name="ticket_detail" id="ticket_detail">
+								<form class="form-horizontal" role="form" name="ticket_detail" id="ticket_detail" action="">
 									<div class="form-group">
 										<label for="Product_ID" class="col-sm-4 control-label">รหัสสินค้า <span class="text-danger">*</span></label>
 										<div class="col-sm-8">
@@ -178,14 +165,14 @@
 									</div>
 									
 									<div class="input-group input-group-sm form-group">
-									  <span class="input-group-addon">ดี</span>
-									  <input type="text" id="QTY_Good" name="QTY_Good" class="form-control" placeholder="" value="0">
-									  <span class="input-group-addon">เสีย</span>
-									  <input type="text" id="QTY_Waste" name="QTY_Waste" class="form-control" placeholder="" value="0">
-									  <span class="input-group-addon">ชำรุด</span>
-									  <input type="text" id="QTY_Damage" name="QTY_Damage" class="form-control" placeholder="" value="0">
+									  <span class="input-group-addon">ดี<span class="text-danger">*</span></span>
+									  <input type="text" id="QTY_Good" name="QTY_Good" class="form-control" placeholder="" value="0" required="required">
+									  <span class="input-group-addon">เสีย<span class="text-danger">*</span></span>
+									  <input type="text" id="QTY_Waste" name="QTY_Waste" class="form-control" placeholder="" value="0" required="required">
+									  <span class="input-group-addon">ชำรุด<span class="text-danger">*</span></span>
+									  <input type="text" id="QTY_Damage" name="QTY_Damage" class="form-control" placeholder="" value="0" required="required">
 									  <span class="input-group-addon">รวม</span>
-									  <input type="text" id="product_receive" readonly="readonly" tabindex="50000" class="form-control" placeholder="" value="0">
+									  <input type="text" id="product_receive" readonly="readonly" tabindex="50000" class="form-control" placeholder="" value="0" required="required">
 									</div>
 									<!--
 									<div class="form-group">
@@ -198,8 +185,13 @@
 									<div class="form-group">
 										<div class="col-sm-4"></div>
 										<div class="col-sm-6">
-											<input type="button" id="btn_add_detail" class="btn btn-success" value="จองสินค้า" />
+											<!-- <input type="submit" id="btn_add_detail" class="btn btn-success" value="จองสินค้า" /> -->
+											<input type="submit" id="btn_add_detail" class="btn btn-success" value="จองสินค้า" />
+											<!-- <a href="#" id="btn_add_detail" class="btn btn-success">link submit</a> -->
+											
+											<!-- <button type="sumbit" id="btn_add_detail" class="btn btn-success">จองสินค้า</button> -->
 										</div>
+										<div class="col-sm-12" id="ticket_detail_msg" style="padding-top: 20px;"></div>
 									</div>
 									<!-- 
 									<table>
@@ -282,190 +274,8 @@
 				</div>
 			</div>
 
-			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">รายละเอียดสินค้า</h3>
-					</div>
-					
-					<div class="panel-body">
-						<div class="col-md-4">
-							<img width="120" id="p_img"  src="<?php echo base_url(); ?>assets/images/demo.jpg" class="img-rounded" />
-							<br />
-							<span class="label label-danger">spec sheet</span>
-							<span class="label label-danger">sale sheet</span>
-							<span class="label label-danger">other sheet</span>
-						</div>
-						<div class="col-md-8">
-							<table class="table table-condensed table-striped">
-								<thead>
-									<tr>
-										<th colspan="4">ยอดที่มีในคลัง</th>
-									</tr>
-									<tr>
-										<th>คลัง</th>
-										<th>ดี</th>
-										<th>เสีย</th>
-										<th>ชำรุด</th>
-										<th>รวม</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>A</td>
-										<td>xx</td>
-										<td>xx</td>
-										<td>xx</td>
-										<td>xx</td>
-									</tr>
-									<tr>
-										<td>B</td>
-										<td>xx</td>
-										<td>xx</td>
-										<td>xx</td>
-										<td>xx</td>
-									</tr>
-									<tr>
-										<td>C</td>
-										<td>xx</td>
-										<td>xx</td>
-										<td>xx</td>
-										<td>xx</td>
-									</tr>
-									<tr>
-										<td>รับคืน</td>
-										<td>xx</td>
-										<td>xx</td>
-										<td>xx</td>
-										<td>xx</td>
-									</tr>
-									
-								</tbody>
-								<tfoot>
-									<tr class="warning">
-										<td>ยอดรวม</td>
-										<td>xx</td>
-										<td>xx</td>
-										<td>xx</td>
-										<td></td>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-						
-						<div class="col-md-12">
-							<div class="col-md-6">
-								<table class="table table-condensed">
-									<thead>
-										<tr>
-											<th colspan="2">สินค้าสภาพดี</th>
-										</tr>
-									</thead>	
-									<tbody>
-										<tr>
-											<td style="padding-top: 15px;">สินค้าสภาพดี</td>
-											<td style="font-size: 30px;" class="text-right">1,257</td>
-										</tr>
-										<tr>
-											<td style="padding-top: 15px;">ยอดการจอง</td>
-											<td style="font-size: 30px;" class="text-right">200</td>
-										</tr>
-										<tr>
-											<td style="padding-top: 15px;">คงเหลือ</td>
-											<td style="font-size: 30px;" class="text-right"><u>1,057</u></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div class="col-md-6">
-								<table class="table table-condensed">
-									<thead>
-										<tr>
-											<th colspan="2">เอกสารแนบ</th>
-										</tr>
-										<tr>
-											<th>ประเภท</th>
-											<th>เอกสารแนบ</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Spec Sheet</td>
-											<td><span class="label label-danger">PDF</span></td>
-										</tr>
-										<tr>
-											<td>Sale Sheet</td>
-											<td><span class="label label-danger">PDF</span></td>
-										</tr>
-										<tr>
-											<td>Other</td>
-											<td><span class="label label-danger">PDF</span></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<!--
-							<table class="table table-condensed table-hover">
-								<thead>
-									<tr>
-										<th colspan="2">รายละเอียดสินค้า</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th>รหัส</th>
-										<td>13-GMAG-M1375</td>
-									</tr>
-									<tr>
-										<th>ชื่อ</th>
-										<td>The Guitar Mag</td>
-									</tr>
-									<tr>
-										<th>Vol.</th>
-										<td>375</td>
-									</tr>
-									<tr>
-										<th>คลังหลัก</th>
-										<td>C</td>
-									</tr>
-									<tr>
-										<th>พิมพ์ครั้งที่</th>
-										<td>1</td>
-									</tr>
-									<tr>
-										<th>ยอดสั่งผลิต</th>
-										<td>2,000</td>
-									</tr>
-									<tr>
-										<th>รับเข้าคลัง</th>
-										<td>1,800</td>
-									</tr>
-									<tr>
-										<th>ยอดกระจาย(SA)</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>ยอดกระจาย(SC)</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>วันที่ผลิต</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>ผลิตเสร็จ</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>สถานะ</th>
-										<td>active</td>
-									</tr>
-								</tbody>
-							</table>
-							-->
-						</div>
-					</div>
-				</div>
+			<div class="col-md-6" id="table_qty">
+				
 			</div>
 		</div>
 
@@ -489,7 +299,7 @@
 									<th></th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody>			
 								<!-- <tr>
 									<td>1</td>
 									<td>GMAG#15</td>
@@ -608,13 +418,13 @@
 						</table>
 					</div>
 					<div class="col-md-12">
-						<button class="btn btn-primary btn-sm">
+						<button class="btn btn-primary btn-sm" id="btn_save_rs">
 							บันทึกการจองสินค้า
 						</button>
-						<button class="btn btn-warning btn-sm">
+						<button class="btn btn-warning btn-sm" id="btn_save_draft">
 							บันทึกแบบร่่าง
 						</button>
-						<button class="btn btn-danger btn-sm" id="test_noty">
+						<button class="btn btn-danger btn-sm" id="btn_cancel_all">
 							ยกเลิกการจองสินค้าทั้งหมด
 						</button>
 					</div>

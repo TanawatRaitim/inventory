@@ -1,10 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Reserve extends CI_Controller {
-	
-	// private $data;
-	
-	
+		
 	public function __construct()
 	{
 		parent::__construct();
@@ -21,8 +18,7 @@ class Reserve extends CI_Controller {
 	
 	public function index()
 	{
-		// $this->output->enable_profiler(TRUE);
-		//initial content	
+		
 		$content['title'] = 'ข้อมูล การจอง';
 		$content['create_text'] = "เพิ่มข้อมูล";
 		$content['create_link'] = site_url('reserve/add');
@@ -39,8 +35,7 @@ class Reserve extends CI_Controller {
 									)
 								);
 		
-		$data['content'] = $this->load->view('reserve/main',$content ,TRUE);	
-			
+		$data['content'] = $this->load->view('reserve/main',$content ,TRUE);		
 		//initail template	
 		$css = array(
 				'datatable/media/css/dataTables.bootstrap.css',
@@ -276,9 +271,9 @@ class Reserve extends CI_Controller {
 	
 	public function add()
 	{
-		// $this->output->enable_profiler(TRUE);		
 		$content['title'] = 'จองสินค้า  (RS)';
 		$content['input_type'] = 'RS';
+		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
 										'name'=>'ระบบการจองสินค้า',
@@ -291,25 +286,24 @@ class Reserve extends CI_Controller {
 										'class'=>'active'
 									),
 									2 => array(
-										'name'=>'ใบจองสินค้า  [รออนุมัติ] (10)',
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['all']."</span>",
 										'link'=>'no_appv',
 										'class'=>''
 									),
 									3 => array(
-										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] (15)',
+										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
 										'link'=>'yes_appv',
 										'class'=>''
 									),
 									4 => array(
-										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] (5)',
+										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
 										'link'=>'reject',
 										'class'=>''
 									)
 								);
 		$content['doc_refer'] = doc_refer_dropdown();	
 		$content['ticket_type'] = ticket_dropdown();	
-		$content['inventory_type'] = inventory_dropdown();	
-								
+		$content['inventory_type'] = inventory_dropdown();
 		$data['content'] = $this->load->view('reserve/add',$content, TRUE);
 		
 		$css = array(
@@ -338,22 +332,73 @@ class Reserve extends CI_Controller {
 	
 	public function select2()
 	{
-			// echo "big";
-			// echo $_POST['q'];
+		$answer[] = array(
+			'id'=>1,
+			'text'=>'test'
+		);
+		
+		echo json_encode($answer);
+		
+	}
+
+	public function check_new_data()
+	{
+		parse_str($_POST['main_ticket'], $main);
+		parse_str($_POST['ticket_detail'], $detail);
+		
+		$tkid = $main['TK_ID'];
+		$product_id = $detail['Product_ID'];
+		$stock_id = $detail['Effect_Stock_AutoID'];
+		
+		if($tkid == "")
+		{
 			
-			$answer[] = array(
-				'id'=>1,
-				'text'=>'test'
-			);
+			if($this->check_tran_qty($detail)){
+					$result = array(
+						'status'=>true,
+						'valid'=>''
+					);
+				}else{
+					$result = array(
+						'status'=>false,
+						'valid'=>'ไม่สามรถบันทึกรายการได้ เนื่องจากสินค้าในคลังไม่พอตัด'
+					);
+				}
 			
-			echo json_encode($answer);
+		}else{
 			
+			if($this->check_tran_dup($tkid, $product_id, $stock_id))
+			{
+				if($this->check_tran_qty($detail)){
+					$result = array(
+						'status'=>true,
+						'valid'=>''
+					);
+				}else{
+					$result = array(
+						'status'=>false,
+						'valid'=>'ไม่สามรถบันทึกรายการได้ เนื่องจากสินค้าในคลังไม่พอตัด'
+					);
+				}
+			}
+			else
+			{
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่สามารถบันทึกข้อมูลได้ เนื่องจากคุณบันทึกรายการซ้ำ'
+				);
+			}
+
+		}
+		
+		echo json_encode($result);
+
 	}
 
 	public function insert_transaction()
 	{
 		parse_str($_POST['main_ticket'], $main);
-		//parse_str($_POST['ticket_detail'], $detail);
+		parse_str($_POST['ticket_detail'], $detail);
 		
 		
 		if($this->is_exist_rsid($main['TK_ID']))
@@ -364,7 +409,9 @@ class Reserve extends CI_Controller {
 
 			$data = array(
 				'TK_ID'=>$main['TK_ID'],
-				'Transact_AutoID'=>$tid
+				'Transact_AutoID'=>$tid,
+				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
+				'Product_ID'=>$detail['Product_ID']
 			);
 
 			echo json_encode($data);
@@ -376,7 +423,9 @@ class Reserve extends CI_Controller {
 			
 			$data = array(
 				'TK_ID'=>$rs_id,
-				'Transact_AutoID'=>$auto_id
+				'Transact_AutoID'=>$auto_id,
+				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
+				'Product_ID'=>$detail['Product_ID']
 			);
 
 			echo json_encode($data);
@@ -386,36 +435,40 @@ class Reserve extends CI_Controller {
 	
 	public function delete_ticket_detail()
 	{
-			
+		//print_r($this->input->post());
+		$autoid = $this->input->post('autoid');
+		$product_id = $this->input->post('product_id');
+		$stock = $this->input->post('stock');
+		
+		
+		$this->reserve_model->delete_tran_detail($autoid, $product_id, $stock);
+		
+		echo 'deleted';
+	
+		
 	}
 	
 	public function product_list()
 	{
 		$text = $this->input->post('q');
-		$local = $this->load->database('local', TRUE);
-		$local->select('id_prod, prod_id, prod_name, book_num');
-		$local->like('prod_id', $text);
-		$local->or_like('prod_name',$text);
-		$local->or_like('book_num',$text);
-		$query = $local->get('product_test');
-		$local->close();
+		$this->db->select('Product_AutoID, Product_ID, Product_Name, Product_Vol');
+		$this->db->like('Product_ID', $text);
+		$this->db->or_like('Product_Name', $text);
+		$this->db->or_like('Product_Vol', $text);
+		$query = $this->db->get('Products');
 		
 		if($query->num_rows()>0)
 		{
 			$arr = $query->result_array();
 			foreach ($arr as $val) {
-			//echo $list['prod_name'];
 			$list[] = array(
-				'id'=>$val['prod_id'],
-				'text'=>$val['prod_name'].'#'.$val['book_num']
-				// 'present'=>$val['prod_id']
-				//extra text
-				// 'extra'=>'extra'
+				'id'=>$val['Product_ID'],
+				'text'=>$val['Product_Name'].'#'.$val['Product_Vol']
 				);
-		}	
+			}	
 		}else{
 			$list[] = array(
-				'id'=>'none',
+				'id'=>'',
 				'text'=>''
 			);	
 		}
@@ -426,16 +479,20 @@ class Reserve extends CI_Controller {
 	
 	public function get_product()
 	{
-		$id = $this->input->post('id');
-		$local = $this->load->database('local', TRUE);
 		
-		//$local->select('id_prod, prod_id, prod_name, book_num');
-		// $local->like('prod_id', $text);
-		//$local->or_like('prod_name',$text);
-		//$local->or_like('book_num',$text);
-		$query = $local->get_where('product_test', array('prod_id'=>$id));
-		$local->close();
-		echo json_encode($query->row_array());
+		$id = $this->input->post('id');
+		$query = $this->db->get_where('Products',array('Product_ID'=>$id));
+		$result = $query->row_array();
+		
+		$arr = array(
+			'a'=>'a',
+			'b'=>'b',
+			'c'=>'c',
+			'd'=>'d'
+		);
+		
+		$result['test'] = $arr;
+		echo json_encode($result);
 	}
 	
 	public function customer_list()
@@ -474,40 +531,54 @@ class Reserve extends CI_Controller {
 	{
 		$id = $this->input->post('id');
 		$local = $this->load->database('local', TRUE);
-		
-		//$local->select('id_prod, prod_id, prod_name, book_num');
-		// $local->like('prod_id', $text);
-		//$local->or_like('prod_name',$text);
-		//$local->or_like('book_num',$text);
 		$query = $local->get_where('tb_customer_test', array('id_cust'=>$id));
 		$local->close();
 		echo json_encode($query->row_array());
 	}
 	
+	public function check_save_rs($tkid)
+	{
+		$auto_id = $this->find_tid($tkid);
+		$query = $this->db->get_where('Inventory_Transaction_Detail', array('Transact_AutoID'=>$auto_id));
+		$trans = $query->result_array();
+		$result = array(
+				'status'=>true,
+				'valid'=>''
+			);
+		
+		foreach ($trans as $key => $value) {
+			
+			if(!$this->check_tran_qty($trans[$key])){
+				$result['status'] = false;
+				$result['valid'] = 'ไม่สามารถบันทักข้อมูลได้เนื่องสินค้า '.$value['Product_ID'].'ไม่จำนวนไม่พอสำหรับจอง';
+			}
+			
+		}
+		
+		echo json_encode($result);
+	}
 	
+	public function save_rs()
+	{
+		parse_str($_POST['main_ticket'], $main);
+		$this->reserve_model->save_rs($main);
+		
+	}
 	
 	public function get_product2()
 	{
 		
 		$local = $this->load->database('local', TRUE);		
-		
 		$local->select('id_prod, prod_id, prod_name');
 		$query = $local->get('product_test');
-				
 		$local->close();
-		
 		$list = '';
+		
 		foreach($query->result_array() as $row){
-			//echo $row['prod_id'];
-			//echo '<br />';
 			$list .= "<option value='".$row['id_prod']."'>".$row['prod_id']."-".$row['prod_name']."</option>";
 		}
-		//print_r($list);
 		
-		//return $query->result_array();
 		return $list;
-		
-			
 	}
 
 	public function get_data()
@@ -535,7 +606,6 @@ class Reserve extends CI_Controller {
 	public function detail()
 	{
 		$content['title'] = 'รายละเอียดการจองสินค้า';
-		// $content['input_type'] = 'SA';
 		$data['content'] = $this->load->view('reserve/detail',$content, TRUE);
 		
 		$css = array(
@@ -561,7 +631,6 @@ class Reserve extends CI_Controller {
 	public function approve()
 	{
 		$content['title'] = 'อนุมัติการจองสินค้า';
-		// $content['input_type'] = 'SA';
 		$data['content'] = $this->load->view('reserve/approve',$content, TRUE);
 		
 		$css = array(
@@ -594,23 +663,130 @@ class Reserve extends CI_Controller {
 		
 	}
 	
+	public function table_qty($product_id)
+	{
+		$query = $this->db->get_where('Products', array("Product_ID"=>$product_id), 1);
+		
+		if($query->num_rows() == 0)
+		{
+			echo 'ไม่มีรายละเอียดสินค้า';
+			exit;
+		}
+
+		$result = $query->row_array();
+		
+		if($result['Product_SpecSheet'])
+		{
+			$result['Product_SpecSheet'] = $this->config->item('specsheet_path').$result['Product_SpecSheet'];
+		}
+		
+		if($result['Product_SaleSheet'])
+		{
+			$result['Product_SaleSheet'] = $this->config->item('salesheet_path').$result['Product_SaleSheet'];
+		}
+		
+		if($result['Product_DocOther'])
+		{
+			$result['Product_DocOther'] = $this->config->item('docother_path').$result['Product_DocOther'];
+		}
+		
+		if($result['Product_Photo'])
+		{
+			$result['Product_Photo'] = $this->config->item('productimg_path').$result['Product_Photo'];
+		}
+		
+		$data['product'] = $result;
+		$this->db->select('*');
+		$this->db->from('Inventory_Detail');
+		$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Detail.Stock_AutoID');
+		$this->db->where('Inventory_Detail.Product_ID', $product_id);
+		$query = $this->db->get();
+		$data['inventory'] = $query->result_array();
+		
+		$total = array(
+						'good'=>0,
+						'reserve_good'=>0,
+						'remain_good'=>0,
+						'waste'=>0,
+						'reserve_waste'=>0,
+						'remain_waste'=>0,
+						'damage'=>0,
+						'reserve_damage'=>0,
+						'remain_damage'=>0
+					);
+		
+		foreach ($data['inventory'] as $value) {
+			$total['good'] += $value['QTY_Good'];
+			$total['reserve_good'] += $value['QTY_ReserveGood']; 
+			$total['remain_good'] += $value['QTY_RemainGood']; 
+			$total['waste'] += $value['QTY_Waste']; 
+			$total['reserve_waste'] += $value['QTY_ReserveWaste']; 
+			$total['remain_waste'] += $value['QTY_RemainWaste']; 
+			$total['damage'] += $value['QTY_Damage']; 
+			$total['reserve_damage'] += $value['QTY_ReserveDamage']; 
+			$total['remain_damage'] += $value['QTY_RemainDamage']; 
+		}
+		
+		$data['total'] = $total;
+		$this->load->view('product/table_qty', $data);
+		
+	}
+	
 	public function test_function()
 	{
+
 		
-		//$query = $this->reserve_model->is_exist_rsid('20');
-		//echo '<br />';
-		//$this->gen_rsid();
-		//echo date('d-m-y');
-		//$create_date = date("Y/m/d h:i:s");//hh:mm:ss
-		echo '<pre>';
-		print_r($this->session->userdata('Emp_ID'));
-		echo '</pre>';
+	}
+
+	public function get_notification()
+	{
+		$notification = array(
+			'all' => $this->db->get_where('Inventory_Transaction', array('TK_Code'=>'RS'))->num_rows(),
+			'wait' => $this->db->get_where('Inventory_Transaction', array('IsApproved'=>0))->num_rows(),
+			'approved' => $this->db->get_where('Inventory_Transaction', array('IsApproved'=>1))->num_rows(),
+			'rejected' => $this->db->get_where('Inventory_Transaction', array('IsReject'=>1))->num_rows()
+		);
+		return $notification;
+	}
+	
+	public function save_draft($tkid)
+	{
+		$where = array(
+				"TK_Code" => "RS",
+				"TK_ID" => $tkid
+			);
+		$update = array(
+			"IsDraft"=>1	
+			);	
+		$this->db->where($where);
+		$query = $this->db->update('Inventory_Transaction', $update);	
 		
+		if($query)
+		{
+			echo 'true';
+		}else{
+			echo 'false';
+		}
+		
+			
+	}
+	
+	public function cancel_all($tkid)
+	{
+		$autoid = $this->find_tid($tkid);
+		$table = array('Inventory_Transaction', 'Inventory_Transaction_Detail');
+		$this->db->where('Transact_AutoID',$autoid);
+		$delete = $this->db->delete($table);
+		
+		if($delete){
+			echo 'true';
+		}else{
+			echo 'false';
+		}
 	}
 	
 	private function is_exist_rsid($id)
 	{
-		
 		if($id == "" || $id == NULL){
 			return false;	
 		}
@@ -668,6 +844,57 @@ class Reserve extends CI_Controller {
 		
 		return $row['Transact_AutoID'];
 		
+	}
+	
+	private function check_tran_dup($tkid, $product_id, $stock)
+	{
+		$auto_id = $this->find_tid($tkid);
+		
+		$where = array(
+			'Transact_AutoID'=> $auto_id,
+			'Product_ID'=> $product_id,
+			'Effect_Stock_AutoID'=> $stock
+		);
+		
+		$this->db->where($where);
+		
+		$query = $this->db->get('Inventory_Transaction_Detail');
+
+		
+		if($query->num_rows()>0)
+		{
+			return false;
+		}
+		
+		return true;
+		
+		
+	}
+	
+	private function check_tran_qty($detail)
+	{
+		/**
+		 * Product_ID
+		 * Effect_Stock_AutoID
+		 * QTY_Good
+		 * QTY_Waste
+		 * QTY_Damage
+		 */
+		 $this->db->where('Product_ID', $detail['Product_ID']);
+		 $this->db->where('Stock_AutoID', $detail['Effect_Stock_AutoID']);
+		 $this->db->where('QTY_RemainGood>=', $detail['QTY_Good']);
+		 $this->db->where('QTY_RemainWaste>=', $detail['QTY_Waste']);
+		 $this->db->where('QTY_RemainDamage>=', $detail['QTY_Damage']);
+		 
+		 $query = $this->db->get('Inventory_Detail');
+		 
+		 
+		if($query->num_rows()==0)
+		{
+			return false;
+		}	
+		
+		return true;
 	}
 	
 }
