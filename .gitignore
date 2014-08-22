@@ -4,5 +4,6 @@
 */cache/*
 */cache/!index.html
 */cache/!.htaccess
-assets/images/product_test/
-assets/images/products/
+assets/images/product_test/*
+assets/images/products/*
+assets/uploads/*
