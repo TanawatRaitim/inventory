@@ -26,7 +26,7 @@ $(function(){
 		},
 		"order": [],
 		"dom": 'T<"clear">lfrtip',
-        "ajax": 'get_no_appv_all',
+        "ajax": 'get_reject_all',
         "stateSave": true,
         "tableTools": {
         	"aButtons": [
@@ -76,18 +76,19 @@ $(function(){
         	},
         	{"data":"Emp_FnameTH"},
         	{
-        		"data":"IsApproved",
+        		// "data":"IsReject",
         		"render": function(data, type, meta){
-        			
+        			return 'ปฏิเสธการจอง';
         			//console.log(meta);
         			//console.log(type);
         			//console.log(meta);
-        			
+        			/*
         			if(meta.IsApproved == 1){
         				return "อนุมัติแล้ว";
         			}else{
         				return "รอการอนุมัติ";
         			}
+        			*/
         		}
         	},
         	{

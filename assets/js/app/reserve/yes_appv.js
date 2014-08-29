@@ -26,7 +26,7 @@ $(function(){
 		},
 		"order": [],
 		"dom": 'T<"clear">lfrtip',
-        "ajax": 'get_no_appv_all',
+        "ajax": 'get_yes_appv_all',
         "stateSave": true,
         "tableTools": {
         	"aButtons": [

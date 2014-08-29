@@ -1,20 +1,8 @@
-function format_product(state){
-	return state.present;
-}
-
-function format_customer(state){
-	return state.text;
-}
-
-function format(state)
-{
-	return state.id;
-}
-
 $(function() {
-
+	
 	$("#TK_ID").val("");
 	$("#Transact_AutoID").val("");
+		
 		
 	$("#Product_ID").select2({
 		placeholder: 'Product ID',
@@ -53,10 +41,8 @@ $(function() {
 				
 			},
 			beforeSend: function(){
-				
 			},
 			complete: function(){
-				
 			}
 		});
 
@@ -95,8 +81,8 @@ $(function() {
 			data: {id: e.val},
 			dataType: 'json',
 			success: function(data){
-				var detail = data.Cust_Name + "("+data.Cust_Contact+") <br />";
-				detail += data.Cust_Addr;
+				var detail = data.custname + "("+data.custtype+") <br />";
+				detail += data.custdetail+" "+data.tumbon+" "+data.amphur+" "+data.province;
 				$("#customer_detail").html(detail);
 			},
 			beforeSend: function(){
@@ -108,7 +94,7 @@ $(function() {
 	});
 	
 	$("#DocRef_Date, #Transport_Date").datetimepicker({
-		pickTime: false
+		pickTime: false,
 	});
 
 
@@ -138,26 +124,11 @@ $(function() {
 		},
 		ignore: null,
 		invalidHandler: function(e, validator){
-			$("#ticket_detail_msg").noty({
-					text: 'กรุณาใส่ข้อมูลให้ครบถ้วน',
-					type: 'error',
-					dismissQueue: true,
-					//killer: true,
-					timeout: 4000
-				});
 		},submitHandler: function(form){
 			
 			//check product id
 			if($("#Product_ID").val()==""){
-				//alert("กรุณาเลือกสินค้าก่อน");
-				$("#ticket_detail_msg").noty({
-					text: 'กรุณาใส่รหัสสินค้าก่อน',
-					type: 'error',
-					dismissQueue: true,
-					//killer: true,
-					timeout: 4000
-				});
-				
+				alert("กรุณาเลือกสินค้าก่อน");
 				return false;
 			}
 			
@@ -200,14 +171,7 @@ $(function() {
 							
 							$("#record_saved > tbody").append(row_data);
 							
-							//alert("บันทึกรายการสินค้า"+product_name+"เรียบร้อยแล้ว");
-							$("#ticket_detail_msg").noty({
-								text: "บันทึกรายการสินค้า"+product_name+" เรียบร้อยแล้ว",
-								type: 'success',
-								dismissQueue: true,
-								//killer: true,
-								timeout: 4000
-							});
+							alert("บันทึกรายการสินค้า"+product_name+"เรียบร้อยแล้ว");
 							
 							var rows = $("#record_saved > tbody >tr").size();
 							$("#total_record").html("บันทึกไปแล้วจำนวน <strong>"+rows+"</strong> รายการ");
@@ -228,16 +192,7 @@ $(function() {
 							}
 						});
 				}else{
-					
-					
-					
-					$("#ticket_detail_msg").noty({
-						text: data.valid,
-						type: 'error',
-						dismissQueue: true,
-						//killer: true,
-						timeout: 4000
-					});
+					alert(data.valid);
 				}
 				
 
@@ -270,108 +225,40 @@ $(function() {
 		
 	$("body").on('click',"#btn_delete_record",function(e){
 		
-		//alert('big');
-		console.log($(this));
 		var element = $(this);
 		var product = $(this).data('productid');
-		//var result = confirm("ต้องการลบรายการ "+ product +"");
-		var autoid = element.data('autoid');
+		var result = confirm("ต้องการลบรายการ "+ product +"");
 		
-		//.var element_del = element.data();
-		//var element_autoid = $
-		//alert(element.data('autoid'));
-		// $("#row_confirm").remove();
-		$("#delete_confirm").data('autoid',autoid).parents('tr').remove();
-		$(element).data('autoid',autoid).parents('tr').after("<tr id='row_confirm'><td colspan='8' id='delete_confirm'><td></tr>");
-		//$.noty.closeAll();
-		$("#delete_confirm").noty({
-			text: "ต้องการลบรายการ"+product,
-			type: 'confirm',
-			// dismissQueue: true,
-			buttons     : [
-				{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
-					$.ajax({
-						type: 'POST',
-						url: 'delete_ticket_detail',
-						data: {
-							stock: element.data('stock'),
-							product_id: element.data('productid'),
-							autoid: element.data('autoid')
-							},
-						dataType: 'html',
-						success: function(data){
-							
-							$noty.close();
-							$("#delete_confirm").noty({
-								text:'ลยรายการ ' + product + 'เรียบร้อยแล้ว',
-								type:'success',
-								timeout: 4000,
-								callback:{
-									onShow: function(){
-										element.parents("tr").remove();
-										
-									},afterClose: function(){
-										$("#delete_confirm").data('autoid',autoid).parents('tr').remove();
-										
-										var rows = $("#record_saved > tbody >tr").size();
-							
-										if(rows != 0){
-											$("#total_record").html("บันทึกไปแล้วจำนวน <strong>"+rows+"</strong> รายการ");
-										}else{
-											$("#total_record").html("ยังไม่มีรายการที่ถูกบันทึก");
-										}
-									}
-								}
-							});
-							
-							// element.parents("tr").remove();
-							
-							
-							
-							
-							// 
-							
-						},
-						beforeSend: function(){
-						},
-						complete: function(){
-							
-						}
-					});
-				}
-				},
-				{addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
-
-					$noty.close();
-					$("#delete_confirm").noty({
-						text:'ยกเลิกลยรายการ ' + product + 'เรียบร้อยแล้ว',
-						type:'success',
-						timeout: 4000,
-						callback:{
-							onShow: function(){
-								//alert('remove now');
-								//element.parents("tr").remove();
-								
-							},afterClose: function(){
-											
-								$("#delete_confirm").data('autoid',autoid).parents('tr').remove();
-							}
-						}
-					});
-					
-					//$("#delete_confirm").data('autoid',autoid).parents('tr').remove();
-					//$(this).remove();
-					}
-				}
-			]
-		});
-		
-		/*
 		if(result == false){
 			return false;
 		}
-		*/
 		
+		$.ajax({
+			type: 'POST',
+			url: 'delete_ticket_detail',
+			data: {
+				stock: $(this).data('stock'),
+				product_id: $(this).data('productid'),
+				autoid: $(this).data('autoid')
+				},
+			dataType: 'html',
+			success: function(data){
+				element.parents("tr").remove();
+				var rows = $("#record_saved > tbody >tr").size();
+				
+				if(rows != 0){
+					$("#total_record").html("บันทึกไปแล้วจำนวน <strong>"+rows+"</strong> รายการ");
+				}else{
+					$("#total_record").html("ยังไม่มีรายการที่ถูกบันทึก");
+				}
+				
+				
+			},
+			beforeSend: function(){
+			},
+			complete: function(){
+			}
+		});
 	});
 	
 	//validate save rs
@@ -381,27 +268,14 @@ $(function() {
 		},
 		ignore: null,
 		invalidHandler: function(e, validator){
-			$("#main_ticket_msg").noty({
-				text: "กรุณาใส่ข้อมูลให้ครบถ้วน",
-				type: 'error',
-				dismissQueue: true,
-				//killer: true,
-				timeout: 4000
-			});
-			
+			alert('invalidHandler');
+			return false;
 		},submitHandler: function(form){
 			var tkid = $("#TK_ID").val();
 		
 			if(tkid == "")
 			{
-				//alert('ไม่่สามารถบันทึกข้อมูลได้ เนื่อง่จากยังไม่มีรายละเอียดการจอง');
-				$("#message").noty({
-					text: "ไม่่สามารถบันทึกข้อมูลได้ เนื่อง่จากยังไม่มีรายละเอียดการจอง",
-					type: 'error',
-					dismissQueue: true,
-					//killer: true,
-					timeout: 4000
-				});
+				alert('ไม่่สามารถบันทึกข้อมูลได้ เนื่อง่จากยังไม่มีรายละเอียดการจอง');
 				return false;
 			}
 			
@@ -454,14 +328,7 @@ $(function() {
 											}
 										});
 								}else{
-									// alert('valid');
-									$("#message").noty({
-										text: data.valid,
-										type: 'error',
-										dismissQueue: true,
-										//killer: true,
-										timeout: 4000
-									});
+									alert('valid');
 								}
 							},
 							beforeSend: function(){
@@ -507,21 +374,14 @@ $(function() {
 		$("form#main_ticket").submit();
 	});
 	
-	$(document).on('click',"#btn_save_draft", function(){
+	$("#btn_save_draft").click(function(){
 		
 		var btn_save_draft = $(this);
 		var tkid = $("#TK_ID").val();
 		
 		if(tkid=="")
 		{
-			//alert('ไม่มีข้อมูลที่จะบันทึกแบบร่างได้');
-			$("#message").noty({
-				text: "ไม่มีข้อมูลที่จะบันทึกแบบร่างได้",
-				type: 'error',
-				dismissQueue: true,
-				//killer: true,
-				timeout: 4000
-			});
+			alert('ไม่มีข้อมูลที่จะบันทึกแบบร่างได้');
 			return false;
 		}
 		btn_save_draft.attr('disabled','disabled');
@@ -542,21 +402,12 @@ $(function() {
 						url: 'save_draft/'+ tkid,
 						dataType: 'html',
 						success: function(data){
-							//alert('success');
-							
 							
 						},
 						beforeSend: function(){
-							$("#message").noty({
-								text: "บันทึกแบบร่างเรียบร้อยแล้ว",
-								type: 'success',
-								dismissQueue: true,
-								//killer: true,
-								timeout: 4000
-							});
+		
 						},
 						complete: function(){
-							btn_save_draft.removeAttr('disabled');
 							
 						}
 					});
@@ -584,14 +435,7 @@ $(function() {
 		
 		if(tkid == '')
 		{
-			//alert("ไม่มีรายการที่สามารถยกเลิกได้");
-			$("#message").noty({
-				text: "ไม่มีรายการที่สามารถยกเลิกได้",
-				type: 'error',
-				dismissQueue: true,
-				//killer: true,
-				timeout: 4000
-			});
+			alert("ไม่มีรายการที่สามารถยกเลิกได้");
 			return false;
 		}
 		btn_cancel.attr('disabled','disabled');

@@ -19,9 +19,6 @@ class Product extends CI_Controller {
 	
 	public function index()
 	{
-		// $this->output->enable_profiler(TRUE);
-		
-		//initial content	
 		$content['title'] = 'ข้อมูลสินค้า';
 		$content['create_text'] = "เพิ่มข้อมูล";
 		$content['create_link'] = site_url('product/add');

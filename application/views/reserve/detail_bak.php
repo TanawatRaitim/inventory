@@ -6,22 +6,18 @@
 					<h3 class="panel-title">ข้อมูล</h3>
 				</div>
 				<div class="panel-body">
-
+					<form class="form-horizontal" role="form">
 						
 						<div class="col-md-12">
 							<div class="form-group">
-								<label class="col-sm-3 control-label">RS<?php echo $transaction['TK_ID'];?></label>
+								<label for="inputEmail3" class="col-sm-3 control-label">เลขที่</label>
 								<div class="col-sm-7">
-									<!-- <span> </span> -->
-									<!-- <span>123</span> -->
-									<!-- 
 									<div class="input-group input-group-sm">
 								      <input type="text" class="form-control" placeholder="เลขที่ใบจอง" autofocus>
 								      <span class="input-group-btn">
 								        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
 								      </span>
-								    </div>
-								     -->
+								    </div><!-- /input-group -->
 								</div>
 							</div>
 						</div>
@@ -33,27 +29,27 @@
 								<tbody>
 									<tr>
 										<th class="info text-right">เอกสารอ้างอิง</th>
-										<td><?php echo $transaction['DocRef_Name'];?></td>
+										<td>xx-xxxxx</td>
 										<th class="info text-right">อื่นๆ</th>
-										<td><?php echo $transaction['DocRef_Other'];?></td>
+										<td>xxxxxxx</td>
 									</tr>
 									<tr>
 										<th class="info text-right">เลขที่เอกสารอ้างอิง</th>
-										<td><?php echo $transaction['DocRef_No'];?></td>
+										<td>xx-xxxxx</td>
 										<th class="info text-right">วันที่เอกสารอ้างอิง</th>
-										<td><?php echo $transaction['DocRef_Date'];?></td>
+										<td>dd-mm-yyyy</td>
 									</tr>
 									<tr>
 										<th class="info text-right">ผู้ทำรายการ</th>
-										<td><?php echo $transaction['Emp_FnameTH'];?></td>
+										<td>xxxxxxx</td>
 										<th class="info text-right">วันที่</th>
-										<td><?php echo $transaction['created_date'];?></td>
+										<td>dd-mm-yyyy</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					
-
+					</form>
 					
 				</div>
 			</div>
@@ -67,44 +63,30 @@
 						</div>
 						<div class="panel-body">
 							<div class="col-md-12">
-	<?php if(count($customer)>0):?>							
 								<table class="table table-condensed table-striped table-bordered">
 									<tbody>
 										<tr>
 											<th class="info text-right" style="width: 100px;">รหัสลูกค้า</th>
-											<td>
-												<?php echo $customer['Cust_ID'];?>
-											</td>
+											<td>AC-01-0002</td>
 										</tr>
 										<tr>
 											<th class="info text-right">นามลูกค้า</th>
-											<td><?php echo $customer['Cust_Name'];?></td>
+											<td>โชว์รูมไอเอสบุ๊ค (ซอยจรัญฯ68)</td>
 										</tr>
 										<tr>
 											<th class="info text-right">ที่อยู่</th>
-											<td><?php echo $customer['Cust_Addr'];?></td>
+											<td>184 ซ.จรัญสนิทวงศ์68 ถ.จรัญสนิทวงศ์ แชวงบางพลัด เขตบางพลัด กทม 10700</td>
 										</tr>
 										<tr>
 											<th class="info text-right">วันที่ส่งของ</th>
-											<td><?php echo $transaction['Transport_Date'];?></td>
+											<td>dd-mm-yy</td>
 										</tr>
 										<tr>
 											<th class="info text-right">หมายหตุ</th>
-											<td><?php echo $transaction['Transact_Remark'];?></td>
+											<td></td>
 										</tr>
 									</tbody>
 								</table>
-	<?php else:?>							
-								<table class="table table-condensed table-striped table-bordered">
-									<tbody>
-										<tr>
-											<th>ไม่มีข้อมูลลูกค้า</th>
-
-										</tr>
-									</tbody>
-								</table>
-	
-	<?php endif;?>
 							</div>
 						</div>
 					</div>
@@ -121,7 +103,6 @@
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						<form id="form_detail" method="post" action="/inventory/reserve/edit_detail">	
 						<table class="table table-condensed table-border table-striped">
 							<thead>
 								<tr>
@@ -135,31 +116,52 @@
 								</tr>
 							</thead>
 							<tbody>
-						<?php $i = 1;?>	
-												
-						<?php foreach($transaction_detail as $row):?>
-							<tr id="detail_row">
-								<!-- <input type="hidden" name="auto_id" id="auto_id" value="<?php echo $row['Transact_AutoID'];?>" /> -->
-								<!--
-								<input type="hidden" name="product_id" id="product_id" value="<?php echo $row['Product_ID'];?>" />
-								<input type="hidden" name="stock" id="stock" value="<?php echo $row['Effect_Stock_AutoID'];?>" />
-								<input type="hidden" name="auto_id" id="auto_id" value="<?php echo $row['Transact_AutoID'];?>" />
-								<input type="hidden" name="delete_row" id="delete_row" />
-								<input type="hidden" name="primary" id="primary" value="<?php echo $row['Transact_AutoID'];?>,<?php echo $row['Product_ID'];?>,<?php echo $row['Effect_Stock_AutoID'];?>" />
-								-->
-								<td><?php echo $i;?></td>
-								<td><?php echo $row['Product_ID'];?></td>
-								<td><?php echo $row['Stock_Name'];?></td>
-								<td><input type="text" id="QTY_Good" data-max="<?php echo $row['QTY_Good'];?>" name="<?php echo $row['Transact_AutoID'];?>,<?php echo $row['Product_ID'];?>,<?php echo $row['Effect_Stock_AutoID'];?>,QTY_Good,<?php echo $row['QTY_Good'];?>" class="form-control input-sm text-center" value="<?php echo $row['QTY_Good'];?>" /></td>
-								<td><input type="text" id="QTY_Waste" data-max="<?php echo $row['QTY_Waste'];?>" name="<?php echo $row['Transact_AutoID'];?>,<?php echo $row['Product_ID'];?>,<?php echo $row['Effect_Stock_AutoID'];?>,QTY_Waste,<?php echo $row['QTY_Waste'];?>" class="form-control input-sm text-center" value="<?php echo $row['QTY_Waste'];?>" /></td>
-								<td><input type="text" id="QTY_Damage" data-max="<?php echo $row['QTY_Damage'];?>" name="<?php echo $row['Transact_AutoID'];?>,<?php echo $row['Product_ID'];?>,<?php echo $row['Effect_Stock_AutoID'];?>,QTY_Damage,<?php echo $row['QTY_Damage'];?>" class="form-control input-sm text-center" value="<?php echo $row['QTY_Damage'];?>" /></td>
-								<td class="text-center" id="total"><?php echo $row['QTY_Good'] + $row['QTY_Waste'] + $row['QTY_Damage'];?></td>
-							</tr>
-							
-						<?php $i++;?>	
-						<?php endforeach;?>									
+								<tr>
+									<td>1</td>
+									<td>GMAG#15</td>
+									<td class="text-center">A</td>
+									<td class="text-center">15</td>
+									<td class="text-center">20</td>
+									<td class="text-center">0</td>
+									<td class="text-center">35</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>GMAG#16</td>
+									<td class="text-center">A</td>
+									<td class="text-center">15</td>
+									<td class="text-center">20</td>
+									<td class="text-center">0</td>
+									<td class="text-center">35</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>GMAG#17</td>
+									<td class="text-center">A</td>
+									<td class="text-center">15</td>
+									<td class="text-center">20</td>
+									<td class="text-center">0</td>
+									<td class="text-center">35</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>GMAG#18</td>
+									<td class="text-center">A</td>
+									<td class="text-center">15</td>
+									<td class="text-center">20</td>
+									<td class="text-center">0</td>
+									<td class="text-center">35</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>GMAG#19</td>
+									<td class="text-center">A</td>
+									<td class="text-center">15</td>
+									<td class="text-center">20</td>
+									<td class="text-center">0</td>
+									<td class="text-center">35</td>
+								</tr>
 							</tbody>
-							
 							<!-- <tfoot>
 								<tr>
 									<td colspan="2" class="text-center">รวม</td>
@@ -171,15 +173,11 @@
 								</tr>
 							</tfoot> -->
 						</table>
-						<!-- <input type="submit" value="submit" /> -->
-						</form>
 						<div class="col-md-6 col-md-offset-4">
-							
-							
-							<button id="btn_save" class="btn btn-primary btn-sm">
+							<button class="btn btn-primary btn-sm">
 								บันทึก
 							</button>
-							<button id="btn_cancel" class="btn btn-danger btn-sm">
+							<button class="btn btn-danger btn-sm" id="test_noty">
 								ยกเลิก
 							</button>
 							
@@ -192,7 +190,7 @@
 					<h3 class="panel-title">หมายเหตุ</h3>
 				</div>
 				<div class="panel-body">
-
+					<form class="form-horizontal" role="form">
 						
 						
 						<div class="col-md-12">
@@ -202,12 +200,17 @@
 									</p>
 							</div>
 						</div>
-										
-
+						<!-- 
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 col-md-2 control-label">หมายเหตุ</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control input-sm" id="product_id" placeholder="หมายเหตุ">
+								</div>
+							</div>
+						</div> -->						
+					</form>
 				</div>
-			</div>
-			<div class="col-md-12" id="message" style="padding-top: 20px;">
-								
 			</div>
 		</div>
 

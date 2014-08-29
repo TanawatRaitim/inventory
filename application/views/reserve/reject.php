@@ -11,114 +11,41 @@
 				<?php endforeach ?>
 			</ol>
 		</div>
-	</div>
-	<div class="row">
 		
-
+	</div> <!-- end .row -->
+	
+	<div class="row">
 		<div class="col-md-12">
-
-			<div class="table-responsive">
-				<table class="table table-condensed table-bordered table-striped">
-					<thead>
-						<tr>
-							<th class="text-center">#</th>
-							<th class="text-center">เลขที่ใบจอง</th>
-							<th class="text-center">เพื่อนำไปใช้เป็น</th>
-							<th class="text-center">จำนวนรายการ</th>
-							<th class="text-center">วันที่จอง</th>
-							<th class="text-center">วันที่ส่งของ</th>
-							<th class="text-center">ผู้ทำการจอง</th>
-							<th class="text-center">สถานะ</th>
-							<th class="text-center">Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="text-center">1</td>
-							<td class="text-center">RS-57-08-001</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">ปฏิเสธ</td>
-							<td style="width:250px;">
-								<a href="detail" class="btn btn-danger btn-xs">View Detail(SDB)</a>  <a href="approve" class="btn btn-info btn-xs">View Detail(WAR)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">2</td>
-							<td class="text-center">RS-57-08-002</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">ปฏิเสธ</td>
-							<td style="width:20px;">
-								<a href="detail" class="btn btn-danger btn-xs">View Detail(SDB)</a>  <a href="approve" class="btn btn-info btn-xs">View Detail(WAR)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">3</td>
-							<td class="text-center">RS-57-08-003</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">ปฏิเสธ</td>
-							<td style="width:20px;">
-								<a href="detail" class="btn btn-danger btn-xs">View Detail(SDB)</a>  <a href="approve" class="btn btn-info btn-xs">View Detail(WAR)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">4</td>
-							<td class="text-center">RS-57-08-004</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">ปฏิเสธ</td>
-							<td style="width:20px;">
-								<a href="detail" class="btn btn-danger btn-xs">View Detail(SDB)</a>  <a href="approve" class="btn btn-info btn-xs">View Detail(WAR)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">5</td>
-							<td class="text-center">RS-57-08-005</td>
-							<td>ตัดขาย-ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">ปฏิเสธ</td>
-							<td style="width:20px;">
-								<a href="detail" class="btn btn-danger btn-xs">View Detail(SDB)</a>  <a href="approve" class="btn btn-info btn-xs">View Detail(WAR)</a>
-							</td>
-						</tr>
-						
-						
-						
-					</tbody>
-					<tfoot>
-						<!-- <tr>
-							<td colspan="2" class="text-center">รวม</td>
-							<td></td>
-							<td class="text-center">30</td>
-							<td class="text-center">40</td>
-							<td class="text-center">0</td>
-							<td></td>
-							<td></td>
-						</tr> -->
-					</tfoot>
-				</table>
-			</div>
+			<table id="example" class="table table-bordered table-condensed table-striped table-hover hover">
+		        <thead>
+		        	<tr>
+		                <th>เลขที่ใบจอง</th>
+		                <th>เพื่อนำไปใช้เป็น</th>
+		                <th>จำนวนรายการ</th>
+		                <th>วันที่จอง</th>
+		                <th>วันที่ส่งของ</th>
+		                <th>ผู้ทำการจอง</th>
+		                <th>สถานะ</th>
+		                <th>action</th>
+		            </tr>
+		        	
+		        </thead>
+		     
+		        <tfoot>
+		            <tr>
+		                <th id='filter'>เลขที่ใบจอง</th>
+		                <th id="filter">เพื่อนำไปใช้เป็น</th>
+		                <th>จำนวนรายการ</th>
+		                <th>วันที่จอง</th>
+		                <th>วันที่ส่งของ</th>
+		                <th>ผู้ทำการจอง</th>
+		                <th>สถานะ</th>
+		                <th>action</th>
+		            </tr>
+		        </tfoot>
+ 
+    		</table>
 		</div>
-
-	</div><!-- end .row -->
-
-</div>
-<!-- end .container-fluid -->
-
+	</div>
+	
+</div> <!-- end .container-fluid -->

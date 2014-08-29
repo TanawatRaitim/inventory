@@ -300,7 +300,7 @@
 								</tr>
 							</thead>
 							<tbody>			
-								<!-- <tr>
+								<!--<tr>
 									<td>1</td>
 									<td>GMAG#15</td>
 									<td class="text-center">A</td>
@@ -308,9 +308,19 @@
 									<td class="text-center">20</td>
 									<td class="text-center">0</td>
 									<td class="text-center">35</td>
-									<td><span class="glyphicon glyphicon-remove" style="color: red;"></span></td>
+									<td><span id="btn_delete_record" class="glyphicon glyphicon-remove" style="color: red;"></span></td>
 								</tr>
 								<tr>
+									<td>1</td>
+									<td>GMAG#15</td>
+									<td class="text-center">A</td>
+									<td class="text-center">15</td>
+									<td class="text-center">20</td>
+									<td class="text-center">0</td>
+									<td class="text-center">35</td>
+									<td><span id="btn_delete_record" class="glyphicon glyphicon-remove" style="color: red;"></span></td>
+								</tr>
+							 	<tr>
 									<td>2</td>
 									<td>GMAG#16</td>
 									<td class="text-center">A</td>

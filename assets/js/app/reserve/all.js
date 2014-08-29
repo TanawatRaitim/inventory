@@ -26,7 +26,7 @@ $(function(){
 		},
 		"order": [],
 		"dom": 'T<"clear">lfrtip',
-        "ajax": 'get_no_appv_all',
+        "ajax": 'get_rs_all',
         "stateSave": true,
         "tableTools": {
         	"aButtons": [
@@ -83,10 +83,13 @@ $(function(){
         			//console.log(type);
         			//console.log(meta);
         			
-        			if(meta.IsApproved == 1){
-        				return "อนุมัติแล้ว";
-        			}else{
+        			if(meta.IsApproved == 0 && meta.IsReject == 0){
         				return "รอการอนุมัติ";
+        				//return "อนุมัติแล้ว";
+        			}else if(meta.IsApproved == 1 && meta.IsReject == 0){
+        				return "อนุมัติแล้ว";
+        			}else if(meta.IsApproved == 0 && meta.IsReject == 1){
+        				return "ปฎิเสธการจอง";
         			}
         		}
         	},

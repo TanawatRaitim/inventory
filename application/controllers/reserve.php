@@ -60,10 +60,11 @@ class Reserve extends CI_Controller {
 	{
 		$content['title'] = 'ข้อมูลการจองสินค้าทั้งหมด';
 		$content['input_type'] = 'RS';
+		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
-										'name'=>'ระบบการจองสินค้า',
-										'link'=>'#',
+										'name'=>"ระบบการจองสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>'all',
 										'class'=>'active'
 									),
 									1 => array(
@@ -72,17 +73,17 @@ class Reserve extends CI_Controller {
 										'class'=>''
 									),
 									2 => array(
-										'name'=>'ใบจองสินค้า  [รออนุมัติ] (21)',
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
 										'link'=>'no_appv',
 										'class'=>''
 									),
 									3 => array(
-										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] (15)',
+										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
 										'link'=>'yes_appv',
 										'class'=>''
 									),
 									4 => array(
-										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] (5)',
+										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
 										'link'=>'reject',
 										'class'=>''
 									)
@@ -90,19 +91,19 @@ class Reserve extends CI_Controller {
 
 		$data['content'] = $this->load->view('reserve/all',$content, TRUE);
 		
+		//initail template	
 		$css = array(
-			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-			'select2/select2-bootstrap-core.css',
-			'select2-bootstrap-css-master/select2-bootstrap.css'
-			);
+				'datatable/media/css/dataTables.bootstrap.css',
+				'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
+		);
+		
 		$js = array(
-			'js/moment/min/moment.min.js',
-			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-			'select2/select2.min.js',
-			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'js/app/reserve/reserve_all.js'
-			);
+				'datatable/media/js/jquery.dataTables.min.js',
+				'datatable/media/js/dataTables.bootstrap.js',
+				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+				'js/app/reserve/all.js'
+		);
+				
 		$data['css'] = $this->assets->get_css($css);
 		$data['js'] = $this->assets->get_js($js);
 		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
@@ -113,9 +114,10 @@ class Reserve extends CI_Controller {
 	public function no_appv()
 	{
 		$content['title'] = 'ใบจองสินค้า [รออนุมัติ]';
+		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
-										'name'=>'ระบบการจองสินค้า',
+										'name'=>"ระบบการจองสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
 										'link'=>'all',
 										'class'=>''
 									),
@@ -125,17 +127,17 @@ class Reserve extends CI_Controller {
 										'class'=>''
 									),
 									2 => array(
-										'name'=>'ใบจองสินค้า  [รออนุมัติ] (10)',
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
 										'link'=>'no_appv',
 										'class'=>'active'
 									),
 									3 => array(
-										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] (15)',
+										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
 										'link'=>'yes_appv',
 										'class'=>''
 									),
 									4 => array(
-										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] (5)',
+										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
 										'link'=>'reject',
 										'class'=>''
 									)
@@ -143,19 +145,18 @@ class Reserve extends CI_Controller {
 
 		$data['content'] = $this->load->view('reserve/no_appv',$content, TRUE);
 		
+		//initail template	
 		$css = array(
-			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-			'select2/select2-bootstrap-core.css',
-			'select2-bootstrap-css-master/select2-bootstrap.css'
-			);
+				'datatable/media/css/dataTables.bootstrap.css',
+				'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
+		);
+		
 		$js = array(
-			'js/moment/min/moment.min.js',
-			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-			'select2/select2.min.js',
-			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'js/app/reserve/reserve_all.js'
-			);
+				'datatable/media/js/jquery.dataTables.min.js',
+				'datatable/media/js/dataTables.bootstrap.js',
+				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+				'js/app/reserve/no_appv.js'
+		);
 		$data['css'] = $this->assets->get_css($css);
 		$data['js'] = $this->assets->get_js($js);
 		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
@@ -166,9 +167,10 @@ class Reserve extends CI_Controller {
 	public function yes_appv()
 	{
 		$content['title'] = 'ใบจองสินค้า [ผ่านอนุมัติ]';
+		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
-										'name'=>'ระบบการจองสินค้า',
+										'name'=>"ระบบการจองสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
 										'link'=>'all',
 										'class'=>''
 									),
@@ -178,17 +180,17 @@ class Reserve extends CI_Controller {
 										'class'=>''
 									),
 									2 => array(
-										'name'=>'ใบจองสินค้า  [รออนุมัติ] (10)',
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
 										'link'=>'no_appv',
 										'class'=>''
 									),
 									3 => array(
-										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] (15)',
+										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
 										'link'=>'yes_appv',
 										'class'=>'active'
 									),
 									4 => array(
-										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] (5)',
+										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
 										'link'=>'reject',
 										'class'=>''
 									)
@@ -196,19 +198,18 @@ class Reserve extends CI_Controller {
 
 		$data['content'] = $this->load->view('reserve/yes_appv',$content, TRUE);
 		
+		//initail template	
 		$css = array(
-			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-			'select2/select2-bootstrap-core.css',
-			'select2-bootstrap-css-master/select2-bootstrap.css'
-			);
+				'datatable/media/css/dataTables.bootstrap.css',
+				'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
+		);
+		
 		$js = array(
-			'js/moment/min/moment.min.js',
-			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-			'select2/select2.min.js',
-			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'js/app/reserve/reserve_all.js'
-			);
+				'datatable/media/js/jquery.dataTables.min.js',
+				'datatable/media/js/dataTables.bootstrap.js',
+				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+				'js/app/reserve/yes_appv.js'
+		);
 		$data['css'] = $this->assets->get_css($css);
 		$data['js'] = $this->assets->get_js($js);
 		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
@@ -219,9 +220,10 @@ class Reserve extends CI_Controller {
 	public function reject()
 	{
 		$content['title'] = 'ใบจองสินค้า [ถูกปฏิเสธ]';
+		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
-										'name'=>'ระบบการจองสินค้า',
+										'name'=>"ระบบการจองสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
 										'link'=>'all',
 										'class'=>''
 									),
@@ -231,17 +233,17 @@ class Reserve extends CI_Controller {
 										'class'=>''
 									),
 									2 => array(
-										'name'=>'ใบจองสินค้า  [รออนุมัติ] (10)',
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
 										'link'=>'no_appv',
 										'class'=>''
 									),
 									3 => array(
-										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] (15)',
+										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
 										'link'=>'yes_appv',
 										'class'=>''
 									),
 									4 => array(
-										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] (5)',
+										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
 										'link'=>'reject',
 										'class'=>'active'
 									)
@@ -249,19 +251,18 @@ class Reserve extends CI_Controller {
 
 		$data['content'] = $this->load->view('reserve/reject',$content, TRUE);
 		
+		//initail template	
 		$css = array(
-			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-			'select2/select2-bootstrap-core.css',
-			'select2-bootstrap-css-master/select2-bootstrap.css'
-			);
+				'datatable/media/css/dataTables.bootstrap.css',
+				'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
+		);
+		
 		$js = array(
-			'js/moment/min/moment.min.js',
-			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-			'select2/select2.min.js',
-			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'js/app/reserve/reserve_all.js'
-			);
+				'datatable/media/js/jquery.dataTables.min.js',
+				'datatable/media/js/dataTables.bootstrap.js',
+				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+				'js/app/reserve/reject.js'
+		);
 		$data['css'] = $this->assets->get_css($css);
 		$data['js'] = $this->assets->get_js($js);
 		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
@@ -276,7 +277,7 @@ class Reserve extends CI_Controller {
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
-										'name'=>'ระบบการจองสินค้า',
+										'name'=>"ระบบการจองสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
 										'link'=>'all',
 										'class'=>''
 									),
@@ -286,7 +287,7 @@ class Reserve extends CI_Controller {
 										'class'=>'active'
 									),
 									2 => array(
-										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['all']."</span>",
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
 										'link'=>'no_appv',
 										'class'=>''
 									),
@@ -310,15 +311,14 @@ class Reserve extends CI_Controller {
 			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
 			'select2/select2-bootstrap-core.css',
 			'select2-bootstrap-css-master/select2-bootstrap.css',
-			'bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css'
+			// 'bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css'
 			);
 		$js = array(
 			'js/moment/min/moment.min.js',
 			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
 			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
 			'select2/select2.min.js',
-			// 'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js',
+			// 'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js',
 			'js/jquery_validation/dist/jquery.validate.min.js',
 			'js/jquery_validation/dist/additional-methods.min.js',
 			'js/app/reserve/reserve_add.js'
@@ -328,17 +328,6 @@ class Reserve extends CI_Controller {
 		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		
 		$this->load->view('template/main',$data);
-	}
-	
-	public function select2()
-	{
-		$answer[] = array(
-			'id'=>1,
-			'text'=>'test'
-		);
-		
-		echo json_encode($answer);
-		
 	}
 
 	public function check_new_data()
@@ -436,16 +425,15 @@ class Reserve extends CI_Controller {
 	public function delete_ticket_detail()
 	{
 		//print_r($this->input->post());
+		
+		
 		$autoid = $this->input->post('autoid');
 		$product_id = $this->input->post('product_id');
 		$stock = $this->input->post('stock');
 		
-		
 		$this->reserve_model->delete_tran_detail($autoid, $product_id, $stock);
 		
 		echo 'deleted';
-	
-		
 	}
 	
 	public function product_list()
@@ -483,7 +471,7 @@ class Reserve extends CI_Controller {
 		$id = $this->input->post('id');
 		$query = $this->db->get_where('Products',array('Product_ID'=>$id));
 		$result = $query->row_array();
-		
+		/*
 		$arr = array(
 			'a'=>'a',
 			'b'=>'b',
@@ -492,33 +480,32 @@ class Reserve extends CI_Controller {
 		);
 		
 		$result['test'] = $arr;
+		 * */
 		echo json_encode($result);
 	}
 	
 	public function customer_list()
 	{
+		 
 		$text = $this->input->post('q');
-		$local = $this->load->database('local', TRUE);
-		$local->select('id_customer, id_cust, custname, custtype');
-		$local->like('id_cust', $text);
-		$local->or_like('custname',$text);
-		$local->or_like('custtype',$text);
-		$query = $local->get('tb_customer_test');
-		$local->close();
-		
+		$this->db->select('Cust_AutoID, Cust_ID, Cust_Name, Cust_Contact');
+		$this->db->like('Cust_ID', $text);
+		$this->db->or_like('Cust_Name', $text);
+		$this->db->or_like('Cust_Contact', $text);
+		$query = $this->db->get('Customers');
 		
 		if($query->num_rows()>0)
 		{
 			$arr = $query->result_array();
 			foreach ($arr as $val) {
 			$list[] = array(
-				'id'=>$val['id_cust'],
-				'text'=>$val['custname'].'('.$val['custtype'].')'
+				'id'=>$val['Cust_ID'],
+				'text'=>$val['Cust_Name'].'#'.$val['Cust_Contact']
 				);
 			}	
 		}else{
 			$list[] = array(
-				'id'=>'none',
+				'id'=>'',
 				'text'=>''
 			);	
 		}
@@ -530,9 +517,8 @@ class Reserve extends CI_Controller {
 	public function get_customer()
 	{
 		$id = $this->input->post('id');
-		$local = $this->load->database('local', TRUE);
-		$query = $local->get_where('tb_customer_test', array('id_cust'=>$id));
-		$local->close();
+		$query = $this->db->get_where('Customers', array('Cust_ID'=>$id));
+
 		echo json_encode($query->row_array());
 	}
 	
@@ -580,6 +566,184 @@ class Reserve extends CI_Controller {
 		
 		return $list;
 	}
+	
+	public function get_rs_all()
+	{
+		$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as reserve_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
+		$this->db->from('Inventory_Transaction');
+		$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
+		$this->db->join('Ticket_Type','Ticket_Type.TK_TypeAutoID = Inventory_Transaction.Transaction_For','left');
+		$this->db->where('IsDraft', 0);
+		//$this->db->where('IsApproved', 0);
+		//$this->db->or_where('IsApproved', 1);
+		$this->db->order_by('Inventory_Transaction.RowCreatedDate','desc');
+		
+		$query = $this->db->get();
+		$result = $query->result_array();
+		$sql = "select Inventory_Transaction_Detail.Transact_AutoID, COUNT(Inventory_Transaction_Detail.Transact_AutoID)as count_a
+				from Inventory_Transaction_Detail
+				group by Transact_AutoID	
+				";
+		$query2 = $this->db->query($sql);
+		$result2 = $query2->result_array();
+		$count = array();
+		
+		foreach ($result2 as $key => $value) {
+			//$count
+			$count[$value['Transact_AutoID']] = $value['count_a'];
+		}
+		
+		foreach ($result as $key => $value) {
+			
+			if(isset($count[$value['Transact_AutoID']])){
+				$result[$key]['count'] = $count[$value['Transact_AutoID']];
+			}else{
+				$result[$key]['count'] = 0;
+			}
+		}
+		
+		$json = array(
+			'data'=>$result
+		);
+		
+		echo json_encode($json);
+	}
+	
+	public function get_no_appv_all()
+	{
+		$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as reserve_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
+		$this->db->from('Inventory_Transaction');
+		$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
+		$this->db->join('Ticket_Type','Ticket_Type.TK_TypeAutoID = Inventory_Transaction.Transaction_For','left');
+		$this->db->where('IsDraft', 0);
+		$this->db->where('IsApproved', 0);
+		$this->db->where('IsReject', 0);
+		$this->db->where('Inventory_Transaction.RowStatus','active');
+		$this->db->where('Inventory_Transaction.IsDel',0);
+		//$this->db->or_where('IsApproved', 1);
+		$this->db->order_by('Inventory_Transaction.RowCreatedDate','desc');
+		
+		$query = $this->db->get();
+		$result = $query->result_array();
+		$sql = "select Inventory_Transaction_Detail.Transact_AutoID, COUNT(Inventory_Transaction_Detail.Transact_AutoID)as count_a
+				from Inventory_Transaction_Detail
+				group by Transact_AutoID	
+				";
+		$query2 = $this->db->query($sql);
+		$result2 = $query2->result_array();
+		$count = array();
+		
+		foreach ($result2 as $key => $value) {
+			//$count
+			$count[$value['Transact_AutoID']] = $value['count_a'];
+		}
+		
+		foreach ($result as $key => $value) {
+			
+			if(isset($count[$value['Transact_AutoID']])){
+				$result[$key]['count'] = $count[$value['Transact_AutoID']];
+			}else{
+				$result[$key]['count'] = 0;
+			}
+		}
+		
+		$json = array(
+			'data'=>$result
+		);
+		
+		echo json_encode($json);
+	}
+	
+	public function get_yes_appv_all()
+	{
+		$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as reserve_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
+		$this->db->from('Inventory_Transaction');
+		$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
+		$this->db->join('Ticket_Type','Ticket_Type.TK_TypeAutoID = Inventory_Transaction.Transaction_For','left');
+		$this->db->where('IsDraft', 0);
+		$this->db->where('IsApproved', 1);
+		$this->db->where('IsReject', 0);
+		$this->db->where('Inventory_Transaction.RowStatus','active');
+		$this->db->where('Inventory_Transaction.IsDel',0);
+		//$this->db->or_where('IsApproved', 1);
+		$this->db->order_by('Inventory_Transaction.RowCreatedDate','desc');
+		
+		$query = $this->db->get();
+		$result = $query->result_array();
+		$sql = "select Inventory_Transaction_Detail.Transact_AutoID, COUNT(Inventory_Transaction_Detail.Transact_AutoID)as count_a
+				from Inventory_Transaction_Detail
+				group by Transact_AutoID	
+				";
+		$query2 = $this->db->query($sql);
+		$result2 = $query2->result_array();
+		$count = array();
+		
+		foreach ($result2 as $key => $value) {
+			//$count
+			$count[$value['Transact_AutoID']] = $value['count_a'];
+		}
+		
+		foreach ($result as $key => $value) {
+			
+			if(isset($count[$value['Transact_AutoID']])){
+				$result[$key]['count'] = $count[$value['Transact_AutoID']];
+			}else{
+				$result[$key]['count'] = 0;
+			}
+		}
+		
+		$json = array(
+			'data'=>$result
+		);
+		
+		echo json_encode($json);
+	}
+	
+	public function get_reject_all()
+	{
+		$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as reserve_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
+		$this->db->from('Inventory_Transaction');
+		$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
+		$this->db->join('Ticket_Type','Ticket_Type.TK_TypeAutoID = Inventory_Transaction.Transaction_For','left');
+		$this->db->where('IsDraft', 0);
+		$this->db->where('IsReject', 1);
+		$this->db->where('IsApproved', 0);
+		$this->db->where('Inventory_Transaction.RowStatus','active');
+		$this->db->where('Inventory_Transaction.IsDel',0);
+		
+		//$this->db->or_where('IsApproved', 1);
+		$this->db->order_by('Inventory_Transaction.RowCreatedDate','desc');
+		
+		$query = $this->db->get();
+		$result = $query->result_array();
+		$sql = "select Inventory_Transaction_Detail.Transact_AutoID, COUNT(Inventory_Transaction_Detail.Transact_AutoID)as count_a
+				from Inventory_Transaction_Detail
+				group by Transact_AutoID	
+				";
+		$query2 = $this->db->query($sql);
+		$result2 = $query2->result_array();
+		$count = array();
+		
+		foreach ($result2 as $key => $value) {
+			//$count
+			$count[$value['Transact_AutoID']] = $value['count_a'];
+		}
+		
+		foreach ($result as $key => $value) {
+			
+			if(isset($count[$value['Transact_AutoID']])){
+				$result[$key]['count'] = $count[$value['Transact_AutoID']];
+			}else{
+				$result[$key]['count'] = 0;
+			}
+		}
+		
+		$json = array(
+			'data'=>$result
+		);
+		
+		echo json_encode($json);
+	}
 
 	public function get_data()
 	{
@@ -603,23 +767,45 @@ class Reserve extends CI_Controller {
 
 	}
 	
-	public function detail()
+	public function detail($rsid="")
 	{
 		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$this->db->select('*, Inventory_Transaction.RowCreatedDate as created_date');
+		$this->db->from('Inventory_Transaction');
+		$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID');
+		$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson');
+		$this->db->where(array('TK_Code'=>'RS','TK_ID'=>$rsid));
+		
+		$content['transaction'] = $this->db->get()->row_array();
+		
+		$this->db->select('*');
+		$this->db->from('Inventory_Transaction_Detail');
+		$this->db->join('Products', 'Products.Product_ID = Inventory_Transaction_Detail.Product_ID','left');
+		$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Transaction_Detail.Effect_Stock_AutoID', 'left');
+		$this->db->where(array('Transact_AutoID'=>$content['transaction']['Transact_AutoID']));
+		
+		$content['transaction_detail'] = $this->db->get()->result_array();
+		
+		$content['customer'] = $this->db->get_where('Customers',array('Cust_ID'=>$content['transaction']['Cust_ID']))->row_array();
+		
 		$data['content'] = $this->load->view('reserve/detail',$content, TRUE);
 		
 		$css = array(
-			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			// 'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
 			'select2/select2-bootstrap-core.css',
-			'select2-bootstrap-css-master/select2-bootstrap.css'
+			// 'select2-bootstrap-css-master/select2-bootstrap.css',
+			//'bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css'
 			);
 		$js = array(
-			'js/moment/min/moment.min.js',
+			// 'js/moment/min/moment.min.js',
 			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-			'select2/select2.min.js',
+			// 'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			// 'select2/select2.min.js',
+			//'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js',
 			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'js/app/reserve/reserve_detail.js'
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'js/app/reserve/detail.js'
 			);
 		$data['css'] = $this->assets->get_css($css);
 		$data['js'] = $this->assets->get_js($js);
@@ -627,30 +813,188 @@ class Reserve extends CI_Controller {
 		
 		$this->load->view('template/main',$data);
 	}
+
+	public function edit_detail()
+	{
+		//update qty transaction
+		//update qty, qtyremain Inventory_detail
+		
+		
+		parse_str($_POST['detail_data'], $data);
+
+
+		/**
+		 * $arr[0] = Transact_AutoID
+		 * $arr[1] = Product_ID
+		 * $arr[2] = Effect_Stock_AutoID
+		 * $arr[3] = Field to update
+		 * $arr[4] = qty before update
+		 * 
+		 */		
+		foreach ($data as $key => $value) {
+
+			$arr = explode(',', $key);
+			
+			$diff = $arr[4] - $value;
+			
+			if($diff>0){
+				
+				//get Inventory Detail
+				$where = array(
+					'Product_ID'=>$arr[1],
+					'Stock_AutoID'=>$arr[2]
+				);
+				
+				$inventory = $this->db->get_where('Inventory_Detail', $where)->row_array();
+				
+				//update
+				$update = array($arr[3]=>$value);	//data and field to update
+			
+				$where = array(
+					'Transact_AutoID'=>$arr[0],
+					'Product_ID'=>$arr[1],
+					'Effect_Stock_AutoID'=>$arr[2]
+				);
+				
+				$this->db->where($where);
+				$this->db->update('Inventory_Transaction_Detail', $update);
+				
+				if($arr[3] == 'QTY_Good'){
+					
+					$update_inventory = array(
+						'QTY_ReserveGood'=>$inventory['QTY_ReserveGood'] - $diff,
+						'QTY_RemainGood'=>$inventory['QTY_RemainGood'] + $diff,
+					);
+					
+					$this->db->where('RecNo', $inventory['RecNo']);
+					$this->db->update('Inventory_Detail', $update_inventory);
+					
+				}
+				
+				if($arr[3] == 'QTY_Waste'){
+					
+					$update_inventory = array(
+						'QTY_ReserveWaste'=>$inventory['QTY_ReserveWaste'] - $diff,
+						'QTY_RemainWaste'=>$inventory['QTY_RemainWaste'] + $diff,
+					);
+					
+					$this->db->where('RecNo', $inventory['RecNo']);
+					$this->db->update('Inventory_Detail', $update_inventory);
+				}
+				
+				if($arr[3] == 'QTY_Damage'){
+					
+					$update_inventory = array(
+						'QTY_ReserveDamage'=>$inventory['QTY_ReserveDamage'] - $diff,
+						'QTY_RemainDamage'=>$inventory['QTY_RemainDamage'] + $diff,
+					);
+					
+					$this->db->where('RecNo', $inventory['RecNo']);
+					$this->db->update('Inventory_Detail', $update_inventory);
+				}
+				
+				//update status to wait approve
+				
+				$update_status = array(
+					'IsApproved'=>0,
+					'IsReject'=>0
+				);
+				
+				
+			}
+		}//end foreach
+		
+		echo 'true';
+
+	}
 	
-	public function approve()
+	public function approve($rsid="")
 	{
 		$content['title'] = 'อนุมัติการจองสินค้า';
+		
+		//$content['transaction'] = $this->db->get_where('Inventory_Transaction',array('TK_Code'=>'RS','TK_ID'=>$rsid))->row_array();
+		$this->db->select('*, Inventory_Transaction.RowCreatedDate as created_date');
+		$this->db->from('Inventory_Transaction');
+		$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID');
+		$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson');
+		$this->db->where(array('TK_Code'=>'RS','TK_ID'=>$rsid));
+		
+		$content['transaction'] = $this->db->get()->row_array();
+		
+	
+		$this->db->select('*');
+		$this->db->from('Inventory_Transaction_Detail');
+		$this->db->join('Products', 'Products.Product_ID = Inventory_Transaction_Detail.Product_ID','left');
+		$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Transaction_Detail.Effect_Stock_AutoID', 'left');
+		$this->db->where(array('Transact_AutoID'=>$content['transaction']['Transact_AutoID']));
+		
+		$content['transaction_detail'] = $this->db->get()->result_array();
+		
+		
+		$content['customer'] = $this->db->get_where('Customers',array('Cust_ID'=>$content['transaction']['Cust_ID']))->row_array();
+		
 		$data['content'] = $this->load->view('reserve/approve',$content, TRUE);
 		
 		$css = array(
 			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
 			'select2/select2-bootstrap-core.css',
-			'select2-bootstrap-css-master/select2-bootstrap.css'
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			//'bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css'
 			);
 		$js = array(
 			'js/moment/min/moment.min.js',
 			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
 			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
 			'select2/select2.min.js',
+			//'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js',
 			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'js/app/reserve/reserve_approve.js'
+			'js/app/reserve/approve.js'
 			);
 		$data['css'] = $this->assets->get_css($css);
 		$data['js'] = $this->assets->get_js($js);
 		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		
 		$this->load->view('template/main',$data);
+	}
+
+	public function set_reject()
+	{
+		parse_str($_POST['reject'], $reject);
+		
+		//print_r($this->session->all_userdata());
+		
+		if($reject['is_rejected'] == 0)
+		{
+			$approved = 1;
+			$reject['Reject_Remark'] = '';
+		}else{
+			$approved = 0;
+			
+		}
+		
+		$data = array(
+			'IsReject'=>$reject['is_rejected'],
+			'IsApproved'=>$approved,
+			'Reject_Remark'=>$reject['Reject_Remark'],
+			'RejectBy'=>$this->session->userdata('Emp_ID'),
+			'RejectDate'=>date("Y/m/d h:i:s")
+		);
+		
+		$where = array(
+			'TK_Code'=>'RS',
+			'TK_ID'=>$reject['rsid']
+		);
+		
+		$this->db->where($where);
+		$query = $this->db->update('Inventory_Transaction', $data);
+		
+		if($query){
+			echo 'true';
+		}else{
+			echo 'false';
+		}
+		
+		
 	}
 
 	public function editable()
@@ -738,13 +1082,13 @@ class Reserve extends CI_Controller {
 		
 	}
 
-	public function get_notification()
+	private function get_notification()
 	{
 		$notification = array(
-			'all' => $this->db->get_where('Inventory_Transaction', array('TK_Code'=>'RS'))->num_rows(),
-			'wait' => $this->db->get_where('Inventory_Transaction', array('IsApproved'=>0))->num_rows(),
-			'approved' => $this->db->get_where('Inventory_Transaction', array('IsApproved'=>1))->num_rows(),
-			'rejected' => $this->db->get_where('Inventory_Transaction', array('IsReject'=>1))->num_rows()
+			'all' => $this->db->get_where('Inventory_Transaction', array('TK_Code'=>'RS', 'IsDraft='=>0, 'RowStatus'=>'active','IsDel'=>0))->num_rows(),
+			'wait' => $this->db->get_where('Inventory_Transaction', array('IsApproved'=>0, 'IsDraft='=>0, 'IsReject='=>0, 'RowStatus'=>'active','IsDel'=>0))->num_rows(),
+			'approved' => $this->db->get_where('Inventory_Transaction', array('IsApproved'=>1, 'IsDraft='=>0, 'IsReject'=>0, 'RowStatus'=>'active','IsDel'=>0))->num_rows(),
+			'rejected' => $this->db->get_where('Inventory_Transaction', array('IsReject'=>1, 'IsDraft='=>0, 'IsApproved'=>0, 'RowStatus'=>'active','IsDel'=>0))->num_rows()
 		);
 		return $notification;
 	}
@@ -880,6 +1224,8 @@ class Reserve extends CI_Controller {
 		 * QTY_Waste
 		 * QTY_Damage
 		 */
+		 
+		 
 		 $this->db->where('Product_ID', $detail['Product_ID']);
 		 $this->db->where('Stock_AutoID', $detail['Effect_Stock_AutoID']);
 		 $this->db->where('QTY_RemainGood>=', $detail['QTY_Good']);
