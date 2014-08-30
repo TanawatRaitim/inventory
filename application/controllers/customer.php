@@ -106,7 +106,43 @@ class Customer extends CI_Controller {
 		$this->load->view('template/main',$this->data);
 	}
 	
+	
+	public function select2_customer()
+	{
+		$text = $this->input->post('q');
+		$this->db->select('Cust_AutoID, Cust_ID, Cust_Name, Cust_Contact');
+		$this->db->like('Cust_ID', $text);
+		$this->db->or_like('Cust_Name', $text);
+		$this->db->or_like('Cust_Contact', $text);
+		$query = $this->db->get('Customers');
+		
+		if($query->num_rows()>0)
+		{
+			$arr = $query->result_array();
+			foreach ($arr as $val) {
+			$list[] = array(
+				'id'=>$val['Cust_ID'],
+				'text'=>$val['Cust_Name'].'#'.$val['Cust_Contact']
+				);
+			}	
+		}else{
+			$list[] = array(
+				'id'=>'',
+				'text'=>''
+			);	
+		}
+		
+		echo json_encode($list);
+		
+	}
+	
+	public function get_customer()
+	{
+		$id = $this->input->post('id');
+		$query = $this->db->get_where('Customers', array('Cust_ID'=>$id));
 
+		echo json_encode($query->row_array());
+	}
 	
 	
 

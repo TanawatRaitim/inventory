@@ -29,6 +29,7 @@ $config['salesheet_path'] = $config['base_url'].'assets/uploads/doc/product/sale
 $config['specsheet_path'] = $config['base_url'].'assets/uploads/doc/product/specsheet/';
 $config['docother_path'] = $config['base_url'].'assets/uploads/doc/product/other/';
 $config['productimg_path'] = $config['base_url'].'assets/uploads/img/products/';
+$config['premiumimg_path'] = $config['base_url'].'assets/uploads/img/premium/';
 
 //$config['base_history_image'] = $config['base_url'].'assets/images/history/';
 //$config['base_history_thumbs'] = $config['base_url'].'assets/images/history/thumbs/';
@@ -84,6 +85,7 @@ $config['css'] = 'css/style.css';
  */
  
  $config['theme'] = 'slate';
+ // $config['theme'] = 'bs3_2';
 
 
 

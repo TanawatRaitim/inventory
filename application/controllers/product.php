@@ -153,6 +153,46 @@ class Product extends CI_Controller {
 		
 	}
 
+	public function select2_product()
+	{
+		$text = $this->input->post('q');
+		$this->db->select('Product_AutoID, Product_ID, Product_Name, Product_Vol');
+		$this->db->like('Product_ID', $text);
+		$this->db->or_like('Product_Name', $text);
+		$this->db->or_like('Product_Vol', $text);
+		$query = $this->db->get('Products');
+		
+		if($query->num_rows()>0)
+		{
+			$arr = $query->result_array();
+			foreach ($arr as $val) {
+			$list[] = array(
+				'id'=>$val['Product_ID'],
+				'text'=>$val['Product_Name'].'#'.$val['Product_Vol']
+				);
+			}	
+		}else{
+			$list[] = array(
+				'id'=>'',
+				'text'=>''
+			);	
+		}
+		
+		echo json_encode($list);
+		
+	}
+	
+	
+	public function get_product_json()
+	{
+		
+		$id = $this->input->post('id');
+		$query = $this->db->get_where('Products',array('Product_ID'=>$id));
+		$result = $query->row_array();
+		
+		echo json_encode($result);
+	}
+
 	
 	
 

@@ -8,7 +8,7 @@
 		
 		
 		
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<img width="150" id="p_img" src="<?php echo $product['Product_Photo'] ;?>" class="img-rounded" />
 			
 			<br />
@@ -28,7 +28,7 @@
 			
 			
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-8">
 			<table class="table table-condensed">
 				<thead>
 					<tr>
@@ -36,6 +36,9 @@
 					</tr>
 				</thead>	
 				<tbody>
+					<tr>
+						<td colspan="2" class="primary"><?php echo $product['Product_Name'];?> # <?php echo $product['Product_Vol'];?> (<?php echo $product['Product_ID'];?>)</td>
+					</tr>
 					<tr>
 						<td style="padding-top: 15px;">สินค้าสภาพดี</td>
 						<td style="font-size: 30px;" class="text-left"><?php echo $total['good'];?></td>

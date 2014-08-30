@@ -228,7 +228,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-12">
+				<div class="col-md-12" id="table_premium">
+				<!--
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">สินค้าประกอบ</h3>
@@ -271,6 +272,7 @@
 							</div>
 						</div>
 					</div>
+					!-->
 				</div>
 			</div>
 

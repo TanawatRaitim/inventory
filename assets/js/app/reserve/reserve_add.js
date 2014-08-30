@@ -49,6 +49,7 @@ $(function() {
 			dataType: 'json',
 			success: function(data){
 				$("#table_qty").load('table_qty/'+data.Product_ID);
+				$("#table_premium").load('table_premium/'+data.Product_ID);
 				$("#Effect_Stock_AutoID").val(data.Main_Inventory);
 				
 			},
@@ -200,7 +201,6 @@ $(function() {
 							
 							$("#record_saved > tbody").append(row_data);
 							
-							//alert("บันทึกรายการสินค้า"+product_name+"เรียบร้อยแล้ว");
 							$("#ticket_detail_msg").noty({
 								text: "บันทึกรายการสินค้า"+product_name+" เรียบร้อยแล้ว",
 								type: 'success',
@@ -228,9 +228,6 @@ $(function() {
 							}
 						});
 				}else{
-					
-					
-					
 					$("#ticket_detail_msg").noty({
 						text: data.valid,
 						type: 'error',
@@ -239,8 +236,6 @@ $(function() {
 						timeout: 4000
 					});
 				}
-				
-
 			},
 			beforeSend: function(){
 			},
@@ -271,19 +266,13 @@ $(function() {
 	$("body").on('click',"#btn_delete_record",function(e){
 		
 		//alert('big');
-		console.log($(this));
+		//console.log($(this));
 		var element = $(this);
 		var product = $(this).data('productid');
-		//var result = confirm("ต้องการลบรายการ "+ product +"");
 		var autoid = element.data('autoid');
-		
-		//.var element_del = element.data();
-		//var element_autoid = $
-		//alert(element.data('autoid'));
-		// $("#row_confirm").remove();
+
 		$("#delete_confirm").data('autoid',autoid).parents('tr').remove();
 		$(element).data('autoid',autoid).parents('tr').after("<tr id='row_confirm'><td colspan='8' id='delete_confirm'><td></tr>");
-		//$.noty.closeAll();
 		$("#delete_confirm").noty({
 			text: "ต้องการลบรายการ"+product,
 			type: 'confirm',
@@ -324,13 +313,7 @@ $(function() {
 								}
 							});
 							
-							// element.parents("tr").remove();
-							
-							
-							
-							
-							// 
-							
+
 						},
 						beforeSend: function(){
 						},
@@ -349,8 +332,7 @@ $(function() {
 						timeout: 4000,
 						callback:{
 							onShow: function(){
-								//alert('remove now');
-								//element.parents("tr").remove();
+
 								
 							},afterClose: function(){
 											
@@ -359,22 +341,14 @@ $(function() {
 						}
 					});
 					
-					//$("#delete_confirm").data('autoid',autoid).parents('tr').remove();
-					//$(this).remove();
 					}
 				}
 			]
 		});
 		
-		/*
-		if(result == false){
-			return false;
-		}
-		*/
-		
 	});
 	
-	//validate save rs
+
 	$("form#main_ticket").validate({
 		errorPlacement: function(error, element){
 			
@@ -394,7 +368,6 @@ $(function() {
 		
 			if(tkid == "")
 			{
-				//alert('ไม่่สามารถบันทึกข้อมูลได้ เนื่อง่จากยังไม่มีรายละเอียดการจอง');
 				$("#message").noty({
 					text: "ไม่่สามารถบันทึกข้อมูลได้ เนื่อง่จากยังไม่มีรายละเอียดการจอง",
 					type: 'error',
@@ -449,12 +422,9 @@ $(function() {
 												
 												alert('บันทึกข้อมูลเรียบร้อยแล้ว');
 												window.location.href = 'add';
-												
-												
 											}
 										});
 								}else{
-									// alert('valid');
 									$("#message").noty({
 										text: data.valid,
 										type: 'error',
@@ -514,7 +484,6 @@ $(function() {
 		
 		if(tkid=="")
 		{
-			//alert('ไม่มีข้อมูลที่จะบันทึกแบบร่างได้');
 			$("#message").noty({
 				text: "ไม่มีข้อมูลที่จะบันทึกแบบร่างได้",
 				type: 'error',
@@ -542,10 +511,8 @@ $(function() {
 						url: 'save_draft/'+ tkid,
 						dataType: 'html',
 						success: function(data){
-							//alert('success');
 							
-							
-						},
+							},
 						beforeSend: function(){
 							$("#message").noty({
 								text: "บันทึกแบบร่างเรียบร้อยแล้ว",
@@ -584,7 +551,6 @@ $(function() {
 		
 		if(tkid == '')
 		{
-			//alert("ไม่มีรายการที่สามารถยกเลิกได้");
 			$("#message").noty({
 				text: "ไม่มีรายการที่สามารถยกเลิกได้",
 				type: 'error',
@@ -641,6 +607,8 @@ $(function() {
 			
 		});
 	});
+	
+	
 		
 }); //document.ready
 	

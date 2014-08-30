@@ -424,9 +424,6 @@ class Reserve extends CI_Controller {
 	
 	public function delete_ticket_detail()
 	{
-		//print_r($this->input->post());
-		
-		
 		$autoid = $this->input->post('autoid');
 		$product_id = $this->input->post('product_id');
 		$stock = $this->input->post('stock');
@@ -436,6 +433,8 @@ class Reserve extends CI_Controller {
 		echo 'deleted';
 	}
 	
+	
+	//product->select2_product
 	public function product_list()
 	{
 		$text = $this->input->post('q');
@@ -465,28 +464,20 @@ class Reserve extends CI_Controller {
 		
 	}
 	
+	//product->get_product_json
 	public function get_product()
 	{
 		
 		$id = $this->input->post('id');
 		$query = $this->db->get_where('Products',array('Product_ID'=>$id));
 		$result = $query->row_array();
-		/*
-		$arr = array(
-			'a'=>'a',
-			'b'=>'b',
-			'c'=>'c',
-			'd'=>'d'
-		);
 		
-		$result['test'] = $arr;
-		 * */
 		echo json_encode($result);
 	}
 	
+	//customer->select2_customer
 	public function customer_list()
 	{
-		 
 		$text = $this->input->post('q');
 		$this->db->select('Cust_AutoID, Cust_ID, Cust_Name, Cust_Contact');
 		$this->db->like('Cust_ID', $text);
@@ -514,6 +505,7 @@ class Reserve extends CI_Controller {
 		
 	}
 	
+	//customer->get_customer_json
 	public function get_customer()
 	{
 		$id = $this->input->post('id');
@@ -551,41 +543,13 @@ class Reserve extends CI_Controller {
 		
 	}
 	
-	public function get_product2()
-	{
-		
-		$local = $this->load->database('local', TRUE);		
-		$local->select('id_prod, prod_id, prod_name');
-		$query = $local->get('product_test');
-		$local->close();
-		$list = '';
-		
-		foreach($query->result_array() as $row){
-			$list .= "<option value='".$row['id_prod']."'>".$row['prod_id']."-".$row['prod_name']."</option>";
-		}
-		
-		return $list;
-	}
-	
 	public function get_rs_all()
 	{
-		$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as reserve_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
-		$this->db->from('Inventory_Transaction');
-		$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
-		$this->db->join('Ticket_Type','Ticket_Type.TK_TypeAutoID = Inventory_Transaction.Transaction_For','left');
-		$this->db->where('IsDraft', 0);
-		//$this->db->where('IsApproved', 0);
-		//$this->db->or_where('IsApproved', 1);
-		$this->db->order_by('Inventory_Transaction.RowCreatedDate','desc');
 		
-		$query = $this->db->get();
-		$result = $query->result_array();
-		$sql = "select Inventory_Transaction_Detail.Transact_AutoID, COUNT(Inventory_Transaction_Detail.Transact_AutoID)as count_a
-				from Inventory_Transaction_Detail
-				group by Transact_AutoID	
-				";
-		$query2 = $this->db->query($sql);
-		$result2 = $query2->result_array();
+		$result = $this->reserve_model->get_rs_all();
+		
+		$result2 = $this->count_transaction_detail();
+		
 		$count = array();
 		
 		foreach ($result2 as $key => $value) {
@@ -611,26 +575,11 @@ class Reserve extends CI_Controller {
 	
 	public function get_no_appv_all()
 	{
-		$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as reserve_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
-		$this->db->from('Inventory_Transaction');
-		$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
-		$this->db->join('Ticket_Type','Ticket_Type.TK_TypeAutoID = Inventory_Transaction.Transaction_For','left');
-		$this->db->where('IsDraft', 0);
-		$this->db->where('IsApproved', 0);
-		$this->db->where('IsReject', 0);
-		$this->db->where('Inventory_Transaction.RowStatus','active');
-		$this->db->where('Inventory_Transaction.IsDel',0);
-		//$this->db->or_where('IsApproved', 1);
-		$this->db->order_by('Inventory_Transaction.RowCreatedDate','desc');
 		
-		$query = $this->db->get();
-		$result = $query->result_array();
-		$sql = "select Inventory_Transaction_Detail.Transact_AutoID, COUNT(Inventory_Transaction_Detail.Transact_AutoID)as count_a
-				from Inventory_Transaction_Detail
-				group by Transact_AutoID	
-				";
-		$query2 = $this->db->query($sql);
-		$result2 = $query2->result_array();
+		$result = $this->reserve_model->get_no_appv_all();
+		
+		$result2 = $this->count_transaction_detail();
+		
 		$count = array();
 		
 		foreach ($result2 as $key => $value) {
@@ -656,26 +605,10 @@ class Reserve extends CI_Controller {
 	
 	public function get_yes_appv_all()
 	{
-		$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as reserve_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
-		$this->db->from('Inventory_Transaction');
-		$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
-		$this->db->join('Ticket_Type','Ticket_Type.TK_TypeAutoID = Inventory_Transaction.Transaction_For','left');
-		$this->db->where('IsDraft', 0);
-		$this->db->where('IsApproved', 1);
-		$this->db->where('IsReject', 0);
-		$this->db->where('Inventory_Transaction.RowStatus','active');
-		$this->db->where('Inventory_Transaction.IsDel',0);
-		//$this->db->or_where('IsApproved', 1);
-		$this->db->order_by('Inventory_Transaction.RowCreatedDate','desc');
+		$result = $this->reserve_model->get_yes_appv_all();
 		
-		$query = $this->db->get();
-		$result = $query->result_array();
-		$sql = "select Inventory_Transaction_Detail.Transact_AutoID, COUNT(Inventory_Transaction_Detail.Transact_AutoID)as count_a
-				from Inventory_Transaction_Detail
-				group by Transact_AutoID	
-				";
-		$query2 = $this->db->query($sql);
-		$result2 = $query2->result_array();
+		$result2 = $this->count_transaction_detail();
+		
 		$count = array();
 		
 		foreach ($result2 as $key => $value) {
@@ -701,27 +634,9 @@ class Reserve extends CI_Controller {
 	
 	public function get_reject_all()
 	{
-		$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as reserve_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
-		$this->db->from('Inventory_Transaction');
-		$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
-		$this->db->join('Ticket_Type','Ticket_Type.TK_TypeAutoID = Inventory_Transaction.Transaction_For','left');
-		$this->db->where('IsDraft', 0);
-		$this->db->where('IsReject', 1);
-		$this->db->where('IsApproved', 0);
-		$this->db->where('Inventory_Transaction.RowStatus','active');
-		$this->db->where('Inventory_Transaction.IsDel',0);
+		$result = $this->reserve_model->get_reject_all();
+		$result2 = $this->reserve_model->count_transaction_detail();
 		
-		//$this->db->or_where('IsApproved', 1);
-		$this->db->order_by('Inventory_Transaction.RowCreatedDate','desc');
-		
-		$query = $this->db->get();
-		$result = $query->result_array();
-		$sql = "select Inventory_Transaction_Detail.Transact_AutoID, COUNT(Inventory_Transaction_Detail.Transact_AutoID)as count_a
-				from Inventory_Transaction_Detail
-				group by Transact_AutoID	
-				";
-		$query2 = $this->db->query($sql);
-		$result2 = $query2->result_array();
 		$count = array();
 		
 		foreach ($result2 as $key => $value) {
@@ -769,24 +684,12 @@ class Reserve extends CI_Controller {
 	
 	public function detail($rsid="")
 	{
+		$this->load->model('customer_model');
+		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
-		$this->db->select('*, Inventory_Transaction.RowCreatedDate as created_date');
-		$this->db->from('Inventory_Transaction');
-		$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID');
-		$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson');
-		$this->db->where(array('TK_Code'=>'RS','TK_ID'=>$rsid));
-		
-		$content['transaction'] = $this->db->get()->row_array();
-		
-		$this->db->select('*');
-		$this->db->from('Inventory_Transaction_Detail');
-		$this->db->join('Products', 'Products.Product_ID = Inventory_Transaction_Detail.Product_ID','left');
-		$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Transaction_Detail.Effect_Stock_AutoID', 'left');
-		$this->db->where(array('Transact_AutoID'=>$content['transaction']['Transact_AutoID']));
-		
-		$content['transaction_detail'] = $this->db->get()->result_array();
-		
-		$content['customer'] = $this->db->get_where('Customers',array('Cust_ID'=>$content['transaction']['Cust_ID']))->row_array();
+		$content['transaction'] = $this->reserve_model->get_inventory_transaction($rsid);
+		$content['transaction_detail'] = $this->reserve_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
+		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		
 		$data['content'] = $this->load->view('reserve/detail',$content, TRUE);
 		
@@ -816,48 +719,79 @@ class Reserve extends CI_Controller {
 
 	public function edit_detail()
 	{
-		//update qty transaction
-		//update qty, qtyremain Inventory_detail
-		
-		
-		parse_str($_POST['detail_data'], $data);
-
-
+		$this->load->model('inventory_model');
+		$this->load->helper('arr_helper');	
 		/**
 		 * $arr[0] = Transact_AutoID
 		 * $arr[1] = Product_ID
 		 * $arr[2] = Effect_Stock_AutoID
 		 * $arr[3] = Field to update
 		 * $arr[4] = qty before update
-		 * 
-		 */		
-		foreach ($data as $key => $value) {
-
+		 * $arr[5] = index
+		 */
+		parse_str($_POST['detail_data'], $data);
+		
+		$deleted = array();
+		
+		foreach($data as $key=>$value){
 			$arr = explode(',', $key);
+			if($arr[3]=="delete"){
+				
+				//get data before delete for update stock
+				$transaction_detail = $this->reserve_model->get_each_detail($arr[0],$arr[1],$arr[2]);
+				
+				//delete transaction detail
+				$this->reserve_model->delete_each_detail($arr[0],$arr[1],$arr[2]);
+				
+				//get inventory detail
+				$inventory = $this->db->get_where('Inventory_Detail', $where)->row_array();
+				
+				$inventory = $this->inventory_model->get_product_stock($arr[1], $arr[2]);
+				
+				//update qty
+				$update = array(
+					'QTY_ReserveGood'=> $inventory['QTY_ReserveGood']-$transaction_detail['QTY_Good'],
+					'QTY_RemainGood'=>$inventory['QTY_RemainGood']+$transaction_detail['QTY_Good'],
+					'QTY_ReserveWaste'=>$inventory['QTY_ReserveWaste']-$transaction_detail['QTY_Waste'],
+					'QTY_RemainWaste'=>$inventory['QTY_RemainWaste']+$transaction_detail['QTY_Waste'],
+					'QTY_ReserveDamage'=>$inventory['QTY_ReserveDamage']-$transaction_detail['QTY_Damage'],
+					'QTY_RemainDamage'=>$inventory['QTY_RemainDamage']+$transaction_detail['QTY_Damage']
+				);
+				
+				$this->inventory_model->update_stock_qty($arr[1], $arr[2], $update);
+				
+				//keep index of delete
+				$deleted[$arr[5]] = $arr[5];
+			}
+		}
+	
+		//check delete		
+		foreach ($data as $key => $value) {
+			
+			$arr = explode(',', $key);
+			
+			if(check_key($deleted, $arr[5]))
+			{
+				continue;
+			}
 			
 			$diff = $arr[4] - $value;
 			
 			if($diff>0){
 				
 				//get Inventory Detail
-				$where = array(
-					'Product_ID'=>$arr[1],
-					'Stock_AutoID'=>$arr[2]
-				);
-				
-				$inventory = $this->db->get_where('Inventory_Detail', $where)->row_array();
+				$inventory = $this->inventory_model->get_product_stock($arr[1], $arr[2]);
 				
 				//update
-				$update = array($arr[3]=>$value);	//data and field to update
-			
+				$update = array($arr[3]=>$value);	//data and field to update			
 				$where = array(
 					'Transact_AutoID'=>$arr[0],
 					'Product_ID'=>$arr[1],
 					'Effect_Stock_AutoID'=>$arr[2]
 				);
 				
-				$this->db->where($where);
-				$this->db->update('Inventory_Transaction_Detail', $update);
+				$this->reserve_model->update_detail($update, $where);
+
 				
 				if($arr[3] == 'QTY_Good'){
 					
@@ -866,8 +800,7 @@ class Reserve extends CI_Controller {
 						'QTY_RemainGood'=>$inventory['QTY_RemainGood'] + $diff,
 					);
 					
-					$this->db->where('RecNo', $inventory['RecNo']);
-					$this->db->update('Inventory_Detail', $update_inventory);
+					$this->inventory_model->update_qty($inventory['RecNo'], $update_inventory);
 					
 				}
 				
@@ -878,8 +811,8 @@ class Reserve extends CI_Controller {
 						'QTY_RemainWaste'=>$inventory['QTY_RemainWaste'] + $diff,
 					);
 					
-					$this->db->where('RecNo', $inventory['RecNo']);
-					$this->db->update('Inventory_Detail', $update_inventory);
+					$this->inventory_model->update_qty($inventory['RecNo'], $update_inventory);
+
 				}
 				
 				if($arr[3] == 'QTY_Damage'){
@@ -889,18 +822,12 @@ class Reserve extends CI_Controller {
 						'QTY_RemainDamage'=>$inventory['QTY_RemainDamage'] + $diff,
 					);
 					
-					$this->db->where('RecNo', $inventory['RecNo']);
-					$this->db->update('Inventory_Detail', $update_inventory);
+					$this->inventory_model->update_qty($inventory['RecNo'], $update_inventory);
 				}
 				
 				//update status to wait approve
-				
-				$update_status = array(
-					'IsApproved'=>0,
-					'IsReject'=>0
-				);
-				
-				
+				$this->reserve_model->set_status_wait($arr[0]);
+								
 			}
 		}//end foreach
 		
@@ -910,28 +837,11 @@ class Reserve extends CI_Controller {
 	
 	public function approve($rsid="")
 	{
+		$this->load->model('customer_model');
 		$content['title'] = 'อนุมัติการจองสินค้า';
-		
-		//$content['transaction'] = $this->db->get_where('Inventory_Transaction',array('TK_Code'=>'RS','TK_ID'=>$rsid))->row_array();
-		$this->db->select('*, Inventory_Transaction.RowCreatedDate as created_date');
-		$this->db->from('Inventory_Transaction');
-		$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID');
-		$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson');
-		$this->db->where(array('TK_Code'=>'RS','TK_ID'=>$rsid));
-		
-		$content['transaction'] = $this->db->get()->row_array();
-		
-	
-		$this->db->select('*');
-		$this->db->from('Inventory_Transaction_Detail');
-		$this->db->join('Products', 'Products.Product_ID = Inventory_Transaction_Detail.Product_ID','left');
-		$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Transaction_Detail.Effect_Stock_AutoID', 'left');
-		$this->db->where(array('Transact_AutoID'=>$content['transaction']['Transact_AutoID']));
-		
-		$content['transaction_detail'] = $this->db->get()->result_array();
-		
-		
-		$content['customer'] = $this->db->get_where('Customers',array('Cust_ID'=>$content['transaction']['Cust_ID']))->row_array();
+		$content['transaction'] = $this->reserve_model->get_inventory_transaction($rsid);
+		$content['transaction_detail'] = $this->reserve_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
+		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		
 		$data['content'] = $this->load->view('reserve/approve',$content, TRUE);
 		
@@ -956,60 +866,28 @@ class Reserve extends CI_Controller {
 		
 		$this->load->view('template/main',$data);
 	}
-
+	
 	public function set_reject()
 	{
 		parse_str($_POST['reject'], $reject);
 		
-		//print_r($this->session->all_userdata());
+		$result = $this->reserve_model->set_reject_approve($reject);
 		
-		if($reject['is_rejected'] == 0)
-		{
-			$approved = 1;
-			$reject['Reject_Remark'] = '';
-		}else{
-			$approved = 0;
-			
-		}
-		
-		$data = array(
-			'IsReject'=>$reject['is_rejected'],
-			'IsApproved'=>$approved,
-			'Reject_Remark'=>$reject['Reject_Remark'],
-			'RejectBy'=>$this->session->userdata('Emp_ID'),
-			'RejectDate'=>date("Y/m/d h:i:s")
-		);
-		
-		$where = array(
-			'TK_Code'=>'RS',
-			'TK_ID'=>$reject['rsid']
-		);
-		
-		$this->db->where($where);
-		$query = $this->db->update('Inventory_Transaction', $data);
-		
-		if($query){
+		if($result){
 			echo 'true';
 		}else{
 			echo 'false';
 		}
-		
-		
 	}
+	
+	
 
-	public function editable()
-	{
-		// print_r($_POST);
-	}
-	
-	public function insert()
-	{
-		
-	}
-	
 	public function table_qty($product_id)
 	{
-		$query = $this->db->get_where('Products', array("Product_ID"=>$product_id), 1);
+		$this->load->model('product_model');
+		$this->load->model('inventory_model');
+
+		$query = $this->product_model->get($product_id);
 		
 		if($query->num_rows() == 0)
 		{
@@ -1040,11 +918,8 @@ class Reserve extends CI_Controller {
 		}
 		
 		$data['product'] = $result;
-		$this->db->select('*');
-		$this->db->from('Inventory_Detail');
-		$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Detail.Stock_AutoID');
-		$this->db->where('Inventory_Detail.Product_ID', $product_id);
-		$query = $this->db->get();
+		
+		$query = $this->inventory_model->get_all_product_stock($product_id);
 		$data['inventory'] = $query->result_array();
 		
 		$total = array(
@@ -1075,11 +950,23 @@ class Reserve extends CI_Controller {
 		$this->load->view('product/table_qty', $data);
 		
 	}
-	
-	public function test_function()
-	{
 
+	public function table_premium($product_id)
+	{
+		$this->load->model('product_model');
 		
+		$query = $this->product_model->get_all_product_premium($product_id);
+		
+		if($query->num_rows() == 0)
+		{
+			echo 'ไม่มีสินค้าประกอบ';
+			exit;
+		}
+
+		$result = $query->result_array();
+		$data['premium'] = $result;
+		
+		$this->load->view('product/table_premium', $data);
 	}
 
 	private function get_notification()
@@ -1092,6 +979,8 @@ class Reserve extends CI_Controller {
 		);
 		return $notification;
 	}
+	
+	//here
 	
 	public function save_draft($tkid)
 	{
