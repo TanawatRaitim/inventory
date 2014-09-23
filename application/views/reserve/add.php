@@ -77,7 +77,7 @@
 							<div class="form-group">
 								<label for="DocRef_Date" class="col-sm-5 control-label">วันที่เอกสารอ้างอิง <span class="text-danger">*</span></label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="DocRef_Date" name="DocRef_Date" placeholder="วันที่ของเอกสารอ้างอิง">
+									<input type="text" class="form-control input-sm" id="DocRef_Date" name="DocRef_Date"  data-date-format="DD/MM/YYYY" placeholder="วันที่ของเอกสารอ้างอิง">
 									<!-- http://eonasdan.github.io/bootstrap-datetimepicker/ -->
 								</div>
 							</div>
@@ -96,7 +96,7 @@
 							<div class="form-group">
 								<label for="Transport_Date" class="col-sm-5 control-label">วันที่ส่งของ</label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="Transport_Date" name="Transport_Date" placeholder="วันที่ส่งของ">
+									<input type="text" class="form-control input-sm" id="Transport_Date"  data-date-format="DD/MM/YYYY" name="Transport_Date" placeholder="วันที่ส่งของ">
 								</div>
 							</div>
 						</div>

@@ -1,44 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-if ( ! function_exists('career_dropdown'))
-{
-		
-		function career_dropdown($selected = "")
-		{
-			$ci =& get_instance();
-			$ci->db->where('is_delete','no');
-			$ci->db->where('status','active');
-			$ci->db->order_by('sort_order');
-			$query = $ci->db->get('careers');
-			$dropdown = "";
-			$dropdown .= "<option value='0'>-อาชีพ-</option>";
-			
-			if($selected != "")
-			{
-				foreach($query->result_array() as $row){
-					
-					if($selected == $row['id'])
-					{
-						$dropdown .= '<option value="'.$row['id'].'" selected="selected">'.$row['name'].'</option>';
-						continue;
-					}
-					
-					$dropdown .= '<option value="'.$row['id'].'">'.$row['name'].'</option>';
-				}
-			}
-			else
-			{
-				foreach($query->result_array() as $row){
-					$dropdown .= '<option value="'.$row['id'].'">'.$row['name'].'</option>';
-				}	
-			}
-			
-			return $dropdown;
-
-		}
-}//end if
-
 
 /*
  * change mysql date to thaidate
@@ -104,6 +66,61 @@ if ( ! function_exists('thaidate2mysql'))
 
 /**
  * 
+ * change dd/mm/yyyy to yyyy-mm-dd
+ * @param string
+ * @return mysql date
+ * 
+ */
+if ( ! function_exists('convert_date_to_mssql'))
+{
+		
+		function convert_date_to_mssql($date="")
+		{
+				
+			if($date != "" && $date != '00-00-0000')
+			{
+				$split = explode('/',$date);
+				
+				$mssql_date = $split[2]."-".$split[1]."-".$split[0];
+				
+				return $mssql_date;
+			}else{
+				return "";
+			}
+
+		}
+}//end if
+/**
+ * 
+ * change  yyyy-mm-dd to dd/mm/yyyy
+ * @param string
+ * @return mysql date
+ * 
+ */
+if ( ! function_exists('convert_mssql_date'))
+{
+		
+		function convert_mssql_date($date="")
+		{
+				
+			if($date != "" && $date != '0000-00-00')
+			{
+				$split = explode('-',$date);
+				
+				$mssql_date = $split[2]."-".$split[1]."-".$split[0];
+				
+				return $mssql_date;
+			}else{
+				return "";
+			}
+
+		}
+}//end if
+
+
+
+/**
+ * 
  * get age
  * @param mysql date
  * @return age
@@ -124,6 +141,7 @@ if ( ! function_exists('get_age'))
 			}
 		}
 }//end if
+
 
 
 

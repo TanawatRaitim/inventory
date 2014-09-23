@@ -1,16 +1,27 @@
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+				<?php foreach ($breadcrumb as $attr): ?>
+					<?php if($attr['class'] == 'active'):?>
+						<li class="<?php echo $attr['class'];?>"><?php echo $attr['name'];?></li>
+					<?php else:?>	
+						<li class="<?php echo $attr['class'];?>"><a href="<?php echo $attr['link'];?>"><?php echo $attr['name'];?></a></li>
+					<?php endif;?>	
+				<?php endforeach ?>
+			</ol>
+		</div>
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">ข้อมูล</h3>
+					<h3 class="panel-title">ข้อมูลการจองสินค้า</h3>
 				</div>
 				<div class="panel-body">
 					<form class="form-horizontal" role="form">
 						
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-3 control-label">เลขที่</label>
+								<label for="inputEmail3" class="col-sm-3 control-label">เลขที่ใบจอง</label>
 								<div class="col-sm-7">
 									<div class="input-group input-group-sm">
 								      <input type="text" class="form-control" placeholder="เลขที่ใบจอง" autofocus>
@@ -40,9 +51,15 @@
 										<td>dd-mm-yyyy</td>
 									</tr>
 									<tr>
-										<th class="info text-right">ผู้ทำรายการ</th>
+										<th class="info text-right">ผู้ทำรายการจอง</th>
 										<td>xxxxxxx</td>
-										<th class="info text-right">วันที่</th>
+										<th class="info text-right">วันที่จอง</th>
+										<td>dd-mm-yyyy</td>
+									</tr>
+									<tr>
+										<th class="info text-right">ผู้อนุมัติการจอง</th>
+										<td>xxxxxxx</td>
+										<th class="info text-right">วันที่อนุมัติ</th>
 										<td>dd-mm-yyyy</td>
 									</tr>
 								</tbody>
@@ -99,7 +116,7 @@
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">รายการสินค้า</h3>
+					<h3 class="panel-title">รายการสินค้าที่จอง</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
@@ -173,6 +190,43 @@
 								</tr>
 							</tfoot> -->
 						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">ข้อมูลใบสั่งขาย</h3>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal" role="form">
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-4 control-label">เลขที่ใบตัดจ่าย</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control input-sm" id="product_id" placeholder="เลขที่ใบสั่งขาย">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-4 control-label">วันที่บนใบตัดจ่าย</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control input-sm" id="product_id" placeholder="วันที่บนใบสั่งขาย">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-4 control-label">หมายเหตุ</label>
+								<div class="col-sm-7">
+									<!-- <input type="text" class="form-control input-sm" id="product_id" placeholder="หมายเหตุ"> -->
+									<textarea class="form-control input-sm"></textarea>
+								</div>
+							</div>
+						</div>
 						<div class="col-md-6 col-md-offset-4">
 							<button class="btn btn-primary btn-sm">
 								บันทึก
@@ -181,24 +235,6 @@
 								ยกเลิก
 							</button>
 							
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">หมายเหตุ</h3>
-				</div>
-				<div class="panel-body">
-					<form class="form-horizontal" role="form">
-						
-						
-						<div class="col-md-12">
-							<div class="form-group">
-									<p class="text-danger" style="font-size: 25px;">
-										<?php echo $transaction['Reject_Remark'];?>
-									</p>
-							</div>
 						</div>
 						<!-- 
 						<div class="col-md-12">

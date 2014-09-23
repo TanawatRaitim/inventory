@@ -12,6 +12,18 @@
 			$this->db->from('Inventory_Detail');
 			$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Detail.Stock_AutoID');
 			$this->db->where('Inventory_Detail.Product_ID', $product_id);
+			$this->db->where('Inventory.Inventory_TypeID !=', 2);
+			
+			return $this->db->get();	
+		}
+		
+		public function get_all_stock($product_id)
+		{
+			$this->db->select('*');
+			$this->db->from('Inventory_Detail');
+			$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Detail.Stock_AutoID');
+			$this->db->where('Inventory_Detail.Product_ID', $product_id);
+			// $this->db->where('Inventory.Inventory_TypeID !=', 2);
 			
 			return $this->db->get();	
 		}

@@ -1,117 +1,118 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-5">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">ข้อมูลการจองสินค้า</h3>
+					<h3 class="panel-title">ข้อมูล</h3>
 				</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form">
-						
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-3 control-label">เลขที่ใบจอง</label>
-								<div class="col-sm-7">
-									<div class="input-group input-group-sm">
-								      <input type="text" class="form-control" placeholder="เลขที่ใบจอง" autofocus>
-								      <span class="input-group-btn">
-								        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-								      </span>
-								    </div><!-- /input-group -->
-								</div>
-							</div>
-						</div>
-						
-						<div class="row"></div>
 
-						<div class="col-md-12">
-							<table class="table table-condensed table-bordered table-striped">
-								<tbody>
-									<tr>
-										<th class="info text-right">เอกสารอ้างอิง</th>
-										<td>xx-xxxxx</td>
-										<th class="info text-right">อื่นๆ</th>
-										<td>xxxxxxx</td>
-									</tr>
-									<tr>
-										<th class="info text-right">เลขที่เอกสารอ้างอิง</th>
-										<td>xx-xxxxx</td>
-										<th class="info text-right">วันที่เอกสารอ้างอิง</th>
-										<td>dd-mm-yyyy</td>
-									</tr>
-									<tr>
-										<th class="info text-right">ผู้ทำรายการจอง</th>
-										<td>xxxxxxx</td>
-										<th class="info text-right">วันที่จอง</th>
-										<td>dd-mm-yyyy</td>
-									</tr>
-									<tr>
-										<th class="info text-right">ผู้อนุมัติการจอง</th>
-										<td>xxxxxxx</td>
-										<th class="info text-right">วันที่อนุมัติ</th>
-										<td>dd-mm-yyyy</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					
-					</form>
-					
+					<div class="col-md-12">
+						<table class="table table-condensed table-bordered table-striped">
+							<tbody>
+								<tr>
+									<th class="info text-right">เลขที่ Ticket</th>
+									<td colspan="3"><?php echo $transaction['TK_Code'];?><?php echo $transaction['TK_ID'];?></td>
+								</tr>
+								<tr>
+									<th class="info text-right">สำหรับ</th>
+									<td colspan="3"><?php echo $transaction_for;?> (<?php echo $transaction['Transaction_For'];?>)</td>
+								</tr>
+								<tr>
+									<th class="info text-right">เอกสารอ้างอิง</th>
+									<td><?php echo $transaction['DocRef_Name'];?></td>
+									<th class="info text-right">อื่นๆ</th>
+									<td><?php echo $transaction['DocRef_Other'];?></td>
+								</tr>
+								<tr>
+									<th class="info text-right">เลขที่เอกสารอ้างอิง</th>
+									<td><?php echo $transaction['DocRef_No'];?></td>
+									<th class="info text-right">วันที่เอกสารอ้างอิง</th>
+									<td><?php echo $transaction['DocRef_Date'];?></td>
+								</tr>
+								<tr>
+									<th class="info text-right">ผู้ทำรายการ</th>
+									<td><?php echo $transaction['Emp_FnameTH'];?></td>
+									<th class="info text-right">วันที่</th>
+									<td><?php echo $transaction['created_date'];?></td>
+								</tr>
+								<tr>
+									<th class="info text-right">สถานะ</th>
+									<td colspan="3"><?php echo $description;?></td>
+								</tr>
+								<tr>
+									<th class="info text-right">ผู้อนุมัติ</th>
+									<td><?php echo $approve_person;?></td>
+									<th class="info text-right">อนุมัติเมื่อ</th>
+									<td><?php echo $transaction['approved_date'];?></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 
-			<!-- <div class="col-md-12"> -->
-				
-				<!-- <div class="col-md-12"> -->
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">ข้อมูลลูกค้า / อื่นๆ</h3>
 						</div>
 						<div class="panel-body">
 							<div class="col-md-12">
+	<?php if(count($customer)>0):?>							
 								<table class="table table-condensed table-striped table-bordered">
 									<tbody>
 										<tr>
 											<th class="info text-right" style="width: 100px;">รหัสลูกค้า</th>
-											<td>AC-01-0002</td>
+											<td>
+												<?php echo $customer['Cust_ID']; ?>
+											</td>
 										</tr>
 										<tr>
 											<th class="info text-right">นามลูกค้า</th>
-											<td>โชว์รูมไอเอสบุ๊ค (ซอยจรัญฯ68)</td>
+											<td><?php echo $customer['Cust_Name']; ?></td>
 										</tr>
 										<tr>
 											<th class="info text-right">ที่อยู่</th>
-											<td>184 ซ.จรัญสนิทวงศ์68 ถ.จรัญสนิทวงศ์ แชวงบางพลัด เขตบางพลัด กทม 10700</td>
+											<td><?php echo $customer['Cust_Addr']; ?></td>
 										</tr>
 										<tr>
 											<th class="info text-right">วันที่ส่งของ</th>
-											<td>dd-mm-yy</td>
+											<td><?php echo $transaction['Transport_Date']; ?></td>
 										</tr>
 										<tr>
 											<th class="info text-right">หมายหตุ</th>
-											<td></td>
+											<td><?php echo $transaction['Transact_Remark']; ?></td>
 										</tr>
 									</tbody>
 								</table>
+	<?php else: ?>							
+								<table class="table table-condensed table-striped table-bordered">
+									<tbody>
+										<tr>
+											<th>ไม่มีข้อมูลลูกค้า</th>
+
+										</tr>
+									</tbody>
+								</table>
+	
+	<?php endif; ?>
 							</div>
 						</div>
 					</div>
-				<!-- </div> -->
-			<!-- </div> -->
-
-			
-		</div>
+				</div>
 
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">รายการสินค้าที่จอง</h3>
+					<h3 class="panel-title">รายการสินค้า</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
+						<form id="form_detail" method="post" action="/inventory/in/edit_detail">	
 						<table class="table table-condensed table-border table-striped">
 							<thead>
 								<tr>
+									<th><i class="glyphicon glyphicon-remove" style="color: red;" title="ลย"></i></th>
 									<th>#</th>
 									<th>Product ID</th>
 									<th class="text-center">คลัง</th>
@@ -119,103 +120,55 @@
 									<th class="text-center">เสีย</th>
 									<th class="text-center">ชำรุด</th>
 									<th class="text-center">รวม</th>
+									
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>GMAG#15</td>
-									<td class="text-center">A</td>
-									<td class="text-center">15</td>
-									<td class="text-center">20</td>
-									<td class="text-center">0</td>
-									<td class="text-center">35</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>GMAG#16</td>
-									<td class="text-center">A</td>
-									<td class="text-center">15</td>
-									<td class="text-center">20</td>
-									<td class="text-center">0</td>
-									<td class="text-center">35</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>GMAG#17</td>
-									<td class="text-center">A</td>
-									<td class="text-center">15</td>
-									<td class="text-center">20</td>
-									<td class="text-center">0</td>
-									<td class="text-center">35</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>GMAG#18</td>
-									<td class="text-center">A</td>
-									<td class="text-center">15</td>
-									<td class="text-center">20</td>
-									<td class="text-center">0</td>
-									<td class="text-center">35</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>GMAG#19</td>
-									<td class="text-center">A</td>
-									<td class="text-center">15</td>
-									<td class="text-center">20</td>
-									<td class="text-center">0</td>
-									<td class="text-center">35</td>
-								</tr>
+						<?php $i = 1; ?>	
+												
+						<?php foreach($transaction_detail as $row):?>
+							<tr id="detail_row">
+								<td><input value="1" type="checkbox" name="<?php echo $row['Transact_AutoID']; ?>,<?php echo $row['Product_ID']; ?>,<?php echo $row['Effect_Stock_AutoID']; ?>,delete,1,<?php echo $i; ?>" /></td>
+								<td><?php echo $i; ?></td>
+								<td><?php echo $row['Product_ID']; ?></td>
+								<td><?php echo $row['Stock_Name']; ?></td>
+								<td><input type="text" id="QTY_Good" data-max="<?php echo $row['QTY_Good']; ?>" name="<?php echo $row['Transact_AutoID']; ?>,<?php echo $row['Product_ID']; ?>,<?php echo $row['Effect_Stock_AutoID']; ?>,QTY_Good,<?php echo $row['QTY_Good']; ?>,<?php echo $i; ?>" class="form-control input-sm text-center" value="<?php echo $row['QTY_Good']; ?>" /></td>
+								<td><input type="text" id="QTY_Waste" data-max="<?php echo $row['QTY_Waste']; ?>" name="<?php echo $row['Transact_AutoID']; ?>,<?php echo $row['Product_ID']; ?>,<?php echo $row['Effect_Stock_AutoID']; ?>,QTY_Waste,<?php echo $row['QTY_Waste']; ?>,<?php echo $i; ?>" class="form-control input-sm text-center" value="<?php echo $row['QTY_Waste']; ?>" /></td>
+								<td><input type="text" id="QTY_Damage" data-max="<?php echo $row['QTY_Damage']; ?>" name="<?php echo $row['Transact_AutoID']; ?>,<?php echo $row['Product_ID']; ?>,<?php echo $row['Effect_Stock_AutoID']; ?>,QTY_Damage,<?php echo $row['QTY_Damage']; ?>,<?php echo $i; ?>" class="form-control input-sm text-center" value="<?php echo $row['QTY_Damage']; ?>" /></td>
+								<td class="text-center" id="total"><?php echo $row['QTY_Good'] + $row['QTY_Waste'] + $row['QTY_Damage']; ?></td>
+								
+							</tr>
+							
+						<?php $i++; ?>	
+						<?php endforeach; ?>									
 							</tbody>
-							<!-- <tfoot>
-								<tr>
-									<td colspan="2" class="text-center">รวม</td>
-									<td></td>
-									<td class="text-center">30</td>
-									<td class="text-center">40</td>
-									<td class="text-center">0</td>
-									<td></td>
-								</tr>
-							</tfoot> -->
 						</table>
+						</form>
 						<div class="col-md-6 col-md-offset-4">
-							<button class="btn btn-primary btn-sm">
+							<button id="btn_save" class="btn btn-primary btn-sm">
 								บันทึก
 							</button>
-							<button class="btn btn-danger btn-sm" id="test_noty">
+							<button id="btn_cancel" class="btn btn-danger btn-sm">
 								ยกเลิก
 							</button>
-							
 						</div>
 					</div>
+					<div class="col-md-12" id="message" style="padding-top: 20px;"></div>
 				</div>
 			</div>
+			
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">หมายเหตุ</h3>
 				</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form">
-						
-						
-						<div class="col-md-12">
-							<div class="form-group">
-									<p class="text-danger" style="font-size: 25px;">
-										ไม่สามารถอนุมัติได้ เนื่องจากสินค้าในคลังมีไม่พอ
-									</p>
-							</div>
+					<div class="col-md-12">
+						<div class="form-group">
+								<p class="text-danger" style="font-size: 25px;">
+									<?php echo $transaction['Reject_Remark']; ?>
+								</p>
 						</div>
-						<!-- 
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 col-md-2 control-label">หมายเหตุ</label>
-								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="product_id" placeholder="หมายเหตุ">
-								</div>
-							</div>
-						</div> -->						
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>

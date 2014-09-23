@@ -18,42 +18,6 @@ class Reserve extends CI_Controller {
 	
 	public function index()
 	{
-		
-		$content['title'] = 'ข้อมูล การจอง';
-		$content['create_text'] = "เพิ่มข้อมูล";
-		$content['create_link'] = site_url('reserve/add');
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'หน้าหลัก',
-										'link'=>'/inventory',
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'การจอง',
-										'link'=>'',
-										'class'=>'active'
-									)
-								);
-		
-		$data['content'] = $this->load->view('reserve/main',$content ,TRUE);		
-		//initail template	
-		$css = array(
-				'datatable/media/css/dataTables.bootstrap.css',
-				'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
-		);
-		
-		$js = array(
-				'datatable/media/js/jquery.dataTables.min.js',
-				'datatable/media/js/dataTables.bootstrap.js',
-				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
-				'js/app/reserve/reserve.js'
-		);
-				
-		$data['css'] = $this->assets->get_css($css);
-		$data['js'] = $this->assets->get_js($js);
-		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
-		
-		$this->load->view('template/main',$data);
 	}
 
 	public function all()
@@ -303,7 +267,7 @@ class Reserve extends CI_Controller {
 									)
 								);
 		$content['doc_refer'] = doc_refer_dropdown();	
-		$content['ticket_type'] = ticket_dropdown();	
+		$content['ticket_type'] = ticket_sale_dropdown();	
 		$content['inventory_type'] = inventory_dropdown();
 		$data['content'] = $this->load->view('reserve/add',$content, TRUE);
 		
@@ -321,6 +285,7 @@ class Reserve extends CI_Controller {
 			// 'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js',
 			'js/jquery_validation/dist/jquery.validate.min.js',
 			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
 			'js/app/reserve/reserve_add.js'
 			);
 		$data['css'] = $this->assets->get_css($css);
@@ -432,7 +397,6 @@ class Reserve extends CI_Controller {
 		
 		echo 'deleted';
 	}
-	
 	
 	//product->select2_product
 	public function product_list()
@@ -548,7 +512,7 @@ class Reserve extends CI_Controller {
 		
 		$result = $this->reserve_model->get_rs_all();
 		
-		$result2 = $this->count_transaction_detail();
+		$result2 = $this->reserve_model->count_transaction_detail();
 		
 		$count = array();
 		
@@ -578,7 +542,7 @@ class Reserve extends CI_Controller {
 		
 		$result = $this->reserve_model->get_no_appv_all();
 		
-		$result2 = $this->count_transaction_detail();
+		$result2 = $this->reserve_model->count_transaction_detail();
 		
 		$count = array();
 		
@@ -607,7 +571,7 @@ class Reserve extends CI_Controller {
 	{
 		$result = $this->reserve_model->get_yes_appv_all();
 		
-		$result2 = $this->count_transaction_detail();
+		$result2 = $this->reserve_model->count_transaction_detail();
 		
 		$count = array();
 		
@@ -684,12 +648,62 @@ class Reserve extends CI_Controller {
 	
 	public function detail($rsid="")
 	{
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการจองสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url().'reserve/all',
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบจองสินค้า (ใบใหม่)',
+										'link'=>site_url().'reserve/add',
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url().'reserve/no_appv',
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url().'reserve/yes_appv',
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url().'reserve/reject',
+										'class'=>''
+									)
+								);
+		
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
 		$content['transaction'] = $this->reserve_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->reserve_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
+		$content['approve_person'] = $this->reserve_model->get_approve_person($content['transaction']['ApprovedBy']);
+		$content['transaction_for'] = $this->reserve_model->get_transaction_for($content['transaction']['Transaction_For']);
+		
+		//detail of rs
+		$content['description'] = '';
+		
+		if($content['transaction']['IsApproved']==0 && $content['transaction']['IsReject']==0)
+		{
+			//wait
+			$content['description'] = 'ใบจองนี้อยู่ในสถานะ รอการอนุมัติ';
+		}
+		elseif($content['transaction']['IsApproved']==1 && $content['transaction']['IsReject']==0)
+		{
+			//approve
+			$content['description'] = 'ใบจองนี้อนุมัติแล้ว';
+		}
+		elseif($content['transaction']['IsApproved']==0 && $content['transaction']['IsReject']==1)
+		{
+			//reject
+			$content['description'] = 'ใบจองนี้ไม่ผ่านการอนุมัติเนื่องจาก <br />-'.$content['transaction']['Reject_Remark'];
+		}
 		
 		$data['content'] = $this->load->view('reserve/detail',$content, TRUE);
 		
@@ -716,6 +730,70 @@ class Reserve extends CI_Controller {
 		
 		$this->load->view('template/main',$data);
 	}
+	
+	public function view_detail($rsid="")
+	{
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการจองสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url().'reserve/all',
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบจองสินค้า (ใบใหม่)',
+										'link'=>site_url().'reserve/add',
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url().'reserve/no_appv',
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url().'reserve/yes_appv',
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url().'reserve/reject',
+										'class'=>''
+									)
+								);
+		
+		$this->load->model('customer_model');
+		
+		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['transaction'] = $this->reserve_model->get_inventory_transaction($rsid);
+		$content['transaction_detail'] = $this->reserve_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
+		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
+		
+		$data['content'] = $this->load->view('reserve/view_detail',$content, TRUE);
+		
+		$css = array(
+			// 'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			// 'select2-bootstrap-css-master/select2-bootstrap.css',
+			//'bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css'
+			);
+		$js = array(
+			// 'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			// 'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			// 'select2/select2.min.js',
+			//'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'js/app/reserve/view_detail.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
 
 	public function edit_detail()
 	{
@@ -731,6 +809,17 @@ class Reserve extends CI_Controller {
 		 */
 		parse_str($_POST['detail_data'], $data);
 		
+		//get transact auto id
+		$temp;
+		
+		foreach ($data as $key => $value) {
+			$temp = $key;
+			break;
+		}
+		$temp_arr = explode(',', $temp);
+		$transact_auto_id = $temp_arr[0];
+		
+		
 		$deleted = array();
 		
 		foreach($data as $key=>$value){
@@ -744,7 +833,7 @@ class Reserve extends CI_Controller {
 				$this->reserve_model->delete_each_detail($arr[0],$arr[1],$arr[2]);
 				
 				//get inventory detail
-				$inventory = $this->db->get_where('Inventory_Detail', $where)->row_array();
+				//$inventory = $this->db->get_where('Inventory_Detail', $where)->row_array();
 				
 				$inventory = $this->inventory_model->get_product_stock($arr[1], $arr[2]);
 				
@@ -777,7 +866,7 @@ class Reserve extends CI_Controller {
 			
 			$diff = $arr[4] - $value;
 			
-			if($diff>0){
+			if($diff>=0){
 				
 				//get Inventory Detail
 				$inventory = $this->inventory_model->get_product_stock($arr[1], $arr[2]);
@@ -831,19 +920,161 @@ class Reserve extends CI_Controller {
 			}
 		}//end foreach
 		
+		
+		//if alld detail are deleted
+		//delete main ticket
+		$transact_rows = $this->db->get_where('Inventory_Transaction_Detail',array('Transact_AutoID'=>$transact_auto_id))->num_rows();
+		
+		if($transact_rows==0)
+		{
+			$this->db->delete('Inventory_Transaction', array('Transact_AutoID'=>$transact_auto_id));
+		}
+		
 		echo 'true';
 
 	}
 	
 	public function approve($rsid="")
 	{
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการจองสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url().'reserve/all',
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบจองสินค้า (ใบใหม่)',
+										'link'=>site_url().'reserve/add',
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url().'reserve/no_appv',
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url().'reserve/yes_appv',
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url().'reserve/reject',
+										'class'=>''
+									)
+								);
+		
 		$this->load->model('customer_model');
 		$content['title'] = 'อนุมัติการจองสินค้า';
 		$content['transaction'] = $this->reserve_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->reserve_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
+		$content['approve_person'] = $this->reserve_model->get_approve_person($content['transaction']['ApprovedBy']);
+		$content['transaction_for'] = $this->reserve_model->get_transaction_for($content['transaction']['Transaction_For']);
+		
+		//detail of rs
+		$content['description'] = '';
+		
+		if($content['transaction']['IsApproved']==0 && $content['transaction']['IsReject']==0)
+		{
+			//wait
+			$content['description'] = 'ใบจองนี้อยู่ในสถานะ รอการอนุมัติ';
+		}
+		elseif($content['transaction']['IsApproved']==1 && $content['transaction']['IsReject']==0)
+		{
+			//approve
+			$content['description'] = 'ใบจองนี้อนุมัติแล้ว';
+		}
+		elseif($content['transaction']['IsApproved']==0 && $content['transaction']['IsReject']==1)
+		{
+			//reject
+			$content['description'] = 'ใบจองนี้ไม่ผ่านการอนุมัติเนื่องจาก <br />-'.$content['transaction']['Reject_Remark'];
+		}
 		
 		$data['content'] = $this->load->view('reserve/approve',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			//'bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css'
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			//'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'js/app/reserve/approve.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+
+	public function view_approve($rsid="")
+	{
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการจองสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url().'reserve/all',
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบจองสินค้า (ใบใหม่)',
+										'link'=>site_url().'reserve/add',
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url().'reserve/no_appv',
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url().'reserve/yes_appv',
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url().'reserve/reject',
+										'class'=>''
+									)
+								);
+								
+		$this->load->model('customer_model');
+		$content['title'] = 'อนุมัติการจองสินค้า';
+		$content['transaction'] = $this->reserve_model->get_inventory_transaction($rsid);
+		$content['transaction_detail'] = $this->reserve_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
+		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
+		$content['approve_person'] = $this->reserve_model->get_approve_person($content['transaction']['ApprovedBy']);
+		$content['transaction_for'] = $this->reserve_model->get_transaction_for($content['transaction']['Transaction_For']);
+		
+		//detail of rs
+		$content['description'] = '';
+		
+		if($content['transaction']['IsApproved']==0 && $content['transaction']['IsReject']==0)
+		{
+			//wait
+			$content['description'] = 'ใบจองนี้อยู่ในสถานะ รอการอนุมัติ';
+		}
+		elseif($content['transaction']['IsApproved']==1 && $content['transaction']['IsReject']==0)
+		{
+			//approve
+			$content['description'] = 'ใบจองนี้อนุมัติแล้ว';
+		}
+		elseif($content['transaction']['IsApproved']==0 && $content['transaction']['IsReject']==1)
+		{
+			//reject
+			$content['description'] = 'ใบจองนี้ไม่ผ่านการอนุมัติเนื่องจาก <br />-'.$content['transaction']['Reject_Remark'];
+		}
+		
+		$data['content'] = $this->load->view('reserve/view_approve',$content, TRUE);
 		
 		$css = array(
 			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
@@ -880,9 +1111,7 @@ class Reserve extends CI_Controller {
 		}
 	}
 	
-	
-
-	public function table_qty($product_id)
+	public function table_qty($product_id="")
 	{
 		$this->load->model('product_model');
 		$this->load->model('inventory_model');
@@ -892,7 +1121,7 @@ class Reserve extends CI_Controller {
 		if($query->num_rows() == 0)
 		{
 			echo 'ไม่มีรายละเอียดสินค้า';
-			exit;
+			exit();
 		}
 
 		$result = $query->row_array();
@@ -951,7 +1180,7 @@ class Reserve extends CI_Controller {
 		
 	}
 
-	public function table_premium($product_id)
+	public function table_premium($product_id="")
 	{
 		$this->load->model('product_model');
 		
@@ -960,7 +1189,7 @@ class Reserve extends CI_Controller {
 		if($query->num_rows() == 0)
 		{
 			echo 'ไม่มีสินค้าประกอบ';
-			exit;
+			exit();
 		}
 
 		$result = $query->result_array();
@@ -971,28 +1200,15 @@ class Reserve extends CI_Controller {
 
 	private function get_notification()
 	{
-		$notification = array(
-			'all' => $this->db->get_where('Inventory_Transaction', array('TK_Code'=>'RS', 'IsDraft='=>0, 'RowStatus'=>'active','IsDel'=>0))->num_rows(),
-			'wait' => $this->db->get_where('Inventory_Transaction', array('IsApproved'=>0, 'IsDraft='=>0, 'IsReject='=>0, 'RowStatus'=>'active','IsDel'=>0))->num_rows(),
-			'approved' => $this->db->get_where('Inventory_Transaction', array('IsApproved'=>1, 'IsDraft='=>0, 'IsReject'=>0, 'RowStatus'=>'active','IsDel'=>0))->num_rows(),
-			'rejected' => $this->db->get_where('Inventory_Transaction', array('IsReject'=>1, 'IsDraft='=>0, 'IsApproved'=>0, 'RowStatus'=>'active','IsDel'=>0))->num_rows()
-		);
-		return $notification;
+		return $this->reserve_model->notification();
 	}
 	
 	//here
 	
 	public function save_draft($tkid)
 	{
-		$where = array(
-				"TK_Code" => "RS",
-				"TK_ID" => $tkid
-			);
-		$update = array(
-			"IsDraft"=>1	
-			);	
-		$this->db->where($where);
-		$query = $this->db->update('Inventory_Transaction', $update);	
+		
+		$query = $this->reserve_model->save_draft($tkid);	
 		
 		if($query)
 		{
@@ -1006,10 +1222,7 @@ class Reserve extends CI_Controller {
 	
 	public function cancel_all($tkid)
 	{
-		$autoid = $this->find_tid($tkid);
-		$table = array('Inventory_Transaction', 'Inventory_Transaction_Detail');
-		$this->db->where('Transact_AutoID',$autoid);
-		$delete = $this->db->delete($table);
+		$delete = $this->reserve_model->cancel_rs($tkid);
 		
 		if($delete){
 			echo 'true';

@@ -2,6 +2,7 @@ body {
   /*padding-top: 40px;*/
   padding-bottom: 40px;
   /*background-color: #eee;*/
+  /*background-color: #BFBFBF;*/
 }
 
 .text-underline{
@@ -29,7 +30,7 @@ select{
 }
 
 select.error{
-	border: 3px red solid;
+	border: 2px red solid;
 }
 
 div.error span{
@@ -90,6 +91,14 @@ input.error2{
 
 .badge-error{
 	background-color: red;
+}
+
+a.text-white{
+	color: white;
+}
+
+.icon-red{
+	color: red;
 }
 
 

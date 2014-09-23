@@ -11,321 +11,41 @@
 				<?php endforeach ?>
 			</ol>
 		</div>
-	</div>
-	<div class="row">
 		
-
+	</div> <!-- end .row -->
+	
+	<div class="row">
 		<div class="col-md-12">
-
-			<div class="table-responsive">
-				<table class="table table-condensed table-bordered table-striped">
-					<thead>
-						<tr>
-							<th class="text-center">#</th>
-							<th class="text-center">เลขที่ Ticket</th>
-							<th class="text-center">เพื่อนำไปใช้เป็น</th>
-							<th class="text-center">จำนวนรายการ</th>
-							<th class="text-center">วันที่จอง</th>
-							<th class="text-center">วันที่ส่งของ</th>
-							<th class="text-center">ผู้ทำการจอง</th>
-							<th class="text-center">สถานะ</th>
-							<th class="text-center">Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="text-center">1</td>
-							<td class="text-center">IN-57-08-001</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">ผ่านการอนุมัติ</td>
-							<td style="width:250px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">2</td>
-							<td class="text-center">IN-57-08-002</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">ผ่านการอนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">3</td>
-							<td class="text-center">IN-57-08-003</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">4</td>
-							<td class="text-center">IN-57-08-004</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">5</td>
-							<td class="text-center">IN-57-08-005</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">6</td>
-							<td class="text-center">IN-57-08-006</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">7</td>
-							<td class="text-center">IN-57-08-007</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">8</td>
-							<td class="text-center">IN-57-08-008</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">9</td>
-							<td class="text-center">IN-57-08-009</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">10</td>
-							<td class="text-center">IN-57-08-010</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">11</td>
-							<td class="text-center">IN-57-08-011</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">12</td>
-							<td class="text-center">IN-57-08-012</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">13</td>
-							<td class="text-center">IN-57-08-013</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">14</td>
-							<td class="text-center">IN-57-08-0141</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">15</td>
-							<td class="text-center">IN-57-08-015</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">16</td>
-							<td class="text-center">IN-57-08-016</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">17</td>
-							<td class="text-center">IN-57-08-017</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">18</td>
-							<td class="text-center">IN-57-08-018</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">19</td>
-							<td class="text-center">IN-57-08-019</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">20</td>
-							<td class="text-center">IN-57-08-020</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center">21</td>
-							<td class="text-center">IN-57-08-021</td>
-							<td>สินค้าใหม่ (IN)</td>
-							<td class="text-center">10</td>
-							<td class="text-center">04/08/2014</td>
-							<td class="text-center">06/08/2014</td>
-							<td class="text-center">prapaporn.s</td>
-							<td class="text-center">รออนุมัติ</td>
-							<td style="width:20px;">
-								  <a href="/inventory/reserve/detail" class="btn btn-danger btn-xs">View Detail(WAR)</a>  <a href="/inventory/reserve/approve" class="btn btn-info btn-xs">View Detail(ACC)</a>
-							</td>
-						</tr>
-						
-						
-					</tbody>
-					<tfoot>
-						<!-- <tr>
-							<td colspan="2" class="text-center">รวม</td>
-							<td></td>
-							<td class="text-center">30</td>
-							<td class="text-center">40</td>
-							<td class="text-center">0</td>
-							<td></td>
-							<td></td>
-						</tr> -->
-					</tfoot>
-				</table>
-			</div>
+			<table id="example" class="table table-bordered table-condensed table-striped table-hover hover">
+		        <thead>
+		        	<tr>
+		                <th>เลขที่</th>
+		                <th>เพื่อนำไปใช้เป็น</th>
+		                <th>จำนวนรายการ</th>
+		                <th>วันที่เปิดใบนำสินค้าเข้า</th>
+		                <!-- <th>วันที่ส่งของ</th> -->
+		                <th>ผู้ทำการจอง</th>
+		                <th>สถานะ</th>
+		                <th>action</th>
+		            </tr>
+		        	
+		        </thead>
+		     
+		        <tfoot>
+		            <tr>
+		                <th id="filter">เลขที่</th>
+		                <th>เพื่อนำไปใช้เป็น</th>
+		                <th>จำนวนรายการ</th>
+		                <th>วันที่เปิดใบนำสินค้าเข้า</th>
+		                <!-- <th>วันที่ส่งของ</th> -->
+		                <th>ผู้ทำการจอง</th>
+		                <th>สถานะ</th>
+		                <th>action</th>
+		            </tr>
+		        </tfoot>
+ 
+    		</table>
 		</div>
-
-	</div><!-- end .row -->
-
-</div>
-<!-- end .container-fluid -->
-
+	</div>
+	
+</div> <!-- end .container-fluid -->

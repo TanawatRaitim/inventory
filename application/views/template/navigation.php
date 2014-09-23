@@ -21,7 +21,7 @@
         <li class="active"><a href="<?php echo site_url('return_p/all')?>">รับคืนสินค้า</a></li>
         <li class="active"><a href="<?php echo site_url('move/all')?>">โอนย้ายสินค้า</a></li>
         <li class="active"><a href="<?php echo site_url('adjust/all')?>">ปรับยอดสินค้า</a></li>
-        <li class="active"><a href="<?php echo site_url('search')?>">ค้นหาข้อมูล</a></li>
+        <li class="active"><a href="<?php echo site_url('search/main')?>">ค้นหาข้อมูล</a></li>
         <li class="active"><a href="<?php echo site_url('report')?>">รายงาน</a></li>
         <li class="active"><a href="<?php echo site_url('manage')?>">จัดการข้อมูล</a></li>
         <li class="active"><a href="<?php echo site_url('admin')?>">Administrator</a></li>

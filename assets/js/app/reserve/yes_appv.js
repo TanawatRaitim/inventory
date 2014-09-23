@@ -54,7 +54,7 @@ $(function(){
         	{
         		"data":"tkdescription",
         		"render": function(data, type, meta){
-        			return meta.tkdescription + " (" + meta.tkfor + ")"
+        			return meta.tkdescription + " (" + meta.tkfor + ")";
         		}
         	},
         	{"data":"count"},
@@ -95,7 +95,7 @@ $(function(){
         		"render": function(data, type, row){
         			//return "button";
         			console.log(row);
-        			return "<a data-toggle='tooltip' title='ดูรายละเอียด' class='btn btn-xs btn-danger' href='detail/"+row.TK_ID+"'>View Detail(SDB)</a> <a data-toggle='tooltip' title='แก้ไข' class='btn btn-xs btn-info' href='approve/"+row.TK_ID+"'>View Detail(WAR)</a>";
+        			return "<a data-toggle='tooltip' class='btn btn-xs btn-info' href='view_approve/"+row.TK_ID+"'>View Detail</a>";
         		}
         	}
         ],
@@ -116,11 +116,4 @@ $(function(){
 	$('#example tbody').on( 'click', 'tr', function () {
     	$(this).toggleClass('danger');
     } );
-    
-    
- 
 });
-	
-	
-	
-

@@ -29,14 +29,26 @@ $(function(){
 
 				var val = $(this).val();
 				var max = $(this).data('max');
+				
 				if(val=="" || $.isNumeric(val) == false || val<0 || val>max){
-					
-					//$(this).focus();
 					result = false;
 					$(this).focus();
 					return false;
 				}
 			});
+			
+			$("td#total").each(function(){
+				var total = parseInt($(this).html());
+				var checked = $(this).parents('tr').find('input:checkbox').is(':checked');
+				
+				//alert(checked);
+				
+				if(checked == false && total<=0){	
+					result = false;
+					return false;
+				}
+			});
+			
 			
 			if(result)
 			{
@@ -85,7 +97,7 @@ $(function(){
 			});
 			}else{
 				$("#message").noty({
-						text: "คุณไม่สามารถ่ใส่ค่าว่าง ,ค่าน้อยกว่า 0 , ค่าอื่นที่ไม่ใช่ตัวเลข, หรือค่ามากกว่าที่คุณได้ทำการจองไปได้",
+						text: "คุณไม่สามารถ่ใส่ค่าว่าง ,ค่าน้อยกว่า 0, ยอดการจองรวมแต่ละรายการเท่ากับ 0,  ค่าอื่นที่ไม่ใช่ตัวเลข, หรือค่ามากกว่าที่คุณได้ทำการจองไปได้",
 						type: 'error',
 						dismissQueue: true,
 						//killer: true,

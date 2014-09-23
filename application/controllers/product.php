@@ -66,7 +66,144 @@ class Product extends CI_Controller {
 		
 		$this->load->view('template/main',$data);
 	}
+
+	public function show($id)
+	{
+		$this->load->model('product_model');
+		$this->load->model('inventory_model');
+		
+		$product_id = $this->product_model->get_id_from_autoid($id);
+		
+		$content['title'] = 'รายละเอียดสินค้า';
+
+		//get product quantity
+		$query = $this->product_model->get_view($id);
+		
+		if($query->num_rows() == 0)
+		{
+			echo 'ไม่มีรายละเอียดสินค้า';
+			exit;
+		}
+
+		$result = $query->row_array();
+		
+		$result['total_sa'] = $this->product_model->get_product_sa($result['Product_ID']);
+		$result['total_sc'] = $this->product_model->get_product_sc($result['Product_ID']);
+		
+		if($result['Product_SpecSheet'])
+		{
+			$result['Product_SpecSheet'] = $this->config->item('specsheet_path').$result['Product_SpecSheet'];
+		}
+		
+		if($result['Product_SaleSheet'])
+		{
+			$result['Product_SaleSheet'] = $this->config->item('salesheet_path').$result['Product_SaleSheet'];
+		}
+		
+		if($result['Product_DocOther'])
+		{
+			$result['Product_DocOther'] = $this->config->item('docother_path').$result['Product_DocOther'];
+		}
+		
+		if($result['Product_Photo'])
+		{
+			$result['Product_Photo'] = $this->config->item('productimg_path').$result['Product_Photo'];
+		}
+		
+		$content['product'] = $result;
+		
+		$content['premium'] = $this->product_model->get_all_product_premium($result['Product_ID']);
+		
+		$query = $this->inventory_model->get_all_stock($product_id);
+		$content['inventory'] = $query->result_array();
+		
+		$total = array(
+						'good'=>0,
+						'reserve_good'=>0,
+						'remain_good'=>0,
+						'waste'=>0,
+						'reserve_waste'=>0,
+						'remain_waste'=>0,
+						'damage'=>0,
+						'reserve_damage'=>0,
+						'remain_damage'=>0
+					);
+		
+		foreach ($content['inventory'] as $value) {
+			$total['good'] += $value['QTY_Good'];
+			$total['reserve_good'] += $value['QTY_ReserveGood']; 
+			$total['remain_good'] += $value['QTY_RemainGood']; 
+			$total['waste'] += $value['QTY_Waste']; 
+			$total['reserve_waste'] += $value['QTY_ReserveWaste']; 
+			$total['remain_waste'] += $value['QTY_RemainWaste']; 
+			$total['damage'] += $value['QTY_Damage']; 
+			$total['reserve_damage'] += $value['QTY_ReserveDamage']; 
+			$total['remain_damage'] += $value['QTY_RemainDamage']; 
+		}
+		
+		$content['total'] = $total;
+		
+		
+		$data['content'] = $this->load->view('product/show',$content, TRUE);
+		
+		$css = array(
+			'datatable/media/css/dataTables.bootstrap.css',
+			'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
+			);
+		$js = array(
+			'datatable/media/js/jquery.dataTables.min.js',
+			'datatable/media/js/dataTables.bootstrap.js',
+			'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+			'js/moment/min/moment.min.js',
+			'js/app/product/show.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+
+	public function get_product_transaction($id)
+	{
+		$this->load->model('product_model');
+		$result = $this->product_model->get_product_transaction($id);
+		//echo 'data table';
+		//exit();
+		
+		
+		/*
+		$this->load->model('sale_model');
+		
+		$result = $this->sale_model->get_sale_all($type);
+		
+		$result2 = $this->sale_model->count_transaction_detail();
+		
+		$count = array();
+		
+		foreach ($result2 as $key => $value) {
+			//$count
+			$count[$value['Transact_AutoID']] = $value['count_a'];
+		}
+		
+		foreach ($result as $key => $value) {
+			
+			if(isset($count[$value['Transact_AutoID']])){
+				$result[$key]['count'] = $count[$value['Transact_AutoID']];
+			}else{
+				$result[$key]['count'] = 0;
+			}
+		}
+	*/ 
+		
+		$json = array(
+			'data'=>$result
+		);
+		
+		echo json_encode($json);
+	}
 	
+	//for datatable
 	public function get_data()
 	{
 		$query = $this->db->get('Products');
@@ -80,10 +217,6 @@ class Product extends CI_Controller {
 		echo json_encode($json);
 	}
 	
-	public function show($id)
-	{
-		echo $id;
-	}
 	
 	public function edit($id)
 	{
@@ -97,7 +230,6 @@ class Product extends CI_Controller {
 	
 	public function add()
 	{
-		// $this->output->enable_profiler(TRUE);
 		$content['title'] = "เพิ่มข้อมูลสินค้า";
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -119,24 +251,23 @@ class Product extends CI_Controller {
 		$content['product_frequency_dropdown'] = product_frequency_dropdown();	
 		$content['product_register_dropdown'] = product_register_dropdown();	
 		$content['inventory_dropdown'] = inventory_dropdown();	
+		$content['product_status_dropdown'] = product_status_dropdown('ACTIVE');	
+		$content['age_return_dropdown'] = age_return_dropdown();	
+		$content['age_inventory_dropdown'] = age_inventory_dropdown();	
 							
 		$data['content'] = $this->load->view('product/add',$content ,TRUE);
 		
 		$css = array(
-				'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-				'js/alertify/themes/alertify.core.css',
-				'js/alertify/themes/alertify.default.css'
-				//change to noty
-				);
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			);
 		$js = array(
 			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
 			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
 			'js/jquery_validation/dist/jquery.validate.min.js',
 			'js/jquery_validation/dist/additional-methods.min.js',
 			'jquery-mask-plugin/jquery.mask.min.js',
-			'js/alertify/lib/alertify.min.js',
-			//change to noty
-			'js/app/product/product_add.js'
+			'js/app/product/add.js'
 			);
 		
 		$data['css'] = $this->assets->get_css($css);
@@ -147,10 +278,280 @@ class Product extends CI_Controller {
 
 	public function insert()
 	{
-		$post = $this->input->post();
-		unset($post['save_and_edit']);
-		$this->db->insert('Products', $post);
+		$post = $_POST;
+		unset($post['btn_save']);
 		
+		$post['Manufact_StartDate'] = convert_date_to_mssql($post['Manufact_StartDate']);
+		$post['Manufact_EndDate'] = convert_date_to_mssql($post['Manufact_EndDate']);
+		$post['RowCreatedDate'] = date("Y/m/d h:i:s");
+		$post['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['IsDel'] = "N";
+		
+		//get return expire date
+		$date_return = strtotime("+".$post['Age_AverageReturn']." day", strtotime($post['Manufact_EndDate']));
+		$post['Age_ExpireReturn'] = date("Y-m-d",$date_return);
+		
+		//get inventory expire date
+		$date_inventory = strtotime("+".$post['Age_Inventory']." day", strtotime($post['Manufact_EndDate']));
+		$post['Age_ExpireInventory'] = date("Y-m-d",$date_inventory);
+		
+		//assign null
+		foreach($post as $key=>$val)
+		{
+			if($val == ""){
+				$post[$key] = NULL;
+			}
+		}
+		
+		$this->db->insert('Products',$post);
+		$auto_id = $this->db->insert_id();
+		
+		$update_file = array();
+		
+		if($_FILES['Product_Photo']['name']){
+			$file_name = $this->upload_img($post['Product_ID'], 'Product_Photo', $this->config->item('upload_product_img'));
+			$update_file['Product_Photo'] = $file_name; 
+		}
+		
+		if($_FILES['Product_SpecSheet']['name']){
+			$file_name = $this->upload_attachment($post['Product_ID'],'Product_SpecSheet');
+			$update_file['Product_SpecSheet'] = $file_name; 
+		}
+		
+		if($_FILES['Product_SaleSheet']['name']){
+			$file_name = $this->upload_attachment($post['Product_ID'],'Product_SaleSheet');
+			$update_file['Product_SaleSheet'] = $file_name; 
+		}
+		
+		if($_FILES['Product_DocOther']['name']){
+			$file_name = $this->upload_attachment($post['Product_ID'],'Product_DocOther');
+			$update_file['Product_DocOther'] = $file_name; 
+		}
+		
+		//update file name to db
+		$arr_size = sizeof($update_file);
+		
+		if($arr_size>0)
+		{
+			$this->db->where('Product_AutoID', $auto_id);
+			$this->db->update('Products',$update_file);
+		}
+		
+		
+		//create inventory
+		
+		//get all inventory
+		$inventories = $this->db->get('Inventory')->result_array();
+		
+		//create each inventory
+		foreach($inventories as $inventory)
+		{
+			$insert = array(
+				'Stock_AutoID'=>$inventory['Stock_AutoID'],
+				'Product_ID'=>$post['Product_ID'],
+				'QTY_Good'=>0,
+				'QTY_ReserveGood'=>0,
+				'QTY_RemainGood'=>0,
+				'QTY_Waste'=>0,
+				'QTY_ReserveWaste'=>0,
+				'QTY_RemainWaste'=>0,
+				'QTY_Damage'=>0,
+				'QTY_ReserveDamage'=>0,
+				'QTY_RemainDamage'=>0,
+				'RowCreatedDate'=>date("Y/m/d h:i:s"),
+				'RowCreatedPerson'=>$this->session->userdata('Emp_ID'),
+				'RowUpdatedDate'=>date("Y/m/d h:i:s"),
+				'RowUpdatedPerson'=>$this->session->userdata('Emp_ID'),
+				'RowStatus'=>'ACTIVE',
+				'IsDel'=>'N'
+			);
+			
+			$this->db->insert('Inventory_Detail', $insert);
+		}
+		
+		redirect('product/update_get/'.$auto_id, 'refresh');
+}
+	
+	public function update_get($id)
+	{
+		$content['title'] = "แก้ไขข้อมูลสินค้า";
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'หน้าหลัก',
+										'link'=>'/inventory',
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'แก้ไขข้อมูลสินค้าสินค้า',
+										'link'=>'',
+										'class'=>'active'
+									)
+								);
+								
+		$product = $this->db->get_where('Products', array('Product_AutoID'=>$id))->result_array();
+		$premium = $this->db->get_where('Product_Premium', array('Product_ID'=> $product[0]['Product_ID']));
+		
+		
+		$product[0]['Manufact_StartDate'] = convert_mssql_date($product[0]['Manufact_StartDate']);
+		$product[0]['Manufact_EndDate'] = convert_mssql_date($product[0]['Manufact_EndDate']);
+		
+
+		$content['product'] = $product;
+		$content['premium'] = $premium;						
+		$content['department_dropdown'] = department_dropdown($product[0]['ProduceBy']);						
+		$content['product_type_dropdown'] = product_type_dropdown($product[0]['ProType_ID']);	
+		$content['product_group_dropdown'] = product_group_dropdown($product[0]['ProGroup_ID']);	
+		$content['product_category_dropdown'] = product_category_dropdown($product[0]['ProCate_ID']);	
+		$content['product_frequency_dropdown'] = product_frequency_dropdown($product[0]['ProFreq_ID']);	
+		$content['product_register_dropdown'] = product_register_dropdown($product[0]['TypeReg_ID']);	
+		$content['inventory_dropdown'] = inventory_dropdown($product[0]['Main_Inventory']);	
+		$content['product_status_dropdown'] = product_status_dropdown($product[0]['RowStatus']);	
+		$content['return_age_dropdown'] = age_return_dropdown($product[0]['Age_AverageReturn']);	
+		$content['inventory_age_dropdown'] = age_inventory_dropdown($product[0]['Age_Inventory']);	
+							
+		$data['content'] = $this->load->view('product/update_get',$content ,TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			//'select2/select2-bootstrap-core.css',
+			//'select2-bootstrap-css-master/select2-bootstrap.css'
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			//'select2/select2.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/product/update.js'
+			);
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);
+		
+	}
+
+	public function update_post()
+	{
+		$post = $_POST;
+		$id = $this->input->post('Product_AutoID');
+		unset($post['Product_AutoID']);
+		$post['Manufact_StartDate'] = convert_date_to_mssql($post['Manufact_StartDate']);
+		$post['Manufact_EndDate'] = convert_date_to_mssql($post['Manufact_EndDate']);
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		
+		//get return expire date
+		$date_return = strtotime("+".$post['Age_AverageReturn']." day", strtotime($post['Manufact_EndDate']));
+		$post['Age_ExpireReturn'] = date("Y-m-d",$date_return);
+		
+		//get inventory expire date
+		$date_inventory = strtotime("+".$post['Age_Inventory']." day", strtotime($post['Manufact_EndDate']));
+		$post['Age_ExpireInventory'] = date("Y-m-d",$date_inventory);
+		
+		//assign null
+		foreach($post as $key=>$val)
+		{
+			if($val == ""){
+				$post[$key] = NULL;
+			}
+		}
+		
+		$this->db->where('Product_AutoID', $id);
+		$this->db->update('Products', $post);
+		
+		$update_file = array();
+		
+		if($_FILES['Product_Photo']['name']){
+			$file_name = $this->upload_img($post['Product_ID'], 'Product_Photo', $this->config->item('upload_product_img'));
+			$update_file['Product_Photo'] = $file_name; 
+		}
+		
+		if($_FILES['Product_SpecSheet']['name']){
+			$file_name = $this->upload_attachment($post['Product_ID'],'Product_SpecSheet');
+			$update_file['Product_SpecSheet'] = $file_name; 
+		}
+		
+		if($_FILES['Product_SaleSheet']['name']){
+			$file_name = $this->upload_attachment($post['Product_ID'],'Product_SaleSheet');
+			$update_file['Product_SaleSheet'] = $file_name; 
+		}
+		
+		if($_FILES['Product_DocOther']['name']){
+			$file_name = $this->upload_attachment($post['Product_ID'],'Product_DocOther');
+			$update_file['Product_DocOther'] = $file_name; 
+		}
+		
+		//update file name to db
+		$arr_size = sizeof($update_file);
+		
+		if($arr_size>0)
+		{
+			$this->db->where('Product_AutoID', $id);
+			$this->db->update('Products',$update_file);
+		}
+		
+		redirect('product/update_get/'.$id, 'refresh');	
+	}
+
+	public function premium_add()
+	{
+		$post = $_POST;
+		
+		$post['RowCreatedDate'] = date("Y/m/d h:i:s");
+		$post['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowStatus'] = "ACTIVE";
+		$post['IsDel'] = "N";
+		/*
+		echo pre();
+		print_r($post);
+		echo pre_close();
+		 * 
+		 */
+		 
+		//assign null 
+		 foreach($post as $key=>$val)
+		{
+			if($val == ""){
+				$post[$key] = NULL;
+			}
+		}
+		 
+		$this->db->insert('Product_Premium', $post);
+		$auto_id = $this->db->insert_id();
+		
+		$update_file = array();
+		
+		if($_FILES['Premium_Photo']['name']){
+			$file_name = $this->upload_img($post['Product_ID']."-".$auto_id, 'Premium_Photo', $this->config->item('upload_premium'));
+			$update_file['Premium_Photo'] = $file_name; 
+		}
+		
+		//update file name to db
+		$arr_size = sizeof($update_file);
+		
+		if($arr_size>0)
+		{
+			$this->db->where('Premium_AutoID', $auto_id);
+			$this->db->update('Product_Premium',$update_file);
+		}
+		
+		//create inventory
+		
+		//get all inventory
+		$inventories = $this->db->get('Inventory')->result_array();
+		
+		$product = $this->db->get_where('Products', array('Product_ID'=>$post['Product_ID']))->row_array();
+		
+		redirect('product/update_get/'.$product['Product_AutoID'], 'refresh'); 
+		 
 	}
 
 	public function select2_product()
@@ -191,6 +592,123 @@ class Product extends CI_Controller {
 		$result = $query->row_array();
 		
 		echo json_encode($result);
+	}
+	
+	public function upload_img($image_name, $field_name, $path)
+	{
+			
+		$this->load->library('upload');
+		
+		//dir image
+		//user path directory not url
+		$dir = $path;
+		
+		
+		//dir thumb
+		//user path directory not url
+		$dir_thumb = $path."thumbs/";
+
+		//upload image
+		$this->load->library('image_lib');
+		$config['upload_path'] = $dir;
+		$config['allowed_types'] = 'gif|jpg|png|jpeg';
+		$config['file_name'] = $image_name;
+		$config['overwrite'] = TRUE;
+		$this->upload->initialize($config);
+		$this->upload->do_upload($field_name);
+		$file_data = array('upload_data'=>$this->upload->data());
+		
+		//create thumbnail
+		$config['image_library'] = 'gd2';
+		$config['source_image'] = $dir."/".$file_data['upload_data']['file_name'];
+		$config['new_image'] = $dir_thumb;
+		$config['maintain_ratio'] = TRUE;
+		$config['width'] = 150;
+		$config['height'] = 150;
+		$this->image_lib->initialize($config); 
+		$this->image_lib->resize();
+		
+		//resize image
+		$config['image_library'] = 'gd2';
+		$config['source_image'] = $dir."/".$file_data['upload_data']['file_name'];
+		$config['new_image'] = $dir;
+		$config['create_thumb'] = FALSE;
+		$config['maintain_ratio'] = TRUE;
+		$config['width'] = 161;
+		$config['height'] = 211;
+		$this->image_lib->initialize($config); 
+		$this->image_lib->resize();
+		
+		return $file_data['upload_data']['file_name'];
+			
+	}
+
+	public function upload_attachment($attachment_name, $type)
+	{	
+		$this->load->library('upload');
+		
+		//dir files
+		//user path directory not url
+		
+		if($type == 'Product_SpecSheet')
+		{
+			$dir = $this->config->item('upload_specsheet');	
+		}elseif($type == 'Product_SaleSheet'){
+			$dir = $this->config->item('upload_salesheet');
+		}elseif($type == 'Product_DocOther'){
+			$dir = $this->config->item('upload_docother');
+		}else{
+			exit();
+		}
+
+		$config['upload_path'] = $dir;
+		$config['allowed_types'] = 'jpg|png|jpeg|pdf';
+		$config['file_name'] = $attachment_name;
+		$config['overwrite'] = TRUE;
+		$this->upload->initialize($config);
+		$this->upload->do_upload($type);
+		$file_data = array('upload_data'=>$this->upload->data());
+		
+		return $file_data['upload_data']['file_name'];	
+	}
+	
+	public function check_product_id($id)
+	{
+		$rows = $this->db->get_where('Products', array('Product_ID'=>$id))->num_rows();
+		
+		if($rows>0)
+		{
+			echo 'false';
+		}else{
+			echo 'true';
+		}
+		
+	}
+	
+	public function delete_upload_file($id, $field)
+	{
+		
+		$this->db->where('Product_AutoID', $id);
+		$res = $this->db->update('Products', array($field=>NULL));
+		
+		if(!$res){
+			echo 'false';
+		}else{
+			echo 'true';
+		}
+		
+	}
+
+	public function delete_premium_upload_file($id)
+	{
+		$this->db->where('Premium_AutoID', $id);
+		$res = $this->db->delete('Product_Premium');
+		
+		if(!$res){
+			echo 'false';
+		}else{
+			echo 'true';
+		}	
 	}
 
 	

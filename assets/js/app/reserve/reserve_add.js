@@ -12,12 +12,23 @@ function format(state)
 }
 
 $(function() {
+	
+	$.ajaxSetup({
+		cache: false
+	});
 
 	$("#TK_ID").val("");
 	$("#Transact_AutoID").val("");
-		
+	$("#DocRef_Date, #Transport_Date").datetimepicker({
+		pickTime: false
+		// useStrict: "strict"
+	});
+	
+	$("#DocRef_Date, #Transport_Date").mask('00/00/0000',{clearIfNotMatch: true});
+	
 	$("#Product_ID").select2({
 		placeholder: 'Product ID',
+		openOnEnter: false,
 		dropdownAutoWidth: true,
 		minimumInputLength: 2,
 		ajax: {
@@ -66,6 +77,7 @@ $(function() {
 	$("#Cust_ID").select2({
 		
 		placeholder: 'Customer ID',
+		openOnEnter: false,
 		dropdownAutoWidth: true,
 		minimumInputLength: 2,
 		ajax: {
@@ -107,11 +119,6 @@ $(function() {
 		});
 
 	});
-	
-	$("#DocRef_Date, #Transport_Date").datetimepicker({
-		pickTime: false
-	});
-
 
 	$("#QTY_Good, #QTY_Damage, #QTY_Waste").blur(function(e) {
 		var total_receive = parseInt($("#QTY_Good").val()) + parseInt($("#QTY_Waste").val()) + parseInt($("#QTY_Damage").val());
@@ -162,6 +169,19 @@ $(function() {
 				return false;
 			}
 			
+			if($("#product_receive").val()<=0){
+				//alert("กรุณาเลือกสินค้าก่อน");
+				$("#ticket_detail_msg").noty({
+					text: 'คุณไม่สามารถจองสินค้ารวม น้อยกว่าหรือเท่ากับ 0 ได้',
+					type: 'error',
+					dismissQueue: true,
+					//killer: true,
+					timeout: 4000
+				});
+				
+				return false;
+			}
+			
 			$.ajax({
 			type: 'POST',
 			url: 'check_new_data',
@@ -194,9 +214,9 @@ $(function() {
 							var total = parseInt($("#product_receive").val());
 							
 							var row_data = '<tr><td>'+product_name+'</td><td class="text-center">';
-							row_data += Effect_Stock_AutoID+'</td><td class="text-center"><a href="#" id="test_edit" data-type="text" data-pk="3" data-url="editable" data-title="">'+QTY_Good+'</a>';
-							row_data += '</td><td class="text-center"><a href="#" id="test_edit" data-type="text" data-pk="3" data-url="editable" data-title="">'+QTY_Waste+'</a></td><td class="text-center">';
-							row_data += '<a href="#" id="test_edit" data-type="text" data-pk="3" data-url="editable" data-title="">'+QTY_Damage+'</a></td><td class="text-center" id="record_toal">'+total;
+							row_data += Effect_Stock_AutoID+'</td><td class="text-center">'+QTY_Good;
+							row_data += '</td><td class="text-center">'+QTY_Waste+'</td><td class="text-center">';
+							row_data += ''+QTY_Damage+'</td><td class="text-center" id="record_toal">'+total;
 							row_data += '</td><td><span id="btn_delete_record" data-productid="'+ data.Product_ID +'" data-autoid="'+ data.Transact_AutoID +'" data-stock="'+ data.Effect_Stock_AutoID +'" class="glyphicon glyphicon-remove cursor-pointer" style="color: red; ;"></span></tr>';
 							
 							$("#record_saved > tbody").append(row_data);
@@ -254,7 +274,8 @@ $(function() {
 				digits:true	
 			},QTY_Damage:{
 				digits:true
-			}
+			},
+			
 			
 		},
 		messages: {
@@ -454,7 +475,7 @@ $(function() {
 		},
 		rules:{
 			Transaction_For:{
-				min:1
+				required:true
 			},
 			DocRef_AutoID:{
 				min:1

@@ -30,17 +30,29 @@ $config['specsheet_path'] = $config['base_url'].'assets/uploads/doc/product/spec
 $config['docother_path'] = $config['base_url'].'assets/uploads/doc/product/other/';
 $config['productimg_path'] = $config['base_url'].'assets/uploads/img/products/';
 $config['premiumimg_path'] = $config['base_url'].'assets/uploads/img/premium/';
-
+$config['customer_img_path'] = $config['base_url'].'assets/uploads/img/customers/';
+$config['customer_map_path'] = $config['base_url'].'assets/uploads/img/maps/';
+$config['premium_path'] = $config['base_url'].'assets/uploads/img/premium/';
 //$config['base_history_image'] = $config['base_url'].'assets/images/history/';
 //$config['base_history_thumbs'] = $config['base_url'].'assets/images/history/thumbs/';
 //$config['base_history_attachment'] = $config['base_url'].'assets/uploads/files/';
 
 
 //server path
-//$config['upload_history_images'] = './assets/images/history/';
-//$config['upload_history_thumbs'] = './assets/images/history/thumbs/';
-//$config['upload_history_attachment'] = './assets/uploads/files/';
- 
+$config['upload_product_img'] = './assets/uploads/img/products/';
+$config['upload_product_thumbs'] = './assets/uploads/img/products/thumbs/';
+$config['upload_specsheet'] = './assets/uploads/doc/product/specsheet/';
+$config['upload_salesheet'] = './assets/uploads/doc/product/salesheet/';
+$config['upload_docother'] = './assets/uploads/doc/product/other/';
+
+$config['upload_customer_img'] = './assets/uploads/img/customers/';
+$config['upload_customer_thumbs'] = './assets/uploads/img/customers/thumbs/'; 
+
+$config['upload_customer_map'] = './assets/uploads/img/maps/';
+$config['upload_customer_map_thumb'] = './assets/uploads/img/maps/thumbs/'; 
+
+$config['upload_premium'] = './assets/uploads/img/premium/';
+$config['upload_premium_thumb'] = './assets/uploads/img/premium/thumbs/'; 
 /*
  * config script files
  * 
@@ -85,7 +97,7 @@ $config['css'] = 'css/style.css';
  */
  
  $config['theme'] = 'slate';
- // $config['theme'] = 'bs3_2';
+ $config['theme'] = 'bs3';
 
 
 

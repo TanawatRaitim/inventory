@@ -1,54 +1,24 @@
+
 <div class="container-fluid">
 	<div class="row">
-		<!--
+		
 		<div class="col-md-12">
-			<ol class="breadcrumb">
-				<?php foreach ($breadcrumb as $attr): ?>
-					<?php if($attr['class'] == 'active'):?>
-						<li class="<?php echo $attr['class'];?>"><?php echo $attr['name'];?></li>
-					<?php else:?>	
-						<li class="<?php echo $attr['class'];?>"><a href="<?php echo $attr['link'];?>"><?php echo $attr['name'];?></a></li>
-					<?php endif;?>	
-				<?php endforeach ?>
-			</ol>
-		</div>
-		-->
-		<div class="col-md-12">
-			<!-- <h3><?php echo $title;?></h3> -->
 			
-			<form role="form" class="form-horizontal" name="form_product" id="form_product" method="post" action="<?php echo site_url('product/insert')?>">
+			<form role="form" class="form-horizontal" name="form_product" enctype="multipart/form-data" id="form_product" method="post" action="<?php echo site_url('product/insert')?>">
 				<fieldset id="" class="">
 			  		<legend>ข้อมูลสินค้า</legend>
-					<div class="col-md-10">
+					<div class="col-md-8">
 						<table class="table">
 							<tr>
 								<td class="text-right info"><label for="Product_ID" class="control-label">รหัสสินค้า</label></td>
-								<td><input type="text" name="Product_ID" id="Product_ID" data-mask="00-SSSS-S0000" class="col-sm-5 form-control input-sm" autofocus /></td>
+								<td><input type="text" name="Product_ID" id="Product_ID" data-mask="00-SSSS-S0000" class="form-control input-sm" autofocus /></td>
 								<td class="text-right info"><label for="Product_Name" class="control-label">ชื่อสินค้า</label></td>
 								<td><input type="text" name="Product_Name" id="Product_Name" class="form-control input-sm" /></td>
 								<td class="text-right info"><label for="Product_Vol" class="control-label">เล่มที่</label></td>
 								<td><input type="text" name="Product_Vol" id="Product_Vol" class="form-control input-sm" /></td>
 							</tr>
-							<tr>
-								<td class="text-right info"><label for="Product_Photo" class="control-label">รูปภาพ</label></td>
-								<td>
-									    <input type="file" id="Product_Photo" name="Product_Photo">
-								</td>
-								<td class="text-right info"><label for="Product_SpecSheet" class="control-label">Spec Sheet</label></td>
-								<td>
-									    <input type="file" id="Product_SpecSheet" name="Product_SpecSheet">
-								</td>
-							</tr>
-							<tr>
-								<td class="text-right info"><label for="Product_SaleSheet" class="control-label">Sale Sheet</label></td>
-								<td>
-									    <input type="file" id="Product_SaleSheet" name="Product_SaleSheet">
-								</td>
-								<td class="text-right info"><label for="Product_DocOther" class="control-label">รูปภาพ</label></td>
-								<td>
-									    <input type="file" id="Product_DocOther" name="Product_DocOther">
-								</td>
-							</tr>
+							
+							
 							<tr>
 								<td class="text-right info"><label for="ProCate_ID" class="control-label">ประเภท</label></td>
 								<td>
@@ -117,13 +87,13 @@
 								<td class="text-right info"><label for="Age_AverageReturn" class="control-label">อายุรับคืน</label></td>
 								<td>
 									<select name="Age_AverageReturn" id="Age_AverageReturn" class="form-control input-sm">
-										<option value="0">please select one</option>
+										<?php echo $age_return_dropdown;?>
 									</select>
 								</td>
 								<td class="text-right info"><label for="Age_Inventory" class="control-label">อายุคงคลัง</label></td>
 								<td>
 									<select name="Age_Inventory" id="Age_Inventory" class="form-control input-sm">
-										<option value="0">please select one</option>
+										<?php echo $age_inventory_dropdown;?>
 									</select>
 								</td>
 								
@@ -134,12 +104,40 @@
 								<td class="text-right info"><label for="RowStatus" class="control-label">สถานะ</label></td>
 								<td>
 									<select name="RowStatus" id="RowStatus" class="form-control input-sm">
-										<option value="0">please select one</option>
+										<?php echo $product_status_dropdown;?>
 									</select>
 								</td>
 								
 							</tr>
 						</table>
+
+						<table class="table">
+							<tr>
+								<td class="text-right info"><label for="Product_Photo" class="control-label">รูปภาพ (.jpg|.jpeg|.png)</label></td>
+								<td>
+									    <input type="file" id="Product_Photo" name="Product_Photo">
+								</td>
+								<td class="text-right info"><label for="Product_SpecSheet" class="control-label">Spec Sheet (.pdf)</label></td>
+								<td>
+									    <input type="file" id="Product_SpecSheet" name="Product_SpecSheet">
+								</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td class="text-right info"><label for="Product_SaleSheet" class="control-label">Sale Sheet (.pdf)</label></td>
+								<td>
+									    <input type="file" id="Product_SaleSheet" name="Product_SaleSheet">
+								</td>
+								<td class="text-right info"><label for="Product_DocOther" class="control-label">เอกสารอื่นๆ (.pdf)</label></td>
+								<td>
+									    <input type="file" id="Product_DocOther" name="Product_DocOther">
+								</td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+
 					</div>
 				</fieldset>
 				<fieldset id="" class="">
@@ -152,11 +150,11 @@
 								<td class="text-right info"><label for="Manufact_Num" class="control-label">ครั้งที่ผลิต</label></td>
 								<td><input type="text" name="Manufact_Num" id="Manufact_Num" class="form-control input-sm" /></td>
 								<td class="text-right info"><label for="Manufact_StartDate" class="control-label">วันที่ผลิต</label></td>
-								<td><input type="text" name="Manufact_StartDate" id="Manufact_StartDate" class="form-control input-sm" data-date-format="YYYY-MM-DD" /></td>
+								<td><input type="text" data-date-format="DD/MM/YYYY" name="Manufact_StartDate" id="Manufact_StartDate" class="form-control input-sm" data-date-format="YYYY-MM-DD" /></td>
 							</tr>
 							<tr>
 								<td class="text-right info"><label for="Manufact_EndDate" class="control-label">วันผลิตเสร็จ</label></td>
-								<td><input type="text" name="Manufact_EndDate" id="Manufact_EndDate" class="form-control input-sm" data-date-format="YYYY-MM-DD" /></td>
+								<td><input   data-date-format="DD/MM/YYYY" type="text" name="Manufact_EndDate" id="Manufact_EndDate" class="form-control input-sm" data-date-format="YYYY-MM-DD" /></td>
 								<td class="text-right info"><label for="QTY_Production" class="control-label">ยอดสั่งผลิต</label></td>
 								<td><input type="text" name="QTY_Production" id="QTY_Production" class="form-control input-sm" /></td>
 								<td class="text-right info"><label for="QTY_ReceiveInventory" class="control-label">ยอดรับเข้าคลัง</label></td>
@@ -171,9 +169,9 @@
 								<td><input type="text" name="QTY_Distribution" id="QTY_Distribution" class="form-control input-sm" /></td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="inputEmail3" class="control-label">ผลิตโดยกอง</label></td>
+								<td class="text-right info"><label for="ProduceBy" class="control-label">ผลิตโดยกอง</label></td>
 								<td>
-									<select name="" id="" class="form-control input-sm">
+									<select name="ProduceBy" id="ProduceBy" class="form-control input-sm">
 										<?php echo $department_dropdown;?>
 									</select>
 								</td>
@@ -181,15 +179,20 @@
 							</tr>
 						</table>
 					</div>	<!-- col-md-8 -->
-					<div class="col-md-6 col-md-offset-1">
-						<input type="submit" name="save_and_edit" id="save_and_edit" class="btn btn-primary" value="บันทึก" />
-						<input type="submit" name="save_and_main" class="btn btn-primary" value="บันทึกและกลับสู่หน้าหลัก" />
-						<input type="submit" name="save_and_new" class="btn btn-primary" value="บันทึกและเพิ่มใหม่" />
-						<input type="reset" name="reset" class="btn btn-danger" value="ล้างฟอร์ม" />
-						<input type="submit" name="cancel_and_main" class="btn btn-danger" value="ยกเลิกและกลับสู่หน้าหลัก" />
-					</div>
+					
+					
 				</fieldset>
-			</form>				 
+				
+				<!-- <input type="submit" value="big" /> -->
+			</form>
+			<div class="col-md-8" style="margin: 10px;" id="error_msg"></div>
+			<div class="col-md-6 col-md-offset-1">
+				<input type="submit" name="btn_save" id="btn_save" class="btn btn-primary" value="บันทึก" />
+				<!-- <input type="submit" name="save_and_main" class="btn btn-primary" value="บันทึกและกลับสู่หน้าหลัก" />
+				<input type="submit" name="save_and_new" class="btn btn-primary" value="บันทึกและเพิ่มใหม่" /> -->
+				<input type="reset" name="reset" class="btn btn-danger" value="ล้างฟอร์ม" />
+				<!-- <input type="submit" name="cancel_and_main" class="btn btn-danger" value="ยกเลิกและกลับสู่หน้าหลัก" /> -->
+			</div>				 
 			
 		</div>
 	</div><!-- end .row -->

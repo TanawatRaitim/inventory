@@ -4,52 +4,53 @@
 	</div>
 	
 	<div class="panel-body">
-
-		
-		
-		
 		<div class="col-md-4">
 			<img width="150" id="p_img" src="<?php echo $product['Product_Photo'] ;?>" class="img-rounded" />
 			
 			<br />
 			
 			<?php if($product['Product_SpecSheet']):?>
-				<span class="label label-danger"><a href="<?php echo $product['Product_SpecSheet'];?>">specsheet</a></span>
+				<span class="label label-default"><a style="color:white" class="text-white" target="_blank" href="<?php echo $product['Product_SpecSheet'];?>">specsheet</a></span>
 			<?php endif;?>
 				
 			<?php if($product['Product_SaleSheet']):?>
-				<span class="label label-danger"><a href="<?php echo $product['Product_SaleSheet'];?>">salesheet</a></span>
+				<span class="label label-default"><a style="color:white" class="text-white" target="_blank" href="<?php echo $product['Product_SaleSheet'];?>">salesheet</a></span>
 			<?php endif;?>
 			
 			<?php if($product['Product_DocOther']):?>
-				<span class="label label-danger"><a href="<?php echo $product['Product_DocOther'];?>">other</a></span>
+				<span class="label label-default"><a style="color:white" target="_blank" href="<?php echo $product['Product_DocOther'];?>">other</a></span>
 			<?php endif;?>
-			
-			
-			
 		</div>
 		<div class="col-md-8">
-			<table class="table table-condensed">
-				<thead>
-					<tr>
-						<th colspan="2">สินค้าสภาพดี</th>
-					</tr>
-				</thead>	
+			
+			<table class="table table-condensed">	
 				<tbody>
 					<tr>
-						<td colspan="2" class="primary"><?php echo $product['Product_Name'];?> # <?php echo $product['Product_Vol'];?> (<?php echo $product['Product_ID'];?>)</td>
+						<td colspan="2" class="primary"><?php echo $product['Product_Name'];?> (<?php echo $product['Product_ID'];?>) # <?php echo $product['Product_Vol'];?></td>
+					</tr>
+					<tr>
+						<td>ยอดสั่งผลิต</td>
+						<td><?php echo $product['QTY_Production'];?></td>
+					</tr>
+					<tr>
+						<td>ยอดรับเข้าคลัง</td>
+						<td><?php echo $product['QTY_ReceiveInventory'];?></td>
+					</tr>
+					<tr>
+						<td>สถานะ</td>
+						<td><?php echo $product['RowStatus'];?></td>
 					</tr>
 					<tr>
 						<td style="padding-top: 15px;">สินค้าสภาพดี</td>
-						<td style="font-size: 30px;" class="text-left"><?php echo $total['good'];?></td>
+						<td style="font-size: 23px;" class="text-left"><?php echo $total['good'];?></td>
 					</tr>
 					<tr>
 						<td style="padding-top: 15px;">ยอดการจอง</td>
-						<td style="font-size: 30px;" class="text-left"><?php echo $total['reserve_good'];?></td>
+						<td style="font-size: 23px;" class="text-left"><?php echo $total['reserve_good'];?></td>
 					</tr>
 					<tr>
 						<td style="padding-top: 15px;">คงเหลือ</td>
-						<td style="font-size: 30px;" class="text-left"><u><?php echo $total['good'] - $total['reserve_good'];?></u></td>
+						<td style="font-size: 23px;" class="text-left"><u><?php echo $total['good'] - $total['reserve_good'];?></u></td>
 					</tr>
 				</tbody>
 			</table>
@@ -113,62 +114,7 @@
 		</div>
 		
 		<div class="col-md-12">
-			<!-- 
-			<div class="col-md-6">
-				<table class="table table-condensed">
-					<thead>
-						<tr>
-							<th colspan="2">สินค้าสภาพดี</th>
-						</tr>
-					</thead>	
-					<tbody>
-						<tr>
-							<td style="padding-top: 15px;">สินค้าสภาพดี</td>
-							<td style="font-size: 30px;" class="text-right"><?php echo $total['good'];?></td>
-						</tr>
-						<tr>
-							<td style="padding-top: 15px;">ยอดการจอง</td>
-							<td style="font-size: 30px;" class="text-right"><?php echo $total['reserve_good'];?></td>
-						</tr>
-						<tr>
-							<td style="padding-top: 15px;">คงเหลือ</td>
-							<td style="font-size: 30px;" class="text-right"><u><?php echo $total['good'] - $total['reserve_good'];?></u></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			 -->
-			<!-- 
-			<div class="col-md-6">
-				
-				<table class="table table-condensed">
-					<thead>
-						<tr>
-							<th colspan="2">เอกสารแนบ</th>
-						</tr>
-						<tr>
-							<th>ประเภท</th>
-							<th>เอกสารแนบ</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Spec Sheet</td>
-							<td><a href="" target="_blank"><span class="label label-danger">PDF</span></a></td>
-						</tr>
-						<tr>
-							<td>Sale Sheet</td>
-							<td><span class="label label-danger">PDF</span></td>
-						</tr>
-						<tr>
-							<td>Other</td>
-							<td><span class="label label-danger">PDF</span></td>
-						</tr>
-					</tbody>
-				</table>
-				 
-			</div>
-			-->
+			
 		</div>
 	</div>
 

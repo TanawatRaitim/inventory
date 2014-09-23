@@ -11,7 +11,6 @@
 				<?php endforeach ?>
 			</ol>
 		</div>
-		
 	</div> <!-- end .row -->
 	
 	<div class="row">
