@@ -33,6 +33,8 @@ $config['premiumimg_path'] = $config['base_url'].'assets/uploads/img/premium/';
 $config['customer_img_path'] = $config['base_url'].'assets/uploads/img/customers/';
 $config['customer_map_path'] = $config['base_url'].'assets/uploads/img/maps/';
 $config['premium_path'] = $config['base_url'].'assets/uploads/img/premium/';
+$config['no_img_path'] = $config['base_url'].'assets/images/no_img.png';
+
 //$config['base_history_image'] = $config['base_url'].'assets/images/history/';
 //$config['base_history_thumbs'] = $config['base_url'].'assets/images/history/thumbs/';
 //$config['base_history_attachment'] = $config['base_url'].'assets/uploads/files/';
@@ -96,17 +98,14 @@ $config['css'] = 'css/style.css';
  * 
  */
  
- $config['theme'] = 'slate';
- $config['theme'] = 'bs3';
-
-
-
+ // $config['theme'] = 'slate';
+ // $config['theme'] = 'cerulean';
+ $config['theme'] = 'bs3_2';
 
 /**
  * Text
  */
 $config['system_name'] = 'Inventory Management System';
-
 
 
 /*

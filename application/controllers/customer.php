@@ -15,13 +15,13 @@ class Customer extends CI_Controller {
 		}
 		
 		$this->load->library('assets');
+		$this->load->model('customer_model');
 		
 	}
 	
 	public function index()
 	{
 		//initial content	
-			
 		$content['title'] = 'ข้อมูลลูกค้า';
 		$content['create_text'] = "เพิ่มข้อมูล";
 		$content['create_link'] = site_url('customer/add');
@@ -73,13 +73,31 @@ class Customer extends CI_Controller {
 
 	public function show($id)
 	{
-		$this->load->model('customer_model');
-		
-		//$product_id = $this->product_model->get_id_from_autoid($id);
-		
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'ค้นหาข้อมูล',
+										'link'=>'all',
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'ค้นหาข้อมูลสินค้า',
+										'link'=>'product',
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'ค้นหาข้อมูลลูกค้า',
+										'link'=>'customer',
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ค้นหาข้อมูล Ticket',
+										'link'=>'ticket',
+										'class'=>''
+									)
+								);
+			
 		$content['title'] = 'รายละเอียดลูกค้า';
 
-		//get product quantity
 		$query = $this->customer_model->get_view($id);
 		
 		if($query->num_rows() == 0)
@@ -92,12 +110,16 @@ class Customer extends CI_Controller {
 		
 		if($result['Cust_Map'])
 		{
-			$result['Cust_Map'] = $this->config->item('specsheet_path').$result['Cust_Map'];
+			$result['Cust_Map'] = $this->config->item('customer_map_path').$result['Cust_Map'];
+		}else{
+			$result['Cust_Map'] = $this->config->item('no_img_path');
 		}
 		
 		if($result['Cust_Photo'])
 		{
-			$result['Cust_Photo'] = $this->config->item('salesheet_path').$result['Cust_Photo'];
+			$result['Cust_Photo'] = $this->config->item('customer_img_path').$result['Cust_Photo'];
+		}else{
+			$result['Cust_Photo'] = $this->config->item('no_img_path');
 		}
 		
 		$content['customer'] = $result;
@@ -388,7 +410,9 @@ class Customer extends CI_Controller {
 		$config['new_image'] = $dir_thumb;
 		$config['maintain_ratio'] = TRUE;
 		$config['width'] = 150;
-		$config['height'] = 150;
+		$config['height'] = 150;	
+		 
+		
 		$this->image_lib->initialize($config); 
 		$this->image_lib->resize();
 		
@@ -398,13 +422,33 @@ class Customer extends CI_Controller {
 		$config['new_image'] = $dir;
 		$config['create_thumb'] = FALSE;
 		$config['maintain_ratio'] = TRUE;
-		$config['width'] = 161;
-		$config['height'] = 211;
+		
+		if($field_name == 'Cust_Map')
+		{
+			$config['width'] = 500;
+			$config['height'] = 500;
+		}else{
+			$config['width'] = 161;
+			$config['height'] = 211;	
+		}
+		
+		
 		$this->image_lib->initialize($config); 
 		$this->image_lib->resize();
 		
 		return $file_data['upload_data']['file_name'];
 			
+	}
+
+	public function get_customer_transaction($id)
+	{
+		$result = $this->customer_model->get_customer_transaction($id);
+		
+		$json = array(
+			'data'=>$result
+		);
+		
+		echo json_encode($json);
 	}
 
 	public function delete_upload_file($id, $field)

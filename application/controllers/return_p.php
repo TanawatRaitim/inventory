@@ -639,6 +639,35 @@ class Return_p extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการรับคืนสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการรับคืนสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('return_p/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบรับสินค้าคืน (ใบใหม่)',
+										'link'=>site_url('return_p/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบรับสินค้าคืน  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('return_p/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบรับสินค้าคืน  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('return_p/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบรับสินค้าคืน  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('return_p/reject'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->return_p_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->return_p_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -688,6 +717,34 @@ class Return_p extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการรับคืนสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการรับคืนสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('return_p/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบรับสินค้าคืน (ใบใหม่)',
+										'link'=>site_url('return_p/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบรับสินค้าคืน  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('return_p/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบรับสินค้าคืน  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('return_p/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบรับสินค้าคืน  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('return_p/reject'),
+										'class'=>''
+									)
+								);
 		$content['transaction'] = $this->return_p_model->get_inventory_transaction($autoid);
 		$content['transaction_detail'] = $this->return_p_model->get_transaction_detail($autoid);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -820,6 +877,35 @@ class Return_p extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		$content['title'] = 'อนุมัติการรับคืนสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการรับคืนสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('return_p/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบรับสินค้าคืน (ใบใหม่)',
+										'link'=>site_url('return_p/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบรับสินค้าคืน  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('return_p/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบรับสินค้าคืน  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('return_p/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบรับสินค้าคืน  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('return_p/reject'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->return_p_model->get_inventory_transaction($id);
 		$content['transaction_detail'] = $this->return_p_model->get_transaction_detail($id);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -871,6 +957,35 @@ class Return_p extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		$content['title'] = 'อนุมัติการรับคืนสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการรับคืนสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('return_p/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบรับสินค้าคืน (ใบใหม่)',
+										'link'=>site_url('return_p/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบรับสินค้าคืน  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('return_p/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบรับสินค้าคืน  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('return_p/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบรับสินค้าคืน  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('return_p/reject'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->return_p_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->return_p_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);

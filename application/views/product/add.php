@@ -11,7 +11,7 @@
 						<table class="table">
 							<tr>
 								<td class="text-right info"><label for="Product_ID" class="control-label">รหัสสินค้า</label></td>
-								<td><input type="text" name="Product_ID" id="Product_ID" data-mask="00-SSSS-S0000" class="form-control input-sm" autofocus /></td>
+								<td><input type="text" name="Product_ID" id="Product_ID" data-mask="AA-AAAA-AAAAA" class="form-control input-sm" autofocus /></td>
 								<td class="text-right info"><label for="Product_Name" class="control-label">ชื่อสินค้า</label></td>
 								<td><input type="text" name="Product_Name" id="Product_Name" class="form-control input-sm" /></td>
 								<td class="text-right info"><label for="Product_Vol" class="control-label">เล่มที่</label></td>
@@ -20,9 +20,9 @@
 							
 							
 							<tr>
-								<td class="text-right info"><label for="ProCate_ID" class="control-label">ประเภท</label></td>
+								<td class="text-right info"><label for="ProType_ID" class="control-label">ประเภท</label></td>
 								<td>
-									<select name="ProCate_ID" id="ProCate_ID" class="form-control input-sm">
+									<select name="ProType_ID" id="ProType_ID" class="form-control input-sm">
 										<?php echo $product_type_dropdown;?>
 									</select>
 								</td>
@@ -32,9 +32,9 @@
 										<?php echo $product_group_dropdown;?>
 									</select>
 								</td>
-								<td class="text-right info"><label for="ProType_ID" class="control-label">หมวด</label></td>
+								<td class="text-right info"><label for="ProCate_ID" class="control-label">หมวด</label></td>
 								<td>
-									<select name="ProType_ID" id="ProType_ID" class="form-control input-sm">
+									<select name="ProCate_ID" id="ProCate_ID" class="form-control input-sm">
 										<?php echo $product_category_dropdown;?>
 									</select>
 								</td>

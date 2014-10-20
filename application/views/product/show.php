@@ -77,6 +77,10 @@
 					                <th>Ticket</th>
 					                <th>กิจกรรม</th>
 					                <th>วันที่</th>
+					                <th>ดี</th>
+					                <th>เสีย</th>
+					                <th>ชำรุด</th>
+					                
 					                <th>ผู้ทำรายการ</th>
 					            </tr>
 					        	
@@ -87,6 +91,10 @@
 					                <th id="filter">Ticket</th>
 					                <th id="filter">กิจกรรม</th>
 					                <th>วันที่</th>
+					                <th>ดี</th>
+					                <th>เสีย</th>
+					                <th>ชำรุด</th>
+					                
 					                <th>ผู้ทำรายการ</th>
 					            </tr>
 					        </tfoot>
@@ -98,7 +106,7 @@
 		</div>
 	</div><!-- end .row -->
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<div class="thumbnail">
 				<img src="<?php echo $product['Product_Photo'];?>" class="img-thumbnail" />
 				<div class="caption">
@@ -140,7 +148,7 @@
 			
 			
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-8">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายละเอียดอื่นๆ</h3>
@@ -169,6 +177,9 @@
 								<span class="label label-success" style="padding: 10px;"><a style="color:white; font-size: 15px;" target="_blank" href="<?php echo $product['Product_DocOther'];?>">other</a></span>
 							<?php endif;?>
 								</th>
+							</tr>
+							<tr>
+								<th colspan="8">ใบกำกับสินค้า  : <a href="http://172.168.1.109/ims_reporting/plateproduct.aspx?prm=<?php echo $product['Product_ID'];?>" target="_blank" class='btn btn-xs btn-primary'>ดูรายละเอียด</a></th>
 							</tr>
 							<tr>
 								<th class="danger text-right">คลังหลัก</th>

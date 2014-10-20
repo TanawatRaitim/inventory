@@ -6,7 +6,7 @@ $(function() {
 		$(this).val(str);
 	});
 	
-	$("#Cust_ID").mask('SS-00-0000',{clearIfNotMatch: true});
+	$("#Cust_ID").mask('AA-AA-AAAA',{clearIfNotMatch: true});
 
 	
 	$('input').keydown( function (event) { //event==Keyevent

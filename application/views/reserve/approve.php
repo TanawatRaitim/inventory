@@ -125,7 +125,7 @@
 			
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายการสินค้า</h3>
@@ -137,6 +137,7 @@
 								<tr>
 									<th>#</th>
 									<th>Product ID</th>
+									<th>Name</th>
 									<th class="text-center">คลัง</th>
 									<th class="text-center">ดี</th>
 									<th class="text-center">เสีย</th>
@@ -150,6 +151,7 @@
 							<tr>
 								<td><?php echo $i;?></td>
 								<td><?php echo $row['Product_ID'];?></td>
+								<td><?php echo $row['Product_Name'];?> # <?php echo $row['Product_Vol'];?></td>
 								<td class="text-center"><?php echo $row['Stock_Name'];?></td>
 								<td class="text-center"><?php echo $row['QTY_Good'];?></td>
 								<td class="text-center"><?php echo $row['QTY_Waste'];?></td>

@@ -51,13 +51,13 @@
 								<td></td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="Cust_Photo" class="control-label">รูปภาพ</label></td>
+								<td class="text-right info"><label for="Cust_Photo" class="control-label">รูปภาพ (.jpg|.jpeg|.png)</label></td>
 								<td colspan="5">
 									<input type="file" id="Cust_Photo" name="Cust_Photo">
 								</td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="Cust_Map" class="control-label">แผนที่</label></td>
+								<td class="text-right info"><label for="Cust_Map" class="control-label">แผนที่ (.jpg|.jpeg|.png)</label></td>
 								<td colspan="5">
 									<input type="file" id="Cust_Map" name="Cust_Map">
 								</td>

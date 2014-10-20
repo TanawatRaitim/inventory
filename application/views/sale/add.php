@@ -1,5 +1,18 @@
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+				<?php foreach ($breadcrumb as $attr): ?>
+					<?php if($attr['class'] == 'active'):?>
+						<li class="<?php echo $attr['class'];?>"><?php echo $attr['name'];?></li>
+					<?php else:?>	
+						<li class="<?php echo $attr['class'];?>"><a href="<?php echo $attr['link'];?>"><?php echo $attr['name'];?></a></li>
+					<?php endif;?>	
+				<?php endforeach ?>
+			</ol>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col-md-5">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -166,7 +179,7 @@
 							<div class="form-group">
 								<label for="TK_ID" class="col-sm-4 control-label">เลขที่ใบสั่งขาย <?php echo $transaction['Transaction_For'];?>*</label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="TK_ID" name="TK_ID" placeholder="เลขที่ใบสั่งขาย">
+									<input type="text" class="form-control input-sm" id="TK_ID" name="TK_ID" placeholder="xx-xx-xxxx">
 								</div>
 							</div>
 						</div>

@@ -51,9 +51,11 @@ $(function(){
 	        		"render": function(data, type, meta){
 	        			// console.log(meta);
 	        			var img_path = meta.Product_Photo;
-	        			var tooltip = "<a href='#' class='' title='"+data+" # "+meta.Product_Vol+"' data-trigger='hover' data-content='<img height=250 src=/inventory/assets/uploads/img/products/"+img_path+">' >"+data+" # "+meta.Product_Vol+"</a>";
+	        			var tooltip = "<a href='#' class='' title='"+data+" # "+meta.Product_Vol+"' data-trigger='hover' data-content='<img height=250 src=/inventory/assets/uploads/img/products/"+ img_path +">' >"+data+" # "+meta.Product_Vol+"</a>";
+	        			//var tooltip = "<a href='#' class='' title='"+data+" # "+meta.Product_Vol+"' data-trigger='hover' data-content='<img height=250 src=/inventory/assets/uploads/img/products/"+ img_path +">' >"+img_path+"</a>";
 	        			return tooltip;
-	        			//return "big";
+	        			//return img_path;
+	        			
 	        		},
 	        		"fnCreatedCell": function(nTd, sData, oData, iRow, iCol){
 			        	$("a", nTd).popover({

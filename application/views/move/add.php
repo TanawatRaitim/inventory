@@ -307,9 +307,9 @@
 						<button class="btn btn-primary btn-sm" id="btn_save_rs">
 							บันทึก
 						</button>
-						<button class="btn btn-warning btn-sm" id="btn_save_draft">
+						<!-- <button class="btn btn-warning btn-sm" id="btn_save_draft">
 							บันทึกแบบร่่าง
-						</button>
+						</button> -->
 						<button class="btn btn-danger btn-sm" id="btn_cancel_all">
 							ยกเลิก
 						</button>

@@ -14,6 +14,7 @@ class Product extends CI_Controller {
 		}
 		
 		$this->load->library('assets');
+		$this->load->model('product_model');
 		
 	}
 	
@@ -69,7 +70,6 @@ class Product extends CI_Controller {
 
 	public function show($id)
 	{
-		$this->load->model('product_model');
 		$this->load->model('inventory_model');
 		
 		$product_id = $this->product_model->get_id_from_autoid($id);
@@ -108,6 +108,8 @@ class Product extends CI_Controller {
 		if($result['Product_Photo'])
 		{
 			$result['Product_Photo'] = $this->config->item('productimg_path').$result['Product_Photo'];
+		}else{
+			$result['Product_Photo'] = $this->config->item('no_img_path');
 		}
 		
 		$content['product'] = $result;
@@ -166,35 +168,10 @@ class Product extends CI_Controller {
 
 	public function get_product_transaction($id)
 	{
-		$this->load->model('product_model');
+		//echo $id;
 		$result = $this->product_model->get_product_transaction($id);
-		//echo 'data table';
-		//exit();
 		
-		
-		/*
-		$this->load->model('sale_model');
-		
-		$result = $this->sale_model->get_sale_all($type);
-		
-		$result2 = $this->sale_model->count_transaction_detail();
-		
-		$count = array();
-		
-		foreach ($result2 as $key => $value) {
-			//$count
-			$count[$value['Transact_AutoID']] = $value['count_a'];
-		}
-		
-		foreach ($result as $key => $value) {
-			
-			if(isset($count[$value['Transact_AutoID']])){
-				$result[$key]['count'] = $count[$value['Transact_AutoID']];
-			}else{
-				$result[$key]['count'] = 0;
-			}
-		}
-	*/ 
+		//print_r($result);
 		
 		$json = array(
 			'data'=>$result
@@ -391,8 +368,8 @@ class Product extends CI_Controller {
 								);
 								
 		$product = $this->db->get_where('Products', array('Product_AutoID'=>$id))->result_array();
+		// echo $product[0]['Product_ID'];
 		$premium = $this->db->get_where('Product_Premium', array('Product_ID'=> $product[0]['Product_ID']));
-		
 		
 		$product[0]['Manufact_StartDate'] = convert_mssql_date($product[0]['Manufact_StartDate']);
 		$product[0]['Manufact_EndDate'] = convert_mssql_date($product[0]['Manufact_EndDate']);

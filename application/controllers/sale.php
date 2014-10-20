@@ -746,6 +746,54 @@ class Sale extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'ระบบการตัดขาย',
+										'link'=>site_url('sale/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
+										'link'=>site_url('sale/sa'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
+										'link'=>site_url('sale/ss'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
+										'link'=>site_url('sale/sc'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
+										'link'=>site_url('sale/sz'),
+										'class'=>''
+									),
+									5 => array(
+										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
+										'link'=>site_url('sale/sm'),
+										'class'=>''
+									),
+									6 => array(
+										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
+										'link'=>site_url('sale/sd'),
+										'class'=>''
+									),
+									7 => array(
+										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
+										'link'=>site_url('sale/se'),
+										'class'=>''
+									),
+									8 => array(
+										'name'=>'ใบสั่งขายทั้งหมด',
+										'link'=>site_url('sale/sale_used'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->sale_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->sale_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -781,6 +829,53 @@ class Sale extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'ระบบการตัดขาย',
+										'link'=>site_url('sale/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
+										'link'=>site_url('sale/sa'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
+										'link'=>site_url('sale/ss'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
+										'link'=>site_url('sale/sc'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
+										'link'=>site_url('sale/sz'),
+										'class'=>''
+									),
+									5 => array(
+										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
+										'link'=>site_url('sale/sm'),
+										'class'=>''
+									),
+									6 => array(
+										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
+										'link'=>site_url('sale/sd'),
+										'class'=>''
+									),
+									7 => array(
+										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
+										'link'=>site_url('sale/se'),
+										'class'=>''
+									),
+									8 => array(
+										'name'=>'ใบสั่งขายทั้งหมด',
+										'link'=>site_url('sale/sale_used'),
+										'class'=>''
+									)
+								);
 		$content['transaction'] = $this->sale_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->sale_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -838,6 +933,53 @@ class Sale extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'ระบบการตัดขาย',
+										'link'=>site_url('sale/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
+										'link'=>site_url('sale/sa'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
+										'link'=>site_url('sale/ss'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
+										'link'=>site_url('sale/sc'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
+										'link'=>site_url('sale/sz'),
+										'class'=>''
+									),
+									5 => array(
+										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
+										'link'=>site_url('sale/sm'),
+										'class'=>''
+									),
+									6 => array(
+										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
+										'link'=>site_url('sale/sd'),
+										'class'=>''
+									),
+									7 => array(
+										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
+										'link'=>site_url('sale/se'),
+										'class'=>''
+									),
+									8 => array(
+										'name'=>'ใบสั่งขายทั้งหมด',
+										'link'=>site_url('sale/sale_used'),
+										'class'=>''
+									)
+								);
 		$content['transaction'] = $this->sale_model->get_transaction_used($type, $id);
 		$content['transaction_detail'] = $this->sale_model->get_transaction_used_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -896,6 +1038,53 @@ class Sale extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'ระบบการตัดขาย',
+										'link'=>site_url('sale/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
+										'link'=>site_url('sale/sa'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
+										'link'=>site_url('sale/ss'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
+										'link'=>site_url('sale/sc'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
+										'link'=>site_url('sale/sz'),
+										'class'=>''
+									),
+									5 => array(
+										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
+										'link'=>site_url('sale/sm'),
+										'class'=>''
+									),
+									6 => array(
+										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
+										'link'=>site_url('sale/sd'),
+										'class'=>''
+									),
+									7 => array(
+										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
+										'link'=>site_url('sale/se'),
+										'class'=>''
+									),
+									8 => array(
+										'name'=>'ใบสั่งขายทั้งหมด',
+										'link'=>site_url('sale/sale_used'),
+										'class'=>''
+									)
+								);
 		$content['transaction'] = $this->sale_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->sale_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);

@@ -9,16 +9,16 @@
 						<table class="table">
 							<tr>
 								<td class="text-right info"><label for="Product_ID" class="control-label">รหัสสินค้า</label></td>
-								<td><input type="text" name="Product_ID" id="Product_ID" data-mask="00-SSSS-S0000" class="form-control input-sm" readonly="readonly" value="<?php echo $product[0]['Product_ID'];?>" /></td>
+								<td><input type="text" name="Product_ID" id="Product_ID" data-mask="AA-AAAA-AAAAA" class="form-control input-sm" readonly="readonly" value="<?php echo $product[0]['Product_ID'];?>" /></td>
 								<td class="text-right info"><label for="Product_Name" class="control-label">ชื่อสินค้า</label></td>
 								<td><input type="text" name="Product_Name" id="Product_Name" class="form-control input-sm" autofocus="autofocus" value="<?php echo $product[0]['Product_Name'];?>" /></td>
 								<td class="text-right info"><label for="Product_Vol" class="control-label">เล่มที่</label></td>
 								<td><input type="text" name="Product_Vol" id="Product_Vol" class="form-control input-sm" value="<?php echo $product[0]['Product_Vol'];?>" /></td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="ProCate_ID" class="control-label">ประเภท</label></td>
+								<td class="text-right info"><label for="ProType_ID" class="control-label">ประเภท</label></td>
 								<td>
-									<select name="ProCate_ID" id="ProCate_ID" class="form-control input-sm">
+									<select name="ProType_ID" id="ProType_ID" class="form-control input-sm">
 										<?php echo $product_type_dropdown;?>
 									</select>
 								</td>
@@ -28,9 +28,9 @@
 										<?php echo $product_group_dropdown;?>
 									</select>
 								</td>
-								<td class="text-right info"><label for="ProType_ID" class="control-label">หมวด</label></td>
+								<td class="text-right info"><label for="ProCate_ID" class="control-label">หมวด</label></td>
 								<td>
-									<select name="ProType_ID" id="ProType_ID" class="form-control input-sm">
+									<select name="ProCate_ID" id="ProCate_ID" class="form-control input-sm">
 										<?php echo $product_category_dropdown;?>
 									</select>
 								</td>
@@ -279,7 +279,7 @@
 				
 				<?php foreach($premium->result_array() as $value):?>
 					<tr id="<?php echo $value['Premium_AutoID'];?>">
-						<td rowspan="3"><img width="80"src="<?php echo $this->config->item('premiumimg_path'); ?><?php echo $value['Premium_Photo'];?>" class="img-rounded" /></td>
+						<td rowspan="3"><img width="80"src="<?php echo $value['Premium_Photo'];?>" class="img-rounded" /></td>
 						<td><?php echo $value['Premium_ID'];?></td>
 						<td><?php echo $value['Premium_Name'];?></td>
 						<td><?php echo $value['Premium_QTY'];?> <?php echo $value['Premium_Unit'];?></td>

@@ -636,6 +636,35 @@ class Move extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการโอนย้ายสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการโอนย้ายสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('move/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบโอนย้ายสินค้า (ใบใหม่)',
+										'link'=>site_url('move/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบโอนย้ายสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('move/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบโอนย้ายสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('move/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบโอนย้ายสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('move/reject'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->move_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->move_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		
@@ -690,6 +719,35 @@ class Move extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการโอนย้ายสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการโอนย้ายสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('move/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบโอนย้ายสินค้า (ใบใหม่)',
+										'link'=>site_url('move/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบโอนย้ายสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('move/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบโอนย้ายสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('move/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบโอนย้ายสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('move/reject'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->move_model->get_inventory_transaction($autoid);
 		$content['transaction_detail'] = $this->move_model->get_transaction_detail($autoid);
 		
@@ -885,6 +943,35 @@ class Move extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		$content['title'] = 'อนุมัติการโอนย้ายสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการโอนย้ายสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('move/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบโอนย้ายสินค้า (ใบใหม่)',
+										'link'=>site_url('move/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบโอนย้ายสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('move/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบโอนย้ายสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('move/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบโอนย้ายสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('move/reject'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->move_model->get_inventory_transaction($id);
 		$content['transaction_detail'] = $this->move_model->get_transaction_detail($id);
 		
@@ -941,6 +1028,35 @@ class Move extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		$content['title'] = 'อนุมัติการโอนย้ายสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการโอนย้ายสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('move/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบโอนย้ายสินค้า (ใบใหม่)',
+										'link'=>site_url('move/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบโอนย้ายสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('move/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบโอนย้ายสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('move/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบโอนย้ายสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('move/reject'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->move_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->move_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);

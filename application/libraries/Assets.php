@@ -101,7 +101,8 @@ class Assets {
 		//define default script
 		$default = array(
 						'js/jquery/jquery.js',
-						'bootstrap/dist/js/bootstrap.min.js'		
+						'bootstrap/dist/js/bootstrap.min.js',
+						'js/app/global.js'		
 					);
 											
 		//check $data

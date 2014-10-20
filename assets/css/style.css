@@ -2,7 +2,17 @@ body {
   /*padding-top: 40px;*/
   padding-bottom: 40px;
   /*background-color: #eee;*/
-  /*background-color: #BFBFBF;*/
+ /*
+  background-color: #BFBFBF;
+  background-color: #CFCFCF;
+  background-color: #D1D1D1;
+  background-color: #C9C9C9;
+  */
+  /*background-color: #2AAFDB;*/
+}
+
+table{
+	/*background-color: #FFFFFF;*/
 }
 
 .text-underline{
@@ -91,6 +101,14 @@ input.error2{
 
 .badge-error{
 	background-color: red;
+}
+
+.badge-success{
+	background-color: #5cb85c;
+}
+
+.badge-warning{
+	background-color: #f0ad4e;
 }
 
 a.text-white{

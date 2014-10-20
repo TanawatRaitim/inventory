@@ -529,6 +529,43 @@ class Cut extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'ระบบการตัดจ่าย',
+										'link'=>site_url('cut/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'อภินันท์ (FR) <span class="badge badge-error">'.$this->notification['FR'].'</span>',
+										'link'=>site_url('cut/fr'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'รวมเล่มใหม่ (TT) <span class="badge badge-error">'.$this->notification['TT'].'</span>',
+										'link'=>site_url('cut/tt'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ตัดเคลียร์สต็อค (ZZ) <span class="badge badge-error">'.$this->notification['ZZ'].'</span>',
+										'link'=>site_url('cut/zz'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ชัวคราวเพื่อซ่อมแซม (MO) <span class="badge badge-error">'.$this->notification['MO'].'</span>',
+										'link'=>site_url('cut/mo'),
+										'class'=>''
+									),
+									5 => array(
+										'name'=>'สินค้าตัวอย่าง (XS) <span class="badge badge-error">'.$this->notification['XS'].'</span>',
+										'link'=>site_url('cut/xs'),
+										'class'=>''
+									),
+									6 => array(
+										'name'=>'ใบตัดจ่ายทั้งหมด',
+										'link'=>site_url('cut/cut_used'),
+										'class'=>''
+									)
+								);
 		$content['transaction'] = $this->cut_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->cut_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -564,6 +601,43 @@ class Cut extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'ระบบการตัดจ่าย',
+										'link'=>site_url('cut/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'อภินันท์ (FR) <span class="badge badge-error">'.$this->notification['FR'].'</span>',
+										'link'=>site_url('cut/fr'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'รวมเล่มใหม่ (TT) <span class="badge badge-error">'.$this->notification['TT'].'</span>',
+										'link'=>site_url('cut/tt'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ตัดเคลียร์สต็อค (ZZ) <span class="badge badge-error">'.$this->notification['ZZ'].'</span>',
+										'link'=>site_url('cut/zz'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ชัวคราวเพื่อซ่อมแซม (MO) <span class="badge badge-error">'.$this->notification['MO'].'</span>',
+										'link'=>site_url('cut/mo'),
+										'class'=>''
+									),
+									5 => array(
+										'name'=>'สินค้าตัวอย่าง (XS) <span class="badge badge-error">'.$this->notification['XS'].'</span>',
+										'link'=>site_url('cut/xs'),
+										'class'=>''
+									),
+									6 => array(
+										'name'=>'ใบตัดจ่ายทั้งหมด',
+										'link'=>site_url('cut/cut_used'),
+										'class'=>''
+									)
+								);
 		$content['transaction'] = $this->cut_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->cut_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -621,6 +695,43 @@ class Cut extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'ระบบการตัดจ่าย',
+										'link'=>site_url('cut/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'อภินันท์ (FR) <span class="badge badge-error">'.$this->notification['FR'].'</span>',
+										'link'=>site_url('cut/fr'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'รวมเล่มใหม่ (TT) <span class="badge badge-error">'.$this->notification['TT'].'</span>',
+										'link'=>site_url('cut/tt'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ตัดเคลียร์สต็อค (ZZ) <span class="badge badge-error">'.$this->notification['ZZ'].'</span>',
+										'link'=>site_url('cut/zz'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ชัวคราวเพื่อซ่อมแซม (MO) <span class="badge badge-error">'.$this->notification['MO'].'</span>',
+										'link'=>site_url('cut/mo'),
+										'class'=>''
+									),
+									5 => array(
+										'name'=>'สินค้าตัวอย่าง (XS) <span class="badge badge-error">'.$this->notification['XS'].'</span>',
+										'link'=>site_url('cut/xs'),
+										'class'=>''
+									),
+									6 => array(
+										'name'=>'ใบตัดจ่ายทั้งหมด',
+										'link'=>site_url('cut/cut_used'),
+										'class'=>''
+									)
+								);
 		$content['transaction'] = $this->cut_model->get_transaction_used($type, $id);
 		
 		
@@ -681,6 +792,43 @@ class Cut extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'ระบบการตัดจ่าย',
+										'link'=>site_url('cut/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'อภินันท์ (FR) <span class="badge badge-error">'.$this->notification['FR'].'</span>',
+										'link'=>site_url('cut/fr'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'รวมเล่มใหม่ (TT) <span class="badge badge-error">'.$this->notification['TT'].'</span>',
+										'link'=>site_url('cut/tt'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ตัดเคลียร์สต็อค (ZZ) <span class="badge badge-error">'.$this->notification['ZZ'].'</span>',
+										'link'=>site_url('cut/zz'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ชัวคราวเพื่อซ่อมแซม (MO) <span class="badge badge-error">'.$this->notification['MO'].'</span>',
+										'link'=>site_url('cut/mo'),
+										'class'=>''
+									),
+									5 => array(
+										'name'=>'สินค้าตัวอย่าง (XS) <span class="badge badge-error">'.$this->notification['XS'].'</span>',
+										'link'=>site_url('cut/xs'),
+										'class'=>''
+									),
+									6 => array(
+										'name'=>'ใบตัดจ่ายทั้งหมด',
+										'link'=>site_url('cut/cut_used'),
+										'class'=>''
+									)
+								);
 		$content['transaction'] = $this->cut_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->cut_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);

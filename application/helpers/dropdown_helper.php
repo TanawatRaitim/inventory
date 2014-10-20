@@ -629,7 +629,7 @@ if ( ! function_exists('age_return_dropdown'))
 		{
 			$ci =& get_instance();
 			$ci->db->where('AppStatType','AGE-RETURN');
-			$ci->db->order_by('Optional');
+			// $ci->db->order_by('Optional');
 			$query = $ci->db->get('AppStatus');
 			
 			$dropdown = "";
@@ -655,6 +655,8 @@ if ( ! function_exists('age_return_dropdown'))
 				}	
 			}
 			//print_r($dropdown);
+			//exit();
+			
 			return $dropdown;
 
 		}
@@ -667,7 +669,7 @@ if ( ! function_exists('age_inventory_dropdown'))
 		{
 			$ci =& get_instance();
 			$ci->db->where('AppStatType','AGE-INVENTORY');
-			$ci->db->order_by('Optional');
+			// $ci->db->order_by('Optional');
 			$query = $ci->db->get('AppStatus');
 			
 			$dropdown = "";

@@ -91,7 +91,7 @@
 		
 		public function get_all()
 		{
-			$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as in_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
+			$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar, Inventory_Transaction.Transport_Date, 105) as Transport_Date, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as in_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
 			$this->db->join('Ticket_Type','Ticket_Type.TK_Code = Inventory_Transaction.Transaction_For','left');
@@ -106,7 +106,7 @@
 		
 		public function get_no_appv_all()
 		{
-			$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as in_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
+			$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar, Inventory_Transaction.Transport_Date, 105) as Transport_Date, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as in_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
 			$this->db->join('Ticket_Type','Ticket_Type.TK_Code = Inventory_Transaction.Transaction_For','left');
@@ -126,7 +126,7 @@
 		
 		public function get_yes_appv_all()
 		{
-			$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as in_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
+			$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar, Inventory_Transaction.Transport_Date, 105) as Transport_Date, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as in_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
 			$this->db->join('Ticket_Type','Ticket_Type.TK_Code = Inventory_Transaction.Transaction_For','left');
@@ -145,7 +145,7 @@
 		
 		public function get_reject_all()
 		{
-			$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as in_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
+			$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar, Inventory_Transaction.Transport_Date, 105) as Transport_Date, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as in_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
 			$this->db->join('Ticket_Type','Ticket_Type.TK_Code = Inventory_Transaction.Transaction_For','left');
@@ -175,7 +175,7 @@
 		
 		public function get_inventory_transaction($id)
 		{
-			$this->db->select('*, convert(varchar,Inventory_Transaction.RowCreatedDate,22) as created_date, convert(varchar,Inventory_Transaction.ApprovedDate,22) as approved_date');
+			$this->db->select('*, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as created_date, convert(varchar,Inventory_Transaction.ApprovedDate,22) as approved_date');
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID');
 			$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson');

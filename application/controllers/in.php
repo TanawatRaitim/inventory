@@ -640,6 +640,35 @@ class In extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการนำเข้าสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการนำเข้าสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('in/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบนำสินค้าเข้า (ใบใหม่)',
+										'link'=>site_url('in/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบนำสินค้าเข้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('in/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบนำสินค้าเข้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('in/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบนำสินค้าเข้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('in/reject'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->in_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->in_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -696,6 +725,34 @@ class In extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการนำเข้าสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการนำเข้าสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('in/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบนำสินค้าเข้า (ใบใหม่)',
+										'link'=>site_url('in/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบนำสินค้าเข้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('in/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบนำสินค้าเข้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('in/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบนำสินค้าเข้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('in/reject'),
+										'class'=>''
+									)
+								);
 		$content['transaction'] = $this->in_model->get_inventory_transaction($autoid);
 		$content['transaction_detail'] = $this->in_model->get_transaction_detail($autoid);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -835,6 +892,35 @@ class In extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		$content['title'] = 'อนุมัติการนำเข้าสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการนำเข้าสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('in/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบนำสินค้าเข้า (ใบใหม่)',
+										'link'=>site_url('in/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบนำสินค้าเข้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('in/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบนำสินค้าเข้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('in/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบนำสินค้าเข้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('in/reject'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->in_model->get_inventory_transaction($id);
 		$content['transaction_detail'] = $this->in_model->get_transaction_detail($id);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -888,6 +974,35 @@ class In extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		$content['title'] = 'อนุมัติการนำเข้าสินค้า';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการนำเข้าสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('in/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบนำสินค้าเข้า (ใบใหม่)',
+										'link'=>site_url('in/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบนำสินค้าเข้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('in/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบนำสินค้าเข้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('in/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบนำสินค้าเข้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('in/reject'),
+										'class'=>''
+									)
+								);
+		
 		$content['transaction'] = $this->in_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->in_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);

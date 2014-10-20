@@ -23,7 +23,7 @@
         <li class="active"><a href="<?php echo site_url('adjust/all')?>">ปรับยอดสินค้า</a></li>
         <li class="active"><a href="<?php echo site_url('search/main')?>">ค้นหาข้อมูล</a></li>
         <li class="active"><a href="<?php echo site_url('report')?>">รายงาน</a></li>
-        <li class="active"><a href="<?php echo site_url('manage')?>">จัดการข้อมูล</a></li>
+        <li class="active"><a href="<?php echo site_url('manage/main')?>">จัดการข้อมูล</a></li>
         <li class="active"><a href="<?php echo site_url('admin')?>">Administrator</a></li>
         <!-- 
         <li class="dropdown">
@@ -103,9 +103,8 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->userdata('Inven_User');?> <b class="caret"></b></a>
           <ul class="dropdown-menu">
             
-            <li><a href="#">แบบร่างที่บันทึกไว้</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <!-- <li><a href="<?php echo site_url('manage/clear_unused_ticket')?>">ล้างข้อมูลที่ค้างในระบบ</a></li> -->
+            <li><a href="#" id="clear_unused_ticket">ล้างข้อมูลที่ค้างในระบบ</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo site_url('auth/logout')?>">ออกจากโปรแกรม</a></li>
           </ul>

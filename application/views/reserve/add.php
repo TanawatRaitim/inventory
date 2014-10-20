@@ -1,3 +1,6 @@
+
+
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
@@ -433,9 +436,11 @@
 						<button class="btn btn-primary btn-sm" id="btn_save_rs">
 							บันทึกการจองสินค้า
 						</button>
+						<!-- 
 						<button class="btn btn-warning btn-sm" id="btn_save_draft">
 							บันทึกแบบร่่าง
 						</button>
+						 -->
 						<button class="btn btn-danger btn-sm" id="btn_cancel_all">
 							ยกเลิกการจองสินค้าทั้งหมด
 						</button>
@@ -452,4 +457,5 @@
 
 </div>
 <!-- end .container-fluid -->
+
 

@@ -36,11 +36,6 @@ class Search extends CI_Controller {
 										'name'=>'ค้นหาข้อมูลลูกค้า',
 										'link'=>'customer',
 										'class'=>''
-									),
-									3 => array(
-										'name'=>'ค้นหาข้อมูล Ticket',
-										'link'=>'ticket',
-										'class'=>''
 									)
 								);
 
@@ -84,11 +79,6 @@ class Search extends CI_Controller {
 										'name'=>'ค้นหาข้อมูลลูกค้า',
 										'link'=>'customer',
 										'class'=>''
-									),
-									3 => array(
-										'name'=>'ค้นหาข้อมูล Ticket',
-										'link'=>'ticket',
-										'class'=>''
 									)
 								);
 
@@ -129,11 +119,6 @@ class Search extends CI_Controller {
 										'name'=>'ค้นหาข้อมูลลูกค้า',
 										'link'=>'customer',
 										'class'=>'active'
-									),
-									3 => array(
-										'name'=>'ค้นหาข้อมูล Ticket',
-										'link'=>'ticket',
-										'class'=>''
 									)
 								);
 
@@ -162,6 +147,11 @@ class Search extends CI_Controller {
 		$query = $this->product_model->datatable();
 		$products = $query->result_array();
 		
+		foreach($products as $key=>$product)
+		{
+			$products[$key]['Product_Photo'] = str_replace('+','%20',urlencode($product['Product_Photo']));
+			
+		}
 		$json = array(
 			'data'=>$products
 		);

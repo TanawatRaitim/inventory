@@ -161,8 +161,7 @@ $(function() {
 				min:1
 			},
 			Order_Num:{
-				required:true,
-				number:true
+				required:true
 			},
 			Manufact_Num:{
 				number:true

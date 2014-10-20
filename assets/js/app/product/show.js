@@ -28,8 +28,8 @@ $(function(){
 		"lengthChange": false,
 		"pageLength":5,
 		"order": [],
-		// "dom": 'T<"clear">lfrtip',
-		'filter': false,
+		"dom": 'T<"clear">lfrtip',
+		// 'filter': false,
         "ajax": '/inventory/product/get_product_transaction/'+ product_id,
         "stateSave": false,
         "tableTools": {
@@ -63,6 +63,9 @@ $(function(){
         	},
         	// {"data":"count"},
         	{"data":"reserve_date"},
+        	{"data":"QTY_Good"},
+        	{"data":"QTY_Waste"},
+        	{"data":"QTY_Damage"},
         	/*
         	{
         		"data":"reserve_date"
