@@ -176,19 +176,6 @@ $(function() {
 				return false;
 			}
 			
-			/*
-			if($("#product_receive").val()<=0){
-				$("#ticket_detail_msg").noty({
-					text: 'คุณไม่สามารถใสยอดสินค้ารวม น้อยกว่าหรือเท่ากับ 0 รายการได้',
-					type: 'error',
-					dismissQueue: true,
-					//killer: true,
-					timeout: 4000
-				});
-				
-				return false;
-			}
-			*/
 			
 			$.ajax({
 			type: 'POST',
@@ -250,10 +237,11 @@ $(function() {
 							$("#QTY_Damage").val(0);
 							$("#product_receive").val(0);
 							$("#Product_ID").select2('focus');
+							$("#btn_add_detail").removeAttr('disabled');
 		
 						},
 						beforeSend: function(){
-							
+								$("#btn_add_detail").attr('disabled','disabled');
 							},
 						complete: function(){
 							}
@@ -404,6 +392,7 @@ $(function() {
 				dismissQueue: false,
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+						$(this).attr('disabled','disabled');
 						$noty.close();
 						
 						$.ajax({

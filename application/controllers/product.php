@@ -285,6 +285,39 @@ class Product extends CI_Controller {
 		$this->db->insert('Products',$post);
 		$auto_id = $this->db->insert_id();
 		
+		
+		//create inventory
+		
+		//get all inventory
+		$inventories = $this->db->get('Inventory')->result_array();
+		
+		//create each inventory
+		foreach($inventories as $inventory)
+		{
+			$insert = array(
+				'Stock_AutoID'=>$inventory['Stock_AutoID'],
+				'Product_ID'=>$post['Product_ID'],
+				'QTY_Good'=>0,
+				'QTY_ReserveGood'=>0,
+				'QTY_RemainGood'=>0,
+				'QTY_Waste'=>0,
+				'QTY_ReserveWaste'=>0,
+				'QTY_RemainWaste'=>0,
+				'QTY_Damage'=>0,
+				'QTY_ReserveDamage'=>0,
+				'QTY_RemainDamage'=>0,
+				'RowCreatedDate'=>date("Y/m/d h:i:s"),
+				'RowCreatedPerson'=>$this->session->userdata('Emp_ID'),
+				'RowUpdatedDate'=>date("Y/m/d h:i:s"),
+				'RowUpdatedPerson'=>$this->session->userdata('Emp_ID'),
+				'RowStatus'=>'ACTIVE',
+				'IsDel'=>'N'
+			);
+			
+			$this->db->insert('Inventory_Detail', $insert);
+		}
+		
+		//insert Image, PDF
 		$update_file = array();
 		
 		if($_FILES['Product_Photo']['name']){
@@ -317,36 +350,7 @@ class Product extends CI_Controller {
 		}
 		
 		
-		//create inventory
 		
-		//get all inventory
-		$inventories = $this->db->get('Inventory')->result_array();
-		
-		//create each inventory
-		foreach($inventories as $inventory)
-		{
-			$insert = array(
-				'Stock_AutoID'=>$inventory['Stock_AutoID'],
-				'Product_ID'=>$post['Product_ID'],
-				'QTY_Good'=>0,
-				'QTY_ReserveGood'=>0,
-				'QTY_RemainGood'=>0,
-				'QTY_Waste'=>0,
-				'QTY_ReserveWaste'=>0,
-				'QTY_RemainWaste'=>0,
-				'QTY_Damage'=>0,
-				'QTY_ReserveDamage'=>0,
-				'QTY_RemainDamage'=>0,
-				'RowCreatedDate'=>date("Y/m/d h:i:s"),
-				'RowCreatedPerson'=>$this->session->userdata('Emp_ID'),
-				'RowUpdatedDate'=>date("Y/m/d h:i:s"),
-				'RowUpdatedPerson'=>$this->session->userdata('Emp_ID'),
-				'RowStatus'=>'ACTIVE',
-				'IsDel'=>'N'
-			);
-			
-			$this->db->insert('Inventory_Detail', $insert);
-		}
 		
 		redirect('product/update_get/'.$auto_id, 'refresh');
 }

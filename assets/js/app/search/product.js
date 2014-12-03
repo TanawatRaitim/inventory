@@ -51,8 +51,11 @@ $(function(){
 	        		"render": function(data, type, meta){
 	        			// console.log(meta);
 	        			var img_path = meta.Product_Photo;
-	        			var tooltip = "<a href='#' class='' title='"+data+" # "+meta.Product_Vol+"' data-trigger='hover' data-content='<img height=250 src=/inventory/assets/uploads/img/products/"+ img_path +">' >"+data+" # "+meta.Product_Vol+"</a>";
-	        			//var tooltip = "<a href='#' class='' title='"+data+" # "+meta.Product_Vol+"' data-trigger='hover' data-content='<img height=250 src=/inventory/assets/uploads/img/products/"+ img_path +">' >"+img_path+"</a>";
+	        			// var tooltip = "<a href='#' class='' title='"+data+" # "+meta.Product_Vol+"' data-trigger='hover' data-content='<img height=250 src=/inventory/assets/uploads/img/products/"+ img_path +">' >"+data+" # "+meta.Product_Vol+"</a>";
+	        			var tooltip = "<a href='#' class='' title='"+data+" # "+meta.Product_Vol+"' data-trigger='hover' data-content='<img height=250 src=../assets/uploads/img/products/"+ img_path +">' >"+data+" # "+meta.Product_Vol+"</a>";
+	        			
+	        			
+	        			
 	        			return tooltip;
 	        			//return img_path;
 	        			
@@ -76,7 +79,7 @@ $(function(){
 	        			//return "<a data-toggle='tooltip' title='ดูรายละเอียด' class='btn btn-xs btn-primary' href='product/show/"+row.Product_AutoID+"'>ดู</a> <a data-toggle='tooltip' title='แก้ไข' class='btn btn-xs btn-warning' href='product/edit/"+row.Product_AutoID+"'>แก้ไข</a> <a data-toggle='tooltip' title='ลบ'  class='btn btn-xs btn-danger' href='product/delete/"+row.Product_AutoID+"'>ลบ</a>";
 	        			//return "<a title='ดูรายละเอียด' class='btn btn-xs btn-primary' href='product/show/"+row.Product_AutoID+"'>ดู</a> <a title='แก้ไข' class='btn btn-xs btn-warning' href='product/edit/"+row.Product_AutoID+"'>แก้ไข</a> <a title='ลบ'  class='btn btn-xs btn-danger' href='product/delete/"+row.Product_AutoID+"'>ลบ</a>";
 	        			// return 'big';
-	        			return "<a title='ดูรายละเอียด' target='_blank' class='btn btn-xs btn-primary' href='/inventory/product/show/"+row.Product_AutoID+"'>ดูรายละเอียด</a> <a title='แก้ไข' target='_blank' class='btn btn-xs btn-warning' href='/inventory/product/update_get/"+row.Product_AutoID+"'>แก้ไข</a> ";
+	        			return "<a title='ดูรายละเอียด' target='_blank' class='btn btn-xs btn-primary' href='../product/show/"+row.Product_AutoID+"'>ดูรายละเอียด</a> <a title='แก้ไข' target='_blank' class='btn btn-xs btn-warning' href='../product/update_get/"+row.Product_AutoID+"'>แก้ไข</a> ";
 	        		},
 	        		//"fnCreatedCell": function(nTd, sData, oData, iRow, iCol){
 	        			/*

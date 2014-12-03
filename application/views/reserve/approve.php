@@ -175,13 +175,14 @@
 					</div>
 				</div>
 			</div>
-			<form method="post" action="<?php echo site_url();?>reserve/set_reject" id='form_reject'>
+			
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">อนุมัติ / ปฏิเสธ</h3>
 					</div>
 					<div class="panel-body">
 						<!-- <form class="form-horizontal" role="form"> -->
+						<form method="post" action="<?php echo site_url();?>reserve/set_reject" id='form_reject'>	
 							<input type="hidden" name="rsid" id="rsid" value="<?php echo $transaction['TK_ID'];?>" />
 							<div class="col-md-12">
 								<div class="radio">
@@ -213,11 +214,12 @@
 								<input type="button" id="btn_save" class="btn btn-primary btn-sm" value="บันทึก" />
 								<input type="button" id="btn_cancel" class="btn btn-danger btn-sm" value="ยกเลิก" />
 							</div>
-							
-					</div>
+						</form>	
+						<div class="col-md-12" id="message" style="padding-top: 20px;"></div>
+					</div> <!-- panel-body -->
 				</div>
-			</form>
-			<div class="col-md-12" id="message" style="padding-top: 20px;"></div>
+			
+			
 		</div>
 
 	</div><!-- end .row -->

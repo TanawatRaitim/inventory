@@ -28,7 +28,9 @@ $(function(){
 		$("input#QTY_Good, input#QTY_Waste, input#QTY_Damage").each(function(){
 
 			var val = $(this).val();
-			if(val=="" || $.isNumeric(val) == false || val<0){
+			var max = $(this).data('max');
+			
+			if(val=="" || $.isNumeric(val) == false || val<0 || val>max){
 				
 				result = false;
 				$(this).focus();
@@ -57,6 +59,8 @@ $(function(){
 			buttons     : [
 				{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 					
+					$(this).attr('disabled','disabled');
+
 					$.ajax({
 					type: 'POST',
 					url: '/inventory/move/edit_detail',
@@ -95,7 +99,7 @@ $(function(){
 		});
 		}else{
 			$("#message").noty({
-					text: "คุณไม่สามารถ่ใส่ค่าว่าง ,ค่าน้อยกว่า 0 หรือค่าอื่นที่ไม่ใช่ตัวเลข",
+					text: "คุณไม่สามารถ่ใส่ค่าว่าง ,ค่าน้อยกว่า 0, ยอดการจองรวมแต่ละรายการเท่ากับ 0,  ค่าอื่นที่ไม่ใช่ตัวเลข, หรือค่ามากกว่าที่คุณได้ทำการจองไปได้",
 					type: 'error',
 					dismissQueue: true,
 					//killer: true,
@@ -112,6 +116,8 @@ $(function(){
 			// dismissQueue: true,
 			buttons     : [
 				{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+					
+					$(this).attr('disabled','disabled');
 					
 					window.location.href = '/inventory/move/all';
 								

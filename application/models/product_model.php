@@ -76,7 +76,7 @@
 			$this->db->order_by('Inventory_Transaction.RowCreatedDate','desc');
 			
 			$query = $this->db->get();
-			//echo $this->db->last_query();	
+			// echo $this->db->last_query();	
 			return $query->result_array();
 		}
 		

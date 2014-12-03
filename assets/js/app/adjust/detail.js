@@ -141,6 +141,8 @@ $(function(){
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 						
+						$(this).attr('disabled','disabled');
+						
 						$.ajax({
 						type: 'POST',
 						url: '/inventory/adjust/edit_detail',
@@ -198,6 +200,7 @@ $(function(){
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 						
+						$(this).attr('disabled','disabled');
 						window.location.href = '/inventory/adjust/all';
 									
 					}

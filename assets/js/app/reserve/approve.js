@@ -46,7 +46,7 @@ $(function() {
 							buttons     : [
 								{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 									//$("form").submit();
-									
+									$(this).attr('disabled','disabled');
 									// alert('big');
 									$.ajax({
 										type: 'POST',
@@ -93,6 +93,8 @@ $(function() {
 						buttons     : [
 							{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 								// $("form").submit();
+								$(this).attr('disabled','disabled');
+								
 								$.ajax({
 										type: 'POST',
 										url: '/inventory/reserve/set_reject',
@@ -146,6 +148,8 @@ $(function() {
 						// dismissQueue: true,
 						buttons     : [
 							{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+								
+								$(this).attr('disabled','disabled');
 								
 								window.location.href = '/inventory/reserve/all';
 											

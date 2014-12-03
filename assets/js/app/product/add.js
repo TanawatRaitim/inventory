@@ -85,9 +85,7 @@ $(function() {
 						//alert("big");
 						$("#form_product").submit();
 						form.submit();
-						//$noty.close();
-						//$("form#form_product").submit();
-						// return true;
+						
 						}
 					},
 					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {

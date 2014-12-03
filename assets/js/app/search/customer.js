@@ -60,7 +60,7 @@ $(function(){
 	        			//return "<a data-toggle='tooltip' title='ดูรายละเอียด' class='btn btn-xs btn-primary' href='product/show/"+row.Product_AutoID+"'>ดู</a> <a data-toggle='tooltip' title='แก้ไข' class='btn btn-xs btn-warning' href='product/edit/"+row.Product_AutoID+"'>แก้ไข</a> <a data-toggle='tooltip' title='ลบ'  class='btn btn-xs btn-danger' href='product/delete/"+row.Product_AutoID+"'>ลบ</a>";
 	        			//return "<a title='ดูรายละเอียด' class='btn btn-xs btn-primary' href='product/show/"+row.Product_AutoID+"'>ดู</a> <a title='แก้ไข' class='btn btn-xs btn-warning' href='product/edit/"+row.Product_AutoID+"'>แก้ไข</a> <a title='ลบ'  class='btn btn-xs btn-danger' href='product/delete/"+row.Product_AutoID+"'>ลบ</a>";
 	        			// return 'big';
-	        			return "<a title='ดูรายละเอียด' target='_blank' class='btn btn-xs btn-primary' href='/inventory/customer/show/"+row.Cust_AutoID+"'>ดูรายละเอียด</a> <a title='แก้ไข' target='_blank' class='btn btn-xs btn-warning' href='/inventory/customer/update_get/"+row.Cust_AutoID+"'>แก้ไข</a> ";
+	        			return "<a title='ดูรายละเอียด' target='_blank' class='btn btn-xs btn-primary' href='../customer/show/"+row.Cust_AutoID+"'>ดูรายละเอียด</a> <a title='แก้ไข' target='_blank' class='btn btn-xs btn-warning' href='../customer/update_get/"+row.Cust_AutoID+"'>แก้ไข</a> ";
 	        		},
 	        		//"fnCreatedCell": function(nTd, sData, oData, iRow, iCol){
 	        			/*

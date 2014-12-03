@@ -4,11 +4,12 @@
 	</div>
 	
 	<div class="panel-body">
+		<div class="col-md-12 text-center">
+			<h3 style="margin-top: 0px;"><?php echo $product['Product_Name'];?> (<?php echo $product['Product_ID'];?>) # <?php echo $product['Product_Vol'];?></h3>
+		</div>
 		<div class="col-md-4">
 			<img width="150" id="p_img" src="<?php echo $product['Product_Photo'] ;?>" class="img-rounded" />
-			
 			<br />
-			
 			<?php if($product['Product_SpecSheet']):?>
 				<span class="label label-default"><a style="color:white" class="text-white" target="_blank" href="<?php echo $product['Product_SpecSheet'];?>">specsheet</a></span>
 			<?php endif;?>
@@ -26,7 +27,12 @@
 			<table class="table table-condensed">	
 				<tbody>
 					<tr>
-						<td colspan="2" class="primary"><?php echo $product['Product_Name'];?> (<?php echo $product['Product_ID'];?>) # <?php echo $product['Product_Vol'];?></td>
+						<td>Barcode</td>
+						<td><?php echo $product['Barcode_Main'];?></td>
+					</tr>
+					<tr>
+						<td>ราคา</td>
+						<td><?php echo $product['Price'];?> บาท</td>
 					</tr>
 					<tr>
 						<td>ยอดสั่งผลิต</td>

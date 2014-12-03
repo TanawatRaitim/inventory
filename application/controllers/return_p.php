@@ -394,6 +394,7 @@ class Return_p extends CI_Controller {
 		$this->db->like('Product_ID', $text);
 		$this->db->or_like('Product_Name', $text);
 		$this->db->or_like('Product_Vol', $text);
+		$this->db->or_like('Barcode_Main', $text);
 		$query = $this->db->get('Products');
 		
 		if($query->num_rows()>0)
@@ -491,6 +492,7 @@ class Return_p extends CI_Controller {
 	public function save()
 	{
 		parse_str($_POST['main_ticket'], $main);
+		
 		$this->return_p_model->save($main);
 		
 	}

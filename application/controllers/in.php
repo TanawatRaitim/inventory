@@ -395,6 +395,7 @@ class In extends CI_Controller {
 		$this->db->like('Product_ID', $text);
 		$this->db->or_like('Product_Name', $text);
 		$this->db->or_like('Product_Vol', $text);
+		$this->db->or_like('Barcode_Main', $text);
 		$query = $this->db->get('Products');
 		
 		if($query->num_rows()>0)

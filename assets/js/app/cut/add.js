@@ -52,6 +52,9 @@ $(function(){
 					// dismissQueue: true,
 					buttons     : [
 						{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+							
+							$(this).attr('disabled','disabled');
+							
 							$.ajax({
 								type: 'POST',
 								url: '/inventory/sale/set_is_used',
@@ -104,6 +107,7 @@ $(function(){
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 						
+						$(this).attr('disabled','disabled');
 						window.location.href = '/inventory/cut/all';
 									
 					}

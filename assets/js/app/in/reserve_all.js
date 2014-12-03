@@ -14,8 +14,6 @@ $(function() {
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 
-						// this = button element
-						// $noty = $noty element
 
 						$noty.close();
 						$("#message").noty({force: true, text: 'You clicked "Ok" button', type: 'success'});

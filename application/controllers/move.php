@@ -413,6 +413,7 @@ class Move extends CI_Controller {
 		$this->db->like('Product_ID', $text);
 		$this->db->or_like('Product_Name', $text);
 		$this->db->or_like('Product_Vol', $text);
+		$this->db->or_like('Barcode_Main', $text);
 		$query = $this->db->get('Products');
 		
 		if($query->num_rows()>0)
@@ -840,7 +841,11 @@ class Move extends CI_Controller {
 				//delete transaction detail
 				$this->move_model->delete_each_detail($arr[0],$arr[1],$arr[2],$arr[6]);
 				
-				//update qty
+				//get inventory detail
+				//$inventory = $this->db->get_where('Inventory_Detail', $where)->row_array();
+				
+				$inventory = $this->inventory_model->get_product_stock($arr[1], $arr[2]);
+				
 				$update = array(
 					'QTY_ReserveGood'=> $inventory['QTY_ReserveGood']-$transaction_detail['QTY_Good'],
 					'QTY_RemainGood'=>$inventory['QTY_RemainGood']+$transaction_detail['QTY_Good'],
@@ -856,6 +861,8 @@ class Move extends CI_Controller {
 				$deleted[$arr[5]] = $arr[5];
 			}
 		}
+
+
 	
 		//check delete		
 		foreach ($data as $key => $value) {

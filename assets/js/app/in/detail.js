@@ -59,6 +59,8 @@ $(function(){
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 						
+						$(this).attr('disabled','disabled');
+						
 						$.ajax({
 						type: 'POST',
 						url: '/inventory/in/edit_detail',
@@ -114,6 +116,8 @@ $(function(){
 				// dismissQueue: true,
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+						
+						$(this).attr('disabled','disabled');
 						
 						window.location.href = '/inventory/in/all';
 									

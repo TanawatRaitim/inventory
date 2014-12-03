@@ -47,6 +47,8 @@ $(function(){
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 						
+						$(this).attr('disabled','disabled');
+						
 						$.ajax({
 						type: 'POST',
 						url: '/inventory/reserve/edit_detail',

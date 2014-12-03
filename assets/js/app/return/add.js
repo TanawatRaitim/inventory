@@ -305,10 +305,12 @@ $(function() {
 							$("#QTY_Damage").val(0);
 							$("#product_receive").val(0);
 							$("#Product_ID").select2('focus');
+							
+							$("#btn_add_detail").removeAttr('disabled');
 		
 						},
 						beforeSend: function(){
-							
+							$("#btn_add_detail").attr('disabled','disabled');
 							},
 						complete: function(){
 							}
@@ -459,6 +461,9 @@ $(function() {
 				dismissQueue: false,
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+						
+						$(this).attr('disabled','disabled');
+						
 						$noty.close();
 						
 						$.ajax({
@@ -598,6 +603,7 @@ $(function() {
 			maxVisible: 1,
 			buttons     : [
 				{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+					$(this).attr('disabled','disabled');
 					$noty.close();
 					
 					$.ajax({

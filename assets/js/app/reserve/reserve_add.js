@@ -62,13 +62,13 @@ $(function() {
 				$("#table_qty").load('table_qty/'+data.Product_ID);
 				$("#table_premium").load('table_premium/'+data.Product_ID);
 				$("#Effect_Stock_AutoID").val(data.Main_Inventory);
-				
+				$("#btn_add_detail").removeAttr('disabled');
 			},
 			beforeSend: function(){
 				
 			},
 			complete: function(){
-				
+				$("#btn_add_detail").removeAttr('disabled');
 			}
 		});
 
@@ -239,6 +239,8 @@ $(function() {
 							$("#QTY_Damage").val(0);
 							$("#product_receive").val(0);
 							$("#Product_ID").select2('focus');
+							
+							$("#btn_add_detail").removeAttr('disabled');
 		
 						},
 						beforeSend: function(){
@@ -258,8 +260,11 @@ $(function() {
 				}
 			},
 			beforeSend: function(){
+				$("#btn_add_detail").attr('disabled','disabled');
+				
 			},
 			complete: function(){
+				$("#btn_add_detail").removeAttr('disabled');
 				}
 			});
 		},
@@ -300,6 +305,9 @@ $(function() {
 			// dismissQueue: true,
 			buttons     : [
 				{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+					
+					$(this).attr('disabled','disabled');
+					
 					$.ajax({
 						type: 'POST',
 						url: 'delete_ticket_detail',
@@ -406,6 +414,9 @@ $(function() {
 				dismissQueue: false,
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+						
+						$(this).attr('disabled','disabled');
+						
 						$noty.close();
 						var tkid = $("#TK_ID").val();
 						
@@ -592,6 +603,7 @@ $(function() {
 			maxVisible: 1,
 			buttons     : [
 				{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+					$(this).attr('disabled','disabled');
 					$noty.close();
 					
 					$.ajax({

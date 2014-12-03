@@ -45,6 +45,8 @@ $(function() {
 							// dismissQueue: true,
 							buttons     : [
 								{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+									
+									$(this).attr('disabled','disabled');
 									$.ajax({
 										type: 'POST',
 										url: '/inventory/move/set_reject',
@@ -90,6 +92,8 @@ $(function() {
 						buttons     : [
 							{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 								// $("form").submit();
+								$(this).attr('disabled','disabled');
+
 								$.ajax({
 										type: 'POST',
 										url: '/inventory/move/set_reject',
@@ -98,7 +102,7 @@ $(function() {
 											},
 										dataType: 'html',
 										success: function(data){
-											// alert(data);
+
 											if(data == 'true'){
 												alert('อนุมัติเรียบร้อยแล้ว');
 												window.location.href = '/inventory/move/all';
@@ -143,6 +147,8 @@ $(function() {
 						// dismissQueue: true,
 						buttons     : [
 							{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+								
+								$(this).attr('disabled','disabled');
 								
 								window.location.href = '/inventory/move/all';
 											
