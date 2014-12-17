@@ -141,7 +141,39 @@ $(function(){
 				$(this).parents('tr').removeClass('danger');
 			}
 		});
+		
+		$("body").on('click', "#check_all",function(e){
+			$(':checkbox').prop('checked', true);
+			$(':checkbox').parents('tr').addClass('danger');	
+			$(this).attr('id', 'not_check_all');
+		});
+		
+		
+		$("body").on('click', '#not_check_all',function(e){
+			$(':checkbox').prop('checked', false);
+			$(':checkbox').parents('tr').removeClass('danger');	
+			$(this).attr('id', 'check_all');
+		});
+		
+		$('#delete_all').on('click',function(e){
 			
+			$("#confirm_delete_all").noty({
+				text: "test",
+				type: 'error',
+				dismissQueue: true,
+				//killer: true,
+				timeout: 10000
+			});
+			
+		});
+		
+			
+		
+
+		    
+
+		
+		
 			
 }); 
 	

@@ -295,6 +295,75 @@ class Reserve extends CI_Controller {
 		$this->load->view('template/main',$data);
 	}
 
+	
+	
+	public function Edit($id)
+	{
+		$content['title'] = 'แก้ไขการจองสินค้า  (RS)';
+		$content['input_type'] = 'RS';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการจองสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>'all',
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบจองสินค้า (ใบใหม่)',
+										'link'=>'add',
+										'class'=>'active'
+									),
+									2 => array(
+										'name'=>"ใบจองสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>'no_appv',
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบจองสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>'yes_appv',
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบจองสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>'reject',
+										'class'=>''
+									)
+								);
+		$content['doc_refer'] = doc_refer_dropdown();	
+		$content['ticket_type'] = ticket_sale_dropdown();	
+		$content['inventory_type'] = inventory_dropdown();
+		$content['transaction'] = '';
+		$content['transaction_detail'] = '';
+		
+		$data['content'] = $this->load->view('reserve/edit',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			// 'bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css'
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			// 'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/reserve/edit.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+
+	
+
+
 	public function check_new_data()
 	{
 		parse_str($_POST['main_ticket'], $main);

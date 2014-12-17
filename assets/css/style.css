@@ -119,6 +119,10 @@ a.text-white{
 	color: red;
 }
 
+#check_all, #not_check_all{
+	cursor: pointer;
+}
+
 
 
 

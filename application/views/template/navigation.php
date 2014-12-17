@@ -22,7 +22,7 @@
         <li class="active"><a href="<?php echo site_url('move/all')?>">โอนย้ายสินค้า</a></li>
         <li class="active"><a href="<?php echo site_url('adjust/all')?>">ปรับยอดสินค้า</a></li>
         <li class="active"><a href="<?php echo site_url('search/main')?>">ค้นหาข้อมูล</a></li>
-        <li class="active"><a href="http://172.168.1.109/IMS_Reporting/QTYRemain_InventList.aspx" target="_blank">รายงาน</a></li>
+        <li class="active"><a href="http://172.168.1.109/IMS_Reporting/IMS_Default.aspx" target="_blank">รายงาน</a></li>
         <li class="active"><a href="<?php echo site_url('manage/main')?>">จัดการข้อมูล</a></li>
         <li class="active"><a href="<?php echo site_url('admin')?>">Administrator</a></li>
         <!-- 

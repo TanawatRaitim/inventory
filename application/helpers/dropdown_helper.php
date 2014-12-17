@@ -628,7 +628,7 @@ if ( ! function_exists('age_return_dropdown'))
 		function age_return_dropdown($selected = "")
 		{
 			$ci =& get_instance();
-			$ci->db->where('AppStatType','AGE-RETURN');
+			$ci->db->where('AppStatType','AGE-ALL');
 			// $ci->db->order_by('Optional');
 			$query = $ci->db->get('AppStatus');
 			
@@ -654,8 +654,6 @@ if ( ! function_exists('age_return_dropdown'))
 					$dropdown .= '<option value="'.$row['AppStatValue'].'">'.$row['AppStatName'].'</option>';
 				}	
 			}
-			//print_r($dropdown);
-			//exit();
 			
 			return $dropdown;
 
@@ -668,7 +666,7 @@ if ( ! function_exists('age_inventory_dropdown'))
 		function age_inventory_dropdown($selected = "")
 		{
 			$ci =& get_instance();
-			$ci->db->where('AppStatType','AGE-INVENTORY');
+			$ci->db->where('AppStatType','AGE-ALL');
 			// $ci->db->order_by('Optional');
 			$query = $ci->db->get('AppStatus');
 			
@@ -699,10 +697,6 @@ if ( ! function_exists('age_inventory_dropdown'))
 
 		}
 }//end if
-
-
-
-
 
 
 /* End of file dropdown_helper.php */

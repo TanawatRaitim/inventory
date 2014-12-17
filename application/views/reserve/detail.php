@@ -16,10 +16,12 @@
 		<div class="col-md-5">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">ข้อมูล</h3>
+					<h3 class="panel-title">ข้อมูล <button class="btn btn-xs btn-danger pull-right" id="delete_all">ยกเลิกใบจอง</button></h3>
+					
 				</div>
 				<div class="panel-body">
 					<div class="col-md-12">
+						<div id="confirm_delete_all"></div>	
 						<table class="table table-condensed table-bordered table-striped">
 							<tbody>
 								<tr>
@@ -124,7 +126,7 @@
 						<table class="table table-condensed table-border table-striped">
 							<thead>
 								<tr>
-									<th><i class="glyphicon glyphicon-remove" style="color: red;" title="ลย"></i></th>
+									<th><i class="glyphicon glyphicon-remove" id="check_all" style="color: red;" title="ลบ"></i></th>
 									<th>#</th>
 									<th>Product ID</th>
 									<th>Name</th>
@@ -163,7 +165,7 @@
 								บันทึก
 							</button>
 							<button id="btn_cancel" class="btn btn-danger btn-sm">
-								ยกเลิก
+								ยกเลิกการแก้ไข
 							</button>
 						</div>
 					</div>

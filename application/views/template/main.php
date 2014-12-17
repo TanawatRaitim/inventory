@@ -9,8 +9,11 @@
 </head>
 <body>
 	<!-- Navigation -->
-	<?php echo $navigation;?>
-	
+	<?php 
+		if(isset($navigation)){
+			echo $navigation;
+		}
+	?>
 	<!-- Content -->
 	<?php echo $content;?>
 	<?php echo $js;?>
