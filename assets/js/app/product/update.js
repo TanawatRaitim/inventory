@@ -64,7 +64,8 @@ $(function() {
 	});
 	
 	$("#Manufact_StartDate, #Manufact_EndDate").datetimepicker({
-		pickTime: false
+		pickTime: false,
+		useCurrent: false
 	});
 	
 	$("#Manufact_StartDate, #Manufact_EndDate").mask('00/00/0000',{clearIfNotMatch: true});
@@ -87,6 +88,10 @@ $(function() {
 	$("#btn_save_premium").on('click',function(e){	
 		$("form#form_premium").submit();
 	});
+	
+	
+	
+	
 	
 	jQuery.validator.messages.required = "";
 	jQuery.validator.messages.min = "";
@@ -181,14 +186,18 @@ $(function() {
 			Manufact_Num:{
 				number:true
 			},
-			Age_AverageReturn:{
-				required:true,
-				min:1
-			},
-			Age_Inventory:{
-				required:true,
-				min:1
-			},
+			// Age_AverageReturn:{
+				// required:true,
+				// min:1
+			// },
+			// Age_Inventory:{
+				// required:true,
+				// min:1
+			// },
+			// Age_Sale:{
+				// required:true,
+				// min:1
+			// },
 			Order_Num:{
 				required:true
 			},
@@ -198,9 +207,9 @@ $(function() {
 			QTY_Reserve:{
 				number:true
 			},
-			Manufact_EndDate:{
-				required:true
-			},
+			// Manufact_EndDate:{
+				// required:true
+			// },
 			QTY_Production:{
 				required:true,
 				number:true
@@ -237,13 +246,11 @@ $(function() {
 		errorPlacement: function(error, element){
 		
 		},
-		//ignore: null,
 		invalidHandler: function(e, validator){
 			$("#error_premium_msg").noty({
 					text: 'กรุณากรอกข้อมูล หรือใส่ข้อมูลให้ถูกต้อง',
 					type: 'error',
 					dismissQueue: true,
-					//killer: true,
 					timeout: 4000
 				});
 		},submitHandler: function(form){
@@ -255,8 +262,6 @@ $(function() {
 				dismissQueue: false,
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
-						//alert("big");
-						//$("#form_product").submit();
 						form.submit();
 						}
 					},
@@ -291,6 +296,276 @@ $(function() {
 		}
 	});
 	
+	$("form#form_extend_age_inventory").validate({
+		errorPlacement: function(error, element){
+		
+		},
+		invalidHandler: function(e, validator){
+			$("#error_extend_inventory").noty({
+					text: 'กรุณากรอกข้อมูล หรือใส่ข้อมูลให้ถูกต้อง',
+					type: 'error',
+					dismissQueue: true,
+					timeout: 4000
+				});
+		},submitHandler: function(form){
+			
+			$("#error_extend_inventory").noty({
+				text: "กดยืนยันการบันทึกข้อมูล",
+				type: 'confirm',
+				dismissQueue: false,
+				buttons     : [
+					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+						form.submit();
+					}
+					},
+					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
+						$noty.close();
+						}
+					}
+				]
+				
+			});
+			
+		},
+		rules:{
+			New_Age_Inventory:{
+				required:true,
+				min:1
+			}
+			
+		}
+	});
+	
+	$("form#form_extend_age_sale").validate({
+		errorPlacement: function(error, element){
+		
+		},
+		invalidHandler: function(e, validator){
+			$("#error_extend_sale").noty({
+					text: 'กรุณากรอกข้อมูล หรือใส่ข้อมูลให้ถูกต้อง',
+					type: 'error',
+					dismissQueue: true,
+					timeout: 4000
+				});
+		},submitHandler: function(form){
+			
+			$("#error_extend_sale").noty({
+				text: "กดยืนยันการบันทึกข้อมูล",
+				type: 'confirm',
+				dismissQueue: false,
+				buttons     : [
+					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+						form.submit();
+					}
+					},
+					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
+						$noty.close();
+						}
+					}
+				]
+				
+			});
+			
+		},
+		rules:{
+			New_Age_Sale:{
+				required:true,
+				min:1
+			}
+			
+		}
+	});
+	
+	$("form#form_extend_age_return").validate({
+		errorPlacement: function(error, element){
+		
+		},
+		invalidHandler: function(e, validator){
+			$("#error_extend_return").noty({
+					text: 'กรุณากรอกข้อมูล หรือใส่ข้อมูลให้ถูกต้อง',
+					type: 'error',
+					dismissQueue: true,
+					timeout: 4000
+				});
+		},submitHandler: function(form){
+			
+			$("#error_extend_return").noty({
+				text: "กดยืนยันการบันทึกข้อมูล",
+				type: 'confirm',
+				dismissQueue: false,
+				buttons     : [
+					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+						form.submit();
+					}
+					},
+					{addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
+						$noty.close();
+						}
+					}
+				]
+				
+			});
+			
+		},
+		rules:{
+			New_Age_AverageReturn:{
+				required:true,
+				min:1
+			}
+			
+		}
+	});
+	
+	$("#Age_Inventory").on('change',function(e){
+		
+		var calculated_date;
+		var end_date = $("#Manufact_EndDate").val();
+		var age = $(this).val();
+		var label = $("#age_inventory_result");
+		
+		if(end_date == '')
+		{
+			label.val('');
+			return false;
+		}
+		
+		
+		calculated_date = moment(end_date, "DD/MM/YYYY").add('days', age).format('DD/MM/YYYY');
+		label.val(calculated_date);
+	});
+	
+	$("#Age_Sale").on('change',function(e){
+		var calculated_date;
+		var end_date = $("#Manufact_EndDate").val();
+		var age = $(this).val();
+		var label = $("#age_sale_result");
+		
+		if(end_date == '')
+		{
+			label.val('');
+			return false;
+		}
+		
+		calculated_date = moment(end_date, "DD/MM/YYYY").add('days', age).format('DD/MM/YYYY');
+		label.val(calculated_date);
+	});
+	
+	$("#Age_AverageReturn").on('change',function(e){
+		var calculated_date;
+		var end_date = $("#Manufact_EndDate").val();
+		var age = $(this).val();
+		var label = $("#age_return_result");
+		
+		if(end_date == '')
+		{
+			label.val('');
+			return false;
+		}
+		
+		calculated_date = moment(end_date, "DD/MM/YYYY").add('days', age).format('DD/MM/YYYY');
+		label.val(calculated_date);
+	});
+	
+	$("#Manufact_EndDate").on('blur', function(e){
+		//
+		var calculated_date;
+		var end_date = $(this).val();
+		var age_sale = $("#Age_Sale").val();
+		var age_inventory = $("#Age_Inventory").val();
+		var age_return = $("#Age_AverageReturn").val();
+		
+		//end date is empty
+		if(end_date == '')
+		{
+			//remove label value
+			$("#age_return_result").val('');
+			$("#age_sale_result").val('');
+			$("#age_inventory_result").val('');
+			
+			return false;
+			
+		}else{
+			
+			//calculate_date() from global.js
+			$("#age_return_result").val(calculate_date(end_date, age_return));
+			$("#age_sale_result").val(calculate_date(end_date, age_sale));
+			$("#age_inventory_result").val(calculate_date(end_date, age_inventory));
+		}
+		
+	});
+	
+	// extend age inventory form
+	
+	$("#btn_extend_age_inventory").on('click',function(e){	
+		$("form#form_extend_age_inventory").submit();
+	});
+	
+	$("#New_Age_Inventory").on('change',function(e){
+		var calculated_date;
+		var end_date = $("#Old_Age_ExpireInventory").val();
+		var age = $(this).val();
+		var label = $("#New_Age_ExpireInventory");
+		
+		if(end_date == '')
+		{
+			label.val('');
+			return false;
+		}
+		
+		calculated_date = moment(end_date, "DD-MM-YYYY").add('days', age).format('DD/MM/YYYY');
+		label.val(calculated_date);
+	});
+	
+	// end extend age inventory form
+	
+	
+	// extend age sale form
+	
+	$("#btn_extend_age_sale").on('click',function(e){	
+		$("form#form_extend_age_sale").submit();
+	});
+	
+	$("#New_Age_Sale").on('change',function(e){
+		var calculated_date;
+		var end_date = $("#Old_Age_ExpireSale").val();
+		var age = $(this).val();
+		var label = $("#New_Age_ExpireSale");
+		
+		if(end_date == '')
+		{
+			label.val('');
+			return false;
+		}
+		
+		calculated_date = moment(end_date, "DD-MM-YYYY").add('days', age).format('DD/MM/YYYY');
+		label.val(calculated_date);
+	});
+	
+	// end extend age sale form
+	
+	// extend age return form
+	
+	$("#btn_extend_age_return").on('click',function(e){	
+		$("form#form_extend_age_return").submit();
+	});
+	
+	$("#New_Age_AverageReturn").on('change',function(e){
+		var calculated_date;
+		var end_date = $("#Old_Age_ExpireReturn").val();
+		var age = $(this).val();
+		var label = $("#New_Age_ExpireReturn");
+		
+		if(end_date == '')
+		{
+			label.val('');
+			return false;
+		}
+		
+		calculated_date = moment(end_date, "DD-MM-YYYY").add('days', age).format('DD/MM/YYYY');
+		label.val(calculated_date);
+	});
+	
+	// end extend age return form
 	
 		
 

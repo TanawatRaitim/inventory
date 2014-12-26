@@ -17,8 +17,6 @@
 								<td class="text-right info"><label for="Product_Vol" class="control-label">เล่มที่</label></td>
 								<td><input type="text" name="Product_Vol" id="Product_Vol" class="form-control input-sm" /></td>
 							</tr>
-							
-							
 							<tr>
 								<td class="text-right info"><label for="ProType_ID" class="control-label">ประเภท</label></td>
 								<td>
@@ -40,7 +38,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="ProFreq_ID" class="control-label">อายุการวางขาย</label></td>
+								<td class="text-right info"><label for="ProFreq_ID" class="control-label">การออกหนังสือ</label></td>
 								<td>
 									<select name="ProFreq_ID" id="ProFreq_ID" class="form-control input-sm">
 										<?php echo $product_frequency_dropdown;?>
@@ -82,25 +80,21 @@
 							<tr>
 								<td class="text-right info"><label for="Weight" class="control-label">น้ำหนัก</label></td>
 								<td>
-									<input type="text" name="Weight" id="Weight" class="form-control input-sm" placeholder="กก." />
+									<input type="text" name="Weight" id="Weight" class="form-control input-sm" placeholder="กรัม" />
 								</td>
-								<td class="text-right info"><label for="Age_AverageReturn" class="control-label">อายุรับคืน</label></td>
-								<td>
-									<select name="Age_AverageReturn" id="Age_AverageReturn" class="form-control input-sm">
-										<?php echo $age_return_dropdown;?>
-									</select>
-								</td>
-								<td class="text-right info"><label for="Age_Inventory" class="control-label">อายุคงคลัง</label></td>
-								<td>
-									<select name="Age_Inventory" id="Age_Inventory" class="form-control input-sm">
-										<?php echo $age_inventory_dropdown;?>
-									</select>
-								</td>
+								<td class="text-right info"><label for="Definition" class="control-label">คำอธิบาย</label></td>
+								<td colspan="3"><input type="text" name="Definition" id="Definition" class="form-control input-sm" /></td>
+								
 								
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="Definition" class="control-label">คำอธิบาย</label></td>
-								<td colspan="3"><input type="text" name="Definition" id="Definition" class="form-control input-sm" /></td>
+								
+								<td class="text-right info"><label for="MonitorStat_ID" class="control-label">สถานะการ Monitor</label></td>
+								<td>
+									<select name="MonitorStat_ID" id="MonitorStat_ID" class="form-control input-sm">
+										<?php echo $monitor_status_dropdown;?>
+									</select>
+								</td>
 								<td class="text-right info"><label for="RowStatus" class="control-label">สถานะ</label></td>
 								<td>
 									<select name="RowStatus" id="RowStatus" class="form-control input-sm">
@@ -153,45 +147,83 @@
 								<td><input type="text" data-date-format="DD/MM/YYYY" name="Manufact_StartDate" id="Manufact_StartDate" class="form-control input-sm" data-date-format="YYYY-MM-DD" /></td>
 							</tr>
 							<tr>
-								<td class="text-right info"><label for="Manufact_EndDate" class="control-label">วันผลิตเสร็จ</label></td>
-								<td><input   data-date-format="DD/MM/YYYY" type="text" name="Manufact_EndDate" id="Manufact_EndDate" class="form-control input-sm" data-date-format="YYYY-MM-DD" /></td>
+								
 								<td class="text-right info"><label for="QTY_Production" class="control-label">ยอดสั่งผลิต</label></td>
 								<td><input type="text" name="QTY_Production" id="QTY_Production" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="QTY_ReceiveInventory" class="control-label">ยอดรับเข้าคลัง</label></td>
-								<td><input type="text" name="QTY_ReceiveInventory" id="QTY_ReceiveInventory" class="form-control input-sm" /></td>
-							</tr>
-							<tr>
 								<td class="text-right info"><label for="QTY_Reserve" class="control-label">ยอดสำรองสินค้า</label></td>
 								<td><input type="text" name="QTY_Reserve" id="QTY_Reserve" class="form-control input-sm" /></td>
 								<td class="text-right info"><label for="QTY_Sample" class="control-label">ยอดตัวอย่าง</label></td>
 								<td><input type="text" name="QTY_Sample" id="QTY_Sample" class="form-control input-sm" /></td>
-								<td class="text-right info"><label for="QTY_Distribution" class="control-label">ยอดกระจาย</label></td>
-								<td><input type="text" name="QTY_Distribution" id="QTY_Distribution" class="form-control input-sm" /></td>
+								
+								<td></td>
+								<td></td>
 							</tr>
 							<tr>
+								<td class="text-right info"><label for="QTY_Distribution" class="control-label">ยอดกระจาย</label></td>
+								<td><input type="text" name="QTY_Distribution" id="QTY_Distribution" class="form-control input-sm" /></td>
+								<td class="text-right info"><label for="QTY_ReceiveInventory" class="control-label">ยอดรับเข้าคลัง</label></td>
+								<td><input type="text" name="QTY_ReceiveInventory" id="QTY_ReceiveInventory" class="form-control input-sm" /></td>
 								<td class="text-right info"><label for="ProduceBy" class="control-label">ผลิตโดยกอง</label></td>
 								<td>
 									<select name="ProduceBy" id="ProduceBy" class="form-control input-sm">
 										<?php echo $department_dropdown;?>
 									</select>
 								</td>
-								
 							</tr>
 						</table>
 					</div>	<!-- col-md-8 -->
-					
-					
 				</fieldset>
 				
-				<!-- <input type="submit" value="big" /> -->
+				<fieldset>
+			  		<legend>ข้อมูลอายุสินค้า</legend>
+					<div class="col-md-8">
+						<table class="table">
+							<tr>
+								<td class="text-right info"><label for="Manufact_EndDate" class="control-label">วันรับเข้าคลัง</label></td>
+								<td><input   data-date-format="DD/MM/YYYY" type="text" name="Manufact_EndDate" id="Manufact_EndDate" class="form-control input-sm" data-date-format="YYYY-MM-DD" /></td>
+								<td class="text-right info"><label for="Age_Inventory" class="control-label">อายุคงคลัง</label></td>
+								<td>
+									<select name="Age_Inventory" id="Age_Inventory" class="form-control input-sm">
+										<?php echo $age_inventory_dropdown;?>
+									</select>
+								</td>
+								<td class="text-right info"><label class="control-label">หมดอายุคงคลัง</label></td>
+								<td><input type="text" class="form-control input-sm" id="age_inventory_result" readonly="readonly" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td class="text-right info"><label for="Age_Sale" class="control-label">อายุการวางขาย</label></td>
+								<td>
+									<select name="Age_Sale" id="Age_Sale" class="form-control input-sm">
+										<?php echo $age_sale_dropdown;?>
+									</select>
+								</td>
+								<td class="text-right info"><label class="control-label">หมดอายุวางขาย</label></td>
+								<td><input type="text" class="form-control input-sm" id="age_sale_result" readonly="readonly" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td class="text-right info"><label for="Age_AverageReturn" class="control-label">อายุรับคืน</label></td>
+								<td>
+									<select name="Age_AverageReturn" id="Age_AverageReturn" class="form-control input-sm">
+										<?php echo $age_return_dropdown;?>
+									</select>
+								</td>
+								<td class="text-right info"><label class="control-label">หมดอายุรับคืน</label></td>
+								<td><input type="text" class="form-control input-sm" id="age_return_result" readonly="readonly" /></td>
+							</tr>
+							
+						</table>
+					</div>	<!-- col-md-8 -->
+				</fieldset>
+				
 			</form>
 			<div class="col-md-8" style="margin: 10px;" id="error_msg"></div>
-			<div class="col-md-6 col-md-offset-1">
+			<div class="col-md-6 col-md-offset-3">
 				<input type="submit" name="btn_save" id="btn_save" class="btn btn-primary" value="บันทึก" />
-				<!-- <input type="submit" name="save_and_main" class="btn btn-primary" value="บันทึกและกลับสู่หน้าหลัก" />
-				<input type="submit" name="save_and_new" class="btn btn-primary" value="บันทึกและเพิ่มใหม่" /> -->
 				<input type="reset" name="reset" class="btn btn-danger" value="ล้างฟอร์ม" />
-				<!-- <input type="submit" name="cancel_and_main" class="btn btn-danger" value="ยกเลิกและกลับสู่หน้าหลัก" /> -->
 			</div>				 
 			
 		</div>

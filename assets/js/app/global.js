@@ -42,6 +42,12 @@ $(function() {
 		
 	});	
 }); //document.ready
+
+function calculate_date(end_date, age)
+{
+	return calculated_date = moment(end_date, "DD/MM/YYYY").add('days', age).format('DD/MM/YYYY');
+	
+}
 	
 	
 	

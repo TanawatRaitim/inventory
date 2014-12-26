@@ -115,6 +115,102 @@
 			
 			return $result['sum_sa'];		
 		}
+		
+		public function has_history_age_inventory($product_id)
+		{
+			$query = $this->db->get_where('Extend_ExpireInventory', array('Product_ID'=>$product_id));
+			
+			if($query->num_rows() == 0)
+			{
+				return false;
+			}
+			
+			return true;
+			
+		}
+		
+		public function has_history_age_return($product_id)
+		{
+			$query = $this->db->get_where('Extend_ExpireReturn', array('Product_ID'=>$product_id));
+			
+			if($query->num_rows() == 0)
+			{
+				return false;
+			}
+			
+			return true;
+			
+		}
+		
+		public function has_history_age_sale($product_id)
+		{
+			$query = $this->db->get_where('Extend_ExpireSale', array('Product_ID'=>$product_id));
+			
+			if($query->num_rows() == 0)
+			{
+				return false;
+			}
+			
+			return true;
+			
+		}
+		
+		public function inventory_age_form($product_id)
+		{
+			$query = $this->db->get_where('Products', array('Product_ID'=>$product_id))->row_array();
+			
+			$status = TRUE;
+			
+			if($query['Manufact_EndDate'] == NULL || $query['Manufact_EndDate'] == "" || !$query['Manufact_EndDate'])
+			{
+				$status = FALSE;
+			}
+			
+			if($query['Age_Inventory'] == NULL || $query['Age_Inventory']=="" || !$query['Age_Inventory'])
+			{
+				$status = FALSE;
+			}
+			
+			return $status;
+		}
+		
+		public function sale_age_form($product_id)
+		{
+			$query = $this->db->get_where('Products', array('Product_ID'=>$product_id))->row_array();
+			
+			$status = TRUE;
+			
+			if($query['Manufact_EndDate'] == NULL || $query['Manufact_EndDate'] == "" || !$query['Manufact_EndDate'])
+			{
+				$status = FALSE;
+			}
+			
+			if($query['Age_Sale'] == NULL || $query['Age_Sale']=="" || !$query['Age_Sale'])
+			{
+				$status = FALSE;
+			}
+			
+			return $status;
+		}
+		public function return_age_form($product_id)
+		{
+			$query = $this->db->get_where('Products', array('Product_ID'=>$product_id))->row_array();
+			
+			$status = TRUE;
+			
+			if($query['Manufact_EndDate'] == NULL || $query['Manufact_EndDate'] == "" || !$query['Manufact_EndDate'])
+			{
+				$status = FALSE;
+			}
+			
+			if($query['Age_AverageReturn'] == NULL || $query['Age_AverageReturn']=="" || !$query['Age_AverageReturn'])
+			{
+				$status = FALSE;
+			}
+			
+			return $status;
+		}
+		
 
 
 			

@@ -231,6 +231,8 @@ class Product extends CI_Controller {
 		$content['product_status_dropdown'] = product_status_dropdown('ACTIVE');	
 		$content['age_return_dropdown'] = age_return_dropdown();	
 		$content['age_inventory_dropdown'] = age_inventory_dropdown();	
+		$content['age_sale_dropdown'] = age_sale_dropdown();
+		$content['monitor_status_dropdown'] = monitor_status_dropdown();	
 							
 		$data['content'] = $this->load->view('product/add',$content ,TRUE);
 		
@@ -258,8 +260,17 @@ class Product extends CI_Controller {
 		$post = $_POST;
 		unset($post['btn_save']);
 		
-		$post['Manufact_StartDate'] = convert_date_to_mssql($post['Manufact_StartDate']);
-		$post['Manufact_EndDate'] = convert_date_to_mssql($post['Manufact_EndDate']);
+		if($post['Manufact_StartDate']!==""){
+			$post['Manufact_StartDate'] = convert_date_to_mssql($post['Manufact_StartDate']);
+		}
+		
+		if($post['Manufact_EndDate']!=="")
+		{
+			$post['Manufact_EndDate'] = convert_date_to_mssql($post['Manufact_EndDate']);
+			
+		}
+		
+		
 		$post['RowCreatedDate'] = date("Y/m/d h:i:s");
 		$post['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
 		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
@@ -267,13 +278,27 @@ class Product extends CI_Controller {
 		$post['IsDel'] = "N";
 		
 		//get return expire date
-		$date_return = strtotime("+".$post['Age_AverageReturn']." day", strtotime($post['Manufact_EndDate']));
-		$post['Age_ExpireReturn'] = date("Y-m-d",$date_return);
-		
+		if($post['Manufact_EndDate']!=="" && $post['Age_AverageReturn'] != 0)
+		{
+			$date_return = strtotime("+".$post['Age_AverageReturn']." day", strtotime($post['Manufact_EndDate']));
+			$post['Age_ExpireReturn'] = date("Y-m-d",$date_return);
+		}else{
+			$post['Age_ExpireReturn'] = NULL;
+		}
 		//get inventory expire date
-		$date_inventory = strtotime("+".$post['Age_Inventory']." day", strtotime($post['Manufact_EndDate']));
-		$post['Age_ExpireInventory'] = date("Y-m-d",$date_inventory);
-		
+		if($post['Manufact_EndDate']!=="" && $post['Age_Inventory'] != 0){
+			$date_inventory = strtotime("+".$post['Age_Inventory']." day", strtotime($post['Manufact_EndDate']));
+			$post['Age_ExpireInventory'] = date("Y-m-d",$date_inventory);
+		}else{
+			$post['Age_ExpireInventory'] = NULL;
+		}
+		//get sale expire date
+		if($post['Manufact_EndDate']!=="" && $post['Age_Sale'] != 0){
+			$date_sale = strtotime("+".$post['Age_Sale']." day", strtotime($post['Manufact_EndDate']));
+			$post['Age_ExpireSale'] = date("Y-m-d",$date_inventory);
+		}else{
+			$post['Age_ExpireSale'] = NULL;
+		}
 		//assign null
 		foreach($post as $key=>$val)
 		{
@@ -284,7 +309,6 @@ class Product extends CI_Controller {
 		
 		$this->db->insert('Products',$post);
 		$auto_id = $this->db->insert_id();
-		
 		
 		//create inventory
 		
@@ -372,8 +396,25 @@ class Product extends CI_Controller {
 								);
 								
 		$product = $this->db->get_where('Products', array('Product_AutoID'=>$id))->result_array();
-		// echo $product[0]['Product_ID'];
 		$premium = $this->db->get_where('Product_Premium', array('Product_ID'=> $product[0]['Product_ID']));
+		$age_inventory_history = $this->db->get_where('Extend_ExpireInventory', array('Product_ID'=> $product[0]['Product_ID']));
+		$age_return_history = $this->db->get_where('Extend_ExpireReturn', array('Product_ID'=> $product[0]['Product_ID']));
+		$age_sale_history = $this->db->get_where('Extend_ExpireSale', array('Product_ID'=> $product[0]['Product_ID']));
+		
+		$content['status_end_date'] = TRUE;
+		$content['has_age_inventory'] = $this->product_model->has_history_age_inventory($product[0]['Product_ID']);
+		$content['has_age_return'] = $this->product_model->has_history_age_return($product[0]['Product_ID']);
+		$content['has_age_sale'] = $this->product_model->has_history_age_sale($product[0]['Product_ID']);
+		
+		//status of extend from age
+		$content['age_inventory_form'] = $this->product_model->inventory_age_form($product[0]['Product_ID']);
+		$content['age_sale_form'] = $this->product_model->sale_age_form($product[0]['Product_ID']);
+		$content['age_return_form'] = $this->product_model->return_age_form($product[0]['Product_ID']);
+		
+		if($content['has_age_inventory'] || $content['has_age_return'] || $content['has_age_sale']){
+			$content['status_end_date'] = FALSE;
+		}
+		
 		
 		$product[0]['Manufact_StartDate'] = convert_mssql_date($product[0]['Manufact_StartDate']);
 		$product[0]['Manufact_EndDate'] = convert_mssql_date($product[0]['Manufact_EndDate']);
@@ -381,6 +422,9 @@ class Product extends CI_Controller {
 
 		$content['product'] = $product;
 		$content['premium'] = $premium;						
+		$content['age_inventory_history'] = $age_inventory_history;						
+		$content['age_sale_history'] = $age_sale_history;						
+		$content['age_return_history'] = $age_return_history;						
 		$content['department_dropdown'] = department_dropdown($product[0]['ProduceBy']);						
 		$content['product_type_dropdown'] = product_type_dropdown($product[0]['ProType_ID']);	
 		$content['product_group_dropdown'] = product_group_dropdown($product[0]['ProGroup_ID']);	
@@ -390,7 +434,12 @@ class Product extends CI_Controller {
 		$content['inventory_dropdown'] = inventory_dropdown($product[0]['Main_Inventory']);	
 		$content['product_status_dropdown'] = product_status_dropdown($product[0]['RowStatus']);	
 		$content['return_age_dropdown'] = age_return_dropdown($product[0]['Age_AverageReturn']);	
+		$content['return_age_dropdown_blank'] = age_return_dropdown();	
 		$content['inventory_age_dropdown'] = age_inventory_dropdown($product[0]['Age_Inventory']);	
+		$content['inventory_age_dropdown_blank'] = age_inventory_dropdown();	
+		$content['sale_age_dropdown'] = age_sale_dropdown($product[0]['Age_Sale']);	
+		$content['sale_age_dropdown_blank'] = age_sale_dropdown();	
+		$content['monitor_status_dropdown'] = monitor_status_dropdown($product[0]['MonitorStat_ID']);	
 							
 		$data['content'] = $this->load->view('product/update_get',$content ,TRUE);
 		
@@ -422,19 +471,45 @@ class Product extends CI_Controller {
 		$post = $_POST;
 		$id = $this->input->post('Product_AutoID');
 		unset($post['Product_AutoID']);
-		$post['Manufact_StartDate'] = convert_date_to_mssql($post['Manufact_StartDate']);
-		$post['Manufact_EndDate'] = convert_date_to_mssql($post['Manufact_EndDate']);
+		
+		if($post['Manufact_StartDate']!==""){
+			$post['Manufact_StartDate'] = convert_date_to_mssql($post['Manufact_StartDate']);
+		}
+		if($post['Manufact_EndDate']!==""){
+			$post['Manufact_EndDate'] = convert_date_to_mssql($post['Manufact_EndDate']);
+		}
+
 		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
 		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
 		
 		//get return expire date
-		$date_return = strtotime("+".$post['Age_AverageReturn']." day", strtotime($post['Manufact_EndDate']));
-		$post['Age_ExpireReturn'] = date("Y-m-d",$date_return);
-		
+		if($post['Manufact_EndDate']!=="" && $post['Age_AverageReturn'] != 0){
+			$date_return = strtotime("+".$post['Age_AverageReturn']." day", strtotime($post['Manufact_EndDate']));
+			$post['Age_ExpireReturn'] = date("Y-m-d",$date_return);
+		}else{
+			$post['Age_ExpireReturn'] = NULL;
+		}
+		//get return expire date
+		if($post['Manufact_EndDate']!=="" && $post['Age_Sale'] != 0){
+			$date_sale = strtotime("+".$post['Age_Sale']." day", strtotime($post['Manufact_EndDate']));
+			$post['Age_ExpireSale'] = date("Y-m-d",$date_sale);
+		}else{
+			$post['Age_ExpireSale'] = NULL;
+		}
 		//get inventory expire date
-		$date_inventory = strtotime("+".$post['Age_Inventory']." day", strtotime($post['Manufact_EndDate']));
-		$post['Age_ExpireInventory'] = date("Y-m-d",$date_inventory);
+		if($post['Manufact_EndDate']!=="" && $post['Age_Inventory'] != 0){
+			$date_inventory = strtotime("+".$post['Age_Inventory']." day", strtotime($post['Manufact_EndDate']));
+			$post['Age_ExpireInventory'] = date("Y-m-d",$date_inventory);
+		}else{
+			$post['Age_ExpireInventory'] = NULL;
+		}
 		
+		/*
+		echo '<pre>';
+		print_r($post);
+		echo '</pre>';
+		exit();
+		*/
 		//assign null
 		foreach($post as $key=>$val)
 		{
@@ -490,12 +565,6 @@ class Product extends CI_Controller {
 		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
 		$post['RowStatus'] = "ACTIVE";
 		$post['IsDel'] = "N";
-		/*
-		echo pre();
-		print_r($post);
-		echo pre_close();
-		 * 
-		 */
 		 
 		//assign null 
 		 foreach($post as $key=>$val)
@@ -533,6 +602,122 @@ class Product extends CI_Controller {
 		
 		redirect('product/update_get/'.$product['Product_AutoID'], 'refresh'); 
 		 
+	}
+
+	public function extend_age_inventory()
+	{
+		$post = $_POST;
+		$autoid = get_product_autoid($_POST['Product_ID']);
+		$post['Old_Age_ExpireInventory'] = convert_date_to_mssql($post['Old_Age_ExpireInventory']);
+		$post['New_Age_ExpireInventory'] = convert_date_to_mssql($post['New_Age_ExpireInventory']);
+		$post['RowCreatedDate'] = date("Y/m/d h:i:s");
+		$post['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowStatus'] = 'ACTIVE';
+		$post['IsDel'] = '0';
+		
+		//assign null
+		foreach($post as $key=>$val)
+		{
+			if($val == ""){
+				$post[$key] = NULL;
+			}
+		}
+		
+		//insert  to history
+		$this->db->insert('Extend_ExpireInventory',$post);
+		
+		//update new to Products table
+		
+		 
+		$where = array('Product_AutoID'=>$autoid);
+		$update = array(
+			'Age_Inventory'=>$post['New_Age_Inventory'],
+			'Age_ExpireInventory'=>$post['New_Age_ExpireInventory']
+		);
+		
+		$this->db->where($where);
+		$this->db->update('Products',$update);
+		
+		redirect('product/update_get/'.$autoid, 'refresh');
+		
+	}
+
+	public function extend_age_sale()
+	{
+		$post = $_POST;
+		$autoid = get_product_autoid($_POST['Product_ID']);
+		$post['Old_Age_ExpireSale'] = convert_date_to_mssql($post['Old_Age_ExpireSale']);
+		$post['New_Age_ExpireSale'] = convert_date_to_mssql($post['New_Age_ExpireSale']);
+		$post['RowCreatedDate'] = date("Y/m/d h:i:s");
+		$post['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowStatus'] = 'ACTIVE';
+		$post['IsDel'] = '0';
+		
+		//assign null
+		foreach($post as $key=>$val)
+		{
+			if($val == ""){
+				$post[$key] = NULL;
+			}
+		}
+		
+		//insert  to history
+		$this->db->insert('Extend_ExpireSale',$post);
+		
+		//update new to Products table
+		$where = array('Product_AutoID'=>$autoid);
+		$update = array(
+			'Age_Sale'=>$post['New_Age_Sale'],
+			'Age_ExpireSale'=>$post['New_Age_ExpireSale']
+		);
+		
+		$this->db->where($where);
+		$this->db->update('Products',$update);
+		
+		redirect('product/update_get/'.$autoid, 'refresh');
+		
+	}
+
+	public function extend_age_return()
+	{
+		$post = $_POST;
+		$autoid = get_product_autoid($_POST['Product_ID']);
+		$post['Old_Age_ExpireReturn'] = convert_date_to_mssql($post['Old_Age_ExpireReturn']);
+		$post['New_Age_ExpireReturn'] = convert_date_to_mssql($post['New_Age_ExpireReturn']);
+		$post['RowCreatedDate'] = date("Y/m/d h:i:s");
+		$post['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowStatus'] = 'ACTIVE';
+		$post['IsDel'] = '0';
+		
+		//assign null
+		foreach($post as $key=>$val)
+		{
+			if($val == ""){
+				$post[$key] = NULL;
+			}
+		}
+		
+		//insert  to history
+		$this->db->insert('Extend_ExpireReturn',$post);
+		
+		//update new to Products table
+		$where = array('Product_AutoID'=>$autoid);
+		$update = array(
+			'Age_AverageReturn'=>$post['New_Age_AverageReturn'],
+			'Age_ExpireReturn'=>$post['New_Age_ExpireReturn']
+		);
+		
+		$this->db->where($where);
+		$this->db->update('Products',$update);
+		
+		redirect('product/update_get/'.$autoid, 'refresh');
+		
 	}
 
 	public function select2_product()

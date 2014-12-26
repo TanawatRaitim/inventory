@@ -7,7 +7,8 @@ $(function() {
 	});
 	
 	$("#Manufact_StartDate, #Manufact_EndDate").datetimepicker({
-		pickTime: false
+		pickTime: false,
+		useCurrent: false
 	});
 	
 	$("#Manufact_StartDate, #Manufact_EndDate").mask('00/00/0000',{clearIfNotMatch: true});
@@ -60,9 +61,7 @@ $(function() {
 	
 	$("form#form_product").validate({
 		errorPlacement: function(error, element){
-			//console.log(error);
-			//console.log(element);
-			//error.appendTo($("#error_msg"));
+		
 		},
 		//ignore: null,
 		invalidHandler: function(e, validator){
@@ -82,7 +81,6 @@ $(function() {
 				dismissQueue: false,
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
-						//alert("big");
 						$("#form_product").submit();
 						form.submit();
 						
@@ -150,14 +148,18 @@ $(function() {
 			Manufact_Num:{
 				number:true
 			},
-			Age_AverageReturn:{
-				required:true,
-				min:1
-			},
-			Age_Inventory:{
-				required:true,
-				min:1
-			},
+			// Age_AverageReturn:{
+				// required:true,
+				// min:1
+			// },
+			// Age_Inventory:{
+				// required:true,
+				// min:1
+			// },
+			// Age_Sale:{
+				// required:true,
+				// min:1
+			// },
 			Order_Num:{
 				required:true
 			},
@@ -167,9 +169,9 @@ $(function() {
 			QTY_Reserve:{
 				number:true
 			},
-			Manufact_EndDate:{
-				required:true
-			},
+			// Manufact_EndDate:{
+				// required:true
+			// },
 			QTY_Production:{
 				required:true,
 				number:true
@@ -201,6 +203,85 @@ $(function() {
 			
 		}
 	});
+	
+	$("#Age_Inventory").on('change',function(e){
+		
+		var calculated_date;
+		var end_date = $("#Manufact_EndDate").val();
+		var age = $(this).val();
+		var label = $("#age_inventory_result");
+		
+		if(end_date == '')
+		{
+			label.val('');
+			return false;
+		}
+		
+		
+		calculated_date = moment(end_date, "DD/MM/YYYY").add('days', age).format('DD/MM/YYYY');
+		label.val(calculated_date);
+	});
+	
+	$("#Age_Sale").on('change',function(e){
+		var calculated_date;
+		var end_date = $("#Manufact_EndDate").val();
+		var age = $(this).val();
+		var label = $("#age_sale_result");
+		
+		if(end_date == '')
+		{
+			label.val('');
+			return false;
+		}
+		
+		calculated_date = moment(end_date, "DD/MM/YYYY").add('days', age).format('DD/MM/YYYY');
+		label.val(calculated_date);
+	});
+	
+	$("#Age_AverageReturn").on('change',function(e){
+		var calculated_date;
+		var end_date = $("#Manufact_EndDate").val();
+		var age = $(this).val();
+		var label = $("#age_return_result");
+		
+		if(end_date == '')
+		{
+			label.val('');
+			return false;
+		}
+		
+		calculated_date = moment(end_date, "DD/MM/YYYY").add('days', age).format('DD/MM/YYYY');
+		label.val(calculated_date);
+	});
+	
+	$("#Manufact_EndDate").on('blur', function(e){
+		//
+		var calculated_date;
+		var end_date = $(this).val();
+		var age_sale = $("#Age_Sale").val();
+		var age_inventory = $("#Age_Inventory").val();
+		var age_return = $("#Age_AverageReturn").val();
+		
+		//end date is empty
+		if(end_date == '')
+		{
+			//remove label value
+			$("#age_return_result").val('');
+			$("#age_sale_result").val('');
+			$("#age_inventory_result").val('');
+			
+			return false;
+			
+		}else{
+			
+			//calculate_date() from global.js
+			$("#age_return_result").val(calculate_date(end_date, age_return));
+			$("#age_sale_result").val(calculate_date(end_date, age_sale));
+			$("#age_inventory_result").val(calculate_date(end_date, age_inventory));
+		}
+		
+	});
+	
 		
 
 }); 

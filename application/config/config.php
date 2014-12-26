@@ -105,7 +105,7 @@ $config['css'] = 'css/style.css';
 /**
  * Text
  */
-$config['system_name'] = 'Inventory Management System';
+$config['system_name'] = 'IMS';
 
 
 /*

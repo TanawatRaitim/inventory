@@ -165,7 +165,7 @@ if ( ! function_exists('product_frequency_dropdown'))
 			$ci->db->order_by('ProFreq_Name');
 			$query = $ci->db->get('Product_Frequency');
 			$dropdown = "";
-			$dropdown .= "<option value='0'>-อายุการวางขาย -</option>";
+			$dropdown .= "<option value='0'>-การวางขาย -</option>";
 			
 			if($selected != "")
 			{
@@ -235,7 +235,10 @@ if ( ! function_exists('inventory_dropdown'))
 		{
 			$ci =& get_instance();
 			//id = 1 คลังทั่วไป
+			//id = 3 คลังพิเศษ
 			$ci->db->where('Inventory_TypeID','1');
+			$ci->db->or_where('Inventory_TypeID','3');
+			
 			$query = $ci->db->get('Inventory');
 			$dropdown = "";
 			$dropdown .= "<option value='0'>-คลัง -</option>";
@@ -671,7 +674,7 @@ if ( ! function_exists('age_inventory_dropdown'))
 			$query = $ci->db->get('AppStatus');
 			
 			$dropdown = "";
-			$dropdown .= "<option value='0'>-อายุรับคืน -</option>";
+			$dropdown .= "<option value='0'>-อายุคงคลัง -</option>";
 			
 			if($selected != "")
 			{
@@ -693,6 +696,89 @@ if ( ! function_exists('age_inventory_dropdown'))
 				}	
 			}
 			//print_r($dropdown);
+			return $dropdown;
+
+		}
+}//end if
+
+if ( ! function_exists('age_sale_dropdown'))
+{
+		
+		function age_sale_dropdown($selected = "")
+		{
+			$ci =& get_instance();
+			$ci->db->where('AppStatType','AGE-ALL');
+			// $ci->db->order_by('Optional');
+			$query = $ci->db->get('AppStatus');
+			
+			$dropdown = "";
+			$dropdown .= "<option value='0'>-อายุการวางขาย -</option>";
+			
+			if($selected != "")
+			{
+				foreach($query->result_array() as $row){
+					
+					if($selected == $row['AppStatValue'])
+					{
+						$dropdown .= '<option value="'.$row['AppStatValue'].'" selected="selected">'.$row['AppStatName'].'</option>';
+						continue;
+					}
+					
+					$dropdown .= '<option value="'.$row['AppStatValue'].'">'.$row['AppStatName'].'</option>';
+				}
+			}
+			else
+			{
+				foreach($query->result_array() as $row){
+					$dropdown .= '<option value="'.$row['AppStatValue'].'">'.$row['AppStatName'].'</option>';
+				}	
+			}
+			//print_r($dropdown);
+			return $dropdown;
+
+		}
+}//end if
+
+if ( ! function_exists('monitor_status_dropdown'))
+{
+		
+		function monitor_status_dropdown($selected = "")
+		{
+			//default selected
+			if($selected == "")
+			{
+				$selected = 1;
+			}
+			
+			$ci =& get_instance();
+			//$ci->db->where('AppStatType','AGE-ALL');
+			// $ci->db->order_by('Optional');
+			$query = $ci->db->get('Product_StatusMonitor');
+			
+			$dropdown = "";
+			$dropdown .= "<option value='0'>-สถานะการ Monitor -</option>";
+			
+			
+			if($selected != "")
+			{
+				foreach($query->result_array() as $row){
+					
+					if($selected == $row['MonStat_ID'])
+					{
+						$dropdown .= '<option value="'.$row['MonStat_ID'].'" selected="selected">'.$row['MonStat_Name'].'</option>';
+						continue;
+					}
+					
+					$dropdown .= '<option value="'.$row['MonStat_ID'].'">'.$row['MonStat_Name'].'</option>';
+				}
+			}
+			else
+			{
+				foreach($query->result_array() as $row){
+					$dropdown .= '<option value="'.$row['MonStat_ID'].'">'.$row['MonStat_Name'].'</option>';
+				}	
+			}
+			
 			return $dropdown;
 
 		}

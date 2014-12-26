@@ -107,7 +107,7 @@ if ( ! function_exists('convert_mssql_date'))
 			{
 				$split = explode('-',$date);
 				
-				$mssql_date = $split[2]."-".$split[1]."-".$split[0];
+				$mssql_date = $split[2]."/".$split[1]."/".$split[0];
 				
 				return $mssql_date;
 			}else{
