@@ -120,7 +120,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						<form id="form_detail" method="post" action="/inventory/reserve/edit_detail">	
+						<form id="form_detail" method="post" action="">	
 						<table class="table table-condensed table-border table-striped">
 							<thead>
 								<tr>
@@ -189,6 +189,23 @@
 								<label for="DocSale_Date" class="col-sm-4 control-label">วันที่บนใบสั่งขาย*</label>
 								<div class="col-sm-7">
 									<input type="text" class="form-control input-sm" id="DocSale_Date" name="DocSale_Date" data-date-format="DD/MM/YYYY" placeholder="วันที่บนใบสั่งขาย">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="Invoice_No" class="col-sm-4 control-label">เลขที่ Invoice*</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control input-sm" id="Invoice_No" name="Invoice_No" placeholder="Invoice no.">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="Invoice_Date" class="col-sm-4 control-label">วันที่บน Invoice*</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control input-sm" id="Invoice_Date" name="Invoice_Date" data-date-format="DD/MM/YYYY" placeholder="Invoice date">
 								</div>
 							</div>
 						</div>

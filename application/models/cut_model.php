@@ -75,6 +75,11 @@
 			$transaction['IsUsed'] = 1;
 			$transaction['Doccut_Date'] = convert_date_to_mssql($data['Doccut_Date']);
 			$transaction['Other_Remark'] = $data['Other_Remark'];
+			
+			$transaction['Invoice_Date'] = convert_date_to_mssql($data['Invoice_Date']);
+			$transaction['Invoice_No'] = $data['Invoice_No'];
+			
+			
 			$result = $this->db->insert('Inventory_Transaction', $transaction);
 			
 			$trans_detail = $this->db->get_where('Inventory_Transaction_Detail', array('Transact_AutoID'=>$data['Transact_AutoID']))->result_array();

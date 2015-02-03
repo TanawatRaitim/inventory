@@ -54,6 +54,10 @@
 									<td colspan="3"><?php echo $description;?></td>
 								</tr>
 								<tr>
+									<th class="info text-right">หมายเหตุ</th>
+									<td colspan="3"><?php echo $transaction['Transact_Remark'];?></td>
+								</tr>
+								<tr>
 									<th class="info text-right">ผู้อนุมัติ</th>
 									<td><?php echo $approve_person;?></td>
 									<th class="info text-right">อนุมัติเมื่อ</th>
@@ -121,7 +125,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						<form id="form_detail" method="post" action="/inventory/in/edit_detail">	
+						<form id="form_detail" method="post" action="">	
 						<table class="table table-condensed table-border table-striped">
 							<thead>
 								<tr>

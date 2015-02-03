@@ -155,17 +155,7 @@ $(function(){
 			$(this).attr('id', 'check_all');
 		});
 		
-		$('#delete_all').on('click',function(e){
-			
-			$("#confirm_delete_all").noty({
-				text: "test",
-				type: 'error',
-				dismissQueue: true,
-				//killer: true,
-				timeout: 10000
-			});
-			
-		});
+		
 		
 			
 		

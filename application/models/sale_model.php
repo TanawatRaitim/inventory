@@ -75,6 +75,18 @@
 			$transaction['IsUsed'] = 1;
 			$transaction['DocSale_Date'] = convert_date_to_mssql($data['DocSale_Date']);
 			$transaction['Other_Remark'] = $data['Other_Remark'];
+			
+			if(isset($data['Invoice_Date']))
+			{
+				$transaction['Invoice_Date'] = convert_date_to_mssql($data['Invoice_Date']);	
+			}
+			
+			if(isset($data['Invoice_No']))
+			{
+				$transaction['Invoice_No'] = $data['Invoice_No'];	
+			}
+			
+			
 			$result = $this->db->insert('Inventory_Transaction', $transaction);
 			
 			

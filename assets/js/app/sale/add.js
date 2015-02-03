@@ -2,17 +2,23 @@ $(function(){
 	
 	$("#TK_ID").mask('00-00-0000',{clearIfNotMatch: true});
 	$("#DocSale_Date").mask('00/00/0000',{clearIfNotMatch: true});
+	$("#Invoice_Date").mask('00/00/0000',{clearIfNotMatch: true});
 	
 	$("#DocSale_Date").datetimepicker({
+		pickTime: false
+	});
+	
+	$("#Invoice_Date").datetimepicker({
 		pickTime: false
 	});
 	
 	$("#btn_save").on('click',function(e){
 		e.preventDefault();
 		
-		
 		var tkid = $("input#TK_ID").val();
 		var sale_date = $("input#DocSale_Date").val();
+		var invoice_no = $("input#Invoice_No").val();
+		var invoice_date = $("input#Invoice_Date").val();
 		var dup_id = '';
 		var tkcode = $("#new_code").val();
 		var tkid = $("#TK_ID").val();
@@ -29,7 +35,7 @@ $(function(){
 				}
 			});
 		
-		if(tkid == "" || sale_date == ""){
+		if(tkid == "" || sale_date == "" || invoice_no == "" || invoice_date == ""){
 			$("#message").noty({
 				text: 'กรุณาใส่ข้อมูลที่มีเครื่องหมาย * ให้ครบถ้วน',
 				type: 'error',

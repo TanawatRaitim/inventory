@@ -529,7 +529,7 @@ $(function() {
 		
 		$("#message").noty({
 			// layout: 'top',
-			text: "กดยื่นยันเการบันทึกแบบร่าง",
+			text: "กดยืนยันเการบันทึกแบบร่าง",
 			type: 'confirm',
 			dismissQueue: false,
 			force: true,
@@ -550,7 +550,6 @@ $(function() {
 								text: "บันทึกแบบร่างเรียบร้อยแล้ว",
 								type: 'success',
 								dismissQueue: true,
-								//killer: true,
 								timeout: 4000
 							});
 						},

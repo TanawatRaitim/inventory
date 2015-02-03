@@ -67,7 +67,7 @@
 		<div class="col-md-8">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">กิจกรรมต่างๆ</h3>
+					<h3 class="panel-title">กิจกรรมต่างๆ  <a class="btn btn-primary btn-xs" target="_blank" style="color: white;" href="<?php echo site_url('product/product_movement/'.$product['Product_AutoID']);?>">Product Movement</a></h3>
 				</div>
 				<div class="panel-body">
 					<div class="col-md-12">

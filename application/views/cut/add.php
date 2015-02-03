@@ -120,7 +120,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						<form id="form_detail" method="post" action="/inventory/reserve/edit_detail">	
+						<form id="form_detail" method="post" action="">	
 						<table class="table table-condensed table-border table-striped">
 							<thead>
 								<tr>
@@ -165,7 +165,7 @@
 					<h3 class="panel-title">ข้อมูลใบสั่งขาย/ใบตัดจ่าย</h3>
 				</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" name="form_sale" id="form_sale" method="post" >
+					<form class="form-horizontal" role="form" name="form_sale" id="form_sale" method="post" action="">
 						<input type="hidden" name="Transact_AutoID" id="Transact_AutoID" value="<?php echo $transaction['Transact_AutoID']; ?>" />
 						<input type="hidden" name="new_code" id="new_code" value="<?php echo $transaction['Transaction_For']; ?>" />
 						<div class="col-md-12">

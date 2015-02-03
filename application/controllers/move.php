@@ -803,6 +803,8 @@ class Move extends CI_Controller {
 
 	public function edit_detail()
 	{
+		
+		
 		$this->load->model('inventory_model');
 		$this->load->helper('arr_helper');	
 		/**
@@ -827,6 +829,7 @@ class Move extends CI_Controller {
 		}
 		$temp_arr = explode(',', $temp);
 		$transact_auto_id = $temp_arr[0];
+		
 		
 		
 		$deleted = array();
@@ -937,9 +940,14 @@ class Move extends CI_Controller {
 		//delete main ticket
 		$transact_rows = $this->db->get_where('Inventory_Transaction_Detail',array('Transact_AutoID'=>$transact_auto_id))->num_rows();
 		
-		if($transact_rows==0)
+		//echo $transact_rows;
+		//exit();
+		
+		
+		if($transact_rows<=0)
 		{
 			$this->db->delete('Inventory_Transaction', array('Transact_AutoID'=>$transact_auto_id));
+			// echo 'deleted';
 		}
 		
 		echo 'true';

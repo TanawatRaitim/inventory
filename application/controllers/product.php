@@ -179,7 +179,161 @@ class Product extends CI_Controller {
 		
 		echo json_encode($json);
 	}
+
+	public function product_movement($product_autoid)
+	{
+		//echo $product_autoid;
+		// print_r($_POST);
+		$content['title'] = "Product Movement";
+		$content['product'] = $this->db->get_where('Products', array('Product_AutoID'=>$product_autoid))->row_array();
+		$content['start_date'] = "";
+		$content['end_date'] = "";
+		
+		
+		if($this->input->post('search_movement'))
+		{
+			//echo 'true';
+			$start_date = $this->input->post('start_date_submit')." 00:00:00:000";
+			$end_date = $this->input->post('end_date_submit')."  23:59:59.999";
+			$product_id = $content['product']['Product_ID'];
+			$where = "";
+			$where .= " WHERE dbo.Inventory_Transaction.TK_Code not in ('RS')";
+			$where .= " and dbo.Inventory_Transaction_Detail.Product_ID = '$product_id'";
+			$where .= " and dbo.Inventory_Transaction.RowCreatedDate >= '$start_date' and dbo.Inventory_Transaction.RowCreatedDate <= '$end_date'";
+			// $where .= 
+			$sql = "Select	ROW_NUMBER() over(Order by dbo.Inventory_Transaction.RowCreatedDate) as RowNo ,dbo.Inventory_Transaction.TK_Code,
+					TKCode_Main.TK_Description+ '[ ' + dbo.Inventory_Transaction.TK_Code+' ]' as [TK_Main] ,
+					dbo.Inventory_Transaction.TK_Code+''+dbo.Inventory_Transaction.TK_ID as [Ticket_ID],
+					dbo.Inventory_Transaction_Detail.Product_ID,
+					dbo.Inventory_Transaction_Detail.QTY_Good,dbo.Inventory_Transaction_Detail.QTY_Waste,dbo.Inventory_Transaction_Detail.QTY_Damage,
+					dbo.Inventory_Transaction_Detail.QTY_Good+dbo.Inventory_Transaction_Detail.QTY_Waste+dbo.Inventory_Transaction_Detail.QTY_Damage as [SumQTY],
+					DocRef.DocRef_Name+''+dbo.Inventory_Transaction.DocRef_Other as [DocRef],
+					dbo.Inventory_Transaction.DocRef_No,CONVERT(varchar(50),dbo.Inventory_Transaction.DocRef_Date,103) AS [DocRef_Date],
+					
+					dbo.Inventory_Transaction.Cust_ID,ISNull(dbo.Customers.Cust_Name,'-') as [Cust_Name],dbo.Inventory_Transaction.Transact_Remark,
+					
+					CONVERT(varchar(50),dbo.Inventory_Transaction.RowCreatedDate,103) as [RowCreatedDate],
+					dbo.Inventory_Transaction.RowCreatedPerson,PersonCreated.Emp_FnameTH+' '+PersonCreated.Emp_LnameTH as [PersonCreated] ,
+					
+					dbo.Inventory_Transaction.IsApproved,dbo.Inventory_Transaction.ApprovedBy,PersonApproved.Emp_FnameTH +' '+PersonApproved.Emp_LnameTH as [PersonApproved],
+					CONVERT(varchar(50),dbo.Inventory_Transaction.ApprovedDate,103) as [ApprovedDate],
+					
+					dbo.Inventory_Transaction.IsUsed
+			
+					From	dbo.Inventory_Transaction 
+					
+					LEFT OUTER JOIN dbo.Inventory_Transaction_Detail ON dbo.Inventory_Transaction.Transact_AutoID = dbo.Inventory_Transaction_Detail.Transact_AutoID 
+					LEFT OUTER JOIN dbo.DocRefer as [DocRef] on dbo.Inventory_Transaction.DocRef_AutoID = DocRef.DocRef_AutoID 
+					LEFT OUTER JOIN dbo.Ticket_Type as [TKCode_Main] ON dbo.Inventory_Transaction.TK_Code = TKCode_Main.TK_Code 
+					LEFT OUTER JOIN dbo.Ticket_Type as [TKCode_For] ON dbo.Inventory_Transaction.Transaction_For = TKCode_For.TK_Code 
+					LEFT OUTER JOIN dbo.Employees as [PersonCreated] ON dbo.Inventory_Transaction.RowCreatedPerson = PersonCreated.Emp_ID 
+					LEFT OUTER JOIN dbo.Employees as [PersonApproved] ON dbo.Inventory_Transaction.ApprovedBy = PersonApproved.Emp_ID 
+					LEFT OUTER JOIN dbo.Customers ON dbo.Inventory_Transaction.Cust_ID = dbo.Customers.Cust_ID ";
+			
+			$sql .= $where;
+			
+			$content['product_movement'] = $this->db->query($sql);
+			$content['start_date'] = $this->input->post('start_date');
+			$content['end_date'] = $this->input->post('end_date');
+			$content['excel_link'] = base_url("product/product_movement_excel/".$product_autoid."/".$this->input->post('start_date_submit')."/".$this->input->post('end_date_submit'));
+					
+			
+		}
+		
+						
+		$data['content'] = $this->load->view('product/product_movement',$content ,TRUE);
+		
+		$css = array(
+			'pickadate-3.5.3/lib/themes/classic.css',
+			'pickadate-3.5.3/lib/themes/classic.date.css',
+			'pickadate-3.5.3/lib/themes/classic.time.css',
+			);
+		$js = array(
+			// 'js/moment/min/moment.min.js',
+			// 'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			// 'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			// 'js/jquery_validation/dist/jquery.validate.min.js',
+			// 'js/jquery_validation/dist/additional-methods.min.js',
+			// 'jquery-mask-plugin/jquery.mask.min.js',			
+			'pickadate-3.5.3/lib/picker.js',
+			'pickadate-3.5.3/lib/picker.date.js',
+			'pickadate-3.5.3/lib/picker.time.js',
+			'pickadate-3.5.3/lib/legacy.js',
+			'pickadate-3.5.3/lib/translations/th_TH.js',
+			'js/app/product/product_movement.js'
+			);
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);
 	
+	}
+
+	public function product_movement_excel($product_autoid, $start_date, $end_date)
+	{
+
+		$content['title'] = "Product Movement";
+		$content['product'] = $this->db->get_where('Products', array('Product_AutoID'=>$product_autoid))->row_array();
+		$content['start_date'] = $start_date;
+		$content['end_date'] = $end_date;
+		$content['excel'] = true;
+		$content['excel_name'] = $product_autoid."_";
+
+		$start_date .= " 00:00:00:000";
+		$end_date .= " 23:59:59.999";
+		$product_id = $content['product']['Product_ID'];
+		
+		$content['excel_name'] = $product_id;
+		
+		$where = "";
+		$where .= " WHERE dbo.Inventory_Transaction.TK_Code not in ('RS')";
+		$where .= " and dbo.Inventory_Transaction_Detail.Product_ID = '$product_id'";
+		$where .= " and dbo.Inventory_Transaction.RowCreatedDate >= '$start_date' and dbo.Inventory_Transaction.RowCreatedDate <= '$end_date'";
+		$sql = "Select	ROW_NUMBER() over(Order by dbo.Inventory_Transaction.RowCreatedDate) as RowNo ,dbo.Inventory_Transaction.TK_Code,
+				TKCode_Main.TK_Description+ '[ ' + dbo.Inventory_Transaction.TK_Code+' ]' as [TK_Main] ,
+				dbo.Inventory_Transaction.TK_Code+''+dbo.Inventory_Transaction.TK_ID as [Ticket_ID],
+				dbo.Inventory_Transaction_Detail.Product_ID,
+				dbo.Inventory_Transaction_Detail.QTY_Good,dbo.Inventory_Transaction_Detail.QTY_Waste,dbo.Inventory_Transaction_Detail.QTY_Damage,
+				dbo.Inventory_Transaction_Detail.QTY_Good+dbo.Inventory_Transaction_Detail.QTY_Waste+dbo.Inventory_Transaction_Detail.QTY_Damage as [SumQTY],
+				DocRef.DocRef_Name+''+dbo.Inventory_Transaction.DocRef_Other as [DocRef],
+				dbo.Inventory_Transaction.DocRef_No,CONVERT(varchar(50),dbo.Inventory_Transaction.DocRef_Date,103) AS [DocRef_Date],
+				
+				dbo.Inventory_Transaction.Cust_ID,ISNull(dbo.Customers.Cust_Name,'-') as [Cust_Name],dbo.Inventory_Transaction.Transact_Remark,
+				
+				CONVERT(varchar(50),dbo.Inventory_Transaction.RowCreatedDate,103) as [RowCreatedDate],
+				dbo.Inventory_Transaction.RowCreatedPerson,PersonCreated.Emp_FnameTH+' '+PersonCreated.Emp_LnameTH as [PersonCreated] ,
+				
+				dbo.Inventory_Transaction.IsApproved,dbo.Inventory_Transaction.ApprovedBy,PersonApproved.Emp_FnameTH +' '+PersonApproved.Emp_LnameTH as [PersonApproved],
+				CONVERT(varchar(50),dbo.Inventory_Transaction.ApprovedDate,103) as [ApprovedDate],
+				
+				dbo.Inventory_Transaction.IsUsed
+		
+				From	dbo.Inventory_Transaction 
+				
+				LEFT OUTER JOIN dbo.Inventory_Transaction_Detail ON dbo.Inventory_Transaction.Transact_AutoID = dbo.Inventory_Transaction_Detail.Transact_AutoID 
+				LEFT OUTER JOIN dbo.DocRefer as [DocRef] on dbo.Inventory_Transaction.DocRef_AutoID = DocRef.DocRef_AutoID 
+				LEFT OUTER JOIN dbo.Ticket_Type as [TKCode_Main] ON dbo.Inventory_Transaction.TK_Code = TKCode_Main.TK_Code 
+				LEFT OUTER JOIN dbo.Ticket_Type as [TKCode_For] ON dbo.Inventory_Transaction.Transaction_For = TKCode_For.TK_Code 
+				LEFT OUTER JOIN dbo.Employees as [PersonCreated] ON dbo.Inventory_Transaction.RowCreatedPerson = PersonCreated.Emp_ID 
+				LEFT OUTER JOIN dbo.Employees as [PersonApproved] ON dbo.Inventory_Transaction.ApprovedBy = PersonApproved.Emp_ID 
+				LEFT OUTER JOIN dbo.Customers ON dbo.Inventory_Transaction.Cust_ID = dbo.Customers.Cust_ID ";
+		
+		$sql .= $where;
+		
+		$content['product_movement'] = $this->db->query($sql);						
+		$data['content'] = $this->load->view('product/product_movement_excel',$content ,TRUE);
+		
+		$css = array();
+		$js = array();
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		
+		$this->load->view('template/main',$data);
+	
+	}
+
 	//for datatable
 	public function get_data()
 	{

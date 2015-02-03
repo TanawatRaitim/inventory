@@ -808,6 +808,7 @@ class In extends CI_Controller {
 
 	public function edit_detail()
 	{
+		
 		$this->load->model('inventory_model');
 		$this->load->helper('arr_helper');	
 		/**

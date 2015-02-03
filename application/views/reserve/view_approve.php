@@ -42,7 +42,8 @@
 										<th class="info text-right">เลขที่เอกสารอ้างอิง</th>
 										<td><?php echo $transaction['DocRef_No'];?></td>
 										<th class="info text-right">วันที่เอกสารอ้างอิง</th>
-										<td><?php echo $transaction['DocRef_Date'];?></td>
+										<!-- echo date('d/m/Y', strtotime($mydate)); -->
+										<td><?php echo date('d-m-Y',strtotime($transaction['DocRef_Date']));?></td>
 									</tr>
 									<tr>
 										<th class="info text-right">ผู้ทำรายการ</th>
@@ -53,6 +54,10 @@
 									<tr>
 										<th class="info text-right">สถานะ</th>
 										<td colspan="3"><?php echo $description;?></td>
+									</tr>
+									<tr>
+										<th class="info text-right">หมายเหตุ</th>
+										<td colspan="3"><?php echo $transaction['Transact_Remark'];?></td>
 									</tr>
 									<tr>
 										<th class="info text-right">ผู้อนุมัติ</th>

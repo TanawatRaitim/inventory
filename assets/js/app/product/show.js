@@ -25,7 +25,7 @@ $(function(){
 		        "previous":   "ก่อนหน้า"
 		    }
 		},
-		"lengthChange": false,
+		"lengthChange": true,
 		"pageLength":5,
 		"order": [],
 		"dom": 'T<"clear">lfrtip',

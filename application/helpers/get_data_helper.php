@@ -36,9 +36,76 @@ if ( ! function_exists('get_product_autoid'))
 			$ci->db->where('Product_ID',$product_id);
 			$query = $ci->db->get('Products');
 			
+			if($query->num_rows() == 0)
+			{
+				return "N/A";
+			}
+			
+			$row = $query->row_array();
+			return $row['Product_AutoID'];
+		}
+}//end if
+
+if ( ! function_exists('get_ticket_code_name'))
+{
+		
+		function get_ticket_code_name($tkcode)
+		{
+			
+			$ci =& get_instance();
+			$ci->db->where('TK_Code',$tkcode);
+			$query = $ci->db->get('Ticket_Type');
+			
+			if($query->num_rows() == 0)
+			{
+				return "N/A";
+			}
+			
 			$row = $query->row_array();
 			
-			return $row['Product_AutoID'];
+			return $row['TK_Description'];
+		}
+}//end if
+
+
+if ( ! function_exists('get_customer_name'))
+{
+		
+		function get_customer_name($customer_id)
+		{
+			
+			$ci =& get_instance();
+			$ci->db->where('Cust_ID',$customer_id);
+			$query = $ci->db->get('Customers');
+			
+			if($query->num_rows() == 0)
+			{
+				return "N/A";
+			}
+			
+			$row = $query->row_array();
+			
+			return $row['Cust_Name'];
+		}
+}//end if
+
+if ( ! function_exists('get_customer'))
+{
+		
+		function get_customer($customer_id)
+		{
+			
+			$ci =& get_instance();
+			$ci->db->where('Cust_ID',$customer_id);
+			$query = $ci->db->get('Customers');
+			
+			if($query->num_rows() == 0)
+			{
+				return false;
+			}
+			
+			return $query->row_array();
+			
 		}
 }//end if
 

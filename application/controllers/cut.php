@@ -829,6 +829,7 @@ class Cut extends CI_Controller {
 										'class'=>''
 									)
 								);
+								
 		$content['transaction'] = $this->cut_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->cut_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -883,6 +884,7 @@ class Cut extends CI_Controller {
 
 	public function set_is_used()
 	{
+		
 		parse_str($_POST['cut'], $data);
 		
 		$result = $this->cut_model->set_is_used($data);
@@ -895,7 +897,8 @@ class Cut extends CI_Controller {
 		}
 		
 	}
-public function check_dup_id($tkcode, $tkid)
+
+	public function check_dup_id($tkcode, $tkid)
 	{
 		$where = array(
 			'TK_Code'=>$tkcode,

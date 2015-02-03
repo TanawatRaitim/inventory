@@ -1,3 +1,11 @@
+<?php
+	if(isset($excel))
+	{
+		header("Content-type: application/vnd.ms-excel");
+		header("Content-Disposition: attachment; filename=$excel_name");
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

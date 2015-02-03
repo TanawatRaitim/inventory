@@ -9,7 +9,6 @@ $(function(){
 	$("#btn_save").on('click',function(e){
 		e.preventDefault();
 		
-		
 		var tkid = $("input#TK_ID").val();
 		var sale_date = $("input#DocSale_Date").val();
 		var dup_id = '';

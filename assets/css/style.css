@@ -123,6 +123,10 @@ a.text-white{
 	cursor: pointer;
 }
 
+.badge{
+	display: inline;
+}
+
 
 
 

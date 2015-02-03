@@ -20,6 +20,7 @@ class Sale extends CI_Controller {
 		
 	}
 
+	
 	public function all()
 	{
 		$content['title'] = 'ข้อมูลการตัดขายทั้งหมด';
@@ -1030,6 +1031,110 @@ class Sale extends CI_Controller {
 		
 		$this->load->view('template/main',$data);
 	}
+
+	public function datatable($type, $id)
+	{
+
+		$this->load->model('customer_model');
+		
+		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'ระบบการตัดขาย',
+										'link'=>site_url('sale/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
+										'link'=>site_url('sale/sa'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
+										'link'=>site_url('sale/ss'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
+										'link'=>site_url('sale/sc'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
+										'link'=>site_url('sale/sz'),
+										'class'=>''
+									),
+									5 => array(
+										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
+										'link'=>site_url('sale/sm'),
+										'class'=>''
+									),
+									6 => array(
+										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
+										'link'=>site_url('sale/sd'),
+										'class'=>''
+									),
+									7 => array(
+										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
+										'link'=>site_url('sale/se'),
+										'class'=>''
+									),
+									8 => array(
+										'name'=>'ใบสั่งขายทั้งหมด',
+										'link'=>site_url('sale/sale_used'),
+										'class'=>''
+									)
+								);
+		$content['transaction'] = $this->sale_model->get_transaction_used($type, $id);
+		$content['transaction_detail'] = $this->sale_model->get_transaction_used_detail($content['transaction']['Transact_AutoID']);
+		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
+		$content['approve_person'] = $this->sale_model->get_approve_person($content['transaction']['ApprovedBy']);
+		$content['transaction_for'] = $this->sale_model->get_transaction_for($content['transaction']['Transaction_For']);
+		
+		//detail of rs
+		$content['description'] = '';
+		
+		if($content['transaction']['IsApproved']==0 && $content['transaction']['IsReject']==0)
+		{
+			//wait
+			$content['description'] = 'ใบจองนี้อยู่ในสถานะ รอการอนุมัติ';
+		}
+		elseif($content['transaction']['IsApproved']==1 && $content['transaction']['IsReject']==0)
+		{
+			//approve
+			$content['description'] = 'ใบจองนี้อนุมัติแล้ว';
+		}
+		elseif($content['transaction']['IsApproved']==0 && $content['transaction']['IsReject']==1)
+		{
+			//reject
+			$content['description'] = 'ใบจองนี้ไม่ผ่านการอนุมัติเนื่องจาก <br />-'.$content['transaction']['Reject_Remark'];
+		}
+		
+		$data['content'] = $this->load->view('sale/datatable',$content, TRUE);
+		
+		$css = array(
+			// 'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			// 'select2-bootstrap-css-master/select2-bootstrap.css',
+			//'bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css'
+			);
+		$js = array(
+			// 'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			// 'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			// 'select2/select2.min.js',
+			//'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'js/app/sale/datatable.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
 	
 	
 	
@@ -1140,7 +1245,6 @@ class Sale extends CI_Controller {
 	public function set_is_used()
 	{
 		parse_str($_POST['sale'], $data);
-		// print_r($sale);
 		
 		$result = $this->sale_model->set_is_used($data);
 		

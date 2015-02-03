@@ -16,7 +16,7 @@
 		<div class="col-md-5">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">ข้อมูล <button class="btn btn-xs btn-danger pull-right" id="delete_all">ยกเลิกใบจอง</button></h3>
+					<h3 class="panel-title">ข้อมูล </h3>
 					
 				</div>
 				<div class="panel-body">
@@ -53,6 +53,10 @@
 								<tr>
 									<th class="info text-right">สถานะ</th>
 									<td colspan="3"><?php echo $description;?></td>
+								</tr>
+								<tr>
+									<th class="info text-right">หมายเหตุ</th>
+									<td colspan="3"><?php echo $transaction['Transact_Remark'];?></td>
 								</tr>
 								<tr>
 									<th class="info text-right">ผู้อนุมัติ</th>

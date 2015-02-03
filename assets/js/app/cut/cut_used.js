@@ -97,9 +97,8 @@ $(function(){
         	{
         		// "width": "10%",
         		"render": function(data, type, row){
-        			//return "button";
-        			console.log(row);
-        			return "<a data-toggle='tooltip' title='ดูรายละเอียด' class='btn btn-xs btn-danger' href='view_used_detail/"+row.TK_Code+"/"+row.TK_ID+"'>View Detail</a>";
+
+        			return "<a data-toggle='tooltip' title='ดูรายละเอียด' class='btn btn-xs btn-danger' href='view_used_detail/"+row.TK_Code+"/"+row.TK_ID+"'>View Detail</a>&nbsp;<a data-toggle='tooltip' class='btn btn-xs btn-success' target='_blank' href='/inventory/report/packing_info/"+row.Transact_AutoID+"'>Print ใบส่งของ</a>";
         		}
         	}
         ],

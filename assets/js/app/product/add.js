@@ -145,9 +145,11 @@ $(function() {
 			Weight:{
 				number:true
 			},
+			/*
 			Manufact_Num:{
 				number:true
 			},
+			*/
 			// Age_AverageReturn:{
 				// required:true,
 				// min:1
@@ -160,6 +162,7 @@ $(function() {
 				// required:true,
 				// min:1
 			// },
+			/*
 			Order_Num:{
 				required:true
 			},
@@ -169,9 +172,11 @@ $(function() {
 			QTY_Reserve:{
 				number:true
 			},
+			*/
 			// Manufact_EndDate:{
 				// required:true
 			// },
+			/*
 			QTY_Production:{
 				required:true,
 				number:true
@@ -185,6 +190,7 @@ $(function() {
 			QTY_Distribution:{
 				number:true
 			},
+			*/
 			Product_Photo:{
 				extension: "jpg|jpeg|png"
 			},

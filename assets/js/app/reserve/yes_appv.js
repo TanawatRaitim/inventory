@@ -78,10 +78,7 @@ $(function(){
         	{
         		"data":"IsApproved",
         		"render": function(data, type, meta){
-        			
-        			//console.log(meta);
-        			//console.log(type);
-        			//console.log(meta);
+  
         			
         			if(meta.IsApproved == 1){
         				return "อนุมัติแล้ว";
@@ -94,7 +91,10 @@ $(function(){
         		// "width": "10%",
         		"render": function(data, type, row){
         			//return "button";
-        			console.log(row);
+        			//console.log(row);
+        			//return "<a data-toggle='tooltip' class='btn btn-xs btn-info' href='view_approve/"+row.TK_ID+"'>View Detail</a>";
+        			//return "<a data-toggle='tooltip' class='btn btn-xs btn-info' href='view_approve/"+row.TK_ID+"'>View Detail</a>&nbsp;<a data-toggle='tooltip' class='btn btn-xs btn-danger' target='_blank' href='packing_info/"+row.TK_ID+"'>Print ใบส่งของ</a>&nbsp;<a data-toggle='tooltip' class='btn btn-xs btn-success' target='_blank' href='packing_info/"+row.TK_ID+"/excel'>Export ใบส่งของ</a>";
+        			
         			return "<a data-toggle='tooltip' class='btn btn-xs btn-info' href='view_approve/"+row.TK_ID+"'>View Detail</a>";
         		}
         	}
