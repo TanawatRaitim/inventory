@@ -472,10 +472,12 @@ class Reserve extends CI_Controller {
 	{
 		$text = $this->input->post('q');
 		$this->db->select('Product_AutoID, Product_ID, Product_Name, Product_Vol');
+		$this->db->where('RowStatus','ACTIVE');
 		$this->db->like('Product_ID', $text);
 		$this->db->or_like('Product_Name', $text);
 		$this->db->or_like('Product_Vol', $text);
 		$this->db->or_like('Barcode_Main', $text);
+		$this->db->order_by('Product_Name asc, Product_Vol desc');
 		$query = $this->db->get('Products');
 		
 		if($query->num_rows()>0)
