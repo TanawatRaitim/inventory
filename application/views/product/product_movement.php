@@ -24,7 +24,7 @@
 			</fieldset>
 		</div>
 		<div class="col-md-12 table-responsive" style="margin-top: 20px;">
-			<?php if($product_movement->num_rows()>0):?>
+			<?php if(isset($product_movement)):?>
 				<div class="col-md-12" style="margin-bottom: 10px;">
 					พบจำนวน <?php echo $product_movement->num_rows();?>  รายการ  <a class="btn btn-success btn-xs" target="_blank" href="<?php echo $excel_link;?>">Excel</a>
 				</div>

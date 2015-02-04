@@ -239,8 +239,10 @@ class Product extends CI_Controller {
 					
 			
 		}
-		
-						
+		// echo pre();
+		// print_r($content);
+		// echo pre_close();
+// 						
 		$data['content'] = $this->load->view('product/product_movement',$content ,TRUE);
 		
 		$css = array(
