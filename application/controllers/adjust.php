@@ -1371,12 +1371,14 @@ class Adjust extends CI_Controller {
 		//echo $this->db->last_query();
 		$transaction = $query->result_array();
 		
-		foreach($transaction as $key=>$value)
-		{
-			//print_r($transaction[$key]);
-			if(!$this->check_diff_negative($transaction[$key]) || !$this->is_reserve($transaction[$key])){
-				echo 'error';
-				exit();
+		if(!$reject['is_rejected']){
+			foreach($transaction as $key=>$value)
+			{
+				//print_r($transaction[$key]);
+				if(!$this->check_diff_negative($transaction[$key]) || !$this->is_reserve($transaction[$key])){
+					echo 'error';
+					exit();
+				}
 			}
 		}
 		
