@@ -88,7 +88,9 @@ $config['css'] = 'css/style.css';
  * - flatly
  * - journal
  * - lumen
+ * - paper
  * - readable
+ * - sandstone
  * - simplex
  * - slate
  * - spacelab
@@ -100,7 +102,7 @@ $config['css'] = 'css/style.css';
  
  // $config['theme'] = 'slate';
  // $config['theme'] = 'cerulean';
- $config['theme'] = 'bs3_2';
+ $config['theme'] = 'spacelab';
 
 /**
  * Text
@@ -316,7 +318,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'my_encryption_key';
+$config['encryption_key'] = 'my_encr5468yption_key';
 
 /*
 |--------------------------------------------------------------------------

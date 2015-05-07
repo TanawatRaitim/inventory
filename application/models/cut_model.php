@@ -83,11 +83,19 @@
 			$result = $this->db->insert('Inventory_Transaction', $transaction);
 			
 			$trans_detail = $this->db->get_where('Inventory_Transaction_Detail', array('Transact_AutoID'=>$data['Transact_AutoID']))->result_array();
+			
 			$new_id = $this->db->insert_id();
+			
 			$insert_detail = array();
 			
 			foreach ($trans_detail as $key=>$value) {
 				$trans_detail[$key]['Transact_AutoID'] = $new_id;
+				
+				if($trans_detail[$key]['RecNo'])
+				{
+					unset($trans_detail[$key]['RecNo']);	
+				}
+				
 				$this->db->insert('Inventory_Transaction_Detail', $trans_detail[$key]);
 				
 				//update stock
@@ -132,7 +140,7 @@
 		{
 				
 			//$this->db->select('*, Inventory_Transaction.TK_Code as tk_code, Inventory_Transaction.RowCreatedDate as created_date');
-			$this->db->select('*, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as created_date, convert(varchar,Inventory_Transaction.ApprovedDate,22) as approved_date');
+			$this->db->select('*, convert(varchar(17),Inventory_Transaction.RowCreatedDate,113) as created_date, convert(varchar(17),Inventory_Transaction.ApprovedDate,113) as approved_date');
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID', 'left');
 			$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson', 'left');
@@ -149,6 +157,7 @@
 			$this->db->join('Products', 'Products.Product_ID = Inventory_Transaction_Detail.Product_ID','left');
 			$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Transaction_Detail.Effect_Stock_AutoID', 'left');
 			$this->db->where(array('Transact_AutoID'=>$id));
+			$this->db->order_by('Inventory_Transaction_Detail.RecNo', 'asc');
 			
 			return $this->db->get()->result_array();
 		}
@@ -176,6 +185,7 @@
 			$this->db->join('Products', 'Products.Product_ID = Inventory_Transaction_Detail.Product_ID','left');
 			$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Transaction_Detail.Effect_Stock_AutoID', 'left');
 			$this->db->where(array('Transact_AutoID'=>$id));
+			// $this->db->order_by('Inventory_Transaction_Detail.RecNo', 'asc');
 			
 			return $this->db->get()->result_array();	
 		}

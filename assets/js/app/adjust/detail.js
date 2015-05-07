@@ -61,7 +61,7 @@ $(function(){
 				$.ajax({
 					type: 'POST',
 					async: false,
-					url: '/inventory/adjust/is_reserve_ajax',
+					url: BASE_URL+'adjust/is_reserve_ajax',
 					data: {
 						detail_data: $("#form_detail").serialize(),
 						},
@@ -81,7 +81,7 @@ $(function(){
 					complete: function(){
 
 						//alert('บันทึกข้อมูลเรียบร้อยแล้ว');
-						//window.location.href = '/inventory/adjust/all';
+						//window.location.href = BASE_URL+'adjust/all';
 					},
 					error:function(){
 						console.log('error');
@@ -98,7 +98,7 @@ $(function(){
 				$.ajax({
 					type: 'POST',
 					async: false,
-					url: '/inventory/adjust/check_diff_negative_ajax',
+					url: BASE_URL+'adjust/check_diff_negative_ajax',
 					data: {
 						detail_data: $("#form_detail").serialize(),
 						},
@@ -118,7 +118,7 @@ $(function(){
 					complete: function(){
 
 						//alert('บันทึกข้อมูลเรียบร้อยแล้ว');
-						// window.location.href = '/inventory/adjust/all';
+						// window.location.href = BASE_URL+'adjust/all';
 					},
 					error:function(){
 						console.log('error');
@@ -145,7 +145,7 @@ $(function(){
 						
 						$.ajax({
 						type: 'POST',
-						url: '/inventory/adjust/edit_detail',
+						url: BASE_URL+'adjust/edit_detail',
 						data: {
 							detail_data: $("#form_detail").serialize(),
 							},
@@ -166,7 +166,7 @@ $(function(){
 						complete: function(){
 
 							alert('บันทึกข้อมูลเรียบร้อยแล้ว');
-							window.location.href = '/inventory/adjust/all';
+							window.location.href = BASE_URL+'adjust/all';
 							}
 						});
 									
@@ -201,7 +201,7 @@ $(function(){
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 						
 						$(this).attr('disabled','disabled');
-						window.location.href = '/inventory/adjust/all';
+						window.location.href = BASE_URL+'adjust/all';
 									
 					}
 					},

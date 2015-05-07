@@ -15,7 +15,7 @@ $(function() {
 		
 		$.ajax({
 			type: 'GET',
-			url: '/inventory/customer/delete_upload_file/'+ autoid + "/" + field,
+			url: BASE_URL+'customer/delete_upload_file/'+ autoid + "/" + field,
 			dataType: 'html',
 			success: function(data){
 				if(data=='true'){

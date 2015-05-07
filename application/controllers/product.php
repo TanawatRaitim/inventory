@@ -171,7 +171,6 @@ class Product extends CI_Controller {
 		//echo $id;
 		$result = $this->product_model->get_product_transaction($id);
 		
-		//print_r($result);
 		
 		$json = array(
 			'data'=>$result
@@ -180,10 +179,10 @@ class Product extends CI_Controller {
 		echo json_encode($json);
 	}
 
+	
+	
 	public function product_movement($product_autoid)
 	{
-		//echo $product_autoid;
-		// print_r($_POST);
 		$content['title'] = "Product Movement";
 		$content['product'] = $this->db->get_where('Products', array('Product_AutoID'=>$product_autoid))->row_array();
 		$content['start_date'] = "";
@@ -192,7 +191,6 @@ class Product extends CI_Controller {
 		
 		if($this->input->post('search_movement'))
 		{
-			//echo 'true';
 			$start_date = $this->input->post('start_date_submit')." 00:00:00:000";
 			$end_date = $this->input->post('end_date_submit')."  23:59:59.999";
 			$product_id = $content['product']['Product_ID'];
@@ -200,7 +198,6 @@ class Product extends CI_Controller {
 			$where .= " WHERE dbo.Inventory_Transaction.TK_Code not in ('RS')";
 			$where .= " and dbo.Inventory_Transaction_Detail.Product_ID = '$product_id'";
 			$where .= " and dbo.Inventory_Transaction.RowCreatedDate >= '$start_date' and dbo.Inventory_Transaction.RowCreatedDate <= '$end_date'";
-			// $where .= 
 			$sql = "Select	ROW_NUMBER() over(Order by dbo.Inventory_Transaction.RowCreatedDate) as RowNo ,dbo.Inventory_Transaction.TK_Code,
 					TKCode_Main.TK_Description+ '[ ' + dbo.Inventory_Transaction.TK_Code+' ]' as [TK_Main] ,
 					dbo.Inventory_Transaction.TK_Code+''+dbo.Inventory_Transaction.TK_ID as [Ticket_ID],
@@ -239,10 +236,7 @@ class Product extends CI_Controller {
 					
 			
 		}
-		// echo pre();
-		// print_r($content);
-		// echo pre_close();
-// 						
+						
 		$data['content'] = $this->load->view('product/product_movement',$content ,TRUE);
 		
 		$css = array(
@@ -251,12 +245,6 @@ class Product extends CI_Controller {
 			'pickadate-3.5.3/lib/themes/classic.time.css',
 			);
 		$js = array(
-			// 'js/moment/min/moment.min.js',
-			// 'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			// 'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-			// 'js/jquery_validation/dist/jquery.validate.min.js',
-			// 'js/jquery_validation/dist/additional-methods.min.js',
-			// 'jquery-mask-plugin/jquery.mask.min.js',			
 			'pickadate-3.5.3/lib/picker.js',
 			'pickadate-3.5.3/lib/picker.date.js',
 			'pickadate-3.5.3/lib/picker.time.js',
@@ -878,12 +866,7 @@ class Product extends CI_Controller {
 
 	public function select2_product()
 	{
-		$text = $this->input->post('q');
-		$this->db->select('Product_AutoID, Product_ID, Product_Name, Product_Vol');
-		$this->db->like('Product_ID', $text);
-		$this->db->or_like('Product_Name', $text);
-		$this->db->or_like('Product_Vol', $text);
-		$query = $this->db->get('Products');
+		$query = $this->product_model->get_product_select2();
 		
 		if($query->num_rows()>0)
 		{
@@ -905,15 +888,123 @@ class Product extends CI_Controller {
 		
 	}
 	
-	
 	public function get_product_json()
 	{
 		
 		$id = $this->input->post('id');
-		$query = $this->db->get_where('Products',array('Product_ID'=>$id));
+		
+		$query = $this->product_model->get_product($id);
+		
 		$result = $query->row_array();
 		
 		echo json_encode($result);
+	}
+	
+	public function table_qty($product_id="")
+	{
+		$this->load->model('product_model');
+		$this->load->model('inventory_model');
+
+		$query = $this->product_model->get($product_id);
+		
+		if($query->num_rows() == 0)
+		{
+			echo 'ไม่มีรายละเอียดสินค้า';
+			exit();
+		}
+
+		$result = $query->row_array();
+		
+		if($result['Product_SpecSheet'])
+		{
+			$result['Product_SpecSheet'] = $this->config->item('specsheet_path').$result['Product_SpecSheet'];
+		}
+		
+		if($result['Product_SaleSheet'])
+		{
+			$result['Product_SaleSheet'] = $this->config->item('salesheet_path').$result['Product_SaleSheet'];
+		}
+		
+		if($result['Product_DocOther'])
+		{
+			$result['Product_DocOther'] = $this->config->item('docother_path').$result['Product_DocOther'];
+		}
+		
+		if($result['Product_Photo'])
+		{
+			
+			if(file_exists($this->config->item('upload_product_img').$result['Product_Photo'])){
+				$result['Product_Photo'] = $this->config->item('productimg_path').$result['Product_Photo'];
+				
+			}else{
+				$result['Product_Photo'] = $this->config->item('no_img_path');
+			}
+		}
+		
+		$data['product'] = $result;
+		
+		$query = $this->inventory_model->get_all_stock($product_id);
+		$data['inventory'] = $query->result_array();
+		
+		
+		$all_inventory = array();
+		
+		$reserve_draft = $this->inventory_model->get_reserve_draft($product_id);
+		
+		
+		foreach ($data['inventory'] as $row) {
+			
+			$all_inventory[$row['Stock_AutoID']] = array(
+				'stock_name'=>$row['Stock_Name'],
+				'inventory'=>array(
+					'text'=>'ยอดสินค้าคงคลัง',
+					'good'=>number_format($row['QTY_Good']),
+					'waste'=>number_format($row['QTY_Waste']),
+					'damage'=>number_format($row['QTY_Damage'])
+				),
+				'draft'=>array(
+					'text'=>'ยอดจอง Draft',
+					'good'=>number_format($reserve_draft[$row['Stock_AutoID']]['good']),
+					'waste'=>number_format($reserve_draft[$row['Stock_AutoID']]['waste']),
+					'damage'=>number_format($reserve_draft[$row['Stock_AutoID']]['damage'])
+				),
+				'reserve'=>array(
+					'text'=>'ยอดรับจอง',
+					'good'=>number_format($row['QTY_ReserveGood']),
+					'waste'=>number_format($row['QTY_ReserveWaste']),
+					'damage'=>number_format($row['QTY_ReserveDamage'])
+				),
+				'total'=>array(
+					'text'=>'ยอดคงเหลือ',
+					'good'=>number_format($row['QTY_Good']-($reserve_draft[$row['Stock_AutoID']]['good']+$row['QTY_ReserveGood'])),
+					'waste'=>number_format($row['QTY_Waste']-($reserve_draft[$row['Stock_AutoID']]['waste']+$row['QTY_ReserveWaste'])),
+					'damage'=>number_format($row['QTY_Damage']-($reserve_draft[$row['Stock_AutoID']]['damage']+$row['QTY_ReserveDamage'])),
+				),
+			);
+		}
+		
+		
+		$data['all_inventory'] = $all_inventory;
+		
+		$this->load->view('product/table_qty', $data);
+	}
+
+	public function table_premium($product_id="")
+	{
+		$this->load->model('product_model');
+		
+		$query = $this->product_model->get_all_product_premium($product_id);
+		
+		if($query->num_rows() == 0)
+		{
+			echo 'ไม่มีสินค้าประกอบ';
+			exit();
+		}
+
+		$result = $query->result_array();
+		$data['premium'] = $result;
+		
+		$this->load->view('product/table_premium', $data);
 	}
 	
 	public function upload_img($image_name, $field_name, $path)

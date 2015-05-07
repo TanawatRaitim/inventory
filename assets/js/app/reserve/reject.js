@@ -85,8 +85,9 @@ $(function(){
         		// "width": "10%",
         		"render": function(data, type, row){
         			//return "button";
-        			console.log(row);
-        			return "<a data-toggle='tooltip' title='ดูรายละเอียด' class='btn btn-xs btn-danger' href='detail/"+row.TK_ID+"'>View Detail(SDB)</a> <a data-toggle='tooltip' title='แก้ไข' class='btn btn-xs btn-info' href='view_approve/"+row.TK_ID+"'>View Detail(WAR)</a>";
+        			//console.log(row);
+        			// return "<a data-toggle='tooltip' class='btn btn-xs btn-danger' href='detail/"+row.TK_ID+"'>View Detail(SDB)</a> <a data-toggle='tooltip' class='btn btn-xs btn-info' href='view_approve/"+row.TK_ID+"'>View Detail(WAR)</a>";
+        			return "<a data-toggle='tooltip' class='btn btn-xs btn-danger' href='edit_reject/"+row.Transact_AutoID+"'>View Detail(SDB)</a> <a data-toggle='tooltip' class='btn btn-xs btn-info' href='view_approve/"+row.TK_ID+"'>View Detail(WAR)</a>";
         		}
         	}
         ],

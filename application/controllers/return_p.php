@@ -228,10 +228,104 @@ class Return_p extends CI_Controller {
 		
 		$this->load->view('template/main',$data);
 	}
+
+	public function edit_reject($id)
+	{
+		$content['title'] = 'แก้ไขใบรับคืนที่ถูกปฏิเสธ ('.get_ticket_code_id($id).')';
+		$content['transaction'] = $this->transaction_model->get_transaction($id);
+		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
+		$content['input_type'] = 'SR';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการรับคืนสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('return_p/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบรับสินค้าคืน (ใบใหม่)',
+										'link'=>site_url('return_p/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบรับสินค้าคืน  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('return_p/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบรับสินค้าคืน  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('return_p/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบรับสินค้าคืน  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('return_p/reject'),
+										'class'=>''
+									)
+								);
+								
+		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
+		$content['inventory_type'] = inventory_return_dropdown();
+		$data['content'] = $this->load->view('return/edit_reject',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/return/edit_reject.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+
+	public function edit_draft($id)
+	{
+		$content['title'] = 'แก้ไขแบบร่างใบรับคืนเลขที่ ('.get_ticket_code_id($id).')';
+		$content['transaction'] = $this->transaction_model->get_transaction($id);
+		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
+		$content['input_type'] = 'SR';
+								
+		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
+		$content['inventory_type'] = inventory_return_dropdown();
+		$data['content'] = $this->load->view('return/edit_draft',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/return/edit_draft.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
 	
 	public function add()
 	{
-		$content['title'] = 'รับสินค้าคืน';
+		$content['title'] = 'เปิดใบรับสินค้าคืน (ใบใหม่)';
 		$content['input_type'] = 'RS';
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
@@ -340,33 +434,76 @@ class Return_p extends CI_Controller {
 
 	}
 
+	
+	public function check_edit_data()
+	{
+		parse_str($_POST['main_ticket'], $main);
+		parse_str($_POST['ticket_detail'], $detail);
+		
+		$tkid = $main['TK_ID'];
+		$autoid = $main['Transaction_AutoID'];
+		$tk_code = $main['TK_Code'];
+		$product_id = $detail['Product_ID'];
+		$stock_id = $detail['Effect_Stock_AutoID'];
+
+		if($this->check_tran_dup($autoid, $product_id, $stock_id)){
+			//not dup
+			$result = array(
+				'status'=>true,
+				'valid'=>''
+			);
+			
+		}else{
+			//dup
+			$result = array(
+				'status'=>false,
+				'valid'=>'ไม่สามารถบันทึกข้อมูลได้ เนื่องจากคุณบันทึกรายการซ้ำ'
+			);
+		}
+		
+		echo json_encode($result);
+
+	}
+
 	public function insert_transaction()
 	{
 		parse_str($_POST['main_ticket'], $main);
 		parse_str($_POST['ticket_detail'], $detail);
 		
+		
 		if($main['Transaction_AutoID']=="")
 		{
-			$auto_id = $this->return_p_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);
+			
+			if($this->transaction_model->has_autoid($main['TK_Code'], $main['TK_ID']))
+			{
+				$auto_id = $this->transaction_model->find_autoid($main['TK_Code'], $main['TK_ID']);	
+			}else{
+				$auto_id = $this->return_p_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);	
+			}	
+
 			$this->return_p_model->insert_ticket_detail($auto_id);
 			
 			$data = array(
 				'TK_ID'=>$main['TK_ID'],
 				'Transact_AutoID'=>$auto_id,
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
-				'Product_ID'=>$detail['Product_ID']
+				'Product_ID'=>$detail['Product_ID'],
+				'Product_Name'=>get_product_name($detail['Product_ID'])
 			);
 
 			echo json_encode($data);
 		}else{
 			$tid = $main['Transaction_AutoID'];
+			
+			$this->return_p_model->update_main_transaction($tid);
 			$this->return_p_model->insert_ticket_detail($tid);
 
 			$data = array(
 				'TK_ID'=>$main['TK_ID'],
 				'Transact_AutoID'=>$tid,
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
-				'Product_ID'=>$detail['Product_ID']
+				'Product_ID'=>$detail['Product_ID'],
+				'Product_Name'=>get_product_name($detail['Product_ID'])
 			);
 
 			echo json_encode($data);	
@@ -497,6 +634,13 @@ class Return_p extends CI_Controller {
 		
 		$this->return_p_model->save($main);
 		
+	}
+	
+	public function save_edit_reject()
+	{
+		parse_str($_POST['main_ticket'], $main);
+		
+		$this->return_p_model->save_edit_reject($main);
 	}
 	
 	public function get_all()
@@ -720,7 +864,7 @@ class Return_p extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		
-		$content['title'] = 'รายละเอียดการรับคืนสินค้า';
+		$content['title'] = 'รายละเอียดใบรับคืนสินค้าเลขที่ '.get_ticket_code_id($autoid);
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -750,7 +894,7 @@ class Return_p extends CI_Controller {
 									)
 								);
 		$content['transaction'] = $this->return_p_model->get_inventory_transaction($autoid);
-		$content['transaction_detail'] = $this->return_p_model->get_transaction_detail($autoid);
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($autoid);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->return_p_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->return_p_model->get_transaction_for($content['transaction']['Transaction_For']);
@@ -880,7 +1024,7 @@ class Return_p extends CI_Controller {
 	public function approve($id)
 	{
 		$this->load->model('customer_model');
-		$content['title'] = 'อนุมัติการรับคืนสินค้า';
+		$content['title'] = 'อนุมัติการรับคืนเลขที่ '.get_ticket_code_id($id);
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -911,7 +1055,7 @@ class Return_p extends CI_Controller {
 								);
 		
 		$content['transaction'] = $this->return_p_model->get_inventory_transaction($id);
-		$content['transaction_detail'] = $this->return_p_model->get_transaction_detail($id);
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($id);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->return_p_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->return_p_model->get_transaction_for($content['transaction']['Transaction_For']);

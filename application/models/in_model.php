@@ -43,7 +43,25 @@
 			$main['RowStatus'] = 'active';
 			$main['IsDel'] = 0;
 			$this->db->insert('Inventory_Transaction', $main);
+			
+			// return $this->transaction_model->find_autoid($tkcode, $tkid);
 			return $this->db->insert_id();
+		}
+		
+		public function update_main_transaction($autoid)
+		{
+			parse_str($_POST['main_ticket'], $main);
+			
+			unset($main['Transaction_AutoID']);
+			
+			$main['Transaction_For'] = $main['TK_Code'];
+			$main['DocRef_Date'] = convert_date_to_mssql($main['DocRef_Date']);
+			$main['RowUpdatedDate'] = date("Y/m/d h:i:s");
+			$main['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+			
+			$this->db->where('Transact_AutoID',$autoid);
+			$this->db->update('Inventory_Transaction',$main);
+			
 		}
 
 		public function insert_ticket_detail($id)
@@ -67,36 +85,23 @@
 			$this->db->where('Transact_AutoID', $auto_id);
 			$this->db->update('Inventory_Transaction', $main);
 			
-			/*
-			$query = $this->db->get_where('Inventory_Transaction_Detail', array('Transact_AutoID'=>$auto_id));
-			foreach ($query->result_array() as $value) {
-				$where = array(
-					'Product_ID'=>$value['Product_ID'],
-					'Stock_AutoID'=>$value['Effect_Stock_AutoID']
-				);
-				
-				$query = $this->db->get_where('Inventory_Detail', $where);
-				$inventory = $query->row_array();
-				
-				$update = array();
-				
-				
-				$update['QTY_Good'] = $inventory['QTY_Good'] + $value['QTY_Good']; 
-				$update['QTY_RemainGood'] = $inventory['QTY_RemainGood'] + $value['QTY_Good']; 
-				
-				$update['QTY_Waste'] = $inventory['QTY_Waste'] + $value['QTY_Waste']; 
-				$update['QTY_RemainWaste'] = $inventory['QTY_RemainWaste'] + $value['QTY_Waste']; 
-				
-				$update['QTY_Damage'] = $inventory['QTY_Damage'] + $value['QTY_Damage']; 
-				$update['QTY_RemainDamage'] = $inventory['QTY_RemainDamage'] + $value['QTY_Damage']; 
-				
-				
-				$this->db->where($where);
-				$this->db->update('Inventory_Detail', $update);
-				
-			}
-			 * 
-			 */
+		}
+		
+		public function save_edit_reject($main)
+		{
+			$auto_id = $main['Transaction_AutoID'];
+			unset($main['Transaction_AutoID']);
+			
+			$main['Reject_Remark'] = '';
+			$main['RowUpdatedDate'] = date("Y/m/d h:i:s");
+			$main['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+			$main['DocRef_Date'] = convert_date_to_mssql($main['DocRef_Date']);
+			$main['IsApproved'] = 0;
+			$main['IsReject'] = 0;
+			$main['IsDraft'] = 0;
+			
+			$this->db->where('Transact_AutoID', $auto_id);
+			$this->db->update('Inventory_Transaction', $main);	
 		}
 		
 		public function delete_tran_detail($autoid, $product_id, $stock)
@@ -207,7 +212,7 @@
 		{
 			// $this->db->select('*, Inventory_Transaction.RowCreatedDate as created_date');
 			//$this->db->select('*, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as created_date, convert(varchar,Inventory_Transaction.ApprovedDate,22) as approved_date');
-			$this->db->select('*, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as created_date, convert(varchar,Inventory_Transaction.ApprovedDate,22) as approved_date');
+			$this->db->select('*, convert(varchar(17),Inventory_Transaction.RowCreatedDate,113) as created_date, convert(varchar(17),Inventory_Transaction.ApprovedDate,113) as approved_date');
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID');
 			$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson');
@@ -223,6 +228,7 @@
 			$this->db->join('Products', 'Products.Product_ID = Inventory_Transaction_Detail.Product_ID','left');
 			$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Transaction_Detail.Effect_Stock_AutoID', 'left');
 			$this->db->where(array('Transact_AutoID'=>$id));
+			$this->db->order_by('Inventory_Transaction_Detail.RecNo', 'asc');
 			
 			return $this->db->get()->result_array();
 		}

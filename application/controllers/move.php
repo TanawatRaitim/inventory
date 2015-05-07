@@ -23,27 +23,27 @@ class Move extends CI_Controller {
 		$content['breadcrumb'] = array(
 									0 => array(
 										'name'=>"ระบบการโอนย้ายสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
-										'link'=>'all',
+										'link'=>site_url('move/all'),
 										'class'=>'active'
 									),
 									1 => array(
 										'name'=>'เปิดใบโอนย้ายสินค้า (ใบใหม่)',
-										'link'=>'add',
+										'link'=>site_url('move/add'),
 										'class'=>''
 									),
 									2 => array(
 										'name'=>"ใบโอนย้ายสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
-										'link'=>'no_appv',
+										'link'=>site_url('move/no_appv'),
 										'class'=>''
 									),
 									3 => array(
 										'name'=>'ใบโอนย้ายสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
-										'link'=>'yes_appv',
+										'link'=>site_url('move/yes_appv'),
 										'class'=>''
 									),
 									4 => array(
 										'name'=>'ใบโอนย้ายสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
-										'link'=>'reject',
+										'link'=>site_url('move/reject'),
 										'class'=>''
 									)
 								);
@@ -77,27 +77,27 @@ class Move extends CI_Controller {
 		$content['breadcrumb'] = array(
 									0 => array(
 										'name'=>"ระบบการโอนย้ายสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
-										'link'=>'all',
+										'link'=>site_url('move/all'),
 										'class'=>''
 									),
 									1 => array(
 										'name'=>'เปิดใบโอนย้ายสินค้า (ใบใหม่)',
-										'link'=>'add',
+										'link'=>site_url('move/add'),
 										'class'=>''
 									),
 									2 => array(
 										'name'=>"ใบโอนย้ายสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
-										'link'=>'no_appv',
+										'link'=>site_url('move/no_appv'),
 										'class'=>'active'
 									),
 									3 => array(
 										'name'=>'ใบโอนย้ายสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
-										'link'=>'yes_appv',
+										'link'=>site_url('move/yes_appv'),
 										'class'=>''
 									),
 									4 => array(
 										'name'=>'ใบโอนย้ายสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
-										'link'=>'reject',
+										'link'=>site_url('move/reject'),
 										'class'=>''
 									)
 								);
@@ -130,27 +130,27 @@ class Move extends CI_Controller {
 		$content['breadcrumb'] = array(
 									0 => array(
 										'name'=>"ระบบการโอนย้ายสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
-										'link'=>'all',
+										'link'=>site_url('move/all'),
 										'class'=>''
 									),
 									1 => array(
 										'name'=>'เปิดใบโอนย้ายสินค้า (ใบใหม่)',
-										'link'=>'add',
+										'link'=>site_url('move/add'),
 										'class'=>''
 									),
 									2 => array(
 										'name'=>"ใบโอนย้ายสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
-										'link'=>'no_appv',
+										'link'=>site_url('move/no_appv'),
 										'class'=>''
 									),
 									3 => array(
 										'name'=>'ใบโอนย้ายสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
-										'link'=>'yes_appv',
+										'link'=>site_url('move/yes_appv'),
 										'class'=>'active'
 									),
 									4 => array(
 										'name'=>'ใบโอนย้ายสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
-										'link'=>'reject',
+										'link'=>site_url('move/reject'),
 										'class'=>''
 									)
 								);
@@ -183,27 +183,27 @@ class Move extends CI_Controller {
 		$content['breadcrumb'] = array(
 									0 => array(
 										'name'=>"ระบบการโอนย้ายสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
-										'link'=>'all',
+										'link'=>site_url('move/all'),
 										'class'=>''
 									),
 									1 => array(
 										'name'=>'เปิดใบโอนย้ายสินค้า (ใบใหม่)',
-										'link'=>'add',
+										'link'=>site_url('move/add'),
 										'class'=>''
 									),
 									2 => array(
 										'name'=>"ใบโอนย้ายสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
-										'link'=>'no_appv',
+										'link'=>site_url('move/no_appv'),
 										'class'=>''
 									),
 									3 => array(
 										'name'=>'ใบโอนย้ายสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
-										'link'=>'yes_appv',
+										'link'=>site_url('move/yes_appv'),
 										'class'=>''
 									),
 									4 => array(
 										'name'=>'ใบโอนย้ายสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
-										'link'=>'reject',
+										'link'=>site_url('move/reject'),
 										'class'=>'active'
 									)
 								);
@@ -231,33 +231,33 @@ class Move extends CI_Controller {
 	
 	public function add()
 	{
-		$content['title'] = 'โอนย้ายสินค้า';
+		$content['title'] = 'เปิดใบโอนย้ายสินค้า (ใบใหม่)';
 		//$content['input_type'] = 'RS';
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
 										'name'=>"ระบบการโอนย้ายสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
-										'link'=>'all',
+										'link'=>site_url('move/all'),
 										'class'=>''
 									),
 									1 => array(
 										'name'=>'เปิดใบโอนย้ายสินค้า (ใบใหม่)',
-										'link'=>'add',
+										'link'=>site_url('move/add'),
 										'class'=>'active'
 									),
 									2 => array(
 										'name'=>"ใบโอนย้ายสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
-										'link'=>'no_appv',
+										'link'=>site_url('move/no_appv'),
 										'class'=>''
 									),
 									3 => array(
 										'name'=>'ใบโอนย้ายสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
-										'link'=>'yes_appv',
+										'link'=>site_url('move/yes_appv'),
 										'class'=>''
 									),
 									4 => array(
 										'name'=>'ใบโอนย้ายสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
-										'link'=>'reject',
+										'link'=>site_url('move/reject'),
 										'class'=>''
 									)
 								);
@@ -287,8 +287,130 @@ class Move extends CI_Controller {
 		
 		$this->load->view('template/main',$data);
 	}
-
+	
 	public function check_new_data()
+	{
+		
+		parse_str($_POST['main_ticket'], $main);
+		parse_str($_POST['ticket_detail'], $detail);
+		
+		$tkid = $main['TK_ID'];
+		$autoid = $main['Transaction_AutoID'];
+		$tk_code = $main['TK_Code'];
+		$product_id = $detail['Product_ID'];
+		$stock_id = $detail['Effect_Stock_AutoID'];
+		$stock_to = $detail['Effect_Stock_Des'];
+		$detail['Transact_AutoID'] = $autoid;
+		
+		//here
+		
+		if($autoid != "")
+		{
+			//check dup transaction
+			if($this->check_tran_dup_rl($autoid, $product_id, $stock_id, $stock_to)){
+				//not dup
+				$result = array(
+					'status'=>true,
+					'valid'=>''
+				);
+			}else{
+				//dup
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่สามารถบันทึกข้อมูลได้ เนื่องจากคุณบันทึกรายการซ้ำ'
+				);
+			}
+		}else{
+			//check ticket id
+			if($this->check_dup_tk($tk_code, $tkid)){
+				//not dup
+				$result = array(
+					'status'=>true,
+					'valid'=>''
+				);
+				//no need to check tran dup because this is one record
+				
+			}else{
+				//dup
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่สามารถใช้เลข Ticket นี้ได้ เนื่องจากมีการใช้เลขนี้ไปแล้ว'
+				);
+			}
+		}
+		
+		/*
+		if($result['status'] == true)
+		{
+			//check tran qty
+			if(!$this->check_tran_qty($detail))
+			{
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่สามรถบันทึกรายการได้ เนื่องจากสินค้าในคลังมีจำนวนไม่พอที่จะโอนย้าย'
+				);
+			}
+			
+		}
+		
+		*/
+		echo json_encode($result);
+
+	}
+
+	
+	public function check_edit_data()
+	{
+		
+		parse_str($_POST['main_ticket'], $main);
+		parse_str($_POST['ticket_detail'], $detail);
+		
+		$tkid = $main['TK_ID'];
+		$autoid = $main['Transaction_AutoID'];
+		$tk_code = $main['TK_Code'];
+		$product_id = $detail['Product_ID'];
+		$stock_id = $detail['Effect_Stock_AutoID'];
+		$stock_to = $detail['Effect_Stock_Des'];
+		$detail['Transact_AutoID'] = $autoid;
+		
+		//here
+
+			//check dup transaction
+			if($this->check_tran_dup_rl($autoid, $product_id, $stock_id, $stock_to)){
+				//not dup
+				$result = array(
+					'status'=>true,
+					'valid'=>''
+				);
+			}else{
+				//dup
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่สามารถบันทึกข้อมูลได้ เนื่องจากคุณบันทึกรายการซ้ำ'
+				);
+			}
+
+		
+		/*
+		if($result['status'] == true)
+		{
+			//check tran qty
+			if(!$this->check_tran_qty($detail))
+			{
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่สามรถบันทึกรายการได้ เนื่องจากสินค้าในคลังมีจำนวนไม่พอที่จะโอนย้าย'
+				);
+			}
+			
+		}
+		
+		*/
+		echo json_encode($result);
+
+	}
+
+	public function check_new_data_bak()
 	{
 		
 		parse_str($_POST['main_ticket'], $main);
@@ -361,10 +483,19 @@ class Move extends CI_Controller {
 	{
 		parse_str($_POST['main_ticket'], $main);
 		parse_str($_POST['ticket_detail'], $detail);
+
 		
 		if($main['Transaction_AutoID']=="")
 		{
-			$auto_id = $this->move_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);
+			//$auto_id = $this->move_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);
+			
+			if($this->transaction_model->has_autoid($main['TK_Code'], $main['TK_ID']))
+			{
+				$auto_id = $this->transaction_model->find_autoid($main['TK_Code'], $main['TK_ID']);	
+			}else{
+				$auto_id = $this->move_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);	
+			}
+			
 			$this->move_model->insert_ticket_detail($auto_id);
 			
 			$data = array(
@@ -372,20 +503,24 @@ class Move extends CI_Controller {
 				'Transact_AutoID'=>$auto_id,
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
 				'Effect_Stock_Des'=>$detail['Effect_Stock_Des'],
-				'Product_ID'=>$detail['Product_ID']
+				'Product_ID'=>$detail['Product_ID'],
+				'Product_Name'=>get_product_name($detail['Product_ID'])
 			);
 
 			echo json_encode($data);
 		}else{
 			$tid = $main['Transaction_AutoID'];
+			$this->move_model->update_main_transaction($tid);
 			$this->move_model->insert_ticket_detail($tid);
+			
 
 			$data = array(
 				'TK_ID'=>$main['TK_ID'],
 				'Transact_AutoID'=>$tid,
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
 				'Effect_Stock_Des'=>$detail['Effect_Stock_Des'],
-				'Product_ID'=>$detail['Product_ID']
+				'Product_ID'=>$detail['Product_ID'],
+				'Product_Name'=>get_product_name($detail['Product_ID'])
 			);
 
 			echo json_encode($data);	
@@ -496,6 +631,38 @@ class Move extends CI_Controller {
 				'status'=>true,
 				'valid'=>''
 			);
+			
+		if(!$this->transaction_model->has_detail($autoid))
+		{
+			$result = array(
+				'status'=>false,
+				'valid'=>'ไม่พบรายการที่ต้องการส่งขออนุมัติ กรุณาตรวจสอบข้อมูลอีกครั้ง !!!'
+			);
+		}	
+		
+		
+		/*
+		foreach ($trans as $key => $value) {
+			
+			if(!$this->check_tran_qty2($trans[$key])){
+				$result['status'] = false;
+				$result['valid'] = 'ไม่สามารถบันทักข้อมูลได้เนื่องสินค้า '.$value['Product_ID'].'ไม่จำนวนไม่พอสำหรับจอง';
+			}
+			
+		}
+		*/
+		echo json_encode($result);
+	}
+	
+	public function check_save_bak($autoid)
+	{
+		//$auto_id = $this->find_tid($tkid);
+		$query = $this->db->get_where('Inventory_Transaction_Detail', array('Transact_AutoID'=>$autoid));
+		$trans = $query->result_array();
+		$result = array(
+				'status'=>true,
+				'valid'=>''
+			);
 		
 		foreach ($trans as $key => $value) {
 			
@@ -514,6 +681,13 @@ class Move extends CI_Controller {
 		parse_str($_POST['main_ticket'], $main);
 		$this->move_model->save($main);
 		
+	}
+	
+	public function save_edit_reject()
+	{
+		parse_str($_POST['main_ticket'], $main);
+		
+		$this->move_model->save_edit_reject($main);
 	}
 	
 	public function get_all()
@@ -720,7 +894,7 @@ class Move extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		
-		$content['title'] = 'รายละเอียดการโอนย้ายสินค้า';
+		$content['title'] = 'รายละเอียดใบโอนย้ายสินค้าเลขที่ '.get_ticket_code_id($autoid);
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -751,7 +925,7 @@ class Move extends CI_Controller {
 								);
 		
 		$content['transaction'] = $this->move_model->get_inventory_transaction($autoid);
-		$content['transaction_detail'] = $this->move_model->get_transaction_detail($autoid);
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($autoid);
 		
 		
 		foreach($content['transaction_detail'] as $key=>$value){
@@ -954,11 +1128,107 @@ class Move extends CI_Controller {
 		echo 'true';
 
 	}
+
+	public function edit_reject($id)
+	{
+		$content['title'] = 'แก้ไขใบโอนย้ายที่ถูกปฏิเสธ ('.get_ticket_code_id($id).')';
+		$content['transaction'] = $this->transaction_model->get_transaction($id);
+		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
+		$content['input_type'] = 'RL';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการโอนย้ายสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('move/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบโอนย้ายสินค้า (ใบใหม่)',
+										'link'=>site_url('move/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบโอนย้ายสินค้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('move/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบโอนย้ายสินค้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('move/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบโอนย้ายสินค้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('move/reject'),
+										'class'=>''
+									)
+								);
+								
+		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
+		$content['inventory_type'] = all_inventory_dropdown();
+		$data['content'] = $this->load->view('move/edit_reject',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/move/edit_reject.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+
+	public function edit_draft($id)
+	{
+		$content['title'] = 'แก้ไขแบบร่างใบโอนย้ายเลขที่ ('.get_ticket_code_id($id).')';
+		$content['transaction'] = $this->transaction_model->get_transaction($id);
+		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
+		$content['input_type'] = 'RL';
+								
+		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
+		$content['inventory_type'] = all_inventory_dropdown();
+		$data['content'] = $this->load->view('move/edit_draft',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/move/edit_draft.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+
+		
 	
 	public function approve($id)
 	{
 		$this->load->model('customer_model');
-		$content['title'] = 'อนุมัติการโอนย้ายสินค้า';
+		$content['title'] = 'อนุมัติใบโอนย้ายสินค้าเลขที่ '.get_ticket_code_id($id);
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -989,7 +1259,7 @@ class Move extends CI_Controller {
 								);
 		
 		$content['transaction'] = $this->move_model->get_inventory_transaction($id);
-		$content['transaction_detail'] = $this->move_model->get_transaction_detail($id);
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($id);
 		
 		foreach($content['transaction_detail'] as $key=>$value){
 			$content['transaction_detail'][$key]['Effect_Stock_Des'] = $this->move_model->get_stock_name($content['transaction_detail'][$key]['Effect_Stock_Des']);
@@ -1275,6 +1545,42 @@ class Move extends CI_Controller {
 		}
 		
 	}
+	
+	public function check_appv()
+	{
+
+		parse_str($_POST['reject'], $reject);
+		$autoid = $reject['autoid'];
+		
+		$where = array(
+			'Inventory_Transaction_Detail.Transact_AutoID'=>$autoid
+		);
+		 
+		 $json = array(
+		 	'status'=>true,
+		 	'description'=>array()
+		);
+		// print_r($reject);
+		
+		//$transaction_detail = $this->db->get_where('Inventory_Transaction_Detail', array('Transact_AutoID'=>$autoid))->result_array();
+		$this->db->select('Inventory_Transaction_Detail.*, Inventory_Detail.QTY_RemainGood as remain_good, Inventory_Detail.QTY_RemainWaste as remain_waste, Inventory_Detail.QTY_RemainDamage as remain_damage');
+		$this->db->from('Inventory_Transaction_Detail');
+		$this->db->join('Inventory_Detail','Inventory_Detail.Product_ID = Inventory_Transaction_Detail.Product_ID AND Inventory_Detail.Stock_AutoID = Inventory_Transaction_Detail.Effect_Stock_AutoID','left');
+		$this->db->where($where);
+
+		$transaction_detail = $this->db->get()->result_array();
+		
+		foreach ($transaction_detail as $row) {
+			if($row['QTY_Good']>$row['remain_good'] || $row['QTY_Waste']>$row['remain_waste'] || $row['QTY_Damage']>$row['remain_damage']){
+				$json['status'] = false;
+				$json['description'][] = $row['Product_ID'];
+			}
+		}
+		
+		
+		echo json_encode($json);
+		
+	}	
 	
 	private function check_tran_dup($autoid, $product_id, $stock)
 	{

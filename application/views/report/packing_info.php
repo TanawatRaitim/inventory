@@ -112,9 +112,9 @@
 					</tr>
 					<tr>
 						<th class="text-right">เลขที่ใบส่ั่งขาย /ตัดจ่าย :</th>
-						<td><?php echo $transaction['Invoice_No'];?></td>
+						<td><?php echo $transaction['TK_Code'];?><?php echo $transaction['TK_ID'];?></td>
 						<th class="text-right">เลขที่ Invoice :</th>
-						<td><?php echo convert_mssql_date($transaction['Invoice_Date']);?></td>
+						<td><?php echo $transaction['Invoice_No'];?></td>
 					</tr>
 				</thead>
 			</table>
@@ -332,9 +332,9 @@
 					</tr>
 					<tr>
 						<th class="text-right">เลขที่ใบสั่งขาย /ตัดจ่าย :</th>
-						<td></td>
+						<td><?php echo $transaction['TK_Code'];?><?php echo $transaction['TK_ID'];?></td>
 						<th class="text-right">เลขที่ Invoice :</th>
-						<td></td>
+						<td><?php echo $transaction['Invoice_No'];?></td>
 					</tr>
 					
 				</table>

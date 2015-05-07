@@ -32,8 +32,9 @@
 		}
 		
 		public function get_used()
-		{	
-			$this->db->select('*, Inventory_Transaction.TK_Code as tkcode, convert(varchar, Inventory_Transaction.Transport_Date, 105) as Transport_Date, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as sale_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
+		{
+			$this->db->select('Inventory_Transaction.Transact_AutoID, Inventory_Transaction.TK_Code,Inventory_Transaction.DocRef_No, Customers.Cust_Name, Employees.Emp_FnameTH, Inventory_Transaction.IsUsed');	
+			$this->db->select('Inventory_Transaction.TK_ID,Inventory_Transaction.TK_Code as tkcode, convert(varchar, Inventory_Transaction.Transport_Date, 105) as Transport_Date, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as sale_date, Ticket_Type.TK_Description as tkdescription,Ticket_Type.TK_Code as tkfor ');
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
 			$this->db->join('Ticket_Type','Ticket_Type.TK_Code = Inventory_Transaction.TK_Code','left');
@@ -51,13 +52,14 @@
 		
 		public function set_is_used($data)
 		{
-			//select transaction
+			//get transaction
 			$transaction = $this->db->get_where('Inventory_Transaction', array('Transact_AutoID'=>$data['Transact_AutoID']))->row_array();
 			$transaction_id = $data['Transact_AutoID'];
 			
 			//update transaction is used
 			$this->db->where('Transact_AutoID', $transaction_id);
 			$this->db->update('Inventory_Transaction', array('IsUsed'=>1));
+			
 			//get rs code ref
 			$rs_ref = $transaction['TK_Code'].$transaction['TK_ID'];
 			unset($transaction['Transact_AutoID']);
@@ -86,7 +88,7 @@
 				$transaction['Invoice_No'] = $data['Invoice_No'];	
 			}
 			
-			
+			//insert new transaction
 			$result = $this->db->insert('Inventory_Transaction', $transaction);
 			
 			
@@ -98,6 +100,12 @@
 			
 			foreach ($trans_detail as $key=>$value) {
 				$trans_detail[$key]['Transact_AutoID'] = $new_id;
+				
+				if($trans_detail[$key]['RecNo'])
+				{
+					unset($trans_detail[$key]['RecNo']);	
+				}
+				
 				$this->db->insert('Inventory_Transaction_Detail', $trans_detail[$key]);
 				
 				//update stock
@@ -140,7 +148,7 @@
 		public function get_inventory_transaction($rsid)
 		{
 			//$this->db->select('*, Inventory_Transaction.TK_Code as tk_code, Inventory_Transaction.RowCreatedDate as created_date');
-			$this->db->select('*, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as created_date, convert(varchar,Inventory_Transaction.ApprovedDate,22) as approved_date');
+			$this->db->select('*, convert(varchar(17),Inventory_Transaction.RowCreatedDate,113) as created_date, convert(varchar(17),Inventory_Transaction.ApprovedDate,113) as approved_date');
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID', 'left');
 			$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson', 'left');
@@ -157,6 +165,7 @@
 			$this->db->join('Products', 'Products.Product_ID = Inventory_Transaction_Detail.Product_ID','left');
 			$this->db->join('Inventory', 'Inventory.Stock_AutoID = Inventory_Transaction_Detail.Effect_Stock_AutoID', 'left');
 			$this->db->where(array('Transact_AutoID'=>$id));
+			$this->db->order_by('Inventory_Transaction_Detail.RecNo', 'asc');
 			
 			return $this->db->get()->result_array();
 		}

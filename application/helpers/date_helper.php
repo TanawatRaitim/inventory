@@ -90,6 +90,7 @@ if ( ! function_exists('convert_date_to_mssql'))
 
 		}
 }//end if
+
 /**
  * 
  * change  yyyy-mm-dd to dd/mm/yyyy
@@ -110,6 +111,59 @@ if ( ! function_exists('convert_mssql_date'))
 				$mssql_date = $split[2]."/".$split[1]."/".$split[0];
 				
 				return $mssql_date;
+			}else{
+				return "";
+			}
+
+		}
+}//end if
+
+/**
+ * 
+ * change  yyyy-mm-dd to dd-mm-yyyy
+ * @param string
+ * @return mysql date
+ * 
+ */
+if ( ! function_exists('convert_mssql_date2'))
+{
+		
+		function convert_mssql_date2($date="")
+		{
+				
+			if($date != "" && $date != '0000-00-00')
+			{
+				$split = explode('-',$date);
+				
+				$mssql_date = $split[2]."-".$split[1]."-".$split[0];
+				
+				return $mssql_date;
+			}else{
+				return "";
+			}
+
+		}
+}//end if
+
+/**
+ * 
+ * change  yyyy-mm-dd to dd-mm-yyyy hh:mm
+ * @param string
+ * @return datetime
+ * 
+ */
+if ( ! function_exists('convert_mssql_datetime'))
+{
+		
+		function convert_mssql_datetime($date="")
+		{
+			//echo date('d-m-Y',strtotime($transaction['DocRef_Date']));
+				
+			if($date != "" && $date != '0000-00-00')
+			{
+
+				
+				return date('d-m-Y h:m',strtotime($date));
 			}else{
 				return "";
 			}

@@ -1,6 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
+			<h2><?php echo $title; ?></h2>
 			<ol class="breadcrumb">
 				<?php foreach ($breadcrumb as $attr): ?>
 					<?php if($attr['class'] == 'active'):?>
@@ -129,14 +130,14 @@
 			
 		</div>
 
-		<div class="col-md-6">
+		<div class="col-md-7">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายการสินค้า</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						<table class="table table-condensed table-border table-striped">
+						<table class="table table-condensed table-border table-striped table-hover">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -152,16 +153,36 @@
 							<tbody>
 						<?php $i = 1;?>								
 						<?php foreach($transaction_detail as $row):?>
+							
+							<?php if($row['good']<0 || $row['waste']<0 || $row['damage']<0):?>
+							
+							<tr>
+								<td><?php echo $i;?></td>
+								<td><?php echo $row['Product_ID'];?></td>
+								<td class="danger"><?php echo $row['Product_Name'];?> # <?php echo $row['Product_Vol'];?></td>
+								<td class="text-center"><?php echo $row['Stock_Name'];?></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Good']);?>&nbsp;<span class="label label-danger" title="ยอดในคลัง"><?php echo number_format($row['remain_good']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Waste']);?>&nbsp;<span class="label label-danger" title="ยอดในคลัง"><?php echo number_format($row['remain_waste']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Damage']);?>&nbsp;<span class="label label-danger" title="ยอดในคลัง"><?php echo number_format($row['remain_damage']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Good'] + $row['QTY_Waste'] + $row['QTY_Damage']);?></td>
+							</tr>
+								
+								
+							<?php else:?>	
+							
 							<tr>
 								<td><?php echo $i;?></td>
 								<td><?php echo $row['Product_ID'];?></td>
 								<td><?php echo $row['Product_Name'];?> # <?php echo $row['Product_Vol'];?></td>
 								<td class="text-center"><?php echo $row['Stock_Name'];?></td>
-								<td class="text-center"><?php echo $row['QTY_Good'];?></td>
-								<td class="text-center"><?php echo $row['QTY_Waste'];?></td>
-								<td class="text-center"><?php echo $row['QTY_Damage'];?></td>
-								<td class="text-center"><?php echo $row['QTY_Good'] + $row['QTY_Waste'] + $row['QTY_Damage'];?></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Good']);?>&nbsp;<span class="label label-primary" title="ยอดในคลัง"><?php echo number_format($row['remain_good']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Waste']);?>&nbsp;<span class="label label-primary" title="ยอดในคลัง"><?php echo number_format($row['remain_waste']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Damage']);?>&nbsp;<span class="label label-primary" title="ยอดในคลัง"><?php echo number_format($row['remain_damage']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Good'] + $row['QTY_Waste'] + $row['QTY_Damage']);?></td>
 							</tr>
+							
+							<?php endif;?>
+							
 						<?php $i++;?>	
 						<?php endforeach;?>									
 							</tbody>

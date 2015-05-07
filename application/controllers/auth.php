@@ -5,6 +5,12 @@ class Auth extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		
+		if($this->agent->browser() == 'Mozilla' || $this->agent->browser() == 'MSIE' || $this->agent->browser() == 'Internet Explorer')
+		{
+			echo '<h1>Can not use IE</h1>';
+			exit();
+		}
 
 	}
 	

@@ -102,7 +102,7 @@ class Assets {
 		$default = array(
 						'js/jquery/jquery.js',
 						'bootstrap/dist/js/bootstrap.min.js',
-						'js/app/global.js'		
+						'js/app/global.js?rev='.time()	
 					);
 											
 		//check $data
@@ -120,7 +120,7 @@ class Assets {
 			if($this->is_cdn($script)){
 				$scripts .= "<script src='".$script."'></script>\n";
 			}else{
-				$scripts .= "<script src='".$this->asset_path.$script."'></script>\n";
+				$scripts .= "<script src='".$this->asset_path.$script."?rev=".time()."'></script>\n";
 			}
 			
 			

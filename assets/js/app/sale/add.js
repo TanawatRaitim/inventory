@@ -5,11 +5,13 @@ $(function(){
 	$("#Invoice_Date").mask('00/00/0000',{clearIfNotMatch: true});
 	
 	$("#DocSale_Date").datetimepicker({
-		pickTime: false
+		pickTime: false,
+		useCurrent: false
 	});
 	
 	$("#Invoice_Date").datetimepicker({
-		pickTime: false
+		pickTime: false,
+		useCurrent: false
 	});
 	
 	$("#btn_save").on('click',function(e){
@@ -26,7 +28,7 @@ $(function(){
 		
 		$.ajax({
 			type: 'GET',
-			url: '/inventory/sale/check_dup_id/'+tkcode+'/'+tkid,
+			url: BASE_URL+'sale/check_dup_id/'+tkcode+'/'+tkid,
 			async: false,
 			dataType: 'text',
 			success: function(data){
@@ -67,7 +69,7 @@ $(function(){
 							
 							$.ajax({
 								type: 'POST',
-								url: '/inventory/sale/set_is_used',
+								url: BASE_URL+'sale/set_is_used',
 								data: {
 									sale: $("#form_sale").serialize()
 									},
@@ -77,7 +79,7 @@ $(function(){
 									if(data == 'true'){
 										
 										alert('บันทึกใบสั่งขายเรียบร้อยแล้ว');
-										window.location.href = '/inventory/sale/all';
+										window.location.href = BASE_URL+'sale/all';
 										
 									}else{
 										
@@ -119,7 +121,7 @@ $(function(){
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 						
-						window.location.href = '/inventory/sale/all';
+						window.location.href = BASE_URL+'sale/all';
 									
 					}
 					},

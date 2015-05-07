@@ -716,6 +716,7 @@ class Sale extends CI_Controller {
 		
 		$result = $this->sale_model->get_used();
 		
+		/*
 		$result2 = $this->sale_model->count_transaction_detail();
 		
 		$count = array();
@@ -733,7 +734,7 @@ class Sale extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -829,7 +830,7 @@ class Sale extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		
-		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['title'] = 'รายละเอียดการจองเลขที่ RS'.$rsid;
 		$content['breadcrumb'] = array(
 									0 => array(
 										'name'=>'ระบบการตัดขาย',
@@ -878,7 +879,7 @@ class Sale extends CI_Controller {
 									)
 								);
 		$content['transaction'] = $this->sale_model->get_inventory_transaction($rsid);
-		$content['transaction_detail'] = $this->sale_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->sale_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->sale_model->get_transaction_for($content['transaction']['Transaction_For']);
@@ -933,7 +934,7 @@ class Sale extends CI_Controller {
 
 		$this->load->model('customer_model');
 		
-		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['title'] = 'รายละเอียดใบสั่งขายเลขที่ '.$type.$id;
 		$content['breadcrumb'] = array(
 									0 => array(
 										'name'=>'ระบบการตัดขาย',
@@ -982,7 +983,8 @@ class Sale extends CI_Controller {
 									)
 								);
 		$content['transaction'] = $this->sale_model->get_transaction_used($type, $id);
-		$content['transaction_detail'] = $this->sale_model->get_transaction_used_detail($content['transaction']['Transact_AutoID']);
+		// $content['transaction_detail'] = $this->sale_model->get_transaction_used_detail($content['transaction']['Transact_AutoID']);
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->sale_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->sale_model->get_transaction_for($content['transaction']['Transaction_For']);
@@ -1142,7 +1144,7 @@ class Sale extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		
-		$content['title'] = 'รายละเอียดการจองสินค้า';
+		$content['title'] = 'สั่งขายจากใบจองเลขที่ RS'.$rsid;
 		$content['breadcrumb'] = array(
 									0 => array(
 										'name'=>'ระบบการตัดขาย',
@@ -1191,7 +1193,7 @@ class Sale extends CI_Controller {
 									)
 								);
 		$content['transaction'] = $this->sale_model->get_inventory_transaction($rsid);
-		$content['transaction_detail'] = $this->sale_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->sale_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->sale_model->get_transaction_for($content['transaction']['Transaction_For']);

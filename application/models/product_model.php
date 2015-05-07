@@ -44,7 +44,8 @@
 		
 		public function datatable()
 		{
-			$this->db->select('*');
+			$this->db->select('Product_AutoID, Product_ID, Product_Name, Barcode_Main, Product_Vol, Product_Photo ');
+			$this->db->select('ProCat_Name, ProGroup_Name, ProType_Name, ProFreq_Name');
 			$this->db->from('Products');
 			$this->db->join('Product_Category','Product_Category.ProCate_ID = Products.ProCate_ID', 'left');
 			$this->db->join('Product_Group','Product_Group.ProGroup_ID = Products.ProGroup_ID', 'left');
@@ -96,6 +97,12 @@
 			}
 			
 			return $result['sum_sc'];		
+		}
+		
+		public function get_product($id)
+		{
+			return $this->db->get_where('Products',array('Product_ID'=>$id));
+		
 		}
 		
 		public function get_product_sa($product_id)
@@ -192,6 +199,7 @@
 			
 			return $status;
 		}
+		
 		public function return_age_form($product_id)
 		{
 			$query = $this->db->get_where('Products', array('Product_ID'=>$product_id))->row_array();
@@ -209,6 +217,22 @@
 			}
 			
 			return $status;
+		}
+		
+		public function get_product_select2()
+		{
+			$text = $this->input->post('q');
+			$this->db->select('Product_AutoID, Product_ID, Product_Name, Product_Vol');
+			$this->db->like('Product_ID', $text);
+			$this->db->or_like('Product_Name', $text);
+			$this->db->or_like('Product_Vol', $text);
+			$this->db->or_like('Barcode_Main', $text);
+			// $this->db->or_like('RowStatus', 'ACTIVE','after');
+			$this->db->where('RowStatus','ACTIVE');
+			$this->db->order_by('Product_Name asc, Product_Vol desc');
+			$query = $this->db->get('Products');
+			return $query;
+			
 		}
 		
 

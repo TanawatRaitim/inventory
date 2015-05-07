@@ -276,6 +276,7 @@ if ( ! function_exists('inventory_return_dropdown'))
 			$ci =& get_instance();
 			//id = 2 คลังรับคืน
 			$ci->db->where('Inventory_TypeID','2');
+			
 			$query = $ci->db->get('Inventory');
 			$dropdown = "";
 			$dropdown .= "<option value='0'>-คลัง -</option>";
@@ -465,6 +466,50 @@ if ( ! function_exists('ticket_dropdown'))
 		}
 }//end if
 
+	if ( ! function_exists('rollback_type_dropdown'))
+	{
+		
+		function rollback_type_dropdown($selected = "")
+		{
+			$ci =& get_instance();
+			
+			$rollback_type = array(
+				'RS'=>'Rollback Reserve (ใบจอง)',
+				'SR'=>'Rollback Return (ใบรับคืน)',
+				'RL'=>'Rollback Re-Location (ใบโอนย้าย)',
+				'IN'=>'Rollback Import (ใบรับเข้า)',
+				'CutOut'=>'Rollback CutOut (ใบตัดขาย-ตัดจ่าย)'
+			);
+			
+			
+			$dropdown = "";
+			$dropdown .= "<option value='0'>-Rollback Type -</option>";
+			
+			if($selected != "")
+			{
+				foreach($rollback_type as $key=>$value){
+					
+					if($selected == $key)
+					{
+						$dropdown .= '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+						continue;
+					}
+					
+					$dropdown .= '<option value="'.$key.'">'.$value.'</option>';
+				}
+			}
+			else
+			{
+				foreach($rollback_type as $key=>$value){
+					$dropdown .= '<option value="'.$key.'">'.$value.'</option>';
+				}	
+			}
+			//print_r($dropdown);
+			return $dropdown;
+
+		}
+	}//end if
+
 if ( ! function_exists('ticket_sale_dropdown'))
 {
 		
@@ -632,7 +677,7 @@ if ( ! function_exists('age_return_dropdown'))
 		{
 			$ci =& get_instance();
 			$ci->db->where('AppStatType','AGE-ALL');
-			// $ci->db->order_by('Optional');
+			$ci->db->order_by('Optional');
 			$query = $ci->db->get('AppStatus');
 			
 			$dropdown = "";
@@ -670,7 +715,7 @@ if ( ! function_exists('age_inventory_dropdown'))
 		{
 			$ci =& get_instance();
 			$ci->db->where('AppStatType','AGE-ALL');
-			// $ci->db->order_by('Optional');
+			$ci->db->order_by('Optional');
 			$query = $ci->db->get('AppStatus');
 			
 			$dropdown = "";
@@ -708,7 +753,7 @@ if ( ! function_exists('age_sale_dropdown'))
 		{
 			$ci =& get_instance();
 			$ci->db->where('AppStatType','AGE-ALL');
-			// $ci->db->order_by('Optional');
+			$ci->db->order_by('Optional');
 			$query = $ci->db->get('AppStatus');
 			
 			$dropdown = "";

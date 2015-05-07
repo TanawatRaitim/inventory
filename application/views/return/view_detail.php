@@ -1,7 +1,9 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
+			<h2><?php echo $title; ?></h2>
 			<ol class="breadcrumb">
+				
 				<?php foreach ($breadcrumb as $attr): ?>
 					<?php if($attr['class'] == 'active'):?>
 						<li class="<?php echo $attr['class'];?>"><?php echo $attr['name'];?></li>
@@ -40,7 +42,7 @@
 									<th class="info text-right">เลขที่เอกสารอ้างอิง</th>
 									<td><?php echo $transaction['DocRef_No'];?></td>
 									<th class="info text-right">วันที่เอกสารอ้างอิง</th>
-									<td><?php echo $transaction['DocRef_Date'];?></td>
+									<td><?php echo date('d-m-Y',strtotime($transaction['DocRef_Date']));?></td>
 								</tr>
 								<tr>
 									<th class="info text-right">ผู้ทำรายการ</th>
@@ -93,7 +95,7 @@
 										</tr>
 										<tr>
 											<th class="info text-right">วันที่ส่งของ</th>
-											<td><?php echo $transaction['Transport_Date']; ?></td>
+											<td><?php echo date('d-m-Y',strtotime($transaction['Transport_Date']));?></td>
 										</tr>
 										<tr>
 											<th class="info text-right">หมายหตุ</th>
@@ -117,15 +119,14 @@
 					</div>
 				</div>
 
-		<div class="col-md-6">
+		<div class="col-md-7">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายการสินค้า</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						<form id="form_detail" method="post" action="/inventory/reserve/edit_detail">	
-						<table class="table table-condensed table-border table-striped">
+						<table class="table table-condensed table-border table-striped table-hover">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -136,40 +137,37 @@
 									<th class="text-center">เสีย</th>
 									<th class="text-center">ชำรุด</th>
 									<th class="text-center">รวม</th>
-									
 								</tr>
 							</thead>
 							<tbody>
-						<?php $i = 1; ?>	
-												
+						<?php $i = 1;?>								
 						<?php foreach($transaction_detail as $row):?>
-							<tr id="detail_row">
-								<td><?php echo $i; ?></td>
-								<td><?php echo $row['Product_ID']; ?></td>
+							
+							<tr>
+								<td><?php echo $i;?></td>
+								<td><?php echo $row['Product_ID'];?></td>
 								<td><?php echo $row['Product_Name'];?> # <?php echo $row['Product_Vol'];?></td>
-								<td class="text-center"><?php echo $row['Stock_Name']; ?></td>
-								<td class="text-center"><?php echo $row['QTY_Good']; ?></td>
-								<td class="text-center"><?php echo $row['QTY_Waste']; ?></td>
-								<td class="text-center"><?php echo $row['QTY_Damage']; ?></td>
-								<td class="text-center" id="total"><?php echo $row['QTY_Good'] + $row['QTY_Waste'] + $row['QTY_Damage']; ?></td>
-								
+								<td class="text-center"><?php echo $row['Stock_Name'];?></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Good']);?>&nbsp;<span class="label label-primary" title="ยอดในคลัง"><?php echo number_format($row['remain_good']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Waste']);?>&nbsp;<span class="label label-primary" title="ยอดในคลัง"><?php echo number_format($row['remain_waste']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Damage']);?>&nbsp;<span class="label label-primary" title="ยอดในคลัง"><?php echo number_format($row['remain_damage']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Good'] + $row['QTY_Waste'] + $row['QTY_Damage']);?></td>
 							</tr>
 							
-						<?php $i++; ?>	
-						<?php endforeach; ?>									
+						<?php $i++;?>	
+						<?php endforeach;?>									
 							</tbody>
+							<!-- <tfoot>
+								<tr>
+									<td colspan="2" class="text-center">รวม</td>
+									<td></td>
+									<td class="text-center">30</td>
+									<td class="text-center">40</td>
+									<td class="text-center">0</td>
+									<td></td>
+								</tr>
+							</tfoot> -->
 						</table>
-						</form>
-						<div class="col-md-6 col-md-offset-4">
-							<!-- 
-							<button id="btn_save" class="btn btn-primary btn-sm">
-								บันทึก
-							</button>
-							<button id="btn_cancel" class="btn btn-danger btn-sm">
-								ยกเลิก
-							</button>
-							 -->
-						</div>
 					</div>
 				</div>
 			</div>

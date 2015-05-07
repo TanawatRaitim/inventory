@@ -23,6 +23,10 @@ input.error{
 	border: 2px solid red;
 }
 
+.text-red{
+	color: red;	
+}
+
 span#idcard_error{
 	color: red;
 }
@@ -125,6 +129,10 @@ a.text-white{
 
 .badge{
 	display: inline;
+}
+h2{
+	padding-top: 0px;
+	margin-top: 0px;
 }
 
 

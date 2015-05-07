@@ -49,7 +49,7 @@ $(function() {
 									$(this).attr('disabled','disabled');
 									$.ajax({
 										type: 'POST',
-										url: '/inventory/move/set_reject',
+										url: BASE_URL+'move/set_reject',
 										data: {
 											reject: $("#form_reject").serialize()
 											},
@@ -58,7 +58,7 @@ $(function() {
 											// alert(data);
 											if(data == 'true'){
 												alert('ปฎิเสธเรียบร้อยแล้ว');
-												window.location.href = '/inventory/move/all';
+												window.location.href = BASE_URL+'move/no_appv';
 											}else{
 												alert('มีข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ');
 												
@@ -93,31 +93,80 @@ $(function() {
 							{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 								// $("form").submit();
 								$(this).attr('disabled','disabled');
-
+								
 								$.ajax({
-										type: 'POST',
-										url: '/inventory/move/set_reject',
-										data: {
-											reject: $("#form_reject").serialize()
-											},
-										dataType: 'html',
-										success: function(data){
-
-											if(data == 'true'){
-												alert('อนุมัติเรียบร้อยแล้ว');
-												window.location.href = '/inventory/move/all';
-											}else{
-												alert('มีข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ');
-												
-											}
+									type: 'POST',
+									url: BASE_URL+'move/check_appv',
+									data: {
+										reject: $("#form_reject").serialize()
 										},
-										beforeSend: function(){
+									dataType: 'json',
+									success: function(data){
+										
+										if(data.status == true){
+											//alert('อนุมัติการจองเรียบร้อยแล้ว');
+											//window.location.href = BASE_URL+'reserve/all';
+											/*
+											$.each(data.description, function(index, value){
+												console.log(index+" "+value);
+											});
+											**/
+											//return false;
 											
-											},
-										complete: function(){
-											}
-										});
-							}
+											$.ajax({
+												type: 'POST',
+												url: BASE_URL+'move/set_reject',
+												data: {
+													reject: $("#form_reject").serialize()
+													},
+												dataType: 'html',
+												success: function(data){
+		
+													if(data == 'true'){
+														alert('อนุมัติเรียบร้อยแล้ว');
+														window.location.href = BASE_URL+'move/no_appv';
+													}else{
+														alert('มีข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ');
+														
+													}
+												},
+												beforeSend: function(){
+													
+													},
+												complete: function(){
+													}
+												});
+											
+										}else{
+											$noty.close();
+											
+											var err_msg = 'ไม่สามารถยอมรับการอนุมัติได้เนื่องจากมีรายการสินค้าบางรายการ มียอดในสต๊อกไม่เพียงพอ';
+											/*
+											var err_msg = 'สินค้าดังต่อไปนี้มีจำนวนไม่พอตัด <br/>';
+											
+											$.each(data.description, function(index, value){
+												err_msg += value+"<br/>";
+												
+											});
+											*/
+											$("#message").noty({
+												text:err_msg,
+												type:'error',
+												timeout: 10000
+												
+											});
+											
+										}
+									},
+									beforeSend: function(){
+										
+										},
+									complete: function(){
+										}
+									});
+								
+
+								}
 							},
 							{addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
 
@@ -150,7 +199,7 @@ $(function() {
 								
 								$(this).attr('disabled','disabled');
 								
-								window.location.href = '/inventory/move/all';
+								window.location.href = BASE_URL+'move/no_appv';
 											
 							}
 							},

@@ -56,7 +56,7 @@
       <?php echo form_open("auth/check",array('id'=>'form_login','name'=>'form_login','class'=>'form-signin','role'=>'form'));?>
         <h3 class="form-signin-heading"><?php echo $this->config->item('system_name');?></h3>
         <h5 class="form-signin-heading">กรุณาลงชื่อเข้าสู่ระบบ</h5>
-        <input type="text" class="form-control" name="identity" id="identity" placeholder="Email address" required autofocus>
+        <input type="text" class="form-control" name="identity" id="identity" placeholder="Username" required autofocus>
         <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
         
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" id="submit">Sign in</button>

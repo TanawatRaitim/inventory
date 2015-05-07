@@ -25,6 +25,7 @@
 		        	<tr>
 		                <th>Product ID</th>
 		                <th>Name</th>
+		                <!-- <th>Barcode</th> -->
 		                <th>No.</th>
 		                <th>Category</th>
 		                <th>Group</th>
@@ -39,6 +40,7 @@
 		            <tr>
 		                <th id="filter">Product ID</th>
 		                <th id="filter">Name</th>
+		                <!-- <th>Barcode</th> -->
 		                <th id="filter">No.</th>
 		                <th>Category</th>
 		                <th>Group</th>

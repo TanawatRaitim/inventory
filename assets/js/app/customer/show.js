@@ -30,7 +30,7 @@ $(function(){
 		"order": [],
 		"dom": 'T<"clear">lfrtip',
 		// 'filter': false,
-        "ajax": '/inventory/customer/get_customer_transaction/'+ customer_id,
+        "ajax": BASE_URL+'customer/get_customer_transaction/'+ customer_id,
         "stateSave": false,
         "tableTools": {
         	"aButtons": [

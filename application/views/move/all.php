@@ -1,7 +1,9 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
+			<h2><?php echo $title; ?></h2>
 			<ol class="breadcrumb">
+				
 				<?php foreach ($breadcrumb as $attr): ?>
 					<?php if($attr['class'] == 'active'):?>
 						<li class="<?php echo $attr['class'];?>"><?php echo $attr['name'];?></li>

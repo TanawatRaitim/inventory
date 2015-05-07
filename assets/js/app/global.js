@@ -1,11 +1,28 @@
+var BASE_URL = location.origin+"/inventory/";
+
 $(function() {
 	
-	//alert('test');
+	$("#DocRef_Date, #Transport_Date, #DocSale_Date, #Invoice_Date").on('blur',function(e){
+		
+		if($(this).val()!="")
+		{
+			//alert('test');
+			var result = moment($(this).val(), "DD/MM/YYYY", true).isValid();
+			
+			if(!result){
+				$(this).val("");
+			}
+			
+		}
+		//alert($(this).val());
+	});
 	
 	$("a[href='all']>span").removeClass().addClass('badge');
 	$("li.active>span").removeClass().addClass('badge');
 	$("a[href='yes_appv']>span").removeClass().addClass('badge badge-success');
 	$("a[href='reject']>span").removeClass().addClass('badge badge-warning');
+	
+	$("input:text").focus(function() { $(this).select(); } );
 	
 	$("#clear_unused_ticket").on('click',function(e){
 		e.preventDefault();
@@ -19,7 +36,7 @@ $(function() {
 		
 		$.ajax({
 			type: 'GET',
-			url: '/inventory/manage/clear_unused_ticket',
+			url: BASE_URL+'manage/clear_unused_ticket',
 			dataType: 'json',
 			success: function(data){
 				if(data.status === true){
@@ -49,7 +66,10 @@ function calculate_date(end_date, age)
 	
 }
 	
+function isAutoID(x) { return Math.floor(x) === x; }
+
+
 	
-	
+
 	
 

@@ -1,10 +1,12 @@
 <div class="container-fluid">
+	
 	<div class="row">
 		<div class="col-md-12">
 			<h1 id="">Dashboard</h1>
 		</div>	<!-- end .col-md-12 -->
 	</div> <!-- end .row -->
 	
+	<!-- 
 	<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default">
@@ -61,6 +63,6 @@
 			</div>
 		</div>
 	</div>
-	
+	 -->
 	
 </div> <!-- end .container-fluid -->

@@ -17,7 +17,8 @@ $(function() {
 	$("#Transaction_AutoID").val("");
 	
 	$("#DocRef_Date").datetimepicker({
-		pickTime: false
+		pickTime: false,
+		useCurrent: false
 		// useStrict: "strict"
 	});
 	
@@ -30,7 +31,7 @@ $(function() {
 		dropdownAutoWidth: true,
 		minimumInputLength: 2,
 		ajax: {
-			url: 'product_list',
+			url: BASE_URL+'product/select2_product',
 			type: 'POST',
 			dataType: 'json',
 			data: function(term, page){
@@ -53,14 +54,13 @@ $(function() {
 	}).select2('val', []).on('select2-selecting',function(e){
 		$.ajax({
 			type: 'POST',
-			url: 'get_product',
+			url: BASE_URL+'product/get_product_json',
 			data: {id: e.val},
 			dataType: 'json',
 			success: function(data){
 				//load product information
-				$("#table_qty").load('table_qty/'+data.Product_ID);
-				//load premium information
-				$("#table_premium").load('table_premium/'+data.Product_ID);
+				$("#table_qty").load(BASE_URL+'product/table_qty/'+data.Product_ID);
+				$("#table_premium").load(BASE_URL+'product/table_premium/'+data.Product_ID);
 				//set default stock
 				$("#Effect_Stock_AutoID").val(5);
 				
@@ -82,7 +82,7 @@ $(function() {
 		dropdownAutoWidth: true,
 		minimumInputLength: 2,
 		ajax: {
-			url: 'customer_list',
+			url: BASE_URL+'customer/select2_customer',
 			type: 'POST',
 			dataType: 'json',
 			data: function(term, page){
@@ -105,7 +105,7 @@ $(function() {
 	}).select2('val', []).on('select2-selecting',function(e){
 		$.ajax({
 			type: 'POST',
-			url: 'get_customer',
+			url: BASE_URL+'customer/get_customer_json',
 			data: {id: e.val},
 			dataType: 'json',
 			success: function(data){
@@ -246,7 +246,7 @@ $(function() {
 			
 			$.ajax({
 			type: 'POST',
-			url: 'check_new_data',
+			url: BASE_URL+'return_p/check_new_data',
 			data: {
 				main_ticket: $("#main_ticket").serialize(),
 				ticket_detail: $("#ticket_detail").serialize()
@@ -257,7 +257,7 @@ $(function() {
 				if(data.status == true){
 					$.ajax({
 						type: 'POST',
-						url: 'insert_transaction',
+						url: BASE_URL+'return_p/insert_transaction',
 						data: {
 							main_ticket: $("#main_ticket").serialize(),
 							ticket_detail: $("#ticket_detail").serialize()
@@ -269,6 +269,14 @@ $(function() {
 							$("#TK_ID_Present").html(data.TK_ID);
 							$("#Transaction_AutoID").val(data.Transact_AutoID);
 							
+							/*
+							if(!isAutoID(data.Transact_AutoID) || !isAutoID(parseInt($("#Transaction_AutoID").val())))
+							{
+								alert('มีข้อผิดพลาดโปรดติดต่อผูู้ดูแลระบบ');
+								return false;
+							}
+							*/
+							
 							$("#TK_ID").attr('readonly','readonly');
 							// $("#TK_Code").attr('readonly','readonly');
 							
@@ -279,7 +287,7 @@ $(function() {
 							var QTY_Damage = parseInt($("#QTY_Damage").val());
 							var total = parseInt($("#product_receive").val());
 							
-							var row_data = '<tr><td>'+product_name+'</td><td class="text-center">';
+							var row_data = '<tr title="'+data.Product_Name+'"><td>'+product_name+'</td><td class="text-center">';
 							row_data += Effect_Stock_AutoID+'</td><td class="text-center">'+QTY_Good;
 							row_data += '</td><td class="text-center">'+QTY_Waste+'</td><td class="text-center">';
 							row_data += ''+QTY_Damage+'</td><td class="text-center" id="record_toal">'+total;
@@ -327,6 +335,7 @@ $(function() {
 				}
 			},
 			beforeSend: function(){
+			
 			},
 			complete: function(){
 				}
@@ -442,10 +451,10 @@ $(function() {
 		
 		var tkid = $("#TK_ID").val();
 		
-			if(tkid == "")
+			if(tkid == "" || $("#record_saved > tbody > tr").not("#row_confirm").size() == 0)
 			{
 				$("#message").noty({
-					text: "ไม่่สามารถบันทึกข้อมูลได้ เนื่อง่จากยังไม่มีรายละเอียดการจอง",
+					text: "ไม่พบรายการที่ต้องการส่งขออนุมัติ กรุณาตรวจสอบข้อมูลอีกครั้ง !!!",
 					type: 'error',
 					dismissQueue: true,
 					//killer: true,
@@ -468,7 +477,7 @@ $(function() {
 						
 						$.ajax({
 							type: 'POST',
-							url: 'save',
+							url: BASE_URL+'return_p/save',
 							data: {
 								main_ticket: $("#main_ticket").serialize(),
 								ticket_detail: $("#ticket_detail").serialize()
@@ -490,7 +499,7 @@ $(function() {
 								complete: function(){
 									
 									alert('บันทึกข้อมูลเรียบร้อยแล้ว');
-									window.location.href = 'add';
+									window.location.href = BASE_URL+'return_p/add';
 								}
 							});
 						}
@@ -511,9 +520,8 @@ $(function() {
 		
 		var btn_save_draft = $(this);
 		var tkid = $("#TK_ID").val();
-		var autoid = $("#Transaction_AutoID").val();
 		
-		if(autoid=="")
+		if(tkid=="")
 		{
 			$("#message").noty({
 				text: "ไม่มีข้อมูลที่จะบันทึกแบบร่างได้",
@@ -528,7 +536,7 @@ $(function() {
 		
 		$("#message").noty({
 			// layout: 'top',
-			text: "กดยื่นยันเการบันทึกแบบร่าง",
+			text: "กดยืนยันเการบันทึกแบบร่าง",
 			type: 'confirm',
 			dismissQueue: false,
 			force: true,
@@ -538,23 +546,30 @@ $(function() {
 					$noty.close();
 					
 					$.ajax({
-						type: 'GET',
-						url: 'save_draft/'+ autoid,
-						dataType: 'html',
+						type: 'POST',
+						url: BASE_URL+'transaction/save_draft_return',
+						data: {
+							main_ticket: $("#main_ticket").serialize()
+							// ticket_detail: $("#ticket_detail").serialize()
+						},
+						dataType: 'json',
 						success: function(data){
+							if(data.result == true){
+								btn_save_draft.removeAttr('disabled');
+								alert('บันทึกแบบร่างเรียบร้อยแล้ว');
+								window.location.href = BASE_URL+'return_p/add';
+							}else{
+								btn_save_draft.removeAttr('disabled');
+								alert('ไม่สามารถบันทึกแบบร่างได้ โปรดติดต่อผู้ดูแลระบบ');
+								
+							}
 							
 							},
 						beforeSend: function(){
-							$("#message").noty({
-								text: "บันทึกแบบร่างเรียบร้อยแล้ว",
-								type: 'success',
-								dismissQueue: true,
-								//killer: true,
-								timeout: 4000
-							});
+				
 						},
 						complete: function(){
-							btn_save_draft.removeAttr('disabled');
+							
 							
 						}
 					});
@@ -608,7 +623,7 @@ $(function() {
 					
 					$.ajax({
 						type: 'GET',
-						url: 'cancel_all/'+autoid,
+						url: BASE_URL+'return_p/cancel_all/'+autoid,
 						dataType: 'html',
 						success: function(data){
 							

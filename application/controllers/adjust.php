@@ -231,7 +231,7 @@ class Adjust extends CI_Controller {
 	
 	public function add()
 	{
-		$content['title'] = 'ปรับยอดสินค้า';
+		$content['title'] = 'เปิดใบปรับยอดสินค้า';
 		$content['input_type'] = 'AD';
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
@@ -289,6 +289,102 @@ class Adjust extends CI_Controller {
 		$this->load->view('template/main',$data);
 	}
 
+	public function edit_reject($id)
+	{
+		$content['title'] = 'แก้ไขใบปรับยอดสินค้าที่ถูกปฏิเสธเลขที่ ('.get_ticket_code_id($id).')';
+		$content['transaction'] = $this->transaction_model->get_transaction($id);
+		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
+		$content['input_type'] = 'AD';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการปรับยอดสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>site_url('adjust/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบปรับยอดสินค้า (ใบใหม่)',
+										'link'=>site_url('adjust/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบปรับยอด  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>site_url('adjust/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบปรับยอด  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>site_url('adjust/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบปรับยอด  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>site_url('adjust/reject'),
+										'class'=>''
+									)
+								);
+								
+		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
+		//$content['ticket_type'] = ticket_in_dropdown();	
+		$content['inventory_type'] = all_inventory_dropdown();
+		$data['content'] = $this->load->view('adjust/edit_reject',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/adjust/edit_reject.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+
+	public function edit_draft($id)
+	{
+		$content['title'] = 'แก้ไขใบปรับยอดสินค้าที่ถูกปฏิเสธเลขที่ ('.get_ticket_code_id($id).')';
+		$content['transaction'] = $this->transaction_model->get_transaction($id);
+		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
+		$content['input_type'] = 'AD';
+								
+		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
+		//$content['ticket_type'] = ticket_in_dropdown();	
+		$content['inventory_type'] = all_inventory_dropdown();
+		$data['content'] = $this->load->view('adjust/edit_draft',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/adjust/edit_draft.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+
 	public function check_new_data()
 	{
 		
@@ -336,6 +432,8 @@ class Adjust extends CI_Controller {
 			}
 		}
 		
+		
+		/*
 		if($result['status'])
 		{
 			if(!$this->is_reserve($detail))
@@ -359,7 +457,66 @@ class Adjust extends CI_Controller {
 				
 			}	
 		}
+		*/
 		
+		echo json_encode($result);
+
+	}
+
+	public function check_edit_data()
+	{
+		
+		parse_str($_POST['main_ticket'], $main);
+		parse_str($_POST['ticket_detail'], $detail);
+		
+		$tkid = $main['TK_ID'];
+		$autoid = $main['Transaction_AutoID'];
+		$tk_code = $main['TK_Code'];
+		$product_id = $detail['Product_ID'];
+		$stock_id = $detail['Effect_Stock_AutoID'];
+		
+		//check dup transaction
+		if($this->check_tran_dup($autoid, $product_id, $stock_id)){
+			//not dup
+			$result = array(
+				'status'=>true,
+				'valid'=>''
+			);
+		}else{
+			//dup
+			$result = array(
+				'status'=>false,
+				'valid'=>'ไม่สามารถบันทึกข้อมูลได้ เนื่องจากคุณบันทึกรายการซ้ำ'
+			);
+		}
+
+		
+		
+		/*
+		if($result['status'])
+		{
+			if(!$this->is_reserve($detail))
+			{
+				$result = array(
+					'status'=>false,
+					'valid'=>'ยังมีรายการที่มียอดการจองอยู่ ไม่สาม ารถทำการปรับยอดได้'
+				);
+				
+			}	
+		}
+		
+		if($result['status'])
+		{
+			if(!$this->check_diff_negative($detail))
+			{
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่สามารถทำรายการปรับยอดได้เนื่องจากเมื่อปรับยอดแล้วจะเป็นรายการติดลบ'
+				);
+				
+			}	
+		}
+		*/
 		
 		echo json_encode($result);
 
@@ -370,28 +527,40 @@ class Adjust extends CI_Controller {
 		parse_str($_POST['main_ticket'], $main);
 		parse_str($_POST['ticket_detail'], $detail);
 		
+
 		if($main['Transaction_AutoID']=="")
 		{
-			$auto_id = $this->adjust_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);
+			//$auto_id = $this->adjust_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);
+			
+			if($this->transaction_model->has_autoid($main['TK_Code'], $main['TK_ID']))
+			{
+				$auto_id = $this->transaction_model->find_autoid($main['TK_Code'], $main['TK_ID']);	
+			}else{
+				$auto_id = $this->adjust_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);
+			}
+			
 			$this->adjust_model->insert_ticket_detail($auto_id);
 			
 			$data = array(
 				'TK_ID'=>$main['TK_ID'],
 				'Transact_AutoID'=>$auto_id,
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
-				'Product_ID'=>$detail['Product_ID']
+				'Product_ID'=>$detail['Product_ID'],
+				'Product_Name'=>get_product_name($detail['Product_ID'])
 			);
 
 			echo json_encode($data);
 		}else{
 			$tid = $main['Transaction_AutoID'];
+			$this->adjust_model->update_main_transaction($tid);
 			$this->adjust_model->insert_ticket_detail($tid);
 
 			$data = array(
 				'TK_ID'=>$main['TK_ID'],
 				'Transact_AutoID'=>$tid,
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
-				'Product_ID'=>$detail['Product_ID']
+				'Product_ID'=>$detail['Product_ID'],
+				'Product_Name'=>get_product_name($detail['Product_ID'])
 			);
 
 			echo json_encode($data);	
@@ -520,6 +689,13 @@ class Adjust extends CI_Controller {
 		parse_str($_POST['main_ticket'], $main);
 		$this->adjust_model->save_adjust($main);
 		
+	}
+	
+	public function save_edit_reject()
+	{
+		parse_str($_POST['main_ticket'], $main);
+		
+		$this->adjust_model->save_edit_reject($main);
 	}
 	
 	//for datatable
@@ -752,7 +928,7 @@ class Adjust extends CI_Controller {
 	{
 		$this->load->model('customer_model');
 		
-		$content['title'] = 'รายละเอียดการปรับยอดสินค้า';
+		$content['title'] = 'รายละเอียดใบปรับยอดสินค้าเลขที่ '.get_ticket_code_id($autoid);
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -783,7 +959,8 @@ class Adjust extends CI_Controller {
 								);
 		
 		$content['transaction'] = $this->adjust_model->get_inventory_transaction($autoid);
-		$content['transaction_detail'] = $this->adjust_model->get_transaction_detail($autoid);
+		// $content['transaction_detail'] = $this->adjust_model->get_transaction_detail($autoid);
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($autoid);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->adjust_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->adjust_model->get_transaction_for($content['transaction']['Transaction_For']);
@@ -1199,7 +1376,7 @@ class Adjust extends CI_Controller {
 	public function approve($id)
 	{
 		$this->load->model('customer_model');
-		$content['title'] = 'อนุมัติการปรับยอดสินค้า';
+		$content['title'] = 'อนุมัติใบปรับยอดสินค้าเลขที่ '.get_ticket_code_id($id);
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -1230,10 +1407,25 @@ class Adjust extends CI_Controller {
 								);
 		
 		$content['transaction'] = $this->adjust_model->get_inventory_transaction($id);
-		$content['transaction_detail'] = $this->adjust_model->get_transaction_detail($id);
+		// $content['transaction_detail'] = $this->adjust_model->get_transaction_detail($id);
+		
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($id);
+		
+		foreach ($content['transaction_detail'] as $key => $value) {
+			
+			if(!$this->is_reserve($content['transaction_detail'][$key]) || !$this->check_diff_negative($content['transaction_detail'][$key]))
+			{
+				$content['transaction_detail'][$key]['adjust_status'] = false;
+			}else{
+				$content['transaction_detail'][$key]['adjust_status'] = true;
+			}
+			
+		}
+		
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->adjust_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->adjust_model->get_transaction_for($content['transaction']['Transaction_For']);
+		$content['approve_message'] = '*** โปรดตรวจสอบรายการที่มีโฮไลท์สีแดง เนื่องจากมียอดไม่เพียงพอในการปรับปรุงยอด หรือรายการสินค้านั้นยังมีการรจองอยู่';
 		
 		//detail of rs
 		$content['description'] = '';
@@ -1374,7 +1566,6 @@ class Adjust extends CI_Controller {
 		if(!$reject['is_rejected']){
 			foreach($transaction as $key=>$value)
 			{
-				//print_r($transaction[$key]);
 				if(!$this->check_diff_negative($transaction[$key]) || !$this->is_reserve($transaction[$key])){
 					echo 'error';
 					exit();

@@ -1,6 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
+			<h2><?php echo $title; ?></h2>
 			<ol class="breadcrumb">
 				<?php foreach ($breadcrumb as $attr): ?>
 					<?php if($attr['class'] == 'active'):?>
@@ -40,7 +41,7 @@
 									<th class="info text-right">เลขที่เอกสารอ้างอิง</th>
 									<td><?php echo $transaction['DocRef_No'];?></td>
 									<th class="info text-right">วันที่เอกสารอ้างอิง</th>
-									<td><?php echo $transaction['DocRef_Date'];?></td>
+									<td><?php echo date('d-m-Y',strtotime($transaction['DocRef_Date']));?></td>
 								</tr>
 								<tr>
 									<th class="info text-right">ผู้ทำรายการ</th>
@@ -60,7 +61,7 @@
 									<th class="info text-right">ผู้อนุมัติ</th>
 									<td><?php echo $approve_person;?></td>
 									<th class="info text-right">อนุมัติเมื่อ</th>
-									<td><?php echo $transaction['approved_date'];?></td>
+									<td><?php $transaction['approved_date'];?></td>
 								</tr>
 							</tbody>
 						</table>
@@ -117,7 +118,7 @@
 					</div>
 				</div>
 
-		<div class="col-md-6">
+		<div class="col-md-7">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายการสินค้า</h3>
@@ -125,7 +126,7 @@
 				<div class="panel-body">
 					<div class="table-responsive">
 						<form id="form_detail" method="post" action="/inventory/reserve/edit_detail">	
-						<table class="table table-condensed table-border table-striped">
+						<table class="table table-hover table-condensed table-border table-striped">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -143,6 +144,7 @@
 						<?php $i = 1; ?>	
 												
 						<?php foreach($transaction_detail as $row):?>
+							<!--
 							<tr id="detail_row">
 								<td><?php echo $i; ?></td>
 								<td><?php echo $row['Product_ID']; ?></td>
@@ -153,6 +155,18 @@
 								<td class="text-center"><?php echo $row['QTY_Damage']; ?></td>
 								<td class="text-center" id="total"><?php echo $row['QTY_Good'] + $row['QTY_Waste'] + $row['QTY_Damage']; ?></td>
 								
+							</tr>
+							-->
+							
+							<tr>
+								<td><?php echo $i;?></td>
+								<td><?php echo $row['Product_ID'];?></td>
+								<td><?php echo $row['Product_Name'];?> # <?php echo $row['Product_Vol'];?></td>
+								<td class="text-center"><?php echo $row['Stock_Name'];?></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Good']);?>&nbsp;<span class="label label-primary" title="ยอดในคลัง"><?php echo number_format($row['remain_good']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Waste']);?>&nbsp;<span class="label label-primary" title="ยอดในคลัง"><?php echo number_format($row['remain_waste']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Damage']);?>&nbsp;<span class="label label-primary" title="ยอดในคลัง"><?php echo number_format($row['remain_damage']);?></span></td>
+								<td class="text-center"><?php echo number_format($row['QTY_Good'] + $row['QTY_Waste'] + $row['QTY_Damage']);?></td>
 							</tr>
 							
 						<?php $i++; ?>	

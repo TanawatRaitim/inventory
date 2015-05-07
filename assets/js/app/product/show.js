@@ -30,7 +30,7 @@ $(function(){
 		"order": [],
 		"dom": 'T<"clear">lfrtip',
 		// 'filter': false,
-        "ajax": '/inventory/product/get_product_transaction/'+ product_id,
+        "ajax": BASE_URL+'product/get_product_transaction/'+ product_id,
         "stateSave": false,
         "tableTools": {
         	"aButtons": [

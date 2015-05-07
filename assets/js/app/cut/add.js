@@ -3,7 +3,8 @@ $(function(){
 	$("#DocSale_Date").mask('00/00/0000',{clearIfNotMatch: true});
 	
 	$("#DocSale_Date").datetimepicker({
-		pickTime: false
+		pickTime: false,
+		useCurrent: false
 	});
 	
 	$("#btn_save").on('click',function(e){
@@ -17,7 +18,7 @@ $(function(){
 		
 		$.ajax({
 			type: 'GET',
-			url: '/inventory/cut/check_dup_id/'+tkcode+'/'+tkid,
+			url: BASE_URL+'cut/check_dup_id/'+tkcode+'/'+tkid,
 			async: false,
 			dataType: 'text',
 			success: function(data){
@@ -56,7 +57,7 @@ $(function(){
 							
 							$.ajax({
 								type: 'POST',
-								url: '/inventory/sale/set_is_used',
+								url: BASE_URL+'sale/set_is_used',
 								data: {
 									sale: $("#form_sale").serialize()
 									},
@@ -65,7 +66,7 @@ $(function(){
 									if(data == 'true'){
 										
 										alert('บันทึกใบตัดจ่ายเรียบร้อยแล้ว');
-										window.location.href = '/inventory/cut/all';
+										window.location.href = BASE_URL+'cut/all';
 										
 									}else{
 										
@@ -107,7 +108,7 @@ $(function(){
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 						
 						$(this).attr('disabled','disabled');
-						window.location.href = '/inventory/cut/all';
+						window.location.href = BASE_URL+'cut/all';
 									
 					}
 					},

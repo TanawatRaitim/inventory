@@ -68,7 +68,12 @@ $(function(){
 			        // "width": "auto"
 	        		
 	        	},
+				{
+					"data":"Barcode_Main"
+					// "visible": false
+				},
 	        	{"data":"Product_Vol"},
+	        	
 	        	{"data":"ProCat_Name"},
 	        	{"data":"ProGroup_Name"},
 	        	{"data":"ProType_Name"},

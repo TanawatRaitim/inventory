@@ -47,10 +47,10 @@ $(function() {
 								{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 									//$("form").submit();
 									$(this).attr('disabled','disabled');
-									// alert('big');
+									
 									$.ajax({
 										type: 'POST',
-										url: '/inventory/reserve/set_reject',
+										url: BASE_URL+'reserve/set_reject',
 										data: {
 											reject: $("#form_reject").serialize()
 											},
@@ -59,7 +59,7 @@ $(function() {
 											// alert(data);
 											if(data == 'true'){
 												alert('ปฎิเสธการจองเรียบร้อยแล้ว');
-												window.location.href = '/inventory/reserve/all';
+												window.location.href = BASE_URL+'reserve/no_appv';
 											}else{
 												alert('มีข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ');
 												
@@ -71,6 +71,8 @@ $(function() {
 										complete: function(){
 											}
 										});
+										
+									
 								}
 								},
 								{addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
@@ -81,9 +83,6 @@ $(function() {
 							]
 						});
 					}
-					
-					
-					
 				}else if(rejected == 0){
 					//it had i'm ok
 					$("#message").noty({
@@ -95,29 +94,81 @@ $(function() {
 								// $("form").submit();
 								$(this).attr('disabled','disabled');
 								
+								//check remain inventory
+								
+								//if true approve
+								
 								$.ajax({
-										type: 'POST',
-										url: '/inventory/reserve/set_reject',
-										data: {
-											reject: $("#form_reject").serialize()
-											},
-										dataType: 'html',
-										success: function(data){
-											// alert(data);
-											if(data == 'true'){
-												alert('อนุมัติการจองเรียบร้อยแล้ว');
-												window.location.href = '/inventory/reserve/all';
-											}else{
-												alert('มีข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ');
-												
-											}
+									type: 'POST',
+									url: BASE_URL+'reserve/check_appv',
+									data: {
+										reject: $("#form_reject").serialize()
 										},
-										beforeSend: function(){
+									dataType: 'json',
+									success: function(data){
+										
+										if(data.status == true){
+											//alert('อนุมัติการจองเรียบร้อยแล้ว');
+											//window.location.href = BASE_URL+'reserve/all';
+											/*
+											$.each(data.description, function(index, value){
+												console.log(index+" "+value);
+											});
+											**/
+											//return false;
 											
-											},
-										complete: function(){
-											}
-										});
+											$.ajax({
+												type: 'POST',
+												url: BASE_URL+'reserve/set_reject',
+												data: {
+													reject: $("#form_reject").serialize()
+													},
+												dataType: 'html',
+												success: function(data){
+													// alert(data);
+													if(data == 'true'){
+														alert('อนุมัติการจองเรียบร้อยแล้ว');
+														window.location.href = BASE_URL+'reserve/no_appv';
+													}else{
+														alert('มีข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ');
+														
+													}
+												},
+												beforeSend: function(){
+													
+													},
+												complete: function(){
+													}
+												});
+											
+										}else{
+											$noty.close();
+											var err_msg = 'ไม่สามารถยอมรับการอนุมัติได้เนื่องจากมีรายการสินค้าบางรายการ มียอดในสต๊อกไม่เพียงพอ';
+											
+											//var err_msg = 'สินค้าดังต่อไปนี้มีจำนวนไม่พอตัด <br/>';
+											
+											/*
+											$.each(data.description, function(index, value){
+												err_msg += value+"<br/>";
+												
+											});
+											*/
+											$("#message").noty({
+												text:err_msg,
+												type:'error',
+												timeout: 10000
+												
+											});
+											
+										}
+									},
+									beforeSend: function(){
+										
+										},
+									complete: function(){
+										}
+									});
+								
 							}
 							},
 							{addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
@@ -151,7 +202,7 @@ $(function() {
 								
 								$(this).attr('disabled','disabled');
 								
-								window.location.href = '/inventory/reserve/all';
+								window.location.href = BASE_URL+'reserve/no_appv';
 											
 							}
 							},

@@ -1,3 +1,4 @@
+
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">รายละเอียดสินค้า</h3>
@@ -7,8 +8,8 @@
 		<div class="col-md-12 text-center">
 			<h3 style="margin-top: 0px;"><?php echo $product['Product_Name'];?> (<?php echo $product['Product_ID'];?>) # <?php echo $product['Product_Vol'];?></h3>
 		</div>
-		<div class="col-md-4">
-			<img width="150" id="p_img" src="<?php echo $product['Product_Photo'] ;?>" class="img-rounded" />
+		<div class="col-md-12 col-lg-4">
+			<img width="120" id="p_img" src="<?php echo $product['Product_Photo'] ;?>" class="img-rounded img-responsive" />
 			<br />
 			<?php if($product['Product_SpecSheet']):?>
 				<span class="label label-default"><a style="color:white" class="text-white" target="_blank" href="<?php echo $product['Product_SpecSheet'];?>">specsheet</a></span>
@@ -22,10 +23,14 @@
 				<span class="label label-default"><a style="color:white" target="_blank" href="<?php echo $product['Product_DocOther'];?>">other</a></span>
 			<?php endif;?>
 		</div>
-		<div class="col-md-8">
-			
+		<div class="col-md-12 col-lg-8">
+
 			<table class="table table-condensed">	
 				<tbody>
+					<tr>
+						<td>คลังสินค้าหลัก</td>
+						<td><?php echo get_inventory_name($product['Main_Inventory']); ?></td>
+					</tr>
 					<tr>
 						<td>Barcode</td>
 						<td><?php echo $product['Barcode_Main'];?></td>
@@ -35,94 +40,172 @@
 						<td><?php echo $product['Price'];?> บาท</td>
 					</tr>
 					<tr>
-						<td>ยอดสั่งผลิต</td>
-						<td><?php echo $product['QTY_Production'];?></td>
+						<td>วันที่รับเข้าคลัง</td>
+						<td><?php echo convert_mssql_date($product['Manufact_EndDate']); ?></td>
 					</tr>
 					<tr>
-						<td>ยอดรับเข้าคลัง</td>
-						<td><?php echo $product['QTY_ReceiveInventory'];?></td>
+						<td>อายุคงคลัง</td>
+						<td><?php echo get_age_inventory($product['Age_Inventory']); ?></td>
 					</tr>
 					<tr>
 						<td>สถานะ</td>
 						<td><?php echo $product['RowStatus'];?></td>
 					</tr>
-					<tr>
-						<td style="padding-top: 15px;">สินค้าสภาพดี</td>
-						<td style="font-size: 23px;" class="text-left"><?php echo $total['good'];?></td>
-					</tr>
-					<tr>
-						<td style="padding-top: 15px;">ยอดการจอง</td>
-						<td style="font-size: 23px;" class="text-left"><?php echo $total['reserve_good'];?></td>
-					</tr>
-					<tr>
-						<td style="padding-top: 15px;">คงเหลือ</td>
-						<td style="font-size: 23px;" class="text-left"><u><?php echo $total['good'] - $total['reserve_good'];?></u></td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="col-md-12 table-responsive">
-			
-			<table class="table table-condensed table-striped">
+			<table class="table table-striped table-condensed">
 				<thead>
 					<tr>
-						<th colspan="4">ยอดที่มีในคลัง</th>
-					</tr>
-					<tr>
-						<th>คลัง</th>
+						<th>ข้อมูลสินค้าคลังหลัก</th>
 						<th>ดี</th>
-						<th>จอง</th>
-						<th class="danger">เหลือ</th>
 						<th>เสีย</th>
-						<th>จอง</th>
-						<th class="danger">เหลือ</th>
 						<th>ชำรุด</th>
-						<th>จอง</th>
-						<th class="danger">เหลือ</th>
-					</tr>
+					</tr>	
 				</thead>
 				<tbody>
-			<?php foreach ($inventory as $value): ?>
-				
 					<tr>
-						<td><?php echo $value['Stock_Name'];?></td>
-						<td><?php echo $value['QTY_Good'];?></td>
-						<td><?php echo $value['QTY_ReserveGood'];?></td>
-						<td class="danger"><?php echo $value['QTY_RemainGood'];?></td>
-						<td><?php echo $value['QTY_Waste'];?></td>
-						<td><?php echo $value['QTY_ReserveWaste'];?></td>
-						<td class="danger"><?php echo $value['QTY_RemainWaste'];?></td>
-						<td><?php echo $value['QTY_Damage'];?></td>
-						<td><?php echo $value['QTY_ReserveDamage'];?></td>
-						<td class="danger"><?php echo $value['QTY_RemainDamage'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['inventory']['text'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['inventory']['good'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['inventory']['waste'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['inventory']['damage'];?></td>
 					</tr>
-				
-				
-			<?php endforeach; ?>
+					<tr>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['draft']['text'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['draft']['good'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['draft']['waste'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['draft']['damage'];?></td>
+					</tr>
+					<tr>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['reserve']['text'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['reserve']['good'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['reserve']['waste'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['reserve']['damage'];?></td>
+					</tr>
+					<tr>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['total']['text'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['total']['good'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['total']['waste'];?></td>
+						<td><?php echo $all_inventory[$product['Main_Inventory']]['total']['damage'];?></td>
+					</tr>
 				</tbody>
-				<tfoot>
-					<tr>
-						<td>รวม</td>
-						<td><?php echo $total['good'];?></td>
-						<td><?php echo $total['reserve_good'];?></td>
-						<td class="danger"><?php echo $total['remain_good'];?></td>
-						<td><?php echo $total['waste'];?></td>
-						<td><?php echo $total['reserve_waste'];?></td>
-						<td class="danger"><?php echo $total['remain_waste'];?></td>
-						<td><?php echo $total['damage'];?></td>
-						<td><?php echo $total['reserve_damage'];?></td>
-						<td class="danger"><?php echo $total['remain_damage'];?></td>
-						
-						
-					</tr>
-				</tfoot>
 			</table>
+		</div>	
+		<div class="col-md-12 table-responsive">
+			<div role="tabpanel">
+			
+			  <!-- Nav tabs -->
+			  <ul class="nav nav-tabs" role="tablist">
+			  	<?php foreach ($all_inventory as $key => $value): ?>
+			  		
+			  		<?php if($key == $product['Main_Inventory']):?>
+			  			<li role="presentation" class="active"><a href="#inventory_<?php echo $key;?>" aria-controls="home" role="tab" data-toggle="tab">คลัง <?php echo $value['stock_name'];?></a></li>
+			  			<?php continue;?>
+			  		<?php endif;?>	
+			  			
+			  		
+					  <li role="presentation"><a href="#inventory_<?php echo $key;?>" aria-controls="home" role="tab" data-toggle="tab">คลัง <?php echo $value['stock_name'];?></a></li>
+				  <?php endforeach ?>
+			  </ul>
+			
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			  	
+			  	<?php foreach ($all_inventory as $key => $value): ?>
+			  		
+			  		<?php if($key == $product['Main_Inventory']):?>
+			  			<div role="tabpanel" class="tab-pane active" id="inventory_<?php echo $key;?>">
+			  				<table class="table table-striped table-condensed">
+								<thead>
+									<tr>
+										<th>ข้อมูลสินค้าคลังหลัก</th>
+										<th>ดี</th>
+										<th>เสีย</th>
+										<th>ชำรุด</th>
+									</tr>	
+								</thead>
+								<tbody>
+									<tr>
+										<td><?php echo $all_inventory[$key]['inventory']['text'];?></td>
+										<td><?php echo $all_inventory[$key]['inventory']['good'];?></td>
+										<td><?php echo $all_inventory[$key]['inventory']['waste'];?></td>
+										<td><?php echo $all_inventory[$key]['inventory']['damage'];?></td>
+									</tr>
+									<tr>
+										<td><?php echo $all_inventory[$key]['draft']['text'];?></td>
+										<td><?php echo $all_inventory[$key]['draft']['good'];?></td>
+										<td><?php echo $all_inventory[$key]['draft']['waste'];?></td>
+										<td><?php echo $all_inventory[$key]['draft']['damage'];?></td>
+									</tr>
+									<tr>
+										<td><?php echo $all_inventory[$key]['reserve']['text'];?></td>
+										<td><?php echo $all_inventory[$key]['reserve']['good'];?></td>
+										<td><?php echo $all_inventory[$key]['reserve']['waste'];?></td>
+										<td><?php echo $all_inventory[$key]['reserve']['damage'];?></td>
+									</tr>
+									<tr>
+										<td><?php echo $all_inventory[$key]['total']['text'];?></td>
+										<td><?php echo $all_inventory[$key]['total']['good'];?></td>
+										<td><?php echo $all_inventory[$key]['total']['waste'];?></td>
+										<td><?php echo $all_inventory[$key]['total']['damage'];?></td>
+									</tr>
+								</tbody>
+							</table>
+			  				
+			  			</div>
+			  			<?php continue;?>
+			  		<?php endif;?>	
+			  			<div role="tabpanel" class="tab-pane fade" id="inventory_<?php echo $key;?>">
+			  				<table class="table table-striped table-condensed">
+								<thead>
+									<tr>
+										<th>ข้อมูลสินค้าแต่ละคลัง</th>
+										<th>ดี</th>
+										<th>เสีย</th>
+										<th>ชำรุด</th>
+									</tr>	
+								</thead>
+								<tbody>
+									<tr>
+										<td><?php echo $all_inventory[$key]['inventory']['text'];?></td>
+										<td><?php echo $all_inventory[$key]['inventory']['good'];?></td>
+										<td><?php echo $all_inventory[$key]['inventory']['waste'];?></td>
+										<td><?php echo $all_inventory[$key]['inventory']['damage'];?></td>
+									</tr>
+									<tr>
+										<td><?php echo $all_inventory[$key]['draft']['text'];?></td>
+										<td><?php echo $all_inventory[$key]['draft']['good'];?></td>
+										<td><?php echo $all_inventory[$key]['draft']['waste'];?></td>
+										<td><?php echo $all_inventory[$key]['draft']['damage'];?></td>
+									</tr>
+									<tr>
+										<td><?php echo $all_inventory[$key]['reserve']['text'];?></td>
+										<td><?php echo $all_inventory[$key]['reserve']['good'];?></td>
+										<td><?php echo $all_inventory[$key]['reserve']['waste'];?></td>
+										<td><?php echo $all_inventory[$key]['reserve']['damage'];?></td>
+									</tr>
+									<tr>
+										<td><?php echo $all_inventory[$key]['total']['text'];?></td>
+										<td><?php echo $all_inventory[$key]['total']['good'];?></td>
+										<td><?php echo $all_inventory[$key]['total']['waste'];?></td>
+										<td><?php echo $all_inventory[$key]['total']['damage'];?></td>
+									</tr>
+								</tbody>
+							</table>
+			  			</div>
+			  		
+					  
+				  <?php endforeach ?>
+
+			  </div>
+			
+			</div>
 		</div>
 		
 		<div class="col-md-12">
 			
 		</div>
 	</div>
-
-	
 </div>
+<!-- </div><!-- for test --> 

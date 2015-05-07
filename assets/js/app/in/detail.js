@@ -63,7 +63,7 @@ $(function(){
 						
 						$.ajax({
 						type: 'POST',
-						url: '/inventory/in/edit_detail',
+						url: BASE_URL+'in/edit_detail',
 						data: {
 							detail_data: $("#form_detail").serialize(),
 							},
@@ -84,7 +84,7 @@ $(function(){
 						complete: function(){
 
 							alert('บันทึกข้อมูลเรียบร้อยแล้ว');
-							window.location.href = '/inventory/in/all';
+							window.location.href = BASE_URL+'in/all';
 							}
 						});
 									
@@ -119,7 +119,7 @@ $(function(){
 						
 						$(this).attr('disabled','disabled');
 						
-						window.location.href = '/inventory/in/all';
+						window.location.href = BASE_URL+'in/all';
 									
 					}
 					},

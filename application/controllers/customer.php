@@ -342,7 +342,7 @@ class Customer extends CI_Controller {
 		
 	}
 	
-	
+	/*
 	public function select2_customer()
 	{
 		$text = $this->input->post('q');
@@ -371,11 +371,15 @@ class Customer extends CI_Controller {
 		echo json_encode($list);
 		
 	}
+	 * 
+	 */
+	 
+	 
 	
-	public function get_customer()
+	public function get_customer_json()
 	{
 		$id = $this->input->post('id');
-		$query = $this->db->get_where('Customers', array('Cust_ID'=>$id));
+		$query = $this->customer_model->get_customer($id);
 
 		echo json_encode($query->row_array());
 	}
@@ -462,6 +466,32 @@ class Customer extends CI_Controller {
 		}else{
 			echo 'true';
 		}
+		
+	}
+	
+	public function select2_customer()
+	{
+		
+		$query = $this->customer_model->get_customer_select2();
+		//print_r($query);
+		
+		if($query->num_rows()>0)
+		{
+			$arr = $query->result_array();
+			foreach ($arr as $val) {
+			$list[] = array(
+				'id'=>$val['Cust_ID'],
+				'text'=>$val['Cust_Name'].'#'.$val['Cust_Contact']
+				);
+			}	
+		}else{
+			$list[] = array(
+				'id'=>'',
+				'text'=>''
+			);	
+		}
+		
+		echo json_encode($list);
 		
 	}
 	

@@ -51,7 +51,7 @@ $(function(){
 						
 						$.ajax({
 						type: 'POST',
-						url: '/inventory/reserve/edit_detail',
+						url: BASE_URL+'reserve/edit_detail',
 						data: {
 							detail_data: $("#form_detail").serialize(),
 							},
@@ -72,7 +72,7 @@ $(function(){
 						complete: function(){
 
 							alert('บันทึกข้อมูลเรียบร้อยแล้ว');
-							window.location.href = '/inventory/reserve/all';
+							window.location.href = BASE_URL+'reserve/all';
 							}
 						});
 									
@@ -105,7 +105,7 @@ $(function(){
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 						
-						window.location.href = '/inventory/reserve/all';
+						window.location.href = BASE_URL+'reserve/all';
 									
 					}
 					},

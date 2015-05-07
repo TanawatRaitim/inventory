@@ -14,28 +14,28 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<?php echo site_url('reserve/all')?>">จองสินค้า</a></li>
+        <li class="active"><a href="<?php echo site_url('reserve/all')?>">จอง</a></li>
         <li class="active"><a href="<?php echo site_url('sale/all')?>">ตัดขาย</a></li>
         <li class="active"><a href="<?php echo site_url('cut/all')?>">ตัดจ่าย</a></li>
-        <li class="active"><a href="<?php echo site_url('in/all')?>">นำสินค้าเข้า</a></li>
-        <li class="active"><a href="<?php echo site_url('return_p/all')?>">รับคืนสินค้า</a></li>
-        <li class="active"><a href="<?php echo site_url('move/all')?>">โอนย้ายสินค้า</a></li>
-        <li class="active"><a href="<?php echo site_url('adjust/all')?>">ปรับยอดสินค้า</a></li>
+        <li class="active"><a href="<?php echo site_url('in/all')?>">นำเข้า</a></li>
+        <li class="active"><a href="<?php echo site_url('return_p/all')?>">รับคืน</a></li>
+        <li class="active"><a href="<?php echo site_url('move/all')?>">โอนย้าย</a></li>
+        <li class="active"><a href="<?php echo site_url('adjust/all')?>">ปรับยอด</a></li>
         <li class="active"><a href="<?php echo site_url('search/main')?>">ค้นหาข้อมูล</a></li>
-        <li class="active"><a href="http://172.168.1.109/IMS_Reporting/IMS_Default.aspx" target="_blank">รายงาน</a></li>
+        <li class="active"><a href="http://172.168.1.109/IMS_Reporting58/IMS_Default.aspx?empID=<?php echo trim($this->session->userdata('Emp_ID'));?>&empGroup=<?php echo $this->session->userdata('UserGroup');?>" target="_blank">รายงาน</a></li>
         <li class="active"><a href="<?php echo site_url('manage/main')?>">จัดการข้อมูล</a></li>
-        <li class="active"><a href="<?php echo site_url('admin')?>">Administrator</a></li>
-        <!-- 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">สินค้าเข้า <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('input/in')?>">สินค้าใหม่ (IN)</a></li>
-            <li><a href="<?php echo site_url('input/ir')?>">สินค้าดัดแปลง (IR)</a></li>
-            <li><a href="<?php echo site_url('input/sr')?>">สินค้าคืน (SR)</a></li>
-            <li><a href="<?php echo site_url('input/ra')?>">วัตถุดิบสำเร็จรูป (RA)</a></li>
-            </ul>
-        </li>
+        <!-- <li class="active"><a href="<?php echo site_url('admin')?>">Administrator</a></li> -->
+
+		<?php if ($this->session->userdata('UserGroup') == '1'): ?>
+			<li class="dropdown active">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator <b class="caret"></b></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="<?php echo site_url('manage/rollback')?>">Rollback</a></li>
+	          </ul>
+	        </li>	
+		<?php endif ?>
         
+       <!--
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">สินค้าตัดขาย <b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -104,7 +104,8 @@
           <ul class="dropdown-menu">
             
             <!-- <li><a href="<?php echo site_url('manage/clear_unused_ticket')?>">ล้างข้อมูลที่ค้างในระบบ</a></li> -->
-            <li><a href="#" id="clear_unused_ticket">ล้างข้อมูลที่ค้างในระบบ</a></li>
+            <!-- <li><a href="#" id="clear_unused_ticket">ล้างข้อมูลที่ค้างในระบบ</a></li> -->
+            <li><a href="<?php echo site_url('transaction/draft_list')?>" id="draft_list">แบบร่างที่บันทึกไว้</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo site_url('auth/logout')?>">ออกจากโปรแกรม</a></li>
           </ul>

@@ -50,7 +50,7 @@ $(function() {
 									
 									$.ajax({
 										type: 'POST',
-										url: '/inventory/in/set_reject',
+										url: BASE_URL+'in/set_reject',
 										data: {
 											reject: $("#form_reject").serialize()
 											},
@@ -59,7 +59,7 @@ $(function() {
 											// alert(data);
 											if(data == 'true'){
 												alert('ปฎิเสธเรียบร้อยแล้ว');
-												window.location.href = '/inventory/in/all';
+												window.location.href = BASE_URL+'in/no_appv';
 											}else{
 												alert('มีข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ');
 												
@@ -97,7 +97,7 @@ $(function() {
 
 								$.ajax({
 										type: 'POST',
-										url: '/inventory/in/set_reject',
+										url: BASE_URL+'in/set_reject',
 										data: {
 											reject: $("#form_reject").serialize()
 											},
@@ -106,7 +106,7 @@ $(function() {
 											// alert(data);
 											if(data == 'true'){
 												alert('อนุมัติเรียบร้อยแล้ว');
-												window.location.href = '/inventory/in/all';
+												window.location.href = BASE_URL+'in/no_appv';
 											}else{
 												alert('มีข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ');
 												
@@ -151,7 +151,7 @@ $(function() {
 								
 								$(this).attr('disabled','disabled');
 								
-								window.location.href = '/inventory/in/all';
+								window.location.href = BASE_URL+'in/no_appv';
 											
 							}
 							},

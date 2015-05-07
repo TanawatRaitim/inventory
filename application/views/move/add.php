@@ -1,6 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
+			<h2><?php echo $title; ?></h2>
 			<ol class="breadcrumb">
 				<?php foreach ($breadcrumb as $attr): ?>
 					<?php if($attr['class'] == 'active'):?>
@@ -21,7 +22,7 @@
 				<div class="panel-body">
 					<form class="form-horizontal" method="post" role="form" name="main_ticket" id="main_ticket" action="">
 						
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="Transaction_For" class="col-sm-5 control-label">RL - </label>
 								<input type="hidden" name="TK_Code" id="TK_Code" value="RL" />
@@ -34,7 +35,7 @@
 							</div>
 						</div>
 						
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<!-- <label class="col-sm-5 control-label"><?php echo $input_type;?> - </label> -->
 								<!-- <label class="col-sm-7 control-label" id="TK_ID_Present"  style="text-align: left;">XX-XX-XXXX</label> -->
@@ -47,7 +48,7 @@
 
 						<div class="row"></div>
 						
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="DocRef_AutoID" class="col-sm-5 control-label">เอกสารอ้างอิง <span class="text-danger">*</span></label>
 								<div class="col-sm-7">
@@ -59,7 +60,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="DocRef_Other" class="col-sm-5 control-label">เพิ่มเติม</label>
 								<div class="col-sm-7">
@@ -69,7 +70,7 @@
 						</div>
 
 
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="DocRef_No" class="col-sm-5 control-label">เลขที่เอกสารอ้างอิง <span class="text-danger">*</span></label>
 								<div class="col-sm-7">
@@ -77,7 +78,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="DocRef_Date" class="col-sm-5 control-label">วันที่เอกสารอ้างอิง <span class="text-danger">*</span></label>
 								<div class="col-sm-7">
@@ -86,7 +87,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="Transact_Remark" class="col-sm-5 control-label">หมายเหตุ</label>
 								<div class="col-sm-7">
@@ -96,7 +97,7 @@
 							</div>
 						</div>
 						
-						<div class="col-md-5">
+						<div class="col-md-6">
 							
 						</div>
 						<div class="col-md-12 text-danger" id="customer_detail">
@@ -130,8 +131,8 @@
 							<div class="col-md-12">
 								<form class="form-horizontal" role="form" name="ticket_detail" id="ticket_detail" action="">
 									<div class="form-group">
-										<label for="Product_ID" class="col-sm-3 control-label">รหัสสินค้า <span class="text-danger">*</span></label>
-										<div class="col-sm-9">
+										<label for="Product_ID" class="col-sm-4 control-label">รหัสสินค้า <span class="text-danger">*</span></label>
+										<div class="col-sm-8">
 											<input type="hidden" class="form-control input-sm" id="Product_ID" name="Product_ID" data-product_id="" data-product_text="" />
 											<!-- <input type="hidden" id="Transact_AutoID" name="Transact_AutoID" /> -->
 											
@@ -141,14 +142,16 @@
 									
 									
 									<div class="form-group">
-										<label for="Effect_Stock_AutoID" class="col-sm-3 control-label">คลังต้นทาง <span class="text-danger">*</span></label>
-										<div class="col-sm-3">
+										<label for="Effect_Stock_AutoID" class="col-sm-4 control-label">คลังต้นทาง <span class="text-danger">*</span></label>
+										<div class="col-sm-8">
 											<select class="form-control input-sm" id="Effect_Stock_AutoID" name="Effect_Stock_AutoID">
 												<?php echo $inventory_type;?>
 											</select>
 										</div>
-										<label for="Effect_Stock_Des" class="col-sm-3 control-label">ปลายทาง<span class="text-danger">*</span></label>
-										<div class="col-sm-3">
+									</div>
+									<div class="form-group">	
+										<label for="Effect_Stock_Des" class="col-sm-4 control-label">คลังปลายทาง<span class="text-danger">*</span></label>
+										<div class="col-sm-8">
 											<select class="form-control input-sm" id="Effect_Stock_Des" name="Effect_Stock_Des">
 												<?php echo $inventory_type;?>
 											</select>
@@ -156,10 +159,12 @@
 									</div>
 									
 									<div class="input-group input-group-sm form-group">
-									  <span class="input-group-addon">ดี<span class="text-danger">*</span></span>
+									  <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ดี<span class="text-danger">*</span></span>
 									  <input type="text" id="QTY_Good" name="QTY_Good" class="form-control" placeholder="" value="0" required="required">
 									  <span class="input-group-addon">เสีย<span class="text-danger">*</span></span>
 									  <input type="text" id="QTY_Waste" name="QTY_Waste" class="form-control" placeholder="" value="0" required="required">
+									 </div> 
+									 <div class="input-group input-group-sm form-group">
 									  <span class="input-group-addon">ชำรุด<span class="text-danger">*</span></span>
 									  <input type="text" id="QTY_Damage" name="QTY_Damage" class="form-control" placeholder="" value="0" required="required">
 									  <span class="input-group-addon">รวม</span>
@@ -279,7 +284,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						<table class="table table-condensed table-border table-striped" id="record_saved">
+						<table class="table table-condensed table-border table-striped table-hover" id="record_saved">
 							<thead>
 								<tr>
 									<!-- <th>#</th> -->
@@ -304,13 +309,15 @@
 						</table>
 					</div>
 					<div class="col-md-12">
-						<button class="btn btn-primary btn-sm" id="btn_save_rs">
-							บันทึก
+						<button class="btn btn-primary btn-sm" style="width: 100px;" id="btn_save_rs">
+							ส่งขออนุมัติ
 						</button>
-						<!-- <button class="btn btn-warning btn-sm" id="btn_save_draft">
+						
+						<button class="btn btn-warning btn-sm" style="width: 100px;" id="btn_save_draft">
 							บันทึกแบบร่่าง
-						</button> -->
-						<button class="btn btn-danger btn-sm" id="btn_cancel_all">
+						</button>
+						
+						<button class="btn btn-danger btn-sm" style="width: 100px;" id="btn_cancel_all">
 							ยกเลิก
 						</button>
 					</div>

@@ -50,7 +50,7 @@ $(function() {
 
 								$.ajax({
 									type: 'POST',
-									url: '/inventory/adjust/set_reject',
+									url: BASE_URL+'adjust/set_reject',
 									data: {
 										reject: $("#form_reject").serialize()
 										},
@@ -59,7 +59,7 @@ $(function() {
 										// alert(data);
 										if(data == 'true'){
 											alert('ปฎิเสธเรียบร้อยแล้ว');
-											window.location.href = '/inventory/adjust/all';
+											window.location.href = BASE_URL+'adjust/no_appv';
 										}else{
 											alert('มีข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ');
 											
@@ -92,12 +92,13 @@ $(function() {
 					// dismissQueue: true,
 					buttons     : [
 						{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
-							// $("form").submit();
 							$(this).attr('disabled','disabled');
+							
+							//check before adjust
 							
 							$.ajax({
 									type: 'POST',
-									url: '/inventory/adjust/set_reject',
+									url: BASE_URL+'adjust/set_reject',
 									data: {
 										reject: $("#form_reject").serialize()
 										},
@@ -106,10 +107,10 @@ $(function() {
 										// alert(data);
 										if(data == 'true'){
 											alert('อนุมัติเรียบร้อยแล้ว');
-											window.location.href = '/inventory/adjust/all';
+											window.location.href = BASE_URL+'adjust/no_appv';
 										}else if(data == 'error'){
 											
-											alert('ไม่สามารถทำการปรับยอดได้ เนื่องจากมีการจองค้างอยู่ หรือมีการปรับยอดลดเป็นจำนวนติดลบ');
+											alert('ไม่สามารถทำการปรับยอดได้ เนื่องจากมีการจองค้างอยู่ หรือมีรายการสินค้าบางรายการ มียอดในสต๊อกไม่เพียงพอ');
 											
 										}else{
 											alert('มีข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ');
@@ -152,7 +153,7 @@ $(function() {
 						buttons     : [
 							{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 								$(this).attr('disabled','disabled');
-								window.location.href = '/inventory/adjust/all';
+								window.location.href = BASE_URL+'adjust/no_appv';
 											
 							}
 							},

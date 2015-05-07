@@ -49,4 +49,22 @@ class Customer_model extends CI_Model{
 		return $query->result_array();
 	}
 	
+	public function get_customer_select2()
+	{
+		$text = $this->input->post('q');
+		$this->db->select('Cust_AutoID, Cust_ID, Cust_Name, Cust_Contact');
+		$this->db->like('Cust_ID', $text);
+		$this->db->or_like('Cust_Name', $text);
+		$this->db->or_like('Cust_Contact', $text);
+		$query = $this->db->get('Customers');
+		
+		
+		return $query;	
+	}
+
+	public function get_customer($id)
+	{
+		return $this->db->get_where('Customers', array('Cust_ID'=>$id));
+	}
+	
 }	

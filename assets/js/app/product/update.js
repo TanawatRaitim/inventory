@@ -15,7 +15,7 @@ $(function() {
 		
 		$.ajax({
 			type: 'GET',
-			url: '/inventory/product/delete_upload_file/'+ autoid + "/" + field,
+			url: BASE_URL+'product/delete_upload_file/'+ autoid + "/" + field,
 			dataType: 'html',
 			success: function(data){
 				if(data=='true'){
@@ -43,7 +43,7 @@ $(function() {
 		
 		$.ajax({
 			type: 'GET',
-			url: '/inventory/product/delete_premium_upload_file/'+ id,
+			url: BASE_URL+'product/delete_premium_upload_file/'+ id,
 			dataType: 'html',
 			success: function(data){
 				if(data=='true'){

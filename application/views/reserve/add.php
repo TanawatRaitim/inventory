@@ -1,9 +1,7 @@
-
-
-
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
+			<h2><?php echo $title; ?></h2>
 			<ol class="breadcrumb">
 				<?php foreach ($breadcrumb as $attr): ?>
 					<?php if($attr['class'] == 'active'):?>
@@ -24,7 +22,7 @@
 				<div class="panel-body">
 					<form class="form-horizontal" method="post" role="form" name="main_ticket" id="main_ticket" action="">
 						
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="Transaction_For" class="col-sm-5 control-label">จองสำหรับ <span class="text-danger">*</span></label>
 								<div class="col-sm-7">
@@ -35,7 +33,7 @@
 							</div>
 						</div>
 						
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label class="col-sm-5 control-label"><?php echo $input_type;?> - </label>
 								<label class="col-sm-7 control-label" id="TK_ID_Present"  style="text-align: left;">XX-XX-XXXX</label>
@@ -47,7 +45,7 @@
 
 						<div class="row"></div>
 						
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="DocRef_AutoID" class="col-sm-5 control-label">เอกสารอ้างอิง <span class="text-danger">*</span></label>
 								<div class="col-sm-7">
@@ -59,7 +57,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="DocRef_Other" class="col-sm-5 control-label">เพิ่มเติม</label>
 								<div class="col-sm-7">
@@ -68,7 +66,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="DocRef_No" class="col-sm-5 control-label">เลขที่เอกสารอ้างอิง <span class="text-danger">*</span></label>
 								<div class="col-sm-7">
@@ -76,7 +74,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="DocRef_Date" class="col-sm-5 control-label">วันที่เอกสารอ้างอิง <span class="text-danger">*</span></label>
 								<div class="col-sm-7">
@@ -86,7 +84,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="Cust_ID" class="col-sm-5 control-label">รหัสลูกค้า</label>
 								<div class="col-sm-7">
@@ -95,7 +93,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="Transport_Date" class="col-sm-5 control-label">วันที่ส่งของ</label>
 								<div class="col-sm-7">
@@ -104,7 +102,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-5 control-label"></label>
 								<div class="col-sm-12 text-danger" id="customer_detail">
@@ -113,7 +111,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<div class="form-group">
 								<label for="Transact_Remark" class="col-sm-5 control-label">หมายเหตุ</label>
 								<div class="col-sm-7">
@@ -168,10 +166,12 @@
 									</div>
 									
 									<div class="input-group input-group-sm form-group">
-									  <span class="input-group-addon">ดี<span class="text-danger">*</span></span>
+									  <span class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ดี&nbsp;<span class="text-danger">*</span></span>
 									  <input type="text" id="QTY_Good" name="QTY_Good" class="form-control" placeholder="" value="0" required="required">
 									  <span class="input-group-addon">เสีย<span class="text-danger">*</span></span>
 									  <input type="text" id="QTY_Waste" name="QTY_Waste" class="form-control" placeholder="" value="0" required="required">
+									</div>
+									<div class="input-group input-group-sm form-group">  
 									  <span class="input-group-addon">ชำรุด<span class="text-danger">*</span></span>
 									  <input type="text" id="QTY_Damage" name="QTY_Damage" class="form-control" placeholder="" value="0" required="required">
 									  <span class="input-group-addon">รวม</span>
@@ -291,7 +291,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						<table class="table table-condensed table-border table-striped" id="record_saved">
+						<table class="table table-condensed table-border table-striped table-hover" id="record_saved">
 							<thead>
 								<tr>
 									<!-- <th>#</th> -->
@@ -433,16 +433,16 @@
 						</table>
 					</div>
 					<div class="col-md-12">
-						<button class="btn btn-primary btn-sm" id="btn_save_rs">
-							บันทึกการจองสินค้า
+						<button class="btn btn-primary btn-sm" style="width: 100px;" id="btn_save_rs">
+							ส่งขออนุมัติ
 						</button>
-						<!-- 
-						<button class="btn btn-warning btn-sm" id="btn_save_draft">
+						
+						<button class="btn btn-warning btn-sm" style="width: 100px;" id="btn_save_draft">
 							บันทึกแบบร่่าง
 						</button>
-						 -->
-						<button class="btn btn-danger btn-sm" id="btn_cancel_all">
-							ยกเลิกการจองสินค้าทั้งหมด
+						
+						<button class="btn btn-danger btn-sm" style="width: 100px;" id="btn_cancel_all">
+							ยกเลิก
 						</button>
 					</div>
 					<div id="message" class="col-md-12" style="padding-top: 10px;">
@@ -450,11 +450,7 @@
 				</div>
 			</div>
 		</div>
-
 	</div><!-- end .row -->
-	
-
-
 </div>
 <!-- end .container-fluid -->
 

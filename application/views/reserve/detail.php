@@ -127,7 +127,7 @@
 				<div class="panel-body">
 					<div class="table-responsive">
 						<form id="form_detail" method="post" action="/inventory/reserve/edit_detail">	
-						<table class="table table-condensed table-border table-striped">
+						<table class="table table-condensed table-border table-striped table-hover">
 							<thead>
 								<tr>
 									<th><i class="glyphicon glyphicon-remove" id="check_all" style="color: red;" title="ลบ"></i></th>

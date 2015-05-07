@@ -1,6 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
+			<h2><?php echo $title; ?></h2>
 			<ol class="breadcrumb">
 				<?php foreach ($breadcrumb as $attr): ?>
 					<?php if($attr['class'] == 'active'):?>
@@ -19,15 +20,15 @@
 			<table id="example" class="table table-bordered table-condensed table-striped table-hover hover">
 		        <thead>
 		        	<tr>
-		                <th>เลขที่ใบสั่งขาย</th>
-		                <th>สำหรับ</th>
+		                <th style="width: 50px;">เลขที่ใบสั่งขาย</th>
+		                <th style="width: 200px;">สำหรับ</th>
 		                <th>เลขที่ใบจอง</th>
-		                <th>จำนวนรายการ</th>
+		                <!-- <th style="width: 50px;">จำนวนรายการ</th> -->
 		                <th>ลูกค้า</th>
 		                <th>วันที่ส่งของ</th>
 		                <th>วันที่ออกใบสั่งขาย</th>
 		                <th>ผู้ออกใบสั่งขาย</th>
-		                <th>สถานะ</th>
+		                <th style="width: 100px;">สถานะ</th>
 		                <th style="width: 150px;">action</th>
 		            </tr>
 		        </thead>
@@ -37,7 +38,7 @@
 		                <th id="filter">เลขที่ใบสั่งขาย</th>
 		                <th>สำหรับ</th>
 		                <th id="filter">เลขที่ใบจอง</th>
-		                <th>จำนวนรายการ</th>
+		                <!-- <th>จำนวนรายการ</th> -->
 		                <th id="filter">ลูกค้า</th>
 		                <th>วันที่ส่งของ</th>
 		                <th>วันที่ออกใบสั่งขาย</th>

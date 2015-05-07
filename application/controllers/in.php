@@ -231,7 +231,7 @@ class In extends CI_Controller {
 	
 	public function add()
 	{
-		$content['title'] = 'นำสินค้าเข้า';
+		$content['title'] = 'นำสินค้าเข้า (IN)';
 		$content['input_type'] = 'RS';
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
@@ -288,10 +288,9 @@ class In extends CI_Controller {
 		
 		$this->load->view('template/main',$data);
 	}
-
+	
 	public function check_new_data()
 	{
-		
 		parse_str($_POST['main_ticket'], $main);
 		parse_str($_POST['ticket_detail'], $detail);
 		
@@ -340,34 +339,117 @@ class In extends CI_Controller {
 		echo json_encode($result);
 
 	}
+	
+	public function check_edit_data()
+	{
+		parse_str($_POST['main_ticket'], $main);
+		parse_str($_POST['ticket_detail'], $detail);
+		
+		$tkid = $main['TK_ID'];
+		$autoid = $main['Transaction_AutoID'];
+		$tk_code = $main['TK_Code'];
+		$product_id = $detail['Product_ID'];
+		$stock_id = $detail['Effect_Stock_AutoID'];
+
+		if($this->check_tran_dup($autoid, $product_id, $stock_id)){
+			//not dup
+			$result = array(
+				'status'=>true,
+				'valid'=>''
+			);
+			
+			//check ticket id
+			/*
+			if($this->check_dup_tk_edit($tk_code, $tkid ,$autoid)){
+				//not dup
+				$result = array(
+					'status'=>true,
+					'valid'=>''
+				);
+			}else{
+				//dup
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่สามารถใช้เลข Ticket นี้ได้ เนื่องจากมีการใช้เลขนี้ไปแล้ว'
+				);
+			}
+			*/
+		}else{
+			//dup
+			$result = array(
+				'status'=>false,
+				'valid'=>'ไม่สามารถบันทึกข้อมูลได้ เนื่องจากคุณบันทึกรายการซ้ำ'
+			);
+		}
+		
+		echo json_encode($result);
+
+	}
+
+	
 
 	public function insert_transaction()
 	{
 		parse_str($_POST['main_ticket'], $main);
 		parse_str($_POST['ticket_detail'], $detail);
 		
+		if($detail['QTY_Good'] == 0 && $detail['QTY_Waste'] == 0 && $detail['QTY_Damage'] == 0)
+		{
+			$data = array(
+				'TK_ID'=>'',
+				'Transact_AutoID'=>'',
+				'Effect_Stock_AutoID'=>'',
+				'Product_ID'=>'',
+				'Product_Name'=>'',
+				'status'=>false
+			);
+
+			echo json_encode($data);
+			exit();
+		}
+
+		
 		if($main['Transaction_AutoID']=="")
 		{
-			$auto_id = $this->in_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);
+			// $auto_id = $this->in_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);
+			
+			
+			if($this->transaction_model->has_autoid($main['TK_Code'], $main['TK_ID']))
+			{
+				$auto_id = $this->transaction_model->find_autoid($main['TK_Code'], $main['TK_ID']);	
+			}else{
+				$auto_id = $this->in_model->insert_main_ticket($main['TK_Code'], $main['TK_ID']);	
+			}
+			
+			
 			$this->in_model->insert_ticket_detail($auto_id);
 			
 			$data = array(
 				'TK_ID'=>$main['TK_ID'],
 				'Transact_AutoID'=>$auto_id,
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
-				'Product_ID'=>$detail['Product_ID']
+				'Product_ID'=>$detail['Product_ID'],
+				'Product_Name'=>get_product_name($detail['Product_ID']),
+				'status'=>true
 			);
 
 			echo json_encode($data);
 		}else{
 			$tid = $main['Transaction_AutoID'];
+			
+			//update main transaction
+			$this->in_model->update_main_transaction($tid);
+			
+			//insert new transaction detail
 			$this->in_model->insert_ticket_detail($tid);
 
 			$data = array(
 				'TK_ID'=>$main['TK_ID'],
 				'Transact_AutoID'=>$tid,
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
-				'Product_ID'=>$detail['Product_ID']
+				'Product_ID'=>$detail['Product_ID'],
+				'Product_Name'=>get_product_name($detail['Product_ID']),
+				'status'=>true
 			);
 
 			echo json_encode($data);	
@@ -496,6 +578,13 @@ class In extends CI_Controller {
 		parse_str($_POST['main_ticket'], $main);
 		$this->in_model->save_in($main);
 		
+	}
+	
+	public function save_edit_reject()
+	{
+		parse_str($_POST['main_ticket'], $main);
+		
+		$this->in_model->save_edit_reject($main);
 	}
 	
 	public function get_in_all()
@@ -721,12 +810,108 @@ class In extends CI_Controller {
 		
 		$this->load->view('template/main',$data);
 	}
+
+	public function edit_reject($id)
+	{
+		$content['title'] = 'แก้ไขใบนำเข้าที่ถูกปฏิเสธ ('.get_ticket_code_id($id).')';
+		$content['transaction'] = $this->transaction_model->get_transaction($id);
+		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
+		$content['input_type'] = 'IN';
+		$notification = $this->get_notification();
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>"ระบบการนำเข้าสินค้า <span class='badge badge-error'>".$notification['all']."</span>",
+										'link'=>base_url('in/all'),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เปิดใบนำสินค้าเข้า (ใบใหม่)',
+										'link'=>base_url('in/add'),
+										'class'=>''
+									),
+									2 => array(
+										'name'=>"ใบนำสินค้าเข้า  [รออนุมัติ] <span class='badge badge-error'>".$notification['wait']."</span>",
+										'link'=>base_url('in/no_appv'),
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'ใบนำสินค้าเข้า  [ผ่านการอนุมัติ] <span class="badge badge-error">'.$notification['approved'].'</span>',
+										'link'=>base_url('in/yes_appv'),
+										'class'=>''
+									),
+									4 => array(
+										'name'=>'ใบนำสินค้าเข้า  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
+										'link'=>base_url('in/reject'),
+										'class'=>''
+									)
+								);
+								
+		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
+		$content['ticket_type'] = ticket_in_dropdown($content['transaction']['Transaction_For']);	
+		$content['inventory_type'] = inventory_dropdown();
+		$data['content'] = $this->load->view('in/edit_reject',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/in/edit_reject.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);	
+	}
+
+	public function edit_draft($id)
+	{
+		$content['title'] = 'แก้ไขแบบร่างใบนำเข้าเลขที่ ('.get_ticket_code_id($id).')';
+		$content['transaction'] = $this->transaction_model->get_transaction($id);
+		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
+		$content['input_type'] = 'IN';
+							
+		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
+		$content['ticket_type'] = ticket_in_dropdown($content['transaction']['Transaction_For']);	
+		$content['inventory_type'] = inventory_dropdown();
+		$data['content'] = $this->load->view('in/edit_draft',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/in/edit_draft.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);	
+	}
 	
 	public function view_detail($autoid)
 	{
 		$this->load->model('customer_model');
 		
-		$content['title'] = 'รายละเอียดการนำเข้าสินค้า';
+		$content['title'] = 'รายละเอียดการนำสินค้าเข้าเลขที่ '.get_ticket_code_id($autoid);
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -756,7 +941,7 @@ class In extends CI_Controller {
 									)
 								);
 		$content['transaction'] = $this->in_model->get_inventory_transaction($autoid);
-		$content['transaction_detail'] = $this->in_model->get_transaction_detail($autoid);
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($autoid);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->in_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->in_model->get_transaction_for($content['transaction']['Transaction_For']);
@@ -894,7 +1079,7 @@ class In extends CI_Controller {
 	public function approve($id)
 	{
 		$this->load->model('customer_model');
-		$content['title'] = 'อนุมัติการนำเข้าสินค้า';
+		$content['title'] = 'อนุมัติการนำสินค้าเข้าเลขที่ '.get_ticket_code_id($id);
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -925,7 +1110,7 @@ class In extends CI_Controller {
 								);
 		
 		$content['transaction'] = $this->in_model->get_inventory_transaction($id);
-		$content['transaction_detail'] = $this->in_model->get_transaction_detail($id);
+		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($id);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->in_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->in_model->get_transaction_for($content['transaction']['Transaction_For']);
@@ -1210,6 +1395,25 @@ class In extends CI_Controller {
 			return TRUE;
 			
 		}
+		
+	}
+	
+	public function check_dup_tk_edit($tkcode, $tkid, $autoid)
+	{
+		
+		$this->db->where('TK_Code',$tkcode);
+		$this->db->where('TK_ID',$tkid);
+		$this->db->where_not_in('Transact_AutoID',$autoid);
+		
+		$rows = $this->db->get('Inventory_Transaction')->num_rows();
+
+		if($rows>0){
+			return FALSE;
+			
+		}else{
+			return TRUE;
+		}
+		
 		
 	}
 	

@@ -61,7 +61,7 @@ $(function(){
 						
 						$.ajax({
 						type: 'POST',
-						url: '/inventory/return_p/edit_detail',
+						url: BASE_URL+'return_p/edit_detail',
 						data: {
 							detail_data: $("#form_detail").serialize(),
 							},
@@ -82,7 +82,7 @@ $(function(){
 						complete: function(){
 
 							alert('บันทึกข้อมูลเรียบร้อยแล้ว');
-							window.location.href = '/inventory/return_p/all';
+							window.location.href = BASE_URL+'return_p/reject';
 							}
 						});
 									
@@ -115,7 +115,7 @@ $(function(){
 				buttons     : [
 					{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
 						
-						window.location.href = '/inventory/return_p/all';
+						window.location.href = BASE_URL+'return_p/reject';
 									
 					}
 					},
