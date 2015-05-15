@@ -245,6 +245,9 @@ $(function() {
 								
 								var rows = $("#record_saved > tbody >tr").size();
 								$("#total_record").html("บันทึกไปแล้วจำนวน <strong>"+rows+"</strong> รายการ");
+								$("#poopae_good").html(data.total_good);
+								$("#poopae_waste").html(data.total_waste);
+								$("#poopae_damage").html(data.total_damage);
 								
 								$("#Product_ID").select2("val","");
 								$("#Effect_Stock_AutoID").val(0);
@@ -332,12 +335,16 @@ $(function() {
 							product_id: element.data('productid'),
 							autoid: element.data('autoid')
 							},
-						dataType: 'html',
+						dataType: 'json',
 						success: function(data){
+							
+							$("#poopae_good").html(data.total_good);
+							$("#poopae_waste").html(data.total_waste);
+							$("#poopae_damage").html(data.total_damage);
 							
 							$noty.close();
 							$("#delete_confirm").noty({
-								text:'ลยรายการ ' + product + 'เรียบร้อยแล้ว',
+								text:'ลบรายการ ' + product + 'เรียบร้อยแล้ว',
 								type:'success',
 								timeout: 4000,
 								callback:{
@@ -354,6 +361,8 @@ $(function() {
 										}else{
 											$("#total_record").html("ยังไม่มีรายการที่ถูกบันทึก");
 										}
+										
+										
 									}
 								}
 							});

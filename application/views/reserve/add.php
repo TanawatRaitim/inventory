@@ -418,8 +418,18 @@
 							</tbody>
 							<tfoot>
 								<tr>
+									<td></td>
+									<td class="text-center">Total </td>
+									<td id="poopae_good" class="text-center"></td>
+									<td id="poopae_waste" class="text-center"></td>
+									<td id="poopae_damage" class="text-center"></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
 									<td colspan="7" id="total_record" class="text-left">ยังไม่มีรายการที่ถูกบันทึก</td>
 								</tr>
+									
 								<!-- <tr>
 									<td colspan="2" class="text-center">รวม</td>
 									<td></td>

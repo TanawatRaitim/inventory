@@ -23,12 +23,24 @@ class Transaction extends CI_Controller {
 		
 		$result = $this->transaction_model->delete_transaction_detail($autoid, $product_id, $stock);
 		
+		
+		$data = array(
+				'total_good'=>$this->count_qty('QTY_Good', $autoid),
+				'total_waste'=>$this->count_qty('QTY_Waste', $autoid),
+				'total_damage'=>$this->count_qty('QTY_Damage', $autoid)
+			);
+		
 		if($result)
 		{
-			echo 'deleted';	
+			//echo 'deleted';
+			$data['result'] = 'deleted';	
 		}else{
-			echo 'can not delete';
+			//echo 'can not delete';
+			$data['result'] = 'can not delete';
 		}
+		
+		echo json_encode($data);
+		
 	}
 	
 	
@@ -61,9 +73,7 @@ class Transaction extends CI_Controller {
 		}else{
 			$remain_status = true;
 		}
-		//print_r($stock);
-		//exit();
-		//check qty
+
 		
 		if($this->transaction_model->is_exist_rsid('RS', $main['TK_ID']))
 		{
@@ -82,7 +92,10 @@ class Transaction extends CI_Controller {
 				'Product_ID'=>$detail['Product_ID'],
 				'Product_Name'=>get_product_name($detail['Product_ID']),
 				'status'=>true,
-				'remain_status'=>$remain_status
+				'remain_status'=>$remain_status,
+				'total_good'=>$this->count_qty('QTY_Good', $tid),
+				'total_waste'=>$this->count_qty('QTY_Waste', $tid),
+				'total_damage'=>$this->count_qty('QTY_Damage', $tid)
 			);
 
 			echo json_encode($data);
@@ -99,7 +112,10 @@ class Transaction extends CI_Controller {
 				'Product_ID'=>$detail['Product_ID'],
 				'Product_Name'=>get_product_name($detail['Product_ID']),
 				'status'=>true,
-				'remain_status'=>$remain_status
+				'remain_status'=>$remain_status,
+				'total_good'=>$this->count_qty('QTY_Good', $auto_id),
+				'total_waste'=>$this->count_qty('QTY_Waste', $auto_id),
+				'total_damage'=>$this->count_qty('QTY_Damage', $auto_id)
 			);
 
 			echo json_encode($data);
@@ -428,6 +444,23 @@ class Transaction extends CI_Controller {
 		);
 		
 		echo json_encode($json);
+	}
+	
+	/*
+	 * $type = QTY_Good, QTY_Damage, QTY_Waste
+	 * 
+	 * 
+	 */
+	public function count_qty($type, $autoid)
+	{
+		//$type = 'QTY_Good';
+		//$autoid = 15111;
+		$this->db->select_sum($type);
+		$this->db->where('Transact_AutoID', $autoid);
+		$query = $this->db->get('Inventory_Transaction_Detail')->row_array();
+		return number_format($query[$type]);
+		//print_r($query);
+		
 	}
 	
 
