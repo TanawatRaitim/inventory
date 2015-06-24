@@ -108,7 +108,7 @@
 						<th class="text-right">นามลูกค้า :</th>
 						<td><?php echo $customer_name;?></td>
 						<th class="text-right">วันที่ต้องการส่งของ :</th>
-						<td><?php echo convert_mssql_date($transaction['Transport_Date']);?></td>
+						<td><?php echo convert_mssql_date($transaction['Transport_Date']);?> (<?php echo $transport_by;?>)</td>
 					</tr>
 					<tr>
 						<th class="text-right">เลขที่ใบส่ั่งขาย /ตัดจ่าย :</th>
@@ -328,7 +328,7 @@
 						<th class="text-right">นามลูกค้า :</th>
 						<td><?php echo $customer_name;?></td>
 						<th class="text-right">วันที่ต้องการส่งของ :</th>
-						<td><?php echo convert_mssql_date($transaction['Transport_Date']);?></td>
+						<td><?php echo convert_mssql_date($transaction['Transport_Date']);?>  (<?php echo $transport_by;?>)</td>
 					</tr>
 					<tr>
 						<th class="text-right">เลขที่ใบสั่งขาย /ตัดจ่าย :</th>

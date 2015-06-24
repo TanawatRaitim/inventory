@@ -168,9 +168,7 @@ class Product extends CI_Controller {
 
 	public function get_product_transaction($id)
 	{
-		//echo $id;
 		$result = $this->product_model->get_product_transaction($id);
-		
 		
 		$json = array(
 			'data'=>$result
@@ -179,8 +177,6 @@ class Product extends CI_Controller {
 		echo json_encode($json);
 	}
 
-	
-	
 	public function product_movement($product_autoid)
 	{
 		$content['title'] = "Product Movement";
@@ -323,14 +319,705 @@ class Product extends CI_Controller {
 		$this->load->view('template/main',$data);
 	
 	}
+	
+	/**
+	 * Product Category
+	 */
+	
+	public function category_get($id = false)
+	{
+		$content['title'] = "เพิ่มข้อมูลหมวดหมู่สินค้า";
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'หน้าหลัก',
+										'link'=>base_url(),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เพิ่มหมวดหมู่ใหม่',
+										'link'=>base_url('product/category_get'),
+										'class'=>''
+									)
+								);
+		
+		$content['data_header'] = 'รายชื่อหมวดหมู่ในระบบ';
+		$content['name_label'] = 'ชื่อหมวดหมู่';
+		$content['name_placeholder'] = 'Product Category';
+		$content['status_label'] = 'สถานะ';						
+		
+		if($id)
+		{
+			//update
+			$data_set = $this->db->get_where('Product_Category', array('ProCate_ID'=>$id))->row_array();
+			$content['data'] = $data_set;
+			$content['form_action'] = 'product/category_edit_post';
+			$content['form_name'] = 'form_edit';
+			$content['form_header'] = '<h1>แก้ไข  <small>"'.$data_set['ProCat_Name'].'"</small></h1>';
+			$content['status_dropdown'] = status_dropdown($data_set['RowStatus']);
+			$content['button_new'] = 'เพิ่มใหม่';
+			$content['submit_text'] = 'แก้ไข';
+			
+		}else{
+			//add new
+			$content['form_action'] = 'product/category_post';
+			$content['form_name'] = 'form_add';
+			$content['form_header'] = '<h1>เพิ่มหมวดหมู่สินค้าใหม่</h1>';
+			$content['status_dropdown'] = status_dropdown();
+			$content['submit_text'] = 'บันทึก';
+			
+		}
+		
+		$data['content'] = $this->load->view('product/category_get',$content ,TRUE);
+		
+		$css = array(
+			'datatable/media/css/dataTables.bootstrap.css',
+			'datatable/extensions/TableTools/css/dataTables.tableTools.min.css',
+		);
+		
+		$js = array(
+			'datatable/media/js/jquery.dataTables.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'datatable/media/js/dataTables.bootstrap.js',
+			'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'js/app/product/category_get.js'
+		);
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);
+	}
+	
+	public function check_category_name($type = 'add')
+	{
+		
+		if($type == 'edit')
+		{
+			//for check edit data
+			$name = $this->input->post('name');
+			$id = $this->input->post('id');
+			
+			$this->db->where('ProCat_Name', $name);
+			$this->db->where('ProCate_ID !=', $id);
+			$query = $this->db->get('Product_Category');
+			
+		}else{
+			//for check add new
+			$name = $this->input->post('name');
+			$this->db->where('ProCat_Name', $name);
+			$query = $this->db->get('Product_Category');
+				
+		}
+
+		if($query->num_rows() > 0)
+		{
+			echo 'false';
+		}else{
+			echo 'true';
+		}
+
+	}
+
+	public function get_product_category_datatable()
+	{
+
+		$this->db->order_by('ProCate_ID', 'desc');
+		$query = $this->db->get('Product_Category');
+		
+		$data = $query->result_array();
+		
+		$json = array(
+			'data'=>$data
+		);
+		
+		echo json_encode($json);
+	}
+
+	public function category_post()
+	{
+		$post = $_POST;
+		
+		if($post['ProCat_Name'] == "")
+		{
+			redirect('product/category_get', 'refresh');
+			exit();
+		}
+		
+		$post['RowCreatedDate'] = date("Y/m/d h:i:s");
+		$post['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['IsDel'] = 0;
+		
+		$this->db->insert('Product_Category', $post);
+		
+		redirect('product/category_get', 'refresh');
+	}
+
+	public function category_edit_post()
+	{
+		$post = $_POST;
+		
+		if($post['ProCat_Name'] == "")
+		{
+			redirect('product/category_get/', 'refresh');
+			exit();
+		}
+		
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		
+		$id = $post['ProCate_ID'];
+		unset($post['ProCate_ID']);
+		
+		$this->db->where('ProCate_ID', $id);
+		$this->db->update('Product_Category', $post);
+		redirect('product/category_get', 'refresh');
+		
+	}
+	
+	/**
+	 * end product category
+	 */
+	
+	
+	/**
+	 * Product Group
+	 */
+	
+	public function group_get($id = false)
+	{
+		$content['title'] = "เพิ่มข้อมูลกลุ่มสินค้า";
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'หน้าหลัก',
+										'link'=>base_url(),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เพิ่มกลุ่มสินค้าใหม่',
+										'link'=>base_url('product/group_get'),
+										'class'=>''
+									)
+								);
+		
+		$content['data_header'] = 'รายชื่อกลุ่มสินค้าในระบบ';
+		$content['name_label'] = 'ชื่อกลุ่มสินค้า';
+		$content['name_placeholder'] = 'Product Group';
+		$content['status_label'] = 'สถานะ';						
+		
+		if($id)
+		{
+			//update
+			$data_set = $this->db->get_where('Product_Group', array('ProGroup_ID'=>$id))->row_array();
+			$content['data'] = $data_set;
+			$content['form_action'] = 'product/group_edit_post';
+			$content['form_name'] = 'form_edit';
+			$content['form_header'] = '<h1>แก้ไข  <small>"'.$data_set['ProGroup_Name'].'"</small></h1>';
+			$content['status_dropdown'] = status_dropdown($data_set['RowStatus']);
+			$content['button_new'] = 'เพิ่มใหม่';
+			$content['submit_text'] = 'แก้ไข';
+			
+		}else{
+			//add new
+			$content['form_action'] = 'product/group_post';
+			$content['form_name'] = 'form_add';
+			$content['form_header'] = '<h1>เพิ่มกลุ่มสินค้าใหม่</h1>';
+			$content['status_dropdown'] = status_dropdown();
+			$content['submit_text'] = 'บันทึก';
+			
+		}
+		
+		$data['content'] = $this->load->view('product/group_get',$content ,TRUE);
+		
+		$css = array(
+			'datatable/media/css/dataTables.bootstrap.css',
+			'datatable/extensions/TableTools/css/dataTables.tableTools.min.css',
+		);
+		
+		$js = array(
+			'datatable/media/js/jquery.dataTables.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'datatable/media/js/dataTables.bootstrap.js',
+			'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'js/app/product/group_get.js'
+		);
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);
+	}
+	
+	public function check_group_name($type = 'add')
+	{
+		
+		if($type == 'edit')
+		{
+			//for check edit data
+			$name = $this->input->post('name');
+			$id = $this->input->post('id');
+			
+			$this->db->where('ProGroup_Name', $name);
+			$this->db->where('ProGroup_ID !=', $id);
+			$query = $this->db->get('Product_Group');
+			
+		}else{
+			//for check add new
+			$name = $this->input->post('name');
+			$this->db->where('ProGroup_Name', $name);
+			$query = $this->db->get('Product_Group');
+				
+		}
+
+		if($query->num_rows() > 0)
+		{
+			echo 'false';
+		}else{
+			echo 'true';
+		}
+
+	}
+
+	public function get_product_group_datatable()
+	{
+
+		$this->db->order_by('ProGroup_ID', 'desc');
+		$query = $this->db->get('Product_Group');
+		
+		$data = $query->result_array();
+		
+		$json = array(
+			'data'=>$data
+		);
+		
+		echo json_encode($json);
+	}
+
+	public function group_post()
+	{
+		$post = $_POST;
+		
+		if($post['ProGroup_Name'] == "")
+		{
+			redirect('product/group_get/', 'refresh');
+			exit();
+		}
+		
+		$post['RowCreatedDate'] = date("Y/m/d h:i:s");
+		$post['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['IsDel'] = 0;
+		
+		$this->db->insert('Product_Group', $post);
+		
+		redirect('product/group_get', 'refresh');
+	}
+
+	public function group_edit_post()
+	{
+		$post = $_POST;
+		
+		if($post['ProGroup_Name'] == "")
+		{
+			redirect('product/group_get/', 'refresh');
+			exit();
+		}
+		
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		
+		$id = $post['ProGroup_ID'];
+		unset($post['ProGroup_ID']);
+		
+		$this->db->where('ProGroup_ID', $id);
+		$this->db->update('Product_Group', $post);
+		redirect('product/group_get', 'refresh');
+		
+	}
+	
+	/**
+	 * end Product Group
+	 */
+	 
+	 
+	/**
+	 * Product Type
+	 */
+	
+	public function type_get($id = false)
+	{
+		$content['title'] = "เพิ่มข้อมูลประเภทสินค้า";
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'หน้าหลัก',
+										'link'=>base_url(),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เพิ่มประเภทสินค้าใหม่',
+										'link'=>base_url('product/type_get'),
+										'class'=>''
+									)
+								);
+		
+		$content['data_header'] = 'รายชื่อประเภทสินค้าในระบบ';
+		$content['name_label'] = 'ชื่อประเภทสินค้า';
+		$content['name_placeholder'] = 'Product Type';
+		$content['status_label'] = 'สถานะ';						
+		
+		if($id)
+		{
+			//update
+			$data_set = $this->db->get_where('Product_Type', array('ProType_ID'=>$id))->row_array();
+			$content['data'] = $data_set;
+			$content['form_action'] = 'product/type_edit_post';
+			$content['form_name'] = 'form_edit';
+			$content['form_header'] = '<h1>แก้ไข  <small>"'.$data_set['ProType_Name'].'"</small></h1>';
+			$content['status_dropdown'] = status_dropdown($data_set['RowStatus']);
+			$content['button_new'] = 'เพิ่มใหม่';
+			$content['submit_text'] = 'แก้ไข';
+			
+		}else{
+			//add new
+			$content['form_action'] = 'product/type_post';
+			$content['form_name'] = 'form_add';
+			$content['form_header'] = '<h1>เพิ่มประเภทสินค้าใหม่</h1>';
+			$content['status_dropdown'] = status_dropdown();
+			$content['submit_text'] = 'บันทึก';
+			
+		}
+		
+		$data['content'] = $this->load->view('product/type_get',$content ,TRUE);
+		
+		$css = array(
+			'datatable/media/css/dataTables.bootstrap.css',
+			'datatable/extensions/TableTools/css/dataTables.tableTools.min.css',
+		);
+		
+		$js = array(
+			'datatable/media/js/jquery.dataTables.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'datatable/media/js/dataTables.bootstrap.js',
+			'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'js/app/product/type_get.js'
+		);
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);
+	}
+	
+	public function check_type_name($type = 'add')
+	{
+		
+		if($type == 'edit')
+		{
+			//for check edit data
+			$name = $this->input->post('name');
+			$id = $this->input->post('id');
+			
+			$this->db->where('ProType_Name', $name);
+			$this->db->where('ProType_ID !=', $id);
+			$query = $this->db->get('Product_Type');
+			
+		}else{
+			//for check add new
+			$name = $this->input->post('name');
+			$this->db->where('ProType_Name', $name);
+			$query = $this->db->get('Product_Type');
+				
+		}
+
+		if($query->num_rows() > 0)
+		{
+			echo 'false';
+		}else{
+			echo 'true';
+		}
+
+	}
+
+	public function get_product_type_datatable()
+	{
+
+		$this->db->order_by('ProType_ID', 'desc');
+		$query = $this->db->get('Product_Type');
+		
+		$data = $query->result_array();
+		
+		$json = array(
+			'data'=>$data
+		);
+		
+		echo json_encode($json);
+	}
+
+	public function type_post()
+	{
+		$post = $_POST;
+		
+		if($post['ProType_Name'] == "")
+		{
+			redirect('product/type_get/', 'refresh');
+			exit();
+		}
+		
+		$post['RowCreatedDate'] = date("Y/m/d h:i:s");
+		$post['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['IsDel'] = 0;
+		
+		$this->db->insert('Product_Type', $post);
+		
+		//get last id of product type to insert
+		$type_id = $this->db->insert_id();
+		
+		//select all id from frequency table
+		$frequency = $this->db->get('Product_Frequency')->result_array();
+		
+		//insert to Return Standard
+		foreach($frequency as $val)
+		{
+			$data = array(
+				'ProType_ID'=> $type_id,
+				'ProFreq_ID'=> $val['ProFreq_ID'],
+				'Return_Period'=> 60
+			);
+			
+			$this->db->insert('Return_Standard', $data);
+
+		}
+
+		redirect('product/type_get', 'refresh');
+	}
+
+	public function type_edit_post()
+	{
+		$post = $_POST;
+		
+		if($post['ProType_Name'] == "")
+		{
+			redirect('product/type_get/', 'refresh');
+			exit();
+		}
+		
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		
+		$id = $post['ProType_ID'];
+		unset($post['ProType_ID']);
+		
+		$this->db->where('ProType_ID', $id);
+		$this->db->update('Product_Type', $post);
+		redirect('product/type_get', 'refresh');
+		
+	}
+	
+	/**
+	 * End Product Type
+	 */
+	
+	
+	/**
+	 * Product Frequency
+	 */
+	
+	public function frequency_get($id = false)
+	{
+		$content['title'] = "เพิ่มข้อมูลประเภทการออกสินค้า";
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'หน้าหลัก',
+										'link'=>base_url(),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'เพิ่มประเภทการออกสินค้าใหม่',
+										'link'=>base_url('product/frequency_get'),
+										'class'=>''
+									)
+								);
+		
+		$content['data_header'] = 'รายชื่อประเภทการออกสินค้าในระบบ';
+		$content['name_label'] = 'ชื่อประเภทการออกสินค้า';
+		$content['name_placeholder'] = 'Product Frequency';
+		$content['status_label'] = 'สถานะ';						
+		
+		if($id)
+		{
+			//update
+			$data_set = $this->db->get_where('Product_Frequency', array('ProFreq_ID'=>$id))->row_array();
+			$content['data'] = $data_set;
+			$content['form_action'] = 'product/frequency_edit_post';
+			$content['form_name'] = 'form_edit';
+			$content['form_header'] = '<h1>แก้ไข  <small>"'.$data_set['ProFreq_Name'].'"</small></h1>';
+			$content['status_dropdown'] = status_dropdown($data_set['RowStatus']);
+			$content['button_new'] = 'เพิ่มใหม่';
+			$content['submit_text'] = 'แก้ไข';
+			
+		}else{
+			//add new
+			$content['form_action'] = 'product/frequency_post';
+			$content['form_name'] = 'form_add';
+			$content['form_header'] = '<h1>เพิ่มประเภทการออกสินค้าใหม่</h1>';
+			$content['status_dropdown'] = status_dropdown();
+			$content['submit_text'] = 'บันทึก';
+			
+		}
+		
+		$data['content'] = $this->load->view('product/frequency_get',$content ,TRUE);
+		
+		$css = array(
+			'datatable/media/css/dataTables.bootstrap.css',
+			'datatable/extensions/TableTools/css/dataTables.tableTools.min.css',
+		);
+		
+		$js = array(
+			'datatable/media/js/jquery.dataTables.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'datatable/media/js/dataTables.bootstrap.js',
+			'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'js/app/product/frequency_get.js'
+		);
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);
+	}
+	
+	public function check_frequency_name($type = 'add')
+	{
+		
+		if($type == 'edit')
+		{
+			//for check edit data
+			$name = $this->input->post('name');
+			$id = $this->input->post('id');
+			
+			$this->db->where('ProFreq_Name', $name);
+			$this->db->where('ProFreq_ID !=', $id);
+			$query = $this->db->get('Product_Frequency');
+			
+		}else{
+			//for check add new
+			$name = $this->input->post('name');
+			$this->db->where('ProFreq_Name', $name);
+			$query = $this->db->get('Product_Frequency');
+				
+		}
+
+		if($query->num_rows() > 0)
+		{
+			echo 'false';
+		}else{
+			echo 'true';
+		}
+
+	}
+
+	public function get_product_frequency_datatable()
+	{
+
+		$this->db->order_by('ProFreq_ID', 'desc');
+		$query = $this->db->get('Product_Frequency');
+		
+		$data = $query->result_array();
+		
+		$json = array(
+			'data'=>$data
+		);
+		
+		echo json_encode($json);
+	}
+
+	public function frequency_post()
+	{
+		$post = $_POST;
+		
+		if($post['ProFreq_Name'] == "")
+		{
+			redirect('product/frequency_get/', 'refresh');
+			exit();
+		}
+		
+		$post['RowCreatedDate'] = date("Y/m/d h:i:s");
+		$post['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		$post['IsDel'] = 0;
+		
+		$this->db->insert('Product_Frequency', $post);
+		
+		
+		//get last id of product frequency to insert
+		$frequency_id = $this->db->insert_id();
+		
+		//select all id from product type table
+		$product_type = $this->db->get('Product_Type')->result_array();
+		
+		//insert to Return Standard
+		foreach($product_type as $val)
+		{
+			$data = array(
+				'ProType_ID'=> $val['ProType_ID'],
+				'ProFreq_ID'=> $frequency_id,
+				'Return_Period'=> 60
+			);
+			
+			$this->db->insert('Return_Standard', $data);
+
+		}
+		
+		redirect('product/frequency_get', 'refresh');
+		
+	}
+
+	public function frequency_edit_post()
+	{
+		$post = $_POST;
+		
+		if($post['ProFreq_Name'] == "")
+		{
+			redirect('product/frequency_get/', 'refresh');
+			exit();
+		}
+		
+		$post['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		$post['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		
+		$id = $post['ProFreq_ID'];
+		unset($post['ProFreq_ID']);
+		
+		$this->db->where('ProFreq_ID', $id);
+		$this->db->update('Product_Frequency', $post);
+		redirect('product/frequency_get', 'refresh');
+		
+	}
+	
+	/**
+	 * End Product Type
+	 */
+	
+	
 
 	//for datatable
 	public function get_data()
 	{
 		$query = $this->db->get('Products');
 		$products = $query->result_array();
-		
-		
 		$json = array(
 			'data'=>$products
 		);
@@ -396,6 +1083,7 @@ class Product extends CI_Controller {
 		$data['css'] = $this->assets->get_css($css);
 		$data['js'] = $this->assets->get_js($js);
 		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
 		$this->load->view('template/main',$data);
 	}
 
@@ -648,12 +1336,6 @@ class Product extends CI_Controller {
 			$post['Age_ExpireInventory'] = NULL;
 		}
 		
-		/*
-		echo '<pre>';
-		print_r($post);
-		echo '</pre>';
-		exit();
-		*/
 		//assign null
 		foreach($post as $key=>$val)
 		{

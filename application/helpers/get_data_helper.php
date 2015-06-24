@@ -155,6 +155,48 @@
 			}
 	}//end if
 	
+	if ( ! function_exists('get_customer_line'))
+	{
+			
+			function get_customer_line($line_id)
+			{
+				
+				$ci =& get_instance();
+				$ci->db->where('CusLine_ID',$line_id);
+				$query = $ci->db->get('Customer_Line');
+				
+				if($query->num_rows() == 0)
+				{
+					return "N/A";
+				}
+				
+				$row = $query->row_array();
+				
+				return $row['CusLine_Name'];
+			}
+	}//end if
+	
+	if ( ! function_exists('get_area'))
+	{
+			
+			function get_area($area_id)
+			{
+				
+				$ci =& get_instance();
+				$ci->db->where('CustArea_ID',$area_id);
+				$query = $ci->db->get('Customer_Area');
+				
+				if($query->num_rows() == 0)
+				{
+					return "N/A";
+				}
+				
+				$row = $query->row_array();
+				
+				return $row['CustArea_Name'];
+			}
+	}//end if
+	
 	if ( ! function_exists('get_customer'))
 	{
 			
@@ -294,6 +336,111 @@
 				}else{
 					return "N/A";
 				}
+				
+			}
+	}//end if
+	
+	if ( ! function_exists('get_transaction_for'))
+	{
+			
+			function get_transaction_for($code)
+			{
+				$ci =& get_instance();
+				$ci->db->where('TK_Code', $code);
+				$query = $ci->db->get('Ticket_Type');
+				
+				if($query->num_rows()>0)
+				{
+					$row = $query->row_array();
+					return $row['TK_Description'];
+				}else{
+					return "N/A";
+				}
+				
+			}
+	}//end if
+	
+	if ( ! function_exists('get_transport_name'))
+	{
+			
+			function get_transport_name($id)
+			{
+				$ci =& get_instance();
+				$ci->db->where('Trans_ID', $id);
+				$query = $ci->db->get('Transport');
+				
+				if($query->num_rows()>0)
+				{
+					$row = $query->row_array();
+					return $row['Trans_Name'];
+				}else{
+					return "N/A";
+				}
+				
+			}
+	}//end if
+	
+	if ( ! function_exists('get_product_return_period'))
+	{
+			
+			function get_product_return_period($product_id, $customer_id)
+			{
+				$ci =& get_instance();
+				
+				$type_id = '';
+				$freq_id = '';
+				
+				//get product
+				$ci->db->where('Product_ID', $product_id);
+				$query = $ci->db->get('Products');
+				
+				if($query->num_rows()>0)
+				{
+					$row = $query->row_array();
+					
+					$type_id = $row['ProType_ID'];
+					$freq_id = $row['ProFreq_ID'];
+					
+				}else{
+					return "N/A";
+				}
+				
+				//get return period from return customize
+				$ci->db->where(array(
+					'Cust_ID'=>$customer_id,
+					'ProType_ID'=>$type_id,
+					'ProFreq_ID'=>$freq_id
+				));
+				 
+				$query = $ci->db->get('Return_Customize');
+				
+				if($query->num_rows()>0)
+				{
+					$row = $query->row_array();
+					
+					return $row['Return_Period'];
+					
+				}
+				
+				
+				//if not have customize get from standard
+				$ci->db->where(array(
+					'ProType_ID'=>$type_id,
+					'ProFreq_ID'=>$freq_id
+				));
+				 
+				$query = $ci->db->get('Return_Standard');
+				
+				if($query->num_rows()>0)
+				{
+					$row = $query->row_array();
+					
+					return $row['Return_Period'];
+					
+				}else{
+					return 'N/A';
+				}
+				
 				
 			}
 	}//end if

@@ -239,6 +239,7 @@
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID');
 			$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson');
+			$this->db->join('Transport', 'Transport.Trans_ID = Inventory_Transaction.Transport_By', 'left');
 			$this->db->where(array('TK_Code'=>'RS','TK_ID'=>$rsid));
 			
 			return $this->db->get()->row_array();

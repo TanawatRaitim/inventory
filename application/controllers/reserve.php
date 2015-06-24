@@ -330,6 +330,7 @@ class Reserve extends CI_Controller {
 								);
 		$content['doc_refer'] = doc_refer_dropdown();	
 		$content['ticket_type'] = ticket_sale_dropdown();	
+		$content['transport_by'] = transport_dropdown();	
 		$content['inventory_type'] = all_inventory_dropdown();
 		$data['content'] = $this->load->view('reserve/add',$content, TRUE);
 		
@@ -364,6 +365,9 @@ class Reserve extends CI_Controller {
 		$content['transaction'] = $this->transaction_model->get_transaction($id);
 		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
 		$content['input_type'] = 'RS';
+		$content['good_qty'] = $this->count_qty('QTY_Good', $id);
+		$content['waste_qty'] = $this->count_qty('QTY_Waste', $id);
+		$content['damage_qty'] = $this->count_qty('QTY_Damage', $id);
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -395,6 +399,7 @@ class Reserve extends CI_Controller {
 								
 		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
 		$content['ticket_type'] = ticket_sale_dropdown($content['transaction']['Transaction_For']);	
+		$content['transport_by'] = transport_dropdown($content['transaction']['Transport_By']);			
 		$content['inventory_type'] = all_inventory_dropdown();
 		$data['content'] = $this->load->view('reserve/edit2',$content, TRUE);
 		
@@ -461,6 +466,7 @@ class Reserve extends CI_Controller {
 		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
 		$content['ticket_type'] = ticket_sale_dropdown($content['transaction']['Transaction_For']);	
 		$content['inventory_type'] = all_inventory_dropdown();
+		$content['transport_by'] = transport_dropdown($content['transaction']['Transport_By']);
 		$data['content'] = $this->load->view('reserve/edit_reject',$content, TRUE);
 		
 		$css = array(
@@ -1397,7 +1403,11 @@ class Reserve extends CI_Controller {
 								
 		$this->load->model('customer_model');
 		$content['title'] = 'รายละเอียดใบจองที่ RS'.$rsid;
+		
 		$content['transaction'] = $this->reserve_model->get_inventory_transaction($rsid);
+		
+		//print_r($content['transaction']);
+		
 		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->reserve_model->get_approve_person($content['transaction']['ApprovedBy']);
@@ -2009,6 +2019,15 @@ class Reserve extends CI_Controller {
 		}	
 		
 		return true;
+	}
+	
+	public function count_qty($type, $autoid)
+	{
+		$this->db->select_sum($type);
+		$this->db->where('Transact_AutoID', $autoid);
+		$query = $this->db->get('Inventory_Transaction_Detail')->row_array();
+		return number_format($query[$type]);
+		
 	}
 	
 }

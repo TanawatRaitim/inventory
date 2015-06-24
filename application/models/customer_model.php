@@ -67,4 +67,27 @@ class Customer_model extends CI_Model{
 		return $this->db->get_where('Customers', array('Cust_ID'=>$id));
 	}
 	
+	public function has_customize_return($customer_id, $type_id, $freq_id)
+	{
+		
+		$where = array(
+			'Cust_ID'=>$customer_id,
+			'ProType_ID'=>$type_id,
+			'ProFreq_ID'=>$freq_id
+		);
+		
+		$query = $this->db->get_where('Return_Customize', $where);
+		
+		echo $this->db->last_query();
+		
+		if($query->num_rows() > 0)
+		{
+			//already exist
+			return TRUE;	
+		}else{
+			//no have customize return
+			return FALSE;
+		}
+		
+	}
 }	

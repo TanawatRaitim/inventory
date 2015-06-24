@@ -112,11 +112,14 @@
 
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 control-label"></label>
-								<div class="col-sm-12 text-danger" id="customer_detail">
-									<?php echo get_customer_address($transaction['Cust_ID']);?>
+								<label for="Transport_By" class="col-sm-5 control-label">บริษัทขนส่ง <span class="text-danger">*</span></label>
+								<div class="col-sm-7">
+									<select class="form-control input-sm" name="Transport_By" id="Transport_By">
+										<?php echo $transport_by;?>
+									</select>
 								</div>
 							</div>
+							
 						</div>
 
 						<div class="col-md-6">
@@ -128,18 +131,10 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-12" id="main_ticket_msg">
-							
+						<div class="col-md-12 text-danger" id="customer_detail">
+							<?php echo get_customer_address($transaction['Cust_ID']);?>
 						</div>
-						<!-- 
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 col-md-2 control-label">หมายเหตุ</label>
-								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="" placeholder="หมายเหตุ">
-								</div>
-							</div>
-						</div> -->						
+						<div class="col-md-12" id="main_ticket_msg"></div>						
 					</form>
 				</div>
 			</div>
@@ -313,6 +308,7 @@
 								</tr>
 							</thead>
 							<tbody>
+								<?php $total_rows = 0;?>
 								<?php foreach($transaction_detail as $row):?>			
 								<tr title="<?php echo get_product_name($row['Product_ID']); ?>">
 									<td><?php echo $row['Product_ID']; ?></td>
@@ -325,12 +321,22 @@
 										<span id="btn_delete_record" class="glyphicon glyphicon-remove cursor-pointer" style="color: red;" data-stock="<?php echo $row['Effect_Stock_AutoID']; ?>" data-autoid="<?php echo $row['Transact_AutoID'];?>" data-productid="<?php echo $row['Product_ID'];?>"></span>
 									</td>
 								</tr>
+									<?php $total_rows += 1;?>
 								<?php endforeach;?>
 							
 							</tbody>
 							<tfoot>
 								<tr>
-									<td colspan="7" id="total_record" class="text-left"></td>
+									<td></td>
+									<td class="text-center">Total </td>
+									<td id="poopae_good" class="text-center"><?php echo $good_qty;?></td>
+									<td id="poopae_waste" class="text-center"><?php echo $waste_qty;?></td>
+									<td id="poopae_damage" class="text-center"><?php echo $damage_qty;?></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="7" id="total_record" class="text-left">บันทึกไปแล้วจำนวน <?php echo $total_rows;?> รายการ</td>
 								</tr>
 								<!-- <tr>
 									<td colspan="2" class="text-center">รวม</td>

@@ -119,7 +119,23 @@ $(function() {
 		}
 	});
 	
+	//xeditable
 	
+	$("#return_standard a").editable({
+		type: 'select',
+		name: 'Period_Val',
+		url: BASE_URL+'customer/customize_return_post',
+		title: 'ระบุระยะเวลา',
+		source: BASE_URL+'customer/source_return_period',
+		params: function(params){
+			params.customer_id = $("#Cust_ID").val();
+			return params;
+		},
+		success: function()
+		{
+			$(this).parents('tr').addClass('success');
+		}
+	});
 		
 
 }); 

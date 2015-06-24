@@ -35,25 +35,25 @@ class Assets {
 		if($theme == '' || $theme == 'default' || $theme == 'bs3'){
 			$default = array(
 						'bootstrap/dist/css/bootstrap.min.css',
-						'css/style.css'	
+						//'css/style.css'	
 					);	
 		}elseif($theme == 'bs3_2'){
 			$default = array(
 						'bootstrap/dist/css/bootstrap.min.css',
 						'bootstrap/dist/css/bootstrap-theme.min.css',
-						'css/style.css'	
+						//'css/style.css'	
 					);
 		}elseif($theme == 'bootflat'){
 			$default = array(
 						'bootstrap/dist/css/bootstrap.min.css',
 						'bootflatv2/bootflat/css/bootflat.css',
-						'css/style.css'		
+						//'css/style.css'		
 					);
 		}else{
 			$default = array(
 						'bootstrap/dist/css/bootstrap.min.css',
 						'bootstrap/dist/css/'.$theme.'.min.css',
-						'css/style.css'
+						//'css/style.css'
 					);
 		}
 		
@@ -82,6 +82,8 @@ class Assets {
 			
 			
 		}
+		
+		$css .= "<link href='".$this->asset_path."css/style.css' rel='stylesheet'>\n";
 
 		//return script	
 		return $css;

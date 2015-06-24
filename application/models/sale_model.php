@@ -94,9 +94,9 @@
 			
 			$trans_detail = $this->db->get_where('Inventory_Transaction_Detail', array('Transact_AutoID'=>$data['Transact_AutoID']))->result_array();
 			$new_id = $this->db->insert_id();
+			
+			$customer_id = $transaction['Cust_ID'];
 			$insert_detail = array();
-			
-			
 			
 			foreach ($trans_detail as $key=>$value) {
 				$trans_detail[$key]['Transact_AutoID'] = $new_id;
@@ -105,6 +105,12 @@
 				{
 					unset($trans_detail[$key]['RecNo']);	
 				}
+
+				$return_period = get_product_return_period($trans_detail[$key]['Product_ID'], $customer_id);
+				$period_end_date = extend_date($transaction['Invoice_Date'], $return_period);
+				
+				$trans_detail[$key]['Period_EndDate'] = $period_end_date;
+				$trans_detail[$key]['QTY_RemainReturn'] = $trans_detail[$key]['QTY_Good'];
 				
 				$this->db->insert('Inventory_Transaction_Detail', $trans_detail[$key]);
 				
@@ -131,9 +137,10 @@
 				$this->db->update('Inventory_Detail', $update);
 				
 			}
-			
+
 			return TRUE;
 		}
+
 		
 		public function count_transaction_detail()
 		{
@@ -153,6 +160,7 @@
 			$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID', 'left');
 			$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson', 'left');
 			// $this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.Transaction_For', 'left');
+			$this->db->join('Transport', 'Transport.Trans_ID = Inventory_Transaction.Transport_By', 'left');
 			$this->db->where(array('Inventory_Transaction.TK_Code'=>'RS','TK_ID'=>$rsid));
 			
 			return $this->db->get()->row_array();
@@ -173,12 +181,12 @@
 		public function get_transaction_used($type, $id)
 		{
 			//$this->db->get('Inventory_Transaction');
-			
 			//$this->db->select('*, Inventory_Transaction.TK_Code as tk_code,Inventory_Transaction.RowCreatedDate as created_date');
 			$this->db->select('*, convert(varchar,Inventory_Transaction.RowCreatedDate,105) as created_date, convert(varchar,Inventory_Transaction.ApprovedDate,22) as approved_date');
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('DocRefer', 'DocRefer.DocRef_AutoID = Inventory_Transaction.DocRef_AutoID','left');
 			$this->db->join('Employees', 'Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
+			$this->db->join('Transport', 'Transport.Trans_ID = Inventory_Transaction.Transport_By', 'left');
 			// $this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.Transaction_For','left');
 			$this->db->where(array('Inventory_Transaction.TK_Code'=>$type,'Inventory_Transaction.TK_ID'=>$id));
 			$query = $this->db->get();

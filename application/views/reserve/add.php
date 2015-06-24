@@ -91,8 +91,9 @@
 									<input type="text" class="form-control input-sm" id="Cust_ID" name="Cust_ID" placeholder="เลขที่รหัสลูกค้า" value="big">
 								</div>
 							</div>
+							
 						</div>
-
+						
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="Transport_Date" class="col-sm-5 control-label">วันที่ส่งของ</label>
@@ -101,37 +102,30 @@
 								</div>
 							</div>
 						</div>
-
+						
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 control-label"></label>
-								<div class="col-sm-12 text-danger" id="customer_detail">
-									
+								<label for="Transport_By" class="col-sm-5 control-label">บริษัทขนส่ง <span class="text-danger">*</span></label>
+								<div class="col-sm-7">
+									<select class="form-control input-sm" name="Transport_By" id="Transport_By">
+										<?php echo $transport_by;?>
+									</select>
 								</div>
 							</div>
+							
 						</div>
-
+						
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="Transact_Remark" class="col-sm-5 control-label">หมายเหตุ</label>
 								<div class="col-sm-7">
-									<!-- <input type="text" class="form-control input-sm" id="" placeholder="หมายเหตุ"> -->
 									<textarea class="form-control input-sm" name="Transact_Remark" id="Transact_Remark"></textarea>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-12" id="main_ticket_msg">
-							
-						</div>
-						<!-- 
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 col-md-2 control-label">หมายเหตุ</label>
-								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="" placeholder="หมายเหตุ">
-								</div>
-							</div>
-						</div> -->						
+						<div class="col-md-12 text-danger" id="customer_detail"></div>
+						<div class="col-md-12" id="main_ticket_msg"></div>
+											
 					</form>
 				</div>
 			</div>

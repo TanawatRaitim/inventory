@@ -223,7 +223,7 @@ $(function() {
 								{
 									var row_data = '<tr title="'+data.Product_Name+'"><td>'+product_name+'</td><td class="text-center">';	
 								}else{
-									var row_data = '<tr title="'+data.Product_Name+'"><td>'+product_name+'</td><td class="text-center">';
+									var row_data = '<tr title="'+data.Product_Name+'" class="danger"><td>'+product_name+'</td><td class="text-center">';
 								}
 								
 								
@@ -514,6 +514,9 @@ $(function() {
 				required:true
 			},
 			DocRef_AutoID:{
+				min:1
+			},
+			Transport_By:{
 				min:1
 			},
 			DocRef_No:{

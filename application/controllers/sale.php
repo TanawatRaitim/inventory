@@ -20,6 +20,10 @@ class Sale extends CI_Controller {
 		
 	}
 
+	public function sale_test()
+	{
+		
+	}
 	
 	public function all()
 	{
@@ -68,6 +72,11 @@ class Sale extends CI_Controller {
 									8 => array(
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>'sale_used',
+										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
 										'class'=>''
 									)
 								);
@@ -144,6 +153,11 @@ class Sale extends CI_Controller {
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>'sale_used',
 										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
+										'class'=>''
 									)
 								);
 		
@@ -216,6 +230,11 @@ class Sale extends CI_Controller {
 									8 => array(
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>'sale_used',
+										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
 										'class'=>''
 									)
 								);
@@ -290,6 +309,11 @@ class Sale extends CI_Controller {
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>'sale_used',
 										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
+										'class'=>''
 									)
 								);
 		
@@ -362,6 +386,11 @@ class Sale extends CI_Controller {
 									8 => array(
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>'sale_used',
+										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
 										'class'=>''
 									)
 								);
@@ -436,6 +465,11 @@ class Sale extends CI_Controller {
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>'sale_used',
 										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
+										'class'=>''
 									)
 								);
 		
@@ -508,6 +542,11 @@ class Sale extends CI_Controller {
 									8 => array(
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>'sale_used',
+										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
 										'class'=>''
 									)
 								);
@@ -582,6 +621,11 @@ class Sale extends CI_Controller {
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>'sale_used',
 										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
+										'class'=>''
 									)
 								);
 		
@@ -655,6 +699,11 @@ class Sale extends CI_Controller {
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>'sale_used',
 										'class'=>'active'
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
+										'class'=>''
 									)
 								);
 		
@@ -793,6 +842,11 @@ class Sale extends CI_Controller {
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>site_url('sale/sale_used'),
 										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
+										'class'=>''
 									)
 								);
 		
@@ -875,6 +929,11 @@ class Sale extends CI_Controller {
 									8 => array(
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>site_url('sale/sale_used'),
+										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
 										'class'=>''
 									)
 								);
@@ -979,6 +1038,11 @@ class Sale extends CI_Controller {
 									8 => array(
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>site_url('sale/sale_used'),
+										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
 										'class'=>''
 									)
 								);
@@ -1085,6 +1149,11 @@ class Sale extends CI_Controller {
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>site_url('sale/sale_used'),
 										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
+										'class'=>''
 									)
 								);
 		$content['transaction'] = $this->sale_model->get_transaction_used($type, $id);
@@ -1190,6 +1259,11 @@ class Sale extends CI_Controller {
 										'name'=>'ใบสั่งขายทั้งหมด',
 										'link'=>site_url('sale/sale_used'),
 										'class'=>''
+									),
+									9 => array(
+										'name'=>'Packing List',
+										'link'=> site_url('report/packing_list'),
+										'class'=>''
 									)
 								);
 		$content['transaction'] = $this->sale_model->get_inventory_transaction($rsid);
@@ -1278,5 +1352,7 @@ class Sale extends CI_Controller {
 		}
 		
 	}
+
+	
 	
 }

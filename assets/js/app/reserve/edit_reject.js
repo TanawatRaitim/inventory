@@ -491,6 +491,9 @@ $(function() {
 			DocRef_AutoID:{
 				min:1
 			},
+			Transport_By:{
+				min:1
+			},
 			DocRef_No:{
 				required:true
 			},

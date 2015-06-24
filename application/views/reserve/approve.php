@@ -105,6 +105,10 @@
 											<td><?php echo $transaction['Transport_Date'];?></td>
 										</tr>
 										<tr>
+											<th class="info text-right">ขนส่งโดย</th>
+											<td><?php echo $transaction['Trans_Name'];?></td>
+										</tr>
+										<tr>
 											<th class="info text-right">หมายหตุ</th>
 											<td><?php echo $transaction['Transact_Remark'];?></td>
 										</tr>

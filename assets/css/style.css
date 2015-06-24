@@ -135,6 +135,18 @@ h2{
 	margin-top: 0px;
 }
 
+.col-redius-shadow{
+	padding: 30px;
+	border: #ccc 1px solid;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 2px 4px 5px 0px rgba(204,12,NaN,1);
+	-moz-box-shadow: 2px 4px 5px 0px rgba(204,12,NaN,1);
+	box-shadow: 2px 4px 5px 0px rgba(204,12,NaN,1);
+	
+}
+
 
 
 

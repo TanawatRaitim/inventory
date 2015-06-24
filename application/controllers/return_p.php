@@ -176,6 +176,99 @@ class Return_p extends CI_Controller {
 		$this->load->view('template/main',$data);
 	}
 
+	public function return_standard_get()
+	{
+		$content['title'] = "Return Standard";
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'หน้าหลัก',
+										'link'=>base_url(),
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'Return Standard',
+										'link'=>base_url('return_p/return_standard_get'),
+										'class'=>'active'
+									)
+								);
+								
+		$content['data'] = $this->return_p_model->get_standard_return();
+		$content['product_type'] = $this->db->get('Product_Type');
+		$content['product_frequency'] = $this->db->get('Product_Frequency');
+		$content['return_period'] = $this->db->get('Return_Period');						
+		
+		$data['content'] = $this->load->view('return/return_standard_get',$content ,TRUE);
+		
+		
+		
+		$css = array(
+			// 'datatable/media/css/dataTables.bootstrap.css',
+			// 'datatable/extensions/TableTools/css/dataTables.tableTools.min.css',
+			'bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css',
+		);
+		
+		$js = array(
+			// 'datatable/media/js/jquery.dataTables.min.js',
+			// 'js/jquery_validation/dist/jquery.validate.min.js',
+			// 'js/jquery_validation/dist/additional-methods.min.js',
+			// 'datatable/media/js/dataTables.bootstrap.js',
+			// 'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js',
+			'js/app/return/return_standard_get.js',
+			
+		);
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);
+		
+	}
+
+	public function standard_post()
+	{
+		//$_POST['name']
+		//$_POST['value']
+		//$_POST['pk']
+		
+		$exp = explode('-', $this->input->post('pk'));
+		$type_id = $exp[0];
+		$freq_id = $exp[1];
+		
+		$data = array(
+			'Return_Period'=>$this->input->post('value')
+		);
+		
+		$where = array(
+			'ProType_ID' => $type_id,
+			'ProFreq_ID' => $freq_id
+		);
+		
+		$result = $this->db->update('Return_Standard', $data, $where);
+		
+		if(!$result)
+		{
+			echo 'error';
+		}
+		
+		
+	}
+
+	public function source_return_period()
+	{
+		$query = $this->db->get('Return_Period')->result_array();
+		
+		$period = array();
+		
+		foreach($query as $val)
+		{
+			$period[$val['Period_Val']] = $val['Period_Name'];
+		}
+		
+		echo json_encode($period);
+	}
+
 	public function reject()
 	{
 		$content['title'] = 'ข้อมูลการรับคืน [ถูกปฏิเสธ]';

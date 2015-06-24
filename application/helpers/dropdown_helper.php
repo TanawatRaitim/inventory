@@ -591,6 +591,7 @@ if ( ! function_exists('ticket_in_dropdown'))
 		}
 }//end if
 
+
 if ( ! function_exists('product_status_dropdown'))
 {
 		
@@ -637,8 +638,6 @@ if ( ! function_exists('customer_line_dropdown'))
 		function customer_line_dropdown($selected = "")
 		{
 			$ci =& get_instance();
-			//$ci->db->where('IsDel','0');
-			//$ci->db->where('RowStatus','active');
 			$ci->db->order_by('CusLine_Name');
 			$query = $ci->db->get('Customer_Line');
 			$dropdown = "";
@@ -821,6 +820,165 @@ if ( ! function_exists('monitor_status_dropdown'))
 			{
 				foreach($query->result_array() as $row){
 					$dropdown .= '<option value="'.$row['MonStat_ID'].'">'.$row['MonStat_Name'].'</option>';
+				}	
+			}
+			
+			return $dropdown;
+
+		}
+}//end if
+
+if ( ! function_exists('status_dropdown'))
+{
+		
+		function status_dropdown($selected = "")
+		{
+			//default selected
+			if($selected == "")
+			{
+				$selected = 'active';
+			}
+			
+			
+			$status = array(
+				'active'=>'ใช้งาน',
+				'inactive'=>'ไม่ใช้งาน'
+			);
+			
+			$dropdown = "";
+			//$dropdown .= "<option value='0'>-เลือกสถานะ -</option>";
+			
+			
+			if($selected != "")
+			{
+				foreach($status as $key=>$row){
+					
+					if($selected == $key)
+					{
+						$dropdown .= '<option value="'.$key.'" selected="selected">'.$row.'</option>';
+						continue;
+					}
+					
+					$dropdown .= '<option value="'.$key.'">'.$row.'</option>';
+				}
+			}
+			else
+			{
+				foreach($status as $key=>$row){
+					$dropdown .= '<option value="'.$key.'">'.$row.'</option>';
+				}	
+			}
+			
+			return $dropdown;
+
+		}
+}//end if
+
+if ( ! function_exists('province_dropdown'))
+{
+		
+		function province_dropdown($selected = "")
+		{
+			$ci =& get_instance();
+			
+			$ci->db->from('Provinces');
+			$ci->db->join('Customer_Area', 'Customer_Area.CustArea_ID = Provinces.Area_ID');
+			$query = $ci->db->get();
+			
+			
+			$dropdown = "";
+			$dropdown .= "<option value='0'>- รายชื่อจังหวัด -</option>";
+			
+			if($selected != "")
+			{
+				foreach($query->result_array() as $row){
+					
+					if($selected == $row['Province_ID'])
+					{
+						$dropdown .= '<option value="'.$row['Province_ID'].'" selected="selected">'.$row['Province_Name'].'</option>';
+						continue;
+					}
+					
+					$dropdown .= '<option value="'.$row['Province_ID'].'">'.$row['Province_Name'].'</option>';
+				}
+			}
+			else
+			{
+				foreach($query->result_array() as $row){
+					$dropdown .= '<option value="'.$row['Province_ID'].'">'.$row['Province_Name'].'</option>';
+				}	
+			}
+			
+			return $dropdown;
+
+		}
+}//end if
+
+if ( ! function_exists('area_dropdown'))
+{
+		
+		function area_dropdown($selected = "")
+		{
+			$ci =& get_instance();
+			$query = $ci->db->get('Customer_Area');
+			
+			$dropdown = "";
+			$dropdown .= "<option value='0'>- เลือกภาค -</option>";
+			
+			if($selected != "")
+			{
+				foreach($query->result_array() as $row){
+					
+					if($selected == $row['CustArea_ID'])
+					{
+						$dropdown .= '<option value="'.$row['CustArea_ID'].'" selected="selected">'.$row['CustArea_Name'].'</option>';
+						continue;
+					}
+					
+					$dropdown .= '<option value="'.$row['CustArea_ID'].'">'.$row['CustArea_Name'].'</option>';
+				}
+			}
+			else
+			{
+				foreach($query->result_array() as $row){
+					$dropdown .= '<option value="'.$row['CustArea_ID'].'">'.$row['CustArea_Name'].'</option>';
+				}	
+			}
+			
+			return $dropdown;
+
+		}
+}//end if
+
+
+if ( ! function_exists('transport_dropdown'))
+{
+		
+		function transport_dropdown($selected = "")
+		{
+			$ci =& get_instance();
+			
+			$query = $ci->db->get('Transport');
+			$dropdown = "";
+			$dropdown .= "<option value='0'>- รายชื่อบริษัทขนส่ง -</option>";
+			
+			if($selected != "")
+			{
+				foreach($query->result_array() as $row){
+					
+					if($selected == $row['Trans_ID'])
+					{
+						$dropdown .= '<option value="'.$row['Trans_ID'].'" selected="selected">'.$row['Trans_Name'].'</option>';
+						continue;
+					}
+					
+					$dropdown .= '<option value="'.$row['Trans_ID'].'">'.$row['Trans_Name'].'</option>';
+				}
+			}
+			else
+			{
+				foreach($query->result_array() as $row){
+					$dropdown .= '<option value="'.$row['Trans_ID'].'">'.$row['Trans_Name'].'</option>';
 				}	
 			}
 			

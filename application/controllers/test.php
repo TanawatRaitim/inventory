@@ -10,6 +10,16 @@ class Test extends CI_Controller {
 		$this->load->library('assets');
 	}
 	
+	public function test_dd()
+	{
+		echo '<select>';
+		echo province_dropdown(5);
+		echo '</select>';
+		echo '<select>';
+		echo transport_dropdown(5);
+		echo '</select>';
+	}
+	
 	public function date_time()
 	{
 		echo 'big';

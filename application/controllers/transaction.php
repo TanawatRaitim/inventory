@@ -137,7 +137,10 @@ class Transaction extends CI_Controller {
 				'Transact_AutoID'=>$main['Transact_AutoID'],
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
 				'Product_ID'=>$detail['Product_ID'],
-				'Product_Name'=>get_product_name($detail['Product_ID'])
+				'Product_Name'=>get_product_name($detail['Product_ID']),
+				'total_good'=>$this->count_qty('QTY_Good', $main['Transact_AutoID']),
+				'total_waste'=>$this->count_qty('QTY_Waste', $main['Transact_AutoID']),
+				'total_damage'=>$this->count_qty('QTY_Damage', $main['Transact_AutoID'])
 			);
 	
 			echo json_encode($data);

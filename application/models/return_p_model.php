@@ -459,5 +459,39 @@
 			}
 		}
 		
+		public function get_standard_return()
+		{
+			$this->db->select('Return_Standard.ProType_ID, Return_Standard.ProFreq_ID, 
+				Return_Standard.Return_Period, Return_Period.Period_ID, Return_Period.Period_Name, 
+				Return_Period.Period_Val, Product_Type.ProType_Name, Product_Frequency.ProFreq_Name'
+			);
+			
+			$this->db->from('Return_Standard');
+			$this->db->join('Return_Period', 'Return_Period.Period_Val = Return_Standard.Return_Period', 'left');
+			$this->db->join('Product_Type', 'Product_Type.ProType_ID = Return_Standard.ProType_ID', 'left');
+			$this->db->join('Product_Frequency', 'Product_Frequency.ProFreq_ID = Return_Standard.ProFreq_ID', 'left');
+			
+			return $this->db->get();
+		
+		}
+		
+		public function get_customize_return($customer_id, $type_id, $freq_id)
+		{
+			$where = array(
+				'Cust_ID' => $customer_id,
+				'ProType_ID' => $type_id,
+				'ProFreq_ID' => $freq_id
+			);
+			
+			$this->db->from('Return_Customize');
+			$this->db->join('Return_Period', 'Return_Period.Period_Val = Return_Customize.Return_Period');
+			$this->db->where($where);
+			$query = $this->db->get();
+			
+			return $query;
+			
+				
+		}
+		
 		
 	}	

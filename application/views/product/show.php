@@ -179,7 +179,7 @@
 								</th>
 							</tr>
 							<tr>
-								<th colspan="8">ใบกำกับสินค้า  : <a href="http://172.168.1.109/ims_reporting/plateproduct.aspx?prm=<?php echo $product['Product_ID'];?>" target="_blank" class='btn btn-xs btn-primary'>ดูรายละเอียด</a></th>
+								<th colspan="8">ใบกำกับสินค้า  : <a href="http://172.168.1.109/ims_reporting58/plateproduct.aspx?prm=<?php echo $product['Product_ID'];?>" target="_blank" class='btn btn-xs btn-primary'>ดูรายละเอียด</a></th>
 							</tr>
 							<tr>
 								<th class="danger text-right">คลังหลัก</th>

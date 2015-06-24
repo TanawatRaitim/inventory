@@ -173,33 +173,18 @@ if ( ! function_exists('convert_mssql_datetime'))
 
 
 
-/**
- * 
- * get age
- * @param mysql date
- * @return age
- * 
- */
-
-if ( ! function_exists('get_age'))
+if ( ! function_exists('extend_date'))
 {
 		
-		function get_age($dob="")
+		function extend_date($date, $day)
 		{
-			if($dob != '0000-00-00')
-			{
-			$then = strtotime($dob);  
-			return(floor((time()-$then)/31556926));
-			}else{
-				return "N/A";
-			}
+			//$mydate = '2015-06-03';
+		
+			$new_date = date('Y-m-d', strtotime($date . " +$day days"));
+			
+			return $new_date;
 		}
 }//end if
-
-
-
-
-
 
 
 /* End of file date_helper.php */

@@ -21,14 +21,27 @@
         <li class="active"><a href="<?php echo site_url('return_p/all')?>">รับคืน</a></li>
         <li class="active"><a href="<?php echo site_url('move/all')?>">โอนย้าย</a></li>
         <li class="active"><a href="<?php echo site_url('adjust/all')?>">ปรับยอด</a></li>
-        <li class="active"><a href="<?php echo site_url('search/main')?>">ค้นหาข้อมูล</a></li>
+        <!-- <li class="active"><a href="<?php echo site_url('search/main')?>">ค้นหา</a></li> -->
         <li class="active"><a href="http://172.168.1.109/IMS_Reporting58/IMS_Default.aspx?empID=<?php echo trim($this->session->userdata('Emp_ID'));?>&empGroup=<?php echo $this->session->userdata('UserGroup');?>" target="_blank">รายงาน</a></li>
-        <li class="active"><a href="<?php echo site_url('manage/main')?>">จัดการข้อมูล</a></li>
+        <li class="dropdown active">
+        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">จัดการข้อมูล  <b class="caret"></b></a>
+        	<ul class="dropdown-menu">
+	            <li><a href="<?php echo site_url('search/product')?>">ค้นหาข้อมูลสินค้า</a></li>
+	            <li><a href="<?php echo site_url('product/add')?>">เพิ่มข้อมูลสินค้า</a></li>
+	            <li><a href="<?php echo site_url('search/customer')?>">ค้นหาข้อมูลลูกค้า</a></li>
+	            <li><a href="<?php echo site_url('customer/add')?>">เพิ่มข้อมูลลูกค้า</a></li>
+	            <li><a href="<?php echo site_url('product/category_get')?>">เพิ่มข้อมูลหมวดหมู่สินค้า</a></li>
+	            <li><a href="<?php echo site_url('product/group_get')?>">เพิ่มข้อมูลกลุ่มสินค้า</a></li>
+	            <li><a href="<?php echo site_url('product/type_get')?>">เพิ่มข้อมูลประเภทสินค้า</a></li>
+	            <li><a href="<?php echo site_url('product/frequency_get')?>">เพิ่มข้อมูลประเภทการออกสินค้า</a></li>
+	            <li><a href="<?php echo site_url('return_p/return_standard_get')?>">จัดการข้อมูลการรับคืนสินค้า</a></li>
+	          </ul>
+        </li>
         <!-- <li class="active"><a href="<?php echo site_url('admin')?>">Administrator</a></li> -->
 
 		<?php if ($this->session->userdata('UserGroup') == '1'): ?>
 			<li class="dropdown active">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator <b class="caret"></b></a>
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
 	          <ul class="dropdown-menu">
 	            <li><a href="<?php echo site_url('manage/rollback')?>">Rollback</a></li>
 	          </ul>

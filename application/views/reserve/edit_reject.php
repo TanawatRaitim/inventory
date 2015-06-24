@@ -114,11 +114,14 @@
 
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 control-label"></label>
-								<div class="col-sm-12 text-danger" id="customer_detail">
-									<?php echo get_customer_address($transaction['Cust_ID']);?>
+								<label for="Transport_By" class="col-sm-5 control-label">บริษัทขนส่ง <span class="text-danger">*</span></label>
+								<div class="col-sm-7">
+									<select class="form-control input-sm" name="Transport_By" id="Transport_By">
+										<?php echo $transport_by;?>
+									</select>
 								</div>
 							</div>
+							
 						</div>
 
 						<div class="col-md-6">
@@ -130,18 +133,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-12" id="main_ticket_msg">
-							
+						
+						<div class="col-md-12 text-danger" id="customer_detail">
+							<?php echo get_customer_address($transaction['Cust_ID']);?>
 						</div>
-						<!-- 
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-5 col-md-2 control-label">หมายเหตุ</label>
-								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="" placeholder="หมายเหตุ">
-								</div>
-							</div>
-						</div> -->						
+						<div class="col-md-12" id="main_ticket_msg"></div>
+											
 					</form>
 				</div>
 			</div>

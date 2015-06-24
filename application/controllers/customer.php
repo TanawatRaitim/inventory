@@ -73,6 +73,7 @@ class Customer extends CI_Controller {
 
 	public function show($id)
 	{
+		$this->load->model('return_p_model');
 		$content['breadcrumb'] = array(
 									0 => array(
 										'name'=>'ค้นหาข้อมูล',
@@ -123,6 +124,39 @@ class Customer extends CI_Controller {
 		}
 		
 		$content['customer'] = $result;
+		
+		/**standard**/
+	
+		//standard return
+		$query = $this->return_p_model->get_standard_return();
+		$standard = $query->result_array();
+		$cust_id = $result['Cust_ID'];
+
+		foreach($standard as $key=>$val)
+		{
+			$customize_query = $this->return_p_model->get_customize_return($cust_id, $val['ProType_ID'], $val['ProFreq_ID']);
+			
+			if($customize_query->num_rows() > 0)
+			{
+				$customize = $customize_query->row_array();
+				
+				$standard[$key]['Is_Customize'] = TRUE;
+				$standard[$key]['Customize_Return_Period'] = $customize['Return_Period'];
+				$standard[$key]['Customize_Return_Period_Name'] = $customize['Period_Name'];
+			}else{
+				$standard[$key]['Is_Customize'] = FALSE;
+			}
+		}
+
+		
+		// $content['standard_return'] = $this->return_p_model->get_standard_return();
+		$content['standard_return'] = $standard;
+		$content['product_type'] = $this->db->get('Product_Type');
+		$content['product_frequency'] = $this->db->get('Product_Frequency');
+		$content['return_period'] = $this->db->get('Return_Period');
+		
+		
+		/***standard**/
 		
 		$data['content'] = $this->load->view('customer/show',$content, TRUE);
 		
@@ -246,6 +280,7 @@ class Customer extends CI_Controller {
 
 	public function update_get($id)
 	{
+		$this->load->model('return_p_model');
 		$content['title'] = "แก้ไขข้อมูลลูกค้า";
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -261,22 +296,57 @@ class Customer extends CI_Controller {
 								);
 								
 		$customer = $this->db->get_where('Customers', array('Cust_AutoID'=>$id))->result_array();
-		
 		$content['customer'] = $customer;						
 		$content['customer_line_dropdown'] = customer_line_dropdown($customer[0]['CustLine_ID']);	
+	
+		//standard return
+		$query = $this->return_p_model->get_standard_return();
+		$standard = $query->result_array();
+		$cust_id = $customer[0]['Cust_ID'];
+		
+
+		
+		
+		
+		foreach($standard as $key=>$val)
+		{
+			$customize_query = $this->return_p_model->get_customize_return($cust_id, $val['ProType_ID'], $val['ProFreq_ID']);
+			
+			if($customize_query->num_rows() > 0)
+			{
+				$customize = $customize_query->row_array();
+				
+				$standard[$key]['Is_Customize'] = TRUE;
+				$standard[$key]['Customize_Return_Period'] = $customize['Return_Period'];
+				$standard[$key]['Customize_Return_Period_Name'] = $customize['Period_Name'];
+			}else{
+				$standard[$key]['Is_Customize'] = FALSE;
+			}
+		}
+
+		
+		// $content['standard_return'] = $this->return_p_model->get_standard_return();
+		$content['standard_return'] = $standard;
+		$content['product_type'] = $this->db->get('Product_Type');
+		$content['product_frequency'] = $this->db->get('Product_Frequency');
+		$content['return_period'] = $this->db->get('Return_Period');
+		//end standard return
+		
 							
 		$data['content'] = $this->load->view('customer/update_get',$content ,TRUE);
 		
 		$css = array(
-			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+			// 'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+			'bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css',
 			);
 		$js = array(
-			'js/moment/min/moment.min.js',
+			// 'js/moment/min/moment.min.js',
 			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
-			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			// 'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
 			'js/jquery_validation/dist/jquery.validate.min.js',
 			'js/jquery_validation/dist/additional-methods.min.js',
 			'jquery-mask-plugin/jquery.mask.min.js',
+			'bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js',
 			'js/app/customer/update.js'
 			);
 		
@@ -284,6 +354,73 @@ class Customer extends CI_Controller {
 		$data['js'] = $this->assets->get_js($js);
 		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		$this->load->view('template/main',$data);
+	}
+
+	public function customize_return_post()
+	{
+		//$_POST['name']
+		//$_POST['value']
+		//$_POST['pk']
+		//$_POST['customer_id']
+		
+		$exp = explode('-', $this->input->post('pk'));
+		$type_id = $exp[0];
+		$freq_id = $exp[1];
+		$customer_id = $this->input->post('customer_id');
+		
+		if($this->customer_model->has_customize_return($customer_id, $type_id, $freq_id))
+		{
+			//already exist
+			//update
+			
+			
+			$data = array(
+				'Return_Period'=>$this->input->post('value')
+			);
+			
+			$where = array(
+				'Cust_ID'=>$customer_id,
+				'ProType_ID'=>$type_id,
+				'ProFreq_ID'=>$freq_id,
+			);
+			
+			$this->db->where($where);
+			$result = $this->db->update('Return_Customize', $data);
+			
+		}else{
+			//insert new
+			$data = array(
+				'Cust_ID'=>$customer_id,
+				'ProType_ID'=>$type_id,
+				'ProFreq_ID'=>$freq_id,
+				'Return_Period'=>$this->input->post('value')
+			);
+			
+			$result = $this->db->insert('Return_Customize', $data);
+			
+		}
+		
+		
+		if(!$result)
+		{
+			echo 'error';
+		}
+		
+		
+	}
+	
+	public function source_return_period()
+	{
+		$query = $this->db->get('Return_Period')->result_array();
+		
+		$period = array();
+		
+		foreach($query as $val)
+		{
+			$period[$val['Period_Val']] = $val['Period_Name'];
+		}
+		
+		echo json_encode($period);
 	}
 
 	public function update_post()

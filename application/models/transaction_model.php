@@ -47,6 +47,7 @@
 				'DocRef_Date'=>$main['DocRef_Date'],
 				'Cust_ID'=>$main['Cust_ID'],
 				'Transport_Date'=>$main['Transport_Date'],
+				'Transport_By'=>$main['Transport_By'],
 				'Transact_Remark'=>$main['Transact_Remark'],
 				'IsDraft'=>1	
 				);	
