@@ -20,66 +20,12 @@ class Sale extends CI_Controller {
 		
 	}
 
-	public function sale_test()
-	{
-		
-	}
 	
 	public function all()
 	{
 		$content['title'] = 'ข้อมูลการตัดขายทั้งหมด';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>'all',
-										'class'=>'active'
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>'sa',
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>'ss',
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>'sc',
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>'sz',
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>'sm',
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>'sd',
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>'se',
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>'sale_used',
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		
+		$content['breadcrumb'] = $this->get_breadcrumb('all');
 		
 		$data['content'] = $this->load->view('sale/main',$content, TRUE);
 		
@@ -108,58 +54,7 @@ class Sale extends CI_Controller {
 	public function sa()
 	{
 		$content['title'] = 'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA)';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>'all',
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>'sa',
-										'class'=>'active'
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>'ss',
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>'sc',
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>'sz',
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>'sm',
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>'sd',
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>'se',
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>'sale_used',
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb('sa');
 		
 		$data['content'] = $this->load->view('sale/main',$content, TRUE);
 		
@@ -186,58 +81,7 @@ class Sale extends CI_Controller {
 	public function ss()
 	{
 		$content['title'] = 'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS)';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>'all',
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>'sa',
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>'ss',
-										'class'=>'active'
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>'sc',
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>'sz',
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>'sm',
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>'sd',
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>'se',
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>'sale_used',
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb('ss');
 		
 		$data['content'] = $this->load->view('sale/main',$content, TRUE);
 		
@@ -264,58 +108,7 @@ class Sale extends CI_Controller {
 	public function sc()
 	{
 		$content['title'] = 'ลูกค้าเงินสดหนังสือออกประจำ (SC)';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>'all',
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>'sa',
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>'ss',
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>'sc',
-										'class'=>'active'
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>'sz',
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>'sm',
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>'sd',
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>'se',
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>'sale_used',
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb('sc');
 		
 		$data['content'] = $this->load->view('sale/main',$content, TRUE);
 		
@@ -342,58 +135,7 @@ class Sale extends CI_Controller {
 	public function sz()
 	{
 		$content['title'] = 'ขายเลหลัง (SZ)';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>'all',
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>'sa',
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>'ss',
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>'sc',
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>'sz',
-										'class'=>'active'
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>'sm',
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>'sd',
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>'se',
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>'sale_used',
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb('sz');
 		
 		$data['content'] = $this->load->view('sale/main',$content, TRUE);
 		
@@ -420,58 +162,7 @@ class Sale extends CI_Controller {
 	public function sm()
 	{
 		$content['title'] = 'ลูกค้าสมาชิก (SM)';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>'all',
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>'sa',
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>'ss',
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>'sc',
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>'sz',
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>'sm',
-										'class'=>'active'
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>'sd',
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>'se',
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>'sale_used',
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb('sm');
 		
 		$data['content'] = $this->load->view('sale/main',$content, TRUE);
 		
@@ -498,58 +189,7 @@ class Sale extends CI_Controller {
 	public function sd()
 	{
 		$content['title'] = 'ลูกค้าไปรษณีย์ (SD)';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>'all',
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>'sa',
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>'ss',
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>'sc',
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>'sz',
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>'sm',
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>'sd',
-										'class'=>'active'
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>'se',
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>'sale_used',
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb('sd');
 		
 		$data['content'] = $this->load->view('sale/main',$content, TRUE);
 		
@@ -576,58 +216,7 @@ class Sale extends CI_Controller {
 	public function se()
 	{
 		$content['title'] = 'กิจกรรมพิเศษ (SE)';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>'all',
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>'sa',
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>'ss',
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>'sc',
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>'sz',
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>'sm',
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>'sd',
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>'se',
-										'class'=>'active'
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>'sale_used',
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb('se');
 		
 		$data['content'] = $this->load->view('sale/main',$content, TRUE);
 		
@@ -651,61 +240,37 @@ class Sale extends CI_Controller {
 		$this->load->view('template/main',$data);
 	}
 
+	public function su()
+	{
+		$content['title'] = 'ขายระยะยาว (SU)';
+		$content['breadcrumb'] = $this->get_breadcrumb('su');
+		
+		$data['content'] = $this->load->view('sale/main',$content, TRUE);
+		
+		//initail template	
+		$css = array(
+				'datatable/media/css/dataTables.bootstrap.css',
+				'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
+		);
+		
+		$js = array(
+				'datatable/media/js/jquery.dataTables.min.js',
+				'datatable/media/js/dataTables.bootstrap.js',
+				'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+				'js/app/sale/su.js'
+		);
+				
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+
 	public function sale_used()
 	{
 		$content['title'] = 'ใบสั่งขายทั้งหมด';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>'all',
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>'sa',
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>'ss',
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>'sc',
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>'sz',
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>'sm',
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>'sd',
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>'se',
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>'sale_used',
-										'class'=>'active'
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb('sale_used');
 		
 		$data['content'] = $this->load->view('sale/sale_used',$content, TRUE);
 		
@@ -797,58 +362,7 @@ class Sale extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>site_url('sale/all'),
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>site_url('sale/sa'),
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>site_url('sale/ss'),
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>site_url('sale/sc'),
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>site_url('sale/sz'),
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>site_url('sale/sm'),
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>site_url('sale/sd'),
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>site_url('sale/se'),
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>site_url('sale/sale_used'),
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb();
 		
 		$content['transaction'] = $this->sale_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->sale_model->get_transaction_detail($content['transaction']['Transact_AutoID']);
@@ -885,58 +399,7 @@ class Sale extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองเลขที่ RS'.$rsid;
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>site_url('sale/all'),
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>site_url('sale/sa'),
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>site_url('sale/ss'),
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>site_url('sale/sc'),
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>site_url('sale/sz'),
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>site_url('sale/sm'),
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>site_url('sale/sd'),
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>site_url('sale/se'),
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>site_url('sale/sale_used'),
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb();
 		$content['transaction'] = $this->sale_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -994,58 +457,7 @@ class Sale extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดใบสั่งขายเลขที่ '.$type.$id;
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>site_url('sale/all'),
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>site_url('sale/sa'),
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>site_url('sale/ss'),
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>site_url('sale/sc'),
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>site_url('sale/sz'),
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>site_url('sale/sm'),
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>site_url('sale/sd'),
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>site_url('sale/se'),
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>site_url('sale/sale_used'),
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb();
 		$content['transaction'] = $this->sale_model->get_transaction_used($type, $id);
 		// $content['transaction_detail'] = $this->sale_model->get_transaction_used_detail($content['transaction']['Transact_AutoID']);
 		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($content['transaction']['Transact_AutoID']);
@@ -1104,58 +516,7 @@ class Sale extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'รายละเอียดการจองสินค้า';
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>site_url('sale/all'),
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>site_url('sale/sa'),
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>site_url('sale/ss'),
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>site_url('sale/sc'),
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>site_url('sale/sz'),
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>site_url('sale/sm'),
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>site_url('sale/sd'),
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>site_url('sale/se'),
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>site_url('sale/sale_used'),
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb();
 		$content['transaction'] = $this->sale_model->get_transaction_used($type, $id);
 		$content['transaction_detail'] = $this->sale_model->get_transaction_used_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -1214,58 +575,7 @@ class Sale extends CI_Controller {
 		$this->load->model('customer_model');
 		
 		$content['title'] = 'สั่งขายจากใบจองเลขที่ RS'.$rsid;
-		$content['breadcrumb'] = array(
-									0 => array(
-										'name'=>'ระบบการตัดขาย',
-										'link'=>site_url('sale/all'),
-										'class'=>''
-									),
-									1 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
-										'link'=>site_url('sale/sa'),
-										'class'=>''
-									),
-									2 => array(
-										'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
-										'link'=>site_url('sale/ss'),
-										'class'=>''
-									),
-									3 => array(
-										'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
-										'link'=>site_url('sale/sc'),
-										'class'=>''
-									),
-									4 => array(
-										'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
-										'link'=>site_url('sale/sz'),
-										'class'=>''
-									),
-									5 => array(
-										'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
-										'link'=>site_url('sale/sm'),
-										'class'=>''
-									),
-									6 => array(
-										'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
-										'link'=>site_url('sale/sd'),
-										'class'=>''
-									),
-									7 => array(
-										'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
-										'link'=>site_url('sale/se'),
-										'class'=>''
-									),
-									8 => array(
-										'name'=>'ใบสั่งขายทั้งหมด',
-										'link'=>site_url('sale/sale_used'),
-										'class'=>''
-									),
-									9 => array(
-										'name'=>'Packing List',
-										'link'=> site_url('report/packing_list'),
-										'class'=>''
-									)
-								);
+		$content['breadcrumb'] = $this->get_breadcrumb();
 		$content['transaction'] = $this->sale_model->get_inventory_transaction($rsid);
 		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($content['transaction']['Transact_AutoID']);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
@@ -1352,6 +662,96 @@ class Sale extends CI_Controller {
 		}
 		
 	}
+
+	public function get_breadcrumb($active_menu = false)
+	{
+		
+		$breadcrumb = array(
+							0 => array(
+								'name'=>'ระบบการตัดขาย',
+								'link'=>site_url('sale/all'),
+								'class'=>'',
+								'sale_code'=>'all'
+							),
+							1 => array(
+								'name'=>'ลูกค้าเงินเชื่อหนังสือออกประจำ (SA) <span class="badge badge-error">'.$this->notification['SA'].'</span>',
+								'link'=>site_url('sale/sa'),
+								'class'=>'',
+								'sale_code'=>'sa'
+							),
+							2 => array(
+								'name'=>'ลูกค้าเงินเชื่อหนังสือออกเพิ่มเติม (SS) <span class="badge badge-error">'.$this->notification['SS'].'</span>',
+								'link'=>site_url('sale/ss'),
+								'class'=>'',
+								'sale_code'=>'ss'
+							),
+							3 => array(
+								'name'=>'ลูกค้าเงินสดหนังสือออกประจำ (SC) <span class="badge badge-error">'.$this->notification['SC'].'</span>',
+								'link'=>site_url('sale/sc'),
+								'class'=>'',
+								'sale_code'=>'sc'
+							),
+							4 => array(
+								'name'=>'ขายเลหลัง (SZ) <span class="badge badge-error">'.$this->notification['SZ'].'</span>',
+								'link'=>site_url('sale/sz'),
+								'class'=>'',
+								'sale_code'=>'sz'
+							),
+							5 => array(
+								'name'=>'ลูกค้าสมาชิก (SM) <span class="badge badge-error">'.$this->notification['SM'].'</span>',
+								'link'=>site_url('sale/sm'),
+								'class'=>'',
+								'sale_code'=>'sm'
+							),
+							6 => array(
+								'name'=>'ลูกค้าไปรษณีย์ (SD) <span class="badge badge-error">'.$this->notification['SD'].'</span>',
+								'link'=>site_url('sale/sd'),
+								'class'=>'',
+								'sale_code'=>'sd'
+							),
+							7 => array(
+								'name'=>'กิจกรรมพิเศษ (SE) <span class="badge badge-error">'.$this->notification['SE'].'</span>',
+								'link'=>site_url('sale/se'),
+								'class'=>'',
+								'sale_code'=>'se'
+							),
+							8 => array(
+								'name'=>'ขายระยะยาว (SU) <span class="badge badge-error">'.$this->notification['SU'].'</span>',
+								'link'=>site_url('sale/su'),
+								'class'=>'',
+								'sale_code'=>'su'
+							),
+							9 => array(
+								'name'=>'ใบสั่งขายทั้งหมด',
+								'link'=>site_url('sale/sale_used'),
+								'class'=>'',
+								'sale_code'=>'sale_used'
+							),
+							10 => array(
+								'name'=>'Packing List',
+								'link'=> site_url('report/packing_list'),
+								'class'=>'',
+								'sale_code'=>'packing_list'
+							)
+						);
+						
+		//set active menu
+		
+		if($active_menu)
+		{
+			foreach ($breadcrumb as $key => $value) {
+				if($active_menu == $breadcrumb[$key]['sale_code'])
+				{
+					$breadcrumb[$key]['class'] = 'active';
+					break;	
+				}//end if
+			}//end foreach
+		}
+		
+		return $breadcrumb;
+	
+}
+	
 
 	
 	

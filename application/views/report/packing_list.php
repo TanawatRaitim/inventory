@@ -63,7 +63,7 @@
 						  </div>
 						 <div class="checkbox">
 						    <label>
-						      <!-- <input type="checkbox"  name="sale_code[]"> .. -->
+						      <input type="checkbox" name="sale_code[]" value="SU"> SU
 						    </label>
 						  </div>
 						</div>  	

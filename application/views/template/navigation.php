@@ -35,6 +35,7 @@
 	            <li><a href="<?php echo site_url('product/type_get')?>">เพิ่มข้อมูลประเภทสินค้า</a></li>
 	            <li><a href="<?php echo site_url('product/frequency_get')?>">เพิ่มข้อมูลประเภทการออกสินค้า</a></li>
 	            <li><a href="<?php echo site_url('return_p/return_standard_get')?>">จัดการข้อมูลการรับคืนสินค้า</a></li>
+	            <li><a href="<?php echo site_url('setting/transport_get')?>">จัดการข้อมูลผู้ขนส่ง</a></li>
 	          </ul>
         </li>
         <!-- <li class="active"><a href="<?php echo site_url('admin')?>">Administrator</a></li> -->

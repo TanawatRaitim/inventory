@@ -120,18 +120,43 @@
 				
 				$ci =& get_instance();
 				$ci->db->where('Transact_AutoID',$autoid);
-			$query = $ci->db->get('Inventory_Transaction');
-			
-			if($query->num_rows() == 0)
-			{
-				return "N/A";
-			}
-			
-			$row = $query->row_array();
-			
-			return $row['TK_Code'];
+				$query = $ci->db->get('Inventory_Transaction');
+				
+				if($query->num_rows() == 0)
+				{
+					return "N/A";
+				}
+				
+				$row = $query->row_array();
+				
+				return $row['TK_Code'];
 			}
 	}//end if
+	
+	if ( ! function_exists('get_ticket_by_category'))
+	{
+			
+			function get_ticket_by_category($category)
+			{
+				
+				$ci =& get_instance();
+				$where = array(
+					'TK_Category'=>$category,
+					'RowStatus'=>'active',
+					'IsDel'=>0
+				);
+				
+				$ci->db->where($where);
+				$query = $ci->db->get('Ticket_Type');
+				
+				
+				$tickets = $query->result_array();
+				
+				return $tickets;
+			}
+	}//end if
+	
+	
 	
 	
 	if ( ! function_exists('get_customer_name'))
