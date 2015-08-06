@@ -15,6 +15,18 @@ class Return_p extends CI_Controller {
 		$this->load->library('assets');
 		$this->load->model('return_p_model');
 	}
+	
+	public function test_bar()
+	{
+		// include Barcode39 class 
+		$this->load->library('Barcode39'); 
+		
+		// set Barcode39 object 
+		$bc = new Barcode39("31-STAR-M1252"); 
+		
+		// display new barcode 
+		$bc->draw();
+	}
 
 	public function all()
 	{
@@ -45,12 +57,10 @@ class Return_p extends CI_Controller {
 										'name'=>'ใบรับสินค้าคืน  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
 										'link'=>'reject',
 										'class'=>''
-									),
-									5 => array(
+									),5 => array(
 										'name'=>'เอกสารการรับคืนสินค้า',
-										'link'=>base_url('report/return_product'),
-										'class'=>'',
-										'target'=>'_blank'
+										'link'=>'reject',
+										'class'=>''
 									)
 								);
 
@@ -105,12 +115,6 @@ class Return_p extends CI_Controller {
 										'name'=>'ใบรับสินค้าคืน  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
 										'link'=>'reject',
 										'class'=>''
-									),
-									5 => array(
-										'name'=>'เอกสารการรับคืนสินค้า',
-										'link'=>base_url('report/return_product'),
-										'class'=>'',
-										'target'=>'_blank'
 									)
 								);
 
@@ -164,12 +168,6 @@ class Return_p extends CI_Controller {
 										'name'=>'ใบรับสินค้าคืน  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
 										'link'=>'reject',
 										'class'=>''
-									),
-									5 => array(
-										'name'=>'เอกสารการรับคืนสินค้า',
-										'link'=>base_url('report/return_product'),
-										'class'=>'',
-										'target'=>'_blank'
 									)
 								);
 
@@ -316,12 +314,6 @@ class Return_p extends CI_Controller {
 										'name'=>'ใบรับสินค้าคืน  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
 										'link'=>'reject',
 										'class'=>'active'
-									),
-									5 => array(
-										'name'=>'เอกสารการรับคืนสินค้า',
-										'link'=>base_url('report/return_product'),
-										'class'=>'',
-										'target'=>'_blank'
 									)
 								);
 
@@ -470,14 +462,41 @@ class Return_p extends CI_Controller {
 										'name'=>'ใบรับสินค้าคืน  [ถูกปฏิเสธ] <span class="badge badge-error">'.$notification['rejected'].'</span>',
 										'link'=>'reject',
 										'class'=>''
-									),
-									5 => array(
-										'name'=>'เอกสารการรับคืนสินค้า',
-										'link'=>base_url('report/return_product'),
-										'class'=>'',
-										'target'=>'_blank'
 									)
 								);
+								
+		
+		if(isset($_POST['customer']))
+		{
+			$customer_id = $this->input->post('customer');
+			$content['customer_id'] = $this->input->post('customer');
+			
+			//get customer
+			$content['customer_detail'] = get_customer($customer_id);
+			
+			
+			if(!$content['customer_detail'])
+			{
+				redirect('return_p/add', 'refresh');
+				exit();
+			}
+		} //end if
+		
+		
+		
+		
+		
+		
+		//get product customer has accept return
+		
+		//get status hide show
+		
+		//
+		
+								
+		
+
+		
 								
 		$content['doc_refer'] = doc_refer_dropdown();	
 		$content['inventory_type'] = inventory_return_dropdown();
@@ -503,6 +522,31 @@ class Return_p extends CI_Controller {
 		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
 		
 		$this->load->view('template/main',$data);
+	}
+
+	public function takeback_accept()
+	{
+		$this->load->model('customer_model');
+		$id = $this->input->post('id');
+		
+		//get customer detail
+		$query = $this->customer_model->get_customer($id);
+		
+		//get product return accept
+		
+		
+		$data = $query->row_array();
+		/*
+		$data['product_accept'] = array(
+		
+			'big'=>'atest',
+			'big2'=>'atest2'
+		);
+		 * */
+
+		echo json_encode($data);
+		
+		//return json_encode(array('takeback_status'=>'accepted'));
 	}
 
 	public function check_new_data()

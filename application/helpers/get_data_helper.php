@@ -316,17 +316,39 @@
 			{
 				$ci =& get_instance();
 				$ci->db->where('Product_ID',$product_id);
-			// $ci->db->where('AppStatType','AGE-ALL');
-			$query = $ci->db->get('Products');
-			
-			if($query->num_rows() == 0)
-			{
-				return "N/A";
+				// $ci->db->where('AppStatType','AGE-ALL');
+				$query = $ci->db->get('Products');
+				
+				if($query->num_rows() == 0)
+				{
+					return "N/A";
+				}
+				
+				$result = $query->row_array();
+				
+				return $result['Product_Name']." # ".$result['Product_Vol']; 
+				
 			}
+	}//end if
+	
+	if ( ! function_exists('get_product'))
+	{
 			
-			$result = $query->row_array();
-			
-			return $result['Product_Name']." # ".$result['Product_Vol']; 
+			function get_product($product_id)
+			{
+				$ci =& get_instance();
+				$ci->db->where('Product_ID',$product_id);
+
+				$query = $ci->db->get('Products');
+				
+				if($query->num_rows() == 0)
+				{
+					return "N/A";
+				}
+				
+				return $query->row_array();
+				
+				//return $result['Product_Name']." # ".$result['Product_Vol']; 
 				
 			}
 	}//end if

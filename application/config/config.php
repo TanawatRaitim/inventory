@@ -24,7 +24,7 @@ $config['base_url']	= 'http://172.168.0.184:8080/inventory/';
 
 $config['base_assets'] = $config['base_url'].'assets/';
 $config['base_assets_images'] = $config['base_url'].'assets/images/';
-
+$config['product_internal_barcode_path'] = 'assets/product_internal_barcode/';
 $config['salesheet_path'] = $config['base_url'].'assets/uploads/doc/product/salesheet/';
 $config['specsheet_path'] = $config['base_url'].'assets/uploads/doc/product/specsheet/';
 $config['docother_path'] = $config['base_url'].'assets/uploads/doc/product/other/';

@@ -1142,6 +1142,9 @@ class Product extends CI_Controller {
 		$this->db->insert('Products',$post);
 		$auto_id = $this->db->insert_id();
 		
+		//generate barcode
+		gen_product_internal_barcode($post['Product_ID']);
+		
 		//create inventory
 		
 		//get all inventory
@@ -1301,6 +1304,8 @@ class Product extends CI_Controller {
 	public function update_post()
 	{
 		$post = $_POST;
+		
+		
 		$id = $this->input->post('Product_AutoID');
 		unset($post['Product_AutoID']);
 		
@@ -1346,6 +1351,8 @@ class Product extends CI_Controller {
 		
 		$this->db->where('Product_AutoID', $id);
 		$this->db->update('Products', $post);
+		
+		gen_product_internal_barcode($post['Product_ID']);
 		
 		$update_file = array();
 		

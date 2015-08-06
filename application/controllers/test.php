@@ -10,6 +10,55 @@ class Test extends CI_Controller {
 		$this->load->library('assets');
 	}
 	
+	public function gmag_chart()
+	{
+		
+		$chart = array(
+			1=>array(
+				'song_name'=>'song1',
+				'artist'=>'artist',
+				'belong_to'=>'gennie record'
+			),
+			2=>array(
+				'song_name'=>'song2',
+				'artist'=>'artist2',
+				'belong_to'=>'gennie record2'
+			),
+			3=>array(
+				'song_name'=>'song1',
+				'artist'=>'artist3',
+				'belong_to'=>'gennie record3'
+			),
+			4=>array(
+				'song_name'=>'song1',
+				'artist'=>'artist4',
+				'belong_to'=>'gennie record4'
+			)
+		
+		);
+		
+		echo pre();
+		foreach ($chart as $key => $value) {
+			echo $chart[$key]['song_name'];
+			echo $chart[$key]['artist'];
+			echo $chart[$key]['belong_to'];
+		}
+		echo pre_close();
+		
+	}
+	
+	public function test_barcode39()
+	{
+		// include Barcode39 class 
+		$this->load->library('Barcode39'); 
+		
+		// set Barcode39 object 
+		$bc = new Barcode39("31-STAR-M1252"); 
+		
+		// display new barcode 
+		$bc->draw();
+	}
+	
 	public function test_dd()
 	{
 		echo '<select>';

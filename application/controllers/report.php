@@ -209,9 +209,6 @@ class Report extends CI_Controller {
 			 
 		}//end for
 		
-		
-		
-		
 		$content['title'] = 'Packing List';
 		
 		//get customer line name
@@ -228,14 +225,6 @@ class Report extends CI_Controller {
 		
 		
 		$packing_list = array();
-		
-		//test data
-		/*
-		$start_date = '2014-04-10';
-		$end_date = '2015-12-01';
-		$customer_line = 7; 
-		$customer_area = 7; 
-		*/
 		
 		$customer_product_sql = "select 
 									Inventory_Transaction_Detail.Transact_AutoID, Inventory_Transaction.Cust_ID, Inventory_Transaction_Detail.Product_ID,  sum(Inventory_Transaction_Detail.QTY_Good) as qty
@@ -338,6 +327,244 @@ class Report extends CI_Controller {
 			$data['js'] = $this->assets->get_js($js);
 			
 		$this->load->view('template/main',$data);	
+		
+		
+	}
+
+	public function return_product()
+	{
+		$content['title'] = "ค้าหาสินค้าที่สามารถรับคืนได้";
+		
+		if(isset($_POST['submit']))
+		{
+			$customer_id = $this->input->post('customer');
+			$current_date = date('Y-m-d');
+			
+			if($customer_id == "")
+			{
+				redirect('report/return_product', 'refresh');
+				exit();
+			}
+			 
+			$sql = "
+				select Inventory_Transaction_Detail.Product_ID, SUM(QTY_Good) as sumGood from Inventory_Transaction
+				left join Inventory_Transaction_Detail on Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID
+				left join Products on Products.Product_ID = Inventory_Transaction_Detail.Product_ID
+				where Cust_ID = '".$customer_id."' and QTY_RemainReturn is not null and Inventory_Transaction_Detail.Period_EndDate <= '".$current_date."'
+				group by Inventory_Transaction_Detail.Product_ID
+			
+			";
+			
+			$query = $this->db->query($sql);
+			
+			$products = $query->result_array();
+			
+			$content['has_product'] = $query->num_rows();
+			
+			foreach ($products as $key => $val) {
+				$products[$key]['barcode_img'] = gen_product_internal_barcode($val['Product_ID']);
+				$product_info = get_product($val['Product_ID']);
+				$products[$key]['product_name'] = $product_info['Product_Name'];
+				$products[$key]['product_vol'] = $product_info['Product_Vol'];
+				$products[$key]['price'] = $product_info['Price'];
+			}
+			
+			
+			$content['customer'] = get_customer($customer_id);
+			$content['customer_id'] = $content['customer']['Cust_ID'];
+			$content['title'] = 'สินค้าที่สามารถรับคืนได้ของ '.$content['customer']['Cust_Name']." (".$content['customer']['Cust_ID'].") ณ วันที่ ".convert_mssql_date($current_date);
+			$content['retport_date'] = $current_date;
+			$content['products'] = $products;
+		}
+		
+		$data['content'] = $this->load->view('report/return_product',$content ,TRUE);
+		
+		$css = array(
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			
+			);
+		$js = array(
+			
+			 'select2/select2.min.js',
+			'js/app/report/return_product.js'
+			);
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);	
+	}
+
+	public function return_product_war($customer_id)
+	{
+		$current_date = date('Y-m-d');
+		
+		if($customer_id == "")
+		{
+			redirect('report/return_product', 'refresh');
+			exit();
+		}
+		 
+		$sql = "
+			select Inventory_Transaction_Detail.Product_ID, SUM(QTY_Good) as sumGood from Inventory_Transaction
+			left join Inventory_Transaction_Detail on Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID
+			left join Products on Products.Product_ID = Inventory_Transaction_Detail.Product_ID
+			where Cust_ID = '".$customer_id."' and QTY_RemainReturn is not null and Inventory_Transaction_Detail.Period_EndDate <= '".$current_date."'
+			group by Inventory_Transaction_Detail.Product_ID
+		
+		";
+		
+		$query = $this->db->query($sql);
+		$products = $query->result_array();
+		$content['has_product'] = $query->num_rows();
+		
+		foreach ($products as $key => $val) {
+			$products[$key]['barcode_img'] = gen_product_internal_barcode($val['Product_ID']);
+			$product_info = get_product($val['Product_ID']);
+			$products[$key]['product_name'] = $product_info['Product_Name'];
+			$products[$key]['product_vol'] = $product_info['Product_Vol'];
+			$products[$key]['price'] = $product_info['Price'];
+		}
+		
+		$content['customer'] = get_customer($customer_id);
+		$content['customer_id'] = $content['customer']['Cust_ID'];
+		$content['title'] = 'ใบตรวจและบันทึกรับคืน (สำหรับคลังสินค้า) '." ณ วันที่ ".convert_mssql_date($current_date);
+		$content['report_date'] = convert_mssql_date($current_date);
+		$content['products'] = $products;
+		$content['table_rows'] = 15;
+		
+		$data['content'] = $this->load->view('report/return_product_war',$content ,TRUE);
+		
+		$css = array(
+			);
+		$js = array(
+			'js/app/report/return_product_war.js'
+			);
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		// $data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);		
+	}
+
+	public function return_product_sdb($customer_id)
+	{
+		$current_date = date('Y-m-d');
+		
+		if($customer_id == "")
+		{
+			redirect('report/return_product', 'refresh');
+			exit();
+		}
+		 
+		$sql = "
+			select Inventory_Transaction_Detail.Product_ID, SUM(QTY_Good) as sumGood from Inventory_Transaction
+			left join Inventory_Transaction_Detail on Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID
+			left join Products on Products.Product_ID = Inventory_Transaction_Detail.Product_ID
+			where Cust_ID = '".$customer_id."' and QTY_RemainReturn is not null and Inventory_Transaction_Detail.Period_EndDate <= '".$current_date."'
+			group by Inventory_Transaction_Detail.Product_ID
+		
+		";
+		
+		$query = $this->db->query($sql);
+		$products = $query->result_array();
+		$content['has_product'] = $query->num_rows();
+		
+		foreach ($products as $key => $val) {
+			$products[$key]['barcode_img'] = gen_product_internal_barcode($val['Product_ID']);
+			$product_info = get_product($val['Product_ID']);
+			$products[$key]['product_name'] = $product_info['Product_Name'];
+			$products[$key]['product_vol'] = $product_info['Product_Vol'];
+			$products[$key]['price'] = $product_info['Price'];
+		}
+		
+		$content['customer'] = get_customer($customer_id);
+		$content['customer_id'] = $content['customer']['Cust_ID'];
+		$content['title'] = 'ใบตรวจและบันทึกรับคืน (สำหรับรถขนส่ง / จนท.ขาย) '." ณ วันที่ ".convert_mssql_date($current_date);
+		$content['report_date'] = convert_mssql_date($current_date);
+		$content['products'] = $products;
+		$content['table_rows'] = 20;
+		$data['content'] = $this->load->view('report/return_product_sdb',$content ,TRUE);
+		
+		$css = array(
+			);
+		$js = array(
+			'js/app/report/return_product_sdb.js'
+			);
+		
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		// $data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		$this->load->view('template/main',$data);		
+	}
+	
+	public function return_product_show()
+	{
+		//echo 'big';
+		$customer_id = $this->input->post('customer');
+		$current_date = $this->input->post('current_date');
+		
+		if($customer_id == "")
+		{
+			redirect('report/return_product', 'refresh');
+			exit();
+		}
+		
+		//for test
+		//2015-10-03
+		$current_date = '2015-10-03';
+		 
+		 
+		$sql = "
+			select Inventory_Transaction_Detail.Product_ID, SUM(QTY_Good) as sumGood from Inventory_Transaction
+			left join Inventory_Transaction_Detail on Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID
+			left join Products on Products.Product_ID = Inventory_Transaction_Detail.Product_ID
+			where Cust_ID = '".$customer_id."' and QTY_RemainReturn is not null and Inventory_Transaction_Detail.Period_EndDate <= '".$current_date."'
+			group by Inventory_Transaction_Detail.Product_ID
+		
+		";
+		
+		$query = $this->db->query($sql);
+		
+		$products = $query->result_array();
+		
+		foreach ($products as $key => $val) {
+			$products[$key]['barcode_img'] = gen_product_internal_barcode($val['Product_ID']);
+			
+			$product_info = get_product($val['Product_ID']);
+			
+			$products[$key]['product_name'] = $product_info['Product_Name'];
+			$products[$key]['product_vol'] = $product_info['Product_Vol'];
+			$products[$key]['price'] = $product_info['Price'];
+		}
+		
+		
+		$content['customer'] = get_customer($customer_id);
+		
+		
+		$content['title'] = 'สินค้าที่สามารถรับคืนได้ของ '.$content['customer']['Cust_Name']." (".$content['customer']['Cust_ID'].") ณ วันที่ ".convert_mssql_date($current_date);
+		$content['retport_date'] = $current_date;
+		$content['products'] = $products;
+		
+		
+		
+		$data['content'] = $this->load->view('report/return_product_show',$content, TRUE);
+		
+		$css = array(
+				'css/return_product_show.css'
+				);
+			$js = array(
+				'js/app/report/return_product_show.js'
+				);
+			$data['css'] = $this->assets->get_css($css);
+			$data['js'] = $this->assets->get_js($js);
+			
+		$this->load->view('template/main',$data);
+		
+		
+		
+		
 		
 		
 	}
