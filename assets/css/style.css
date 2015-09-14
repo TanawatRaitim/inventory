@@ -24,7 +24,11 @@ input.error{
 }
 
 .text-red{
-	color: red;	
+	color: #DB1F2B;	
+}
+
+.text-red2{
+	color: #DB1F2B;
 }
 
 span#idcard_error{
@@ -153,7 +157,17 @@ h2{
 	
 }
 
+.beforedue{
+	background-color: #ffc053 !important;
+}
 
+.nosale{
+	background-color: #ff5d5d;
+}
+
+.oversale{
+	background-color: #f5ff81;
+}
 
 
 

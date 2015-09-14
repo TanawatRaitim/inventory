@@ -332,7 +332,14 @@
 					);
 				
 				$this->db->where($where);
-				return $this->db->update('Inventory_Transaction', $data);	
+				$query_result =  $this->db->update('Inventory_Transaction', $data);	
+				
+				//test smart return
+				
+				
+				//end test smart return
+				
+				return $query_result;
 				
 			}else{
 				//reject
@@ -492,6 +499,8 @@
 			
 				
 		}
+
+		
 		
 		
 	}	

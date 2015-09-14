@@ -1,4 +1,5 @@
 <div class="container-fluid">
+	<!-- 
 	<div class="row">
 		<div class="col-md-12">
 			<h2><?php echo $title; ?></h2>
@@ -11,12 +12,9 @@
 					<?php endif;?>	
 				<?php endforeach ?>
 			</ol>
-			<div class="alert alert-danger alert-dismissible fade in" role="alert">
-			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong>เหตุผลที่ปฏิเสธ </strong> <?php echo $transaction['Reject_Remark']; ?>
-			</div>
 		</div>
 	</div>
+	 -->
 	<div class="row">
 		<div class="col-md-8">
 			<div class="panel panel-info">
@@ -31,25 +29,17 @@
 								<label for="Transaction_For" class="col-sm-6 control-label">SR - </label>
 								<input type="hidden" name="TK_Code" id="TK_Code" value="SR" />
 								<div class="col-sm-5 text-right">
-									<!-- 
-									<select class="form-control input-sm text-right" id="TK_Code" name="TK_Code" autofocus="autofocus" style="color: black;">
-										<?php echo $ticket_type;?>
-									</select>
-									 -->
 								</div>
 								<div class="col-sm-6">
-									<input type="text" value="<?php echo $transaction['TK_ID']; ?>" readonly='readonly' class="form-control input-sm" id="TK_ID" name="TK_ID" placeholder="Ticket ID" autofocus>
+									<input type="text" class="form-control input-sm" id="TK_ID" name="TK_ID" placeholder="Ticket ID" autofocus>
 								</div>
 							</div>
 						</div>
 						
 						<div class="col-md-5">
 							<div class="form-group">
-								<!-- <label class="col-sm-5 control-label"><?php echo $input_type;?> - </label> -->
-								<!-- <label class="col-sm-7 control-label" id="TK_ID_Present"  style="text-align: left;">XX-XX-XXXX</label> -->
-								<!-- <input type="hidden" name="TK_ID" id="TK_ID" value="" /> -->
-								<!-- <input type="hidden" name="TK_Code" id="TK_Code" value="RS" /> -->
-								<input type="hidden" name="Transaction_AutoID" id="Transaction_AutoID" value="<?php echo $transaction['Transact_AutoID']; ?>" />
+	
+								<input type="hidden" name="Transaction_AutoID" id="Transaction_AutoID" value="" />
 
 							</div>
 						</div>
@@ -72,7 +62,7 @@
 							<div class="form-group">
 								<label for="DocRef_Other" class="col-sm-5 control-label">เพิ่มเติม</label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="DocRef_Other" name="DocRef_Other" value="<?php echo $transaction['DocRef_Other']; ?>" placeholder="โปรดระบุถ้าเป็นเอกสารอื่นๆ">
+									<input type="text" class="form-control input-sm" id="DocRef_Other" name="DocRef_Other" placeholder="โปรดระบุถ้าเป็นเอกสารอื่นๆ">
 								</div>
 							</div>
 						</div>
@@ -82,7 +72,7 @@
 							<div class="form-group">
 								<label for="DocRef_No" class="col-sm-5 control-label">เลขที่เอกสารอ้างอิง <span class="text-danger">*</span></label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="DocRef_No" name="DocRef_No" value="<?php echo $transaction['DocRef_No']; ?>" placeholder="เลขที่เอกสารอ้างอิง">
+									<input type="text" class="form-control input-sm" id="DocRef_No" name="DocRef_No" placeholder="เลขที่เอกสารอ้างอิง">
 								</div>
 							</div>
 						</div>
@@ -90,7 +80,7 @@
 							<div class="form-group">
 								<label for="DocRef_Date" class="col-sm-5 control-label">วันที่เอกสารอ้างอิง <span class="text-danger">*</span></label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="DocRef_Date" name="DocRef_Date" value="<?php echo convert_mssql_date($transaction['DocRef_Date']); ?>" data-date-format="DD/MM/YYYY" placeholder="วันที่ของเอกสารอ้างอิง">
+									<input type="text" class="form-control input-sm" id="DocRef_Date" name="DocRef_Date" data-date-format="DD/MM/YYYY" placeholder="วันที่ของเอกสารอ้างอิง">
 								</div>
 							</div>
 						</div>
@@ -117,7 +107,7 @@
 							<div class="form-group">
 								<label for="Cust_ID" class="col-sm-5 control-label">รหัสลูกค้า</label>
 								<div class="col-sm-7">
-									<input type="text" class="form-control input-sm" id="Cust_ID" name="Cust_ID" placeholder="เลขที่รหัสลูกค้า" data-init-text="<?php echo $transaction['Cust_ID']; ?>">
+									<input type="text" class="form-control input-sm" id="Cust_ID" name="Cust_ID" placeholder="เลขที่รหัสลูกค้า">
 								</div>
 							</div>
 						</div>
@@ -127,7 +117,7 @@
 								<label for="Transact_Remark" class="col-sm-5 control-label">หมายเหตุ</label>
 								<div class="col-sm-7">
 									<!-- <input type="text" class="form-control input-sm" id="" placeholder="หมายเหตุ"> -->
-									<textarea class="form-control input-sm" name="Transact_Remark" id="Transact_Remark"><?php echo $transaction['DocRef_No']; ?></textarea>
+									<textarea class="form-control input-sm" name="Transact_Remark" id="Transact_Remark"></textarea>
 								</div>
 							</div>
 							<!-- 
@@ -172,6 +162,7 @@
 									<div class="form-group">
 										<label for="Product_ID" class="col-sm-4 control-label">รหัสสินค้า <span class="text-danger">*</span></label>
 										<div class="col-sm-8">
+											<input name="product_barcode" id="product_barcode" tabindex="-999999" />
 											<input type="hidden" class="form-control input-sm" id="Product_ID" name="Product_ID" data-product_id="" data-product_text="" />
 											<!-- <input type="hidden" id="Transact_AutoID" name="Transact_AutoID" /> -->
 											
@@ -311,7 +302,7 @@
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">รายการที่บันทึก</h3>
+					<h3 class="panel-title">รายการที่บันทึก <input type="text" id='test' name="test"></h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
@@ -329,47 +320,14 @@
 									<th></th>
 								</tr>
 							</thead>
-							<tbody>
-								<?php foreach($transaction_detail as $row):?>			
-								<!-- <tr title="<?php //echo get_product_name($row['Product_ID']); ?>"> -->
-									<?php if($row['return_status']):?>
-									
-									<tr>
-										<td title="<?php echo $row['return_message'];?>"></td>
-											
-									<?php else:?>
-										
-									<tr class="<?php echo $row['return_color'];?>">
-										<td class="text-center" title="<?php echo $row['return_message'];?>"><span style="color: <?php echo $row['return_color'];?>;" class="glyphicon glyphicon-exclamation-sign cursor-pointer" aria-hidden="true"></span></td>
-									
-									<?php endif;?>
-									
-									<td><?php echo $row['Product_ID']; ?></td>
-									<td class="text-center"><?php echo get_inventory_name($row['Effect_Stock_AutoID']); ?></td>
-									<td class="text-center"><?php echo $row['QTY_Good']; ?></td>
-									<td class="text-center"><?php echo $row['QTY_Waste']; ?></td>
-									<td class="text-center"><?php echo $row['QTY_Damage']; ?></td>
-									<td class="text-center"><?php echo $row['QTY_Good']+$row['QTY_Waste']+$row['QTY_Damage'];?></td>
-									<td>
-										<span id="btn_delete_record" class="glyphicon glyphicon-remove cursor-pointer" style="color: red;" data-stock="<?php echo $row['Effect_Stock_AutoID']; ?>" data-autoid="<?php echo $row['Transact_AutoID'];?>" data-productid="<?php echo $row['Product_ID'];?>"></span>
-									</td>
-								</tr>
-								<?php endforeach;?>
-							
+							<tbody>			
+								
 							</tbody>
 							<tfoot>
 								<tr>
-									<td colspan="8" id="total_record" class="text-left"></td>
+									<td colspan="8" id="total_record" class="text-left">ยังไม่มีรายการที่ถูกบันทึก</td>
 								</tr>
-								<!-- <tr>
-									<td colspan="2" class="text-center">รวม</td>
-									<td></td>
-									<td class="text-center">30</td>
-									<td class="text-center">40</td>
-									<td class="text-center">0</td>
-									<td></td>
-									<td></td>
-								</tr> -->
+								
 							</tfoot>
 						</table>
 					</div>
@@ -377,6 +335,11 @@
 						<button class="btn btn-primary btn-sm" style="width: 100px;" id="btn_save_rs">
 							ส่งขออนุมัติ
 						</button>
+						
+						<button class="btn btn-warning btn-sm" style="width: 100px;" id="btn_save_draft">
+							บันทึกแบบร่่าง
+						</button>
+						
 						<button class="btn btn-danger btn-sm" style="width: 100px;" id="btn_cancel_all">
 							ยกเลิก
 						</button>

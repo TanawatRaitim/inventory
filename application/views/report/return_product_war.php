@@ -84,6 +84,7 @@
 	.customer-name{
 		width: 150px;
 	}
+	
 	.customer-address{
 		width: 1px;
 	}
@@ -93,12 +94,23 @@
 	.product-weight{
 		width: 80px;
 	}
+	div.customer-barcode{
+		/*background-color: red !important;*/
+		/* Rotate div */
+        transform:rotate(270deg);
+        -ms-transform:rotate(270deg); /* IE 9 */
+        -webkit-transform:rotate(270deg); /* Opera, Chrome, and Safari */
+       /*padding-top: 180px;*/
+       /*padding-right: 200px;*/
+     	margin-top: 10px;
+	}
 	.box-qty{
 		width: 40px;
 	}
 	
 	
 </style>
+
 <div class="container-fluid">
 	<div class="row" style="margin-top: 5px;">
 		<div class="col-md-12">
@@ -106,10 +118,17 @@
 			<table class="table table-bordered table-condensed" style="margin-bottom: 0px;">
 				<thead>
 					<tr>
+						<td rowspan="6" style="width: 150px; padding: 0px;">
+							<div class="customer-barcode" style="padding: 0px; text-align: right;">
+								<img style="width: 150px;" src="<?php echo site_url($customer_barcode);?>" />
+							</div>
+						</td>
+					</tr>
+					<tr>
 						<th class="text-right" style="width: 10%">ลูกค้า</th>
 						<td><?php echo $customer['Cust_Name'];?> (<?php echo $customer['Cust_ID'];?>)</td>
 						<th class="text-right" style="width: 15%;">เลขที่รับคืน</th>
-						<td style="width: 25%;"><b>SR</b></td>
+						<td style="width: 10%;"><b>SR</b></td>
 					</tr>
 					<tr>
 						<th class="text-right">ผู้ติดต่อ</th>

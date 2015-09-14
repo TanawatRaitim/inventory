@@ -22,6 +22,7 @@ $(function(){
 		var invoice_no = $("input#Invoice_No").val();
 		var invoice_date = $("input#Invoice_Date").val();
 		var dup_id = '';
+		var dup_invoice = '';
 		var tkcode = $("#new_code").val();
 		var tkid = $("#TK_ID").val();
 		
@@ -34,8 +35,22 @@ $(function(){
 			success: function(data){
 				// alert(data);
 				dup_id = data;
-				}
-			});
+			}
+		});
+		
+		$.ajax({
+			type: 'GET',
+			url: BASE_URL+'sale/check_dup_invoice/'+invoice_no,
+			async: false,
+			dataType: 'text',
+			success: function(data){
+				// alert(data);
+				dup_invoice = data;
+			}
+		});
+		
+		
+		
 		
 		if(tkid == "" || sale_date == "" || invoice_no == "" || invoice_date == ""){
 			$("#message").noty({
@@ -57,6 +72,15 @@ $(function(){
 					//killer: true,
 					timeout: 4000
 				});	
+			}else if(dup_invoice == 'true')
+			{
+				$("#message").noty({
+					text: 'ไม่สามารถใช้เลขที่ Invoice นี้ได้ เนื่องจากมีอยู่ในระบบแล้ว',
+					type: 'error',
+					dismissQueue: true,
+					//killer: true,
+					timeout: 4000
+				});
 			}else{
 				$("#message").noty({
 					text: "ยืนยันการออกใบสั่งขาย",

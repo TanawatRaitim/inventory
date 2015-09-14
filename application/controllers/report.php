@@ -347,7 +347,7 @@ class Report extends CI_Controller {
 			}
 			 
 			$sql = "
-				select Inventory_Transaction_Detail.Product_ID, SUM(QTY_Good) as sumGood from Inventory_Transaction
+				select Inventory_Transaction_Detail.Product_ID, SUM(QTY_RemainReturn) as sumGood from Inventory_Transaction
 				left join Inventory_Transaction_Detail on Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID
 				left join Products on Products.Product_ID = Inventory_Transaction_Detail.Product_ID
 				where Cust_ID = '".$customer_id."' and QTY_RemainReturn is not null and Inventory_Transaction_Detail.Period_EndDate <= '".$current_date."'
@@ -407,7 +407,7 @@ class Report extends CI_Controller {
 		}
 		 
 		$sql = "
-			select Inventory_Transaction_Detail.Product_ID, SUM(QTY_Good) as sumGood from Inventory_Transaction
+			select Inventory_Transaction_Detail.Product_ID, SUM(QTY_RemainReturn) as sumGood from Inventory_Transaction
 			left join Inventory_Transaction_Detail on Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID
 			left join Products on Products.Product_ID = Inventory_Transaction_Detail.Product_ID
 			where Cust_ID = '".$customer_id."' and QTY_RemainReturn is not null and Inventory_Transaction_Detail.Period_EndDate <= '".$current_date."'
@@ -418,6 +418,7 @@ class Report extends CI_Controller {
 		$query = $this->db->query($sql);
 		$products = $query->result_array();
 		$content['has_product'] = $query->num_rows();
+		$content['customer_barcode'] = gen_customer_barcode($customer_id);
 		
 		foreach ($products as $key => $val) {
 			$products[$key]['barcode_img'] = gen_product_internal_barcode($val['Product_ID']);
@@ -459,7 +460,7 @@ class Report extends CI_Controller {
 		}
 		 
 		$sql = "
-			select Inventory_Transaction_Detail.Product_ID, SUM(QTY_Good) as sumGood from Inventory_Transaction
+			select Inventory_Transaction_Detail.Product_ID, SUM(QTY_RemainReturn) as sumGood from Inventory_Transaction
 			left join Inventory_Transaction_Detail on Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID
 			left join Products on Products.Product_ID = Inventory_Transaction_Detail.Product_ID
 			where Cust_ID = '".$customer_id."' and QTY_RemainReturn is not null and Inventory_Transaction_Detail.Period_EndDate <= '".$current_date."'

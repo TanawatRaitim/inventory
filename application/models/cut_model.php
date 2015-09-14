@@ -68,6 +68,8 @@
 			$transaction['DocRef_AutoID'] = NULL;
 			$transaction['DocRef_No'] = $rs_ref;
 			$transaction['DocRef_Other'] = NULL;
+			$transaction['RS_AutoID'] = $transaction_id;
+			$transaction['RS_SaleID'] = $transaction['RowCreatedPerson'];
 			$transaction['RowCreatedDate'] = date("Y/m/d h:i:s");
 			$transaction['RowCreatedPerson'] = $this->session->userdata('Emp_ID');
 			$transaction['RowUpdatedDate'] = date("Y/m/d h:i:s");

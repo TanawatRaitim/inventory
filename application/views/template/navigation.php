@@ -22,7 +22,7 @@
         <li class="active"><a href="<?php echo site_url('move/all')?>">โอนย้าย</a></li>
         <li class="active"><a href="<?php echo site_url('adjust/all')?>">ปรับยอด</a></li>
         <!-- <li class="active"><a href="<?php echo site_url('search/main')?>">ค้นหา</a></li> -->
-        <li class="active"><a href="http://172.168.1.109/IMS_Reporting58/IMS_Default.aspx?empID=<?php echo trim($this->session->userdata('Emp_ID'));?>&empGroup=<?php echo $this->session->userdata('UserGroup');?>" target="_blank">รายงาน</a></li>
+        <li class="active"><a href="http://172.168.1.109/IMS_Reporting58/index.aspx?empID=<?php echo trim($this->session->userdata('Emp_ID'));?>&empGroup=<?php echo $this->session->userdata('UserGroup');?>" target="_blank">รายงาน</a></li>
         <li class="dropdown active">
         	<a href="#" class="dropdown-toggle" data-toggle="dropdown">จัดการข้อมูล  <b class="caret"></b></a>
         	<ul class="dropdown-menu">

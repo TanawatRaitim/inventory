@@ -350,7 +350,24 @@ class Return_p extends CI_Controller {
 	{
 		$content['title'] = 'แก้ไขใบรับคืนที่ถูกปฏิเสธ ('.get_ticket_code_id($id).')';
 		$content['transaction'] = $this->transaction_model->get_transaction($id);
-		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
+		
+		$transaction_detail = $this->transaction_model->get_transaction_detail($id);
+		$docref_date = $content['transaction']['DocRef_Date'];
+		$customer_id =  $content['transaction']['Cust_ID'];
+		
+		foreach ($transaction_detail as $key => $val) {
+			$total_qty =  $val['QTY_Good'] + $val['QTY_Waste'] + $val['QTY_Damage'];
+			$product_id = $val['Product_ID'];
+			$return_status = $this->check_return_product($product_id, $customer_id, $total_qty, $docref_date);
+			$transaction_detail[$key]['return_status'] = $return_status['error_status'];
+			$transaction_detail[$key]['return_message'] = $return_status['error_description'];
+			$transaction_detail[$key]['return_color'] = $return_status['error_color'];
+			
+		}
+		
+		
+		$content['transaction_detail'] = $transaction_detail;
+		//$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
 		$content['input_type'] = 'SR';
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
@@ -411,7 +428,23 @@ class Return_p extends CI_Controller {
 	{
 		$content['title'] = 'แก้ไขแบบร่างใบรับคืนเลขที่ ('.get_ticket_code_id($id).')';
 		$content['transaction'] = $this->transaction_model->get_transaction($id);
-		$content['transaction_detail'] = $this->transaction_model->get_transaction_detail($id);
+		$transaction_detail = $this->transaction_model->get_transaction_detail($id);
+		$customer_id =  $content['transaction']['Cust_ID'];
+		$docref_date = $content['transaction']['DocRef_Date'];
+	
+		foreach ($transaction_detail as $key => $val) {
+			$total_qty =  $val['QTY_Good'] + $val['QTY_Waste'] + $val['QTY_Damage'];
+			$product_id = $val['Product_ID'];
+			$return_status = $this->check_return_product($product_id, $customer_id, $total_qty, $docref_date);
+			
+			$transaction_detail[$key]['return_status'] = $return_status['error_status'];
+			$transaction_detail[$key]['return_message'] = $return_status['error_description'];
+			$transaction_detail[$key]['return_color'] = $return_status['error_color'];
+			
+		}
+		
+		
+		$content['transaction_detail'] = $transaction_detail;
 		$content['input_type'] = 'SR';
 								
 		$content['doc_refer'] = doc_refer_dropdown($content['transaction']['DocRef_AutoID']);	
@@ -587,11 +620,952 @@ class Return_p extends CI_Controller {
 		echo json_encode($result);
 
 	}
+	
+	public function test_function()
+	{
+		$num = '-20';
+		echo abs($num);
+		
+	}
+	
+	public function add_test()
+	{
+		$content['title'] = 'ทดสอบ';
+		$content['input_type'] = 'RS';
+		$notification = $this->get_notification();
+								
+		$content['doc_refer'] = doc_refer_dropdown();	
+		$content['inventory_type'] = inventory_return_dropdown();
+		$data['content'] = $this->load->view('return/add_test',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css',
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'js/jquery_validation/dist/jquery.validate.min.js',
+			'js/jquery_validation/dist/additional-methods.min.js',
+			'jquery-mask-plugin/jquery.mask.min.js',
+			'js/app/return/add_test.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+	
+	public function check_wrong_return($srid)
+	{
+		//echo doctype('html5');
+		//echo meta('Content-type', 'text/html; charset=utf-8', 'equiv');
+		
+		$sr_where = array(
+			'Transact_AutoID'=>$srid
+		);
+			
+		$main_sr = $this->db->get_where('Inventory_Transaction', $sr_where)->row_array();
+		
+		$docref_date = $main_sr['DocRef_Date'];
+		$customer_id = $main_sr['Cust_ID'];
+		$detail_sr = $this->db->get_where('Inventory_Transaction_Detail', $sr_where)->result_array();
+		
+
+		
+			/**
+				 * 
+				 * Array
+					(
+					    [Transact_AutoID] => 8276
+					    [Cust_ID] => PR-60-A018
+					    [Product_ID] => 11-STAR-M1247
+					    [QTY_RemainReturn] => 15
+					    [Period_EndDate] => 2015-03-28
+					    [Invoice_No] => IV5801538
+					    [Invoice_Date] => 2015-01-27
+					)
+					Array
+					(
+					    [product_id] => 11-STAR-M1247
+					    [customer_id] => PR-60-A018
+					    [qty] => 8
+					    [qty_can_return] => 15
+					    [qty_all] => 0
+					    [error_status] => 1
+					    [error_code] => 99
+					    [error_description] => ถูกเงื่อนไข
+					    [error_color] => 
+					)
+				 * 
+				 * 
+				 */
+		
+		foreach ($detail_sr as $key => $value) {
+			$return_result = $this->check_return_product($value['Product_ID'], $customer_id, $value['QTY_Good']+$value['QTY_Waste']+$value['QTY_Damage'], $docref_date);
+			
+			//echo pre();
+			//print_r($return_result);
+			//echo pre_close();
+			/*
+			
+			if($return_result['error_code'] == 3)
+			{
+				echo pre();
+				
+				//print_r($return_result);
+				
+				echo pre_close();
+				
+				$where = array(
+					'Inventory_Transaction_Detail.Product_ID'=>$return_result['product_id'],
+					'Inventory_Transaction.Cust_ID'=>$customer_id,
+					'Ticket_Type.TK_Category'=>'sale',
+					'Inventory_Transaction.IsUsed'=>1,
+					'Inventory_Transaction_Detail.QTY_RemainReturn >'=>0
+				);
+				
+
+				$this->db->select('Inventory_Transaction_Detail.Transact_AutoID, Inventory_Transaction.Cust_ID, Inventory_Transaction_Detail.Product_ID');
+				$this->db->select('Inventory_Transaction_Detail.QTY_RemainReturn, Inventory_Transaction_Detail.Period_EndDate, Inventory_Transaction.Invoice_No');
+				$this->db->select('Inventory_Transaction.Invoice_Date, Inventory_Transaction_Detail.RecNo');
+				$this->db->join('Inventory_Transaction', 'Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID','left');
+				$this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.TK_Code','left');
+				$this->db->order_by('Inventory_Transaction_Detail.Period_EndDate');
+				$this->db->where($where);
+				
+				$saled_query = $this->db->get('Inventory_Transaction_Detail');
+				$saled_rows = $saled_query->num_rows();
+				$saled = $saled_query->result_array();
+				
+				$qty_return = $return_result['qty'];
+				
+				echo pre();
+				
+				print_r($saled);
+				
+				echo pre_close();
+				
+				//if($value['Period_EndDate'] > $docref_date)
+				//คืนก่อนกำหนด
+			
+			}
+				
+		*/
+			
+			
+			
+			if($return_result['error_code'] == 1)
+			{
+				//คืนสินค้าก่อนกำหนด
+				
+				$where = array(
+					'Inventory_Transaction_Detail.Product_ID'=>$return_result['product_id'],
+					'Inventory_Transaction.Cust_ID'=>$customer_id,
+					'Ticket_Type.TK_Category'=>'sale',
+					'Inventory_Transaction.IsUsed'=>1,
+					'Inventory_Transaction_Detail.QTY_RemainReturn >'=>0
+				);
+				
+				//ถูกเงื่อนไข
+				// $this->db->select_sum('QTY_RemainReturn');
+				$this->db->select('Inventory_Transaction_Detail.Transact_AutoID, Inventory_Transaction.Cust_ID, Inventory_Transaction_Detail.Product_ID');
+				$this->db->select('Inventory_Transaction_Detail.QTY_RemainReturn, Inventory_Transaction_Detail.Period_EndDate, Inventory_Transaction.Invoice_No');
+				$this->db->select('Inventory_Transaction.Invoice_Date, Inventory_Transaction_Detail.RecNo');
+				$this->db->join('Inventory_Transaction', 'Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID','left');
+				$this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.TK_Code','left');
+				$this->db->order_by('Inventory_Transaction_Detail.Period_EndDate');
+				$this->db->where($where);
+				
+				$saled_query = $this->db->get('Inventory_Transaction_Detail');
+				$saled_rows = $saled_query->num_rows();
+				$saled = $saled_query->result_array();
+				
+				$qty_return = $return_result['qty'];
+				
+				foreach($saled as $key=>$value)
+				{
+					
+					//break exit foreach
+					if($qty_return > $value['QTY_RemainReturn'])
+					{
+						$qty_return -= $value['QTY_RemainReturn'];
+						$where_data_detail = array(
+							'Transact_AutoID'=>$value['Transact_AutoID'],
+							'Product_ID'=>$value['Product_ID'],
+							'RecNo'=>$value['RecNo']
+						
+						);
+						
+						$update_data_detail = array(
+							'QTY_RemainReturn'=>0
+						);
+						
+						$this->db->where($where_data_detail);
+						$this->db->update('Inventory_Transaction_Detail',$update_data_detail);
+						
+						if($value['Period_EndDate'] > $docref_date){
+							//คืนก่อนกำหนด
+							$data_return_detail = array(
+								'Transact_AutoID'=>$srid,
+								'Invoice_No'=>$value['Invoice_No'],
+								'Product_ID'=>$value['Product_ID'],
+								'Sale_AutoID'=>$value['Transact_AutoID'],
+								'QTY'=>$value['QTY_RemainReturn'],
+								'Condition_Status'=>$return_result['error_status'],
+								'WStatus_ID'=>$return_result['error_code']
+							);
+							
+						}else{
+							//คืนถูกเงือนไข
+							$data_return_detail = array(
+								'Transact_AutoID'=>$srid,
+								'Invoice_No'=>$value['Invoice_No'],
+								'Product_ID'=>$value['Product_ID'],
+								'Sale_AutoID'=>$value['Transact_AutoID'],
+								'QTY'=>$value['QTY_RemainReturn'],
+								'Condition_Status'=>1,
+								'WStatus_ID'=>99
+							);
+							
+						}
+						
+						
+						$this->db->insert('Return_Detail', $data_return_detail);
+						
+						
+					}else{
+						//qty_return < remain return
+						
+						$remain_return = $value['QTY_RemainReturn'] -= $qty_return;
+						
+						$where_data_detail = array(
+							'Transact_AutoID'=>$value['Transact_AutoID'],
+							'Product_ID'=>$value['Product_ID'],
+							'RecNo'=>$value['RecNo']
+						
+						);
+						
+						$update_data_detail = array(
+							'QTY_RemainReturn'=>$remain_return
+						);
+						
+						$this->db->where($where_data_detail);
+						$this->db->update('Inventory_Transaction_Detail',$update_data_detail);
+						
+						//echo $this->db->last_query();
+
+						
+						//insert to Return_Detail
+						if($value['Period_EndDate'] > $docref_date){
+							//คืนก่อนกำหนด
+							$data_return_detail = array(
+								'Transact_AutoID'=>$srid,
+								'Invoice_No'=>$value['Invoice_No'],
+								'Product_ID'=>$value['Product_ID'],
+								'Sale_AutoID'=>$value['Transact_AutoID'],
+								'QTY'=>$qty_return,
+								'Condition_Status'=>$return_result['error_status'],
+								'WStatus_ID'=>$return_result['error_code']
+							);
+							
+						}else{
+							$data_return_detail = array(
+								'Transact_AutoID'=>$srid,
+								'Invoice_No'=>$value['Invoice_No'],
+								'Product_ID'=>$value['Product_ID'],
+								'Sale_AutoID'=>$value['Transact_AutoID'],
+								'QTY'=>$qty_return,
+								'Condition_Status'=>1,
+								'WStatus_ID'=>99
+							);
+							
+						}
+						
+						
+						
+						
+						$this->db->insert('Return_Detail', $data_return_detail);
+						
+						break;
+						
+					}
+				}
+				
+			}
+			elseif($return_result['error_code'] == 2)
+			{
+				//ไม่พบข้อมูลการขาย
+				$data = array(
+					'Transact_AutoID'=>$srid,
+					'Invoice_No'=>'notfound',
+					'Product_ID'=>$return_result['product_id'],
+					'QTY'=>$return_result['qty'],
+					'Condition_Status'=>0,
+					'WStatus_ID'=>$return_result['error_code']
+				);
+				
+				$this->db->insert('Return_Detail', $data);
+				
+				
+			}
+			elseif($return_result['error_code'] == 3)
+			{
+				
+
+				//ยอดคืนเกินยอดรวมการขาย
+
+				$where = array(
+					'Inventory_Transaction_Detail.Product_ID'=>$return_result['product_id'],
+					'Inventory_Transaction.Cust_ID'=>$customer_id,
+					'Ticket_Type.TK_Category'=>'sale',
+					'Inventory_Transaction.IsUsed'=>1,
+					'Inventory_Transaction_Detail.QTY_RemainReturn >'=>0
+				);
+				
+				//ถูกเงื่อนไข
+				// $this->db->select_sum('QTY_RemainReturn');
+				$this->db->select('Inventory_Transaction_Detail.Transact_AutoID, Inventory_Transaction.Cust_ID, Inventory_Transaction_Detail.Product_ID');
+				$this->db->select('Inventory_Transaction_Detail.QTY_RemainReturn, Inventory_Transaction_Detail.Period_EndDate, Inventory_Transaction.Invoice_No');
+				$this->db->select('Inventory_Transaction.Invoice_Date, Inventory_Transaction_Detail.RecNo');
+				$this->db->join('Inventory_Transaction', 'Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID','left');
+				$this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.TK_Code','left');
+				$this->db->order_by('Inventory_Transaction_Detail.Period_EndDate');
+				$this->db->where($where);
+				
+				$saled_query = $this->db->get('Inventory_Transaction_Detail');
+				$saled_rows = $saled_query->num_rows();
+				$saled = $saled_query->result_array();
+				
+				$qty_return = $return_result['qty'];
+				
+				foreach($saled as $key=>$value)
+				{
+					
+					//break exit foreach
+					if($qty_return > $value['QTY_RemainReturn'])
+					{
+						$qty_return -= $value['QTY_RemainReturn'];
+						$where_data_detail = array(
+							'Transact_AutoID'=>$value['Transact_AutoID'],
+							'Product_ID'=>$value['Product_ID'],
+							'RecNo'=>$value['RecNo']
+						
+						);
+						
+						$update_data_detail = array(
+							'QTY_RemainReturn'=>0
+						);
+						
+						$this->db->where($where_data_detail);
+						$this->db->update('Inventory_Transaction_Detail',$update_data_detail);
+						
+						
+						
+						if($value['Period_EndDate'] > $docref_date){
+							//คืนก่อนกำหนด
+							
+							$data_return_detail = array(
+								'Transact_AutoID'=>$srid,
+								'Invoice_No'=>$value['Invoice_No'],
+								'Product_ID'=>$value['Product_ID'],
+								'Sale_AutoID'=>$value['Transact_AutoID'],
+								'QTY'=>$value['QTY_RemainReturn'],
+								'Condition_Status'=>0,
+								'WStatus_ID'=>1
+							);
+						}else{
+							
+							$data_return_detail = array(
+								'Transact_AutoID'=>$srid,
+								'Invoice_No'=>$value['Invoice_No'],
+								'Product_ID'=>$value['Product_ID'],
+								'Sale_AutoID'=>$value['Transact_AutoID'],
+								'QTY'=>$value['QTY_RemainReturn'],
+								'Condition_Status'=>1,
+								'WStatus_ID'=>99
+							);
+							
+						}
+						
+						
+						
+						
+						
+						
+						
+						$this->db->insert('Return_Detail', $data_return_detail);
+						
+						
+						//เพิ่มยอดเกิน
+						
+						
+					}else{
+						//qty_return < remain return
+						
+						$remain_return = $value['QTY_RemainReturn'] -= $qty_return;
+						
+						$where_data_detail = array(
+							'Transact_AutoID'=>$value['Transact_AutoID'],
+							'Product_ID'=>$value['Product_ID'],
+							'RecNo'=>$value['RecNo']
+						
+						);
+						
+						$update_data_detail = array(
+							'QTY_RemainReturn'=>$remain_return
+						);
+						
+						$this->db->where($where_data_detail);
+						$this->db->update('Inventory_Transaction_Detail',$update_data_detail);
+						
+						//echo $this->db->last_query();
+
+						
+						if($value['Period_EndDate'] > $docref_date){
+							//คืนก่อนกำหนด
+							$data_return_detail = array(
+								'Transact_AutoID'=>$srid,
+								'Invoice_No'=>$value['Invoice_No'],
+								'Product_ID'=>$value['Product_ID'],
+								'Sale_AutoID'=>$value['Transact_AutoID'],
+								'QTY'=>$qty_return,
+								'Condition_Status'=>0,
+								'WStatus_ID'=>1
+							);
+							
+						}else{
+							$data_return_detail = array(
+								'Transact_AutoID'=>$srid,
+								'Invoice_No'=>$value['Invoice_No'],
+								'Product_ID'=>$value['Product_ID'],
+								'Sale_AutoID'=>$value['Transact_AutoID'],
+								'QTY'=>$qty_return,
+								'Condition_Status'=>1,
+								'WStatus_ID'=>99
+							);
+							
+						}	
+						
+						//insert to Return_Detail
+						
+						
+						$this->db->insert('Return_Detail', $data_return_detail);
+						
+						break;
+						
+					}
+				}
+
+				//insert ยอดเกิน
+				$data_more_saled = array(
+						'Transact_AutoID'=>$srid,
+						'Invoice_No'=>'oversale',
+						'Product_ID'=>$value['Product_ID'],
+						//'Sale_AutoID'=>'NULL',
+						'QTY'=>$qty_return,
+						'Condition_Status'=>0,
+						'WStatus_ID'=>3
+					);
+				
+				$this->db->insert('Return_Detail', $data_more_saled);
+	
+			}
+			elseif($return_result['error_code'] == 99)
+			{
+				
+				$where = array(
+					'Inventory_Transaction_Detail.Product_ID'=>$return_result['product_id'],
+					'Inventory_Transaction.Cust_ID'=>$customer_id,
+					'Ticket_Type.TK_Category'=>'sale',
+					'Inventory_Transaction.IsUsed'=>1,
+					'Inventory_Transaction_Detail.QTY_RemainReturn >'=>0
+				);
+				
+				//ถูกเงื่อนไข
+				// $this->db->select_sum('QTY_RemainReturn');
+				$this->db->select('Inventory_Transaction_Detail.Transact_AutoID, Inventory_Transaction.Cust_ID, Inventory_Transaction_Detail.Product_ID');
+				$this->db->select('Inventory_Transaction_Detail.QTY_RemainReturn, Inventory_Transaction_Detail.Period_EndDate, Inventory_Transaction.Invoice_No');
+				$this->db->select('Inventory_Transaction.Invoice_Date, Inventory_Transaction_Detail.RecNo');
+				$this->db->join('Inventory_Transaction', 'Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID','left');
+				$this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.TK_Code','left');
+				$this->db->order_by('Inventory_Transaction_Detail.Period_EndDate');
+				$this->db->where($where);
+				
+				$saled_query = $this->db->get('Inventory_Transaction_Detail');
+				$saled_rows = $saled_query->num_rows();
+				$saled = $saled_query->result_array();
+				
+				$qty_return = $return_result['qty'];
+				
+				foreach($saled as $key=>$value)
+				{
+					
+					//break exit foreach
+					if($qty_return > $value['QTY_RemainReturn'])
+					{
+						$qty_return -= $value['QTY_RemainReturn'];
+						$where_data_detail = array(
+							'Transact_AutoID'=>$value['Transact_AutoID'],
+							'Product_ID'=>$value['Product_ID'],
+							'RecNo'=>$value['RecNo']
+						
+						);
+						
+						$update_data_detail = array(
+							'QTY_RemainReturn'=>0
+						);
+						
+						$this->db->where($where_data_detail);
+						$this->db->update('Inventory_Transaction_Detail',$update_data_detail);
+						
+						
+						$data_return_detail = array(
+							'Transact_AutoID'=>$srid,
+							'Invoice_No'=>$value['Invoice_No'],
+							'Product_ID'=>$value['Product_ID'],
+							'Sale_AutoID'=>$value['Transact_AutoID'],
+							'QTY'=>$value['QTY_RemainReturn'],
+							'Condition_Status'=>$return_result['error_status'],
+							'WStatus_ID'=>$return_result['error_code']
+						);
+						
+						$this->db->insert('Return_Detail', $data_return_detail);
+						
+						
+					}else{
+						//qty_return < remain return
+						
+						$remain_return = $value['QTY_RemainReturn'] -= $qty_return;
+						
+						$where_data_detail = array(
+							'Transact_AutoID'=>$value['Transact_AutoID'],
+							'Product_ID'=>$value['Product_ID'],
+							'RecNo'=>$value['RecNo']
+						
+						);
+						
+						$update_data_detail = array(
+							'QTY_RemainReturn'=>$remain_return
+						);
+						
+						$this->db->where($where_data_detail);
+						$this->db->update('Inventory_Transaction_Detail',$update_data_detail);
+						
+						//echo $this->db->last_query();
+
+						
+						//insert to Return_Detail
+						$data_return_detail = array(
+							'Transact_AutoID'=>$srid,
+							'Invoice_No'=>$value['Invoice_No'],
+							'Product_ID'=>$value['Product_ID'],
+							'Sale_AutoID'=>$value['Transact_AutoID'],
+							'QTY'=>$qty_return,
+							'Condition_Status'=>$return_result['error_status'],
+							'WStatus_ID'=>$return_result['error_code']
+						);
+						
+						$this->db->insert('Return_Detail', $data_return_detail);
+						
+						break;
+						
+					}
+				}
+				
+				
+			}
+			else
+			{
+				//no reason	
+			}
+			
+			
+
+			
+		}//end foreach
+		
+	 	return TRUE;
+		
+	}
+	
+	public function smart_check($sr_autoid=21298, $product_id='13-GMAG-M1489')
+	{
+		//use doc_ref date
+		//$current_date = date('Y-m-d');
+		
+		$error_code_table = $this->db->get('Wrong_Status')->result_array();
+		$error_code = array();
+		$return_error['error_status'] = TRUE;
+		$return_error['error_code'] = 99;
+		$return_error['error_description'] = 'ถูกเงื่อนไข';
+		$return_error['error_color'] = '';
+		$qty_all = 0;
+		
+		
+		
+		$sr_detail_where = array(
+			
+			'Inventory_Transaction_Detail.Transact_AutoID'=>$sr_autoid,
+			'Product_ID'=>$product_id
+		
+		);
+		
+		$this->db->join('Inventory_Transaction', 'Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID','left');
+		$this->db->where($sr_detail_where);
+		$sr_query = $this->db->get('Inventory_Transaction_Detail');
+		$sr_detail = $sr_query->result_array();
+		
+		echo pre();
+		print_r($sr_detail);
+		echo pre_close();
+		$customer_id = $sr_detail[0]['Cust_ID'];
+		$docref_date = $sr_detail[0]['DocRef_Date'];
+		
+		
+		echo $customer_id;
+		echo $docref_date;
+		
+		
+		
+		
+		
+		$sr_detail = $this->db->get_where('Inventory_Transaction_Detail', array(
+		
+			'Transact_AutoID'=>$sr_autoid,
+			'Product_ID'=>$product_id
+		
+		))->result_array();
+		
+		echo pre();
+		print_r($sr_detail);
+		echo pre_close();
+		
+		exit();
+		
+		
+		
+		/**
+		  * Wrong Status
+		  * 1	คืนสินค้าก่อนกำหนด
+			2	ไม่พบข้อมูลการขาย
+			3	ยอดคืนเกินยอดรวมการขาย
+		  * 
+		  * 
+		  **/
+		foreach ($error_code_table as $key => $value) {
+			$error_code[$value['WStatus_ID']]['error_description'] = $value['WStatus_Name'];
+			$error_code[$value['WStatus_ID']]['error_color'] = $value['WStatus_Color'];
+		}
+		
+		
+		//check product has saled
+		$saled_where = array(
+			'Inventory_Transaction_Detail.Product_ID'=>$product_id,
+			'Inventory_Transaction.Cust_ID'=>$customer_id,
+			'Ticket_Type.TK_Category'=>'sale',
+			'Inventory_Transaction.IsUsed'=>1
+		);
+		
+		$this->db->select_sum('QTY_RemainReturn');
+		$this->db->join('Inventory_Transaction', 'Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID','left');
+		$this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.TK_Code','left');
+		$this->db->where($saled_where);
+		$has_saled_query = $this->db->get('Inventory_Transaction_Detail');
+		
+		//เช็คว่ามีการขายหรือไม่
+		$has_saled = $has_saled_query->row_array();
+		$qty_all = $has_saled['QTY_RemainReturn'];
+		
+		if(!$has_saled['QTY_RemainReturn'])
+		{
+			//total saled
+			$error_status = 2;
+			$return_error['error_status'] = FALSE;
+			$return_error['error_code'] = $error_status;
+			$return_error['error_description'] = $error_code[$error_status]['error_description'];
+			$return_error['error_color'] = $error_code[$error_status]['error_color'];
+			
+			
+			
+			return $return_error;
+		}
+		
+		//เช็คคืนก่อนกำหนด
+		$before_return_date_where =  array(
+			'Inventory_Transaction_Detail.Product_ID'=>$product_id,
+			'Inventory_Transaction.Cust_ID'=>$customer_id,
+			'Ticket_Type.TK_Category'=>'sale',
+			'Inventory_Transaction.IsUsed'=>1,
+			'Inventory_Transaction_Detail.Period_EndDate <='=>$docref_date
+		);
+		
+		$this->db->select_sum('QTY_RemainReturn');
+		$this->db->join('Inventory_Transaction', 'Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID','left');
+		$this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.TK_Code','left');
+		$this->db->where($before_return_date_where);
+		$before_return_date = $this->db->get('Inventory_Transaction_Detail')->row_array();
+		
+		//qty can return
+		$qty_can_return = $before_return_date['QTY_RemainReturn'];
+		
+		if($qty > $qty_all)
+		{
+			//qty return > qty saled
+			$error_status = 3;
+			$return_error['error_status'] = FALSE;
+			$return_error['error_code'] = $error_status;
+			$return_error['error_description'] = $error_code[$error_status]['error_description'];
+			$return_error['error_color'] = $error_code[$error_status]['error_color'];
+			
+			// print_r($return_error);
+			return $return_error;
+		}else{
+			
+			if($qty > $qty_can_return)
+			{
+				//คืนก่อนกำหนด
+				$error_status = 1;
+				$return_error['error_status'] = FALSE;
+				$return_error['error_code'] = $error_status;
+				$return_error['error_description'] = $error_code[$error_status]['error_description'];
+				$return_error['error_color'] = $error_code[$error_status]['error_color'];
+				
+				// print_r($return_error);
+				return $return_error;
+				
+			}
+			
+		}
+		
+		return $return_error;
+	}
+	
+	public function smart_check2()
+	{
+		$this->load->model('customer_model');
+		
+		
+		$content['title'] = "smart check";
+		
+		//dummy data
+		$product_id = '14-BEAT-G1001';
+		$customer_id = 'AC-01-0001';
+		$docref_date = '2015-08-10';
+		$qty = 4;
+		
+		echo pre();
+		print_r($this->check_return_product($product_id, $customer_id, $qty, $docref_date));
+		$return_status = $this->check_return_product($product_id, $customer_id, $qty, $docref_date);
+		echo pre_close();
+		//ไม่พบรายการขาย
+		echo br();
+		
+		
+		/*check has sale*/
+		$saled_where = array(
+			'Inventory_Transaction_Detail.Product_ID'=>$product_id,
+			'Inventory_Transaction.Cust_ID'=>$customer_id,
+			'Ticket_Type.TK_Category'=>'sale',
+			'Inventory_Transaction.IsUsed'=>1
+		);
+		
+		$this->db->select_sum('QTY_RemainReturn');
+		$this->db->join('Inventory_Transaction', 'Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID','left');
+		$this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.TK_Code','left');
+		$this->db->where($saled_where);
+		$has_saled_query = $this->db->get('Inventory_Transaction_Detail');
+		
+		//เช็คว่ามีการขายหรือไม่
+		$has_saled = $has_saled_query->row_array();
+		$qty_all = $has_saled['QTY_RemainReturn'];
+		echo $qty_all;
+		echo br();
+		
+		/*end check has saled*/
+		
+		$data['content'] = $this->load->view('return/smart_check',$content, TRUE);
+		
+		$css = array(
+			'bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+			'select2/select2-bootstrap-core.css',
+			'select2-bootstrap-css-master/select2-bootstrap.css'
+			);
+		$js = array(
+			'js/moment/min/moment.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'bootstrap3-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+			'select2/select2.min.js',
+			'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+			'js/app/return/approve.js'
+			);
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation','',TRUE);
+		
+		$this->load->view('template/main',$data);
+	}
+	
+	public function check_return_product($product_id, $customer_id, $qty, $docref_date)
+	{
+		//use doc_ref date
+		//$current_date = date('Y-m-d');
+		
+		$error_code_table = $this->db->get('Wrong_Status')->result_array();
+		$error_code = array();
+		$return_error['product_id'] = $product_id;
+		$return_error['customer_id'] = $customer_id;
+		$return_error['qty'] = $qty;
+		$return_error['qty_can_return'] = 0;
+		$return_error['qty_all'] = 0;
+		$return_error['error_status'] = TRUE;
+		$return_error['error_code'] = 99;
+		$return_error['error_description'] = 'ถูกเงื่อนไข';
+		$return_error['error_color'] = '';
+		$qty_all = 0;
+		
+		/**
+		  * Wrong Status
+		  * 1	คืนสินค้าก่อนกำหนด
+			2	ไม่พบข้อมูลการขาย
+			3	ยอดคืนเกินยอดรวมการขาย
+		  * 
+		  * 
+		  **/
+		foreach ($error_code_table as $key => $value) {
+			$error_code[$value['WStatus_ID']]['error_description'] = $value['WStatus_Name'];
+			$error_code[$value['WStatus_ID']]['error_color'] = $value['WStatus_Color'];
+		}
+		
+		
+		//check product has saled
+		$saled_where = array(
+			'Inventory_Transaction_Detail.Product_ID'=>$product_id,
+			'Inventory_Transaction.Cust_ID'=>$customer_id,
+			'Ticket_Type.TK_Category'=>'sale',
+			'Inventory_Transaction.IsUsed'=>1
+		);
+		
+		$this->db->select_sum('QTY_RemainReturn');
+		$this->db->join('Inventory_Transaction', 'Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID','left');
+		$this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.TK_Code','left');
+		$this->db->where($saled_where);
+		$has_saled_query = $this->db->get('Inventory_Transaction_Detail');
+		
+		//เช็คว่ามีการขายหรือไม่
+		$has_saled = $has_saled_query->row_array();
+		$qty_all = $has_saled['QTY_RemainReturn'];
+		
+		if(!$has_saled['QTY_RemainReturn'])
+		{
+			//total saled
+			$error_status = 2;
+			$return_error['error_status'] = FALSE;
+			$return_error['error_code'] = $error_status;
+			$return_error['error_description'] = $error_code[$error_status]['error_description'];
+			$return_error['error_color'] = $error_code[$error_status]['error_color'];
+			//$return_error['qty_all'] = $qty_all;
+			
+			return $return_error;
+		}
+		
+		//เช็คคืนก่อนกำหนด
+		$before_return_date_where =  array(
+			'Inventory_Transaction_Detail.Product_ID'=>$product_id,
+			'Inventory_Transaction.Cust_ID'=>$customer_id,
+			'Ticket_Type.TK_Category'=>'sale',
+			'Inventory_Transaction.IsUsed'=>1,
+			'Inventory_Transaction_Detail.Period_EndDate <='=>$docref_date
+		);
+		
+		$this->db->select_sum('QTY_RemainReturn');
+		$this->db->join('Inventory_Transaction', 'Inventory_Transaction_Detail.Transact_AutoID = Inventory_Transaction.Transact_AutoID','left');
+		$this->db->join('Ticket_Type', 'Ticket_Type.TK_Code = Inventory_Transaction.TK_Code','left');
+		$this->db->where($before_return_date_where);
+		$before_return_date = $this->db->get('Inventory_Transaction_Detail')->row_array();
+		
+		
+		//echo pre();
+		//print_r($before_return_date);
+		//echo pre_close();
+		
+		//qty can return
+		$qty_can_return = $before_return_date['QTY_RemainReturn'];
+		
+		if(!$qty_can_return)
+		{
+			$return_error['qty_can_return'] = 0;
+		}else{
+			$return_error['qty_can_return'] = $qty_can_return;	
+		}
+		
+		
+
+		
+		if($qty > $qty_all)
+		{
+			//qty return > qty saled
+			$error_status = 3;
+			$return_error['error_status'] = FALSE;
+			$return_error['error_code'] = $error_status;
+			$return_error['error_description'] = $error_code[$error_status]['error_description'];
+			$return_error['error_color'] = $error_code[$error_status]['error_color'];
+			$return_error['qty_all'] = $qty_all;
+			//$return_error['qty_can_return'] = $qty_can_return;
+			
+			// print_r($return_error);
+			return $return_error;
+		}else{
+			
+			if($qty > $qty_can_return)
+			{
+				//คืนก่อนกำหนด
+				$error_status = 1;
+				$return_error['error_status'] = FALSE;
+				$return_error['error_code'] = $error_status;
+				$return_error['error_description'] = $error_code[$error_status]['error_description'];
+				$return_error['error_color'] = $error_code[$error_status]['error_color'];
+				$return_error['qty_all'] = $qty_all;
+				//$return_error['qty_can_return'] = $qty_can_return;
+				
+				// print_r($return_error);
+				return $return_error;
+				
+			}
+			
+		}
+		
+		return $return_error;
+		
+	}
 
 	public function insert_transaction()
 	{
 		parse_str($_POST['main_ticket'], $main);
 		parse_str($_POST['ticket_detail'], $detail);
+		
+		$customer = $main['Cust_ID'];
+		$product_id = $detail['Product_ID'];
+		$qty = $detail['QTY_Good'] + $detail['QTY_Waste'] + $detail['QTY_Damage'];
+		
+		
+		
+		/**
+		 * Array
+				(
+				    [error_status] => 
+				    [error_code] => 2
+				    [error_description] => ไม่พบข้อมูลการขาย
+		 * 			[error_color] => error color
+				)
+		 * 
+		 * 
+		 */
+		//print_r($return_status);
 		
 		
 		if($main['Transaction_AutoID']=="")
@@ -606,12 +1580,19 @@ class Return_p extends CI_Controller {
 
 			$this->return_p_model->insert_ticket_detail($auto_id);
 			
+			$docref_date = get_docref_date($auto_id);
+			
+			$return_status = $this->check_return_product($product_id, $customer, $qty, $docref_date);
+			
 			$data = array(
 				'TK_ID'=>$main['TK_ID'],
 				'Transact_AutoID'=>$auto_id,
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
 				'Product_ID'=>$detail['Product_ID'],
-				'Product_Name'=>get_product_name($detail['Product_ID'])
+				'Product_Name'=>get_product_name($detail['Product_ID']),
+				'return_status'=>$return_status['error_status'],
+				'return_message'=>$return_status['error_description'],
+				'return_color'=>$return_status['error_color'],
 			);
 
 			echo json_encode($data);
@@ -620,13 +1601,19 @@ class Return_p extends CI_Controller {
 			
 			$this->return_p_model->update_main_transaction($tid);
 			$this->return_p_model->insert_ticket_detail($tid);
+			
+			$docref_date = get_docref_date($tid);
+			$return_status = $this->check_return_product($product_id, $customer, $qty, $docref_date);
 
 			$data = array(
 				'TK_ID'=>$main['TK_ID'],
 				'Transact_AutoID'=>$tid,
 				'Effect_Stock_AutoID'=>$detail['Effect_Stock_AutoID'],
 				'Product_ID'=>$detail['Product_ID'],
-				'Product_Name'=>get_product_name($detail['Product_ID'])
+				'Product_Name'=>get_product_name($detail['Product_ID']),
+				'return_status'=>$return_status['error_status'],
+				'return_message'=>$return_status['error_description'],
+				'return_color'=>$return_status['error_color'],
 			);
 
 			echo json_encode($data);	
@@ -1017,11 +2004,27 @@ class Return_p extends CI_Controller {
 									)
 								);
 		$content['transaction'] = $this->return_p_model->get_inventory_transaction($autoid);
-		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($autoid);
+		$transaction_detail = $this->transaction_model->get_table_transaction_detail($autoid);
+		$docref_date = $content['transaction']['DocRef_Date'];
+		$customer_id =  $content['transaction']['Cust_ID'];
+		
+		foreach ($transaction_detail as $key => $val) {
+			$total_qty =  $val['QTY_Good'] + $val['QTY_Waste'] + $val['QTY_Damage'];
+			$product_id = $val['Product_ID'];
+			$return_status = $this->check_return_product($product_id, $customer_id, $total_qty,$docref_date);
+			
+			$transaction_detail[$key]['return_status'] = $return_status['error_status'];
+			$transaction_detail[$key]['return_message'] = $return_status['error_description'];
+			$transaction_detail[$key]['return_color'] = $return_status['error_color'];
+			
+		}
+		
+		
+		$content['transaction_detail'] = $transaction_detail;
+		// $content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($autoid);
 		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
 		$content['approve_person'] = $this->return_p_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->return_p_model->get_transaction_for($content['transaction']['Transaction_For']);
-		
 		
 		//detail of rs
 		$content['description'] = '';
@@ -1178,8 +2181,25 @@ class Return_p extends CI_Controller {
 								);
 		
 		$content['transaction'] = $this->return_p_model->get_inventory_transaction($id);
-		$content['transaction_detail'] = $this->transaction_model->get_table_transaction_detail($id);
-		$content['customer'] = $this->customer_model->get($content['transaction']['Cust_ID']);
+		$customer_id = $content['transaction']['Cust_ID'];
+		$transaction_detail = $this->transaction_model->get_table_transaction_detail($id);
+		$content['customer'] = $this->customer_model->get($customer_id);
+		$docref_date = get_docref_date($id);
+
+		
+		foreach ($transaction_detail as $key => $val) {
+			$total_qty =  $val['QTY_Good'] + $val['QTY_Waste'] + $val['QTY_Damage'];
+			$product_id = $val['Product_ID'];
+			$return_status = $this->check_return_product($product_id, $customer_id, $total_qty, $docref_date);
+			
+			$transaction_detail[$key]['return_wrong_code'] = $return_status['error_code'];
+			$transaction_detail[$key]['return_status'] = $return_status['error_status'];
+			$transaction_detail[$key]['return_message'] = $return_status['error_description'];
+			$transaction_detail[$key]['return_color'] = $return_status['error_color'];
+			
+		}
+		
+		$content['transaction_detail'] = $transaction_detail;
 		$content['approve_person'] = $this->return_p_model->get_approve_person($content['transaction']['ApprovedBy']);
 		$content['transaction_for'] = $this->return_p_model->get_transaction_for($content['transaction']['Transaction_For']);
 		
@@ -1306,18 +2326,90 @@ class Return_p extends CI_Controller {
 		
 		$this->load->view('template/main',$data);
 	}
-	
+
+
+	public function update_return_status()
+	{
+		
+?>
+
+	<p>big</p>
+	<form method="post">
+		<input type="submit" name="update" id="update" value="update!!!!!" />
+	</form>
+
+<?php		
+		
+		
+		if($this->input->post('update'))
+		{
+			
+			//echo 'submited';
+			$where = array(
+			'TK_Code'=>'SR',
+			'IsApproved'=>1
+			);
+			
+			
+			$query = $this->db->get_where('Inventory_Transaction', $where);
+			
+			// print_r($query);
+			
+			// $this->check_wrong_return(28424);
+			
+			ini_set('MAX_EXECUTION_TIME', -1);
+			set_time_limit(0);
+			
+			foreach ($query->result_array() as $key => $value) {
+				
+								
+				
+				
+				$this->check_wrong_return($value['Transact_AutoID']);
+				
+				echo $key.','.$value['Transact_AutoID'];
+				echo br();
+				
+				
+				/*
+				if($result)
+				{
+					echo 'update'.$value['Transact_AutoID'].'successful';
+				}else{
+					echo 'updated'.$value['Transact_AutoID'].'fail';
+				}
+				
+				echo br();
+				
+				*/
+			}
+			
+			
+			
+		}
+		
+		
+		
+		
+	}
+
 	public function set_reject()
 	{
 		parse_str($_POST['reject'], $reject);
 		
+		$autoid = $reject['autoid'];
+		
 		$result = $this->return_p_model->set_reject_approve($reject);
 		
+		$this->check_wrong_return($autoid);
+		
 		if($result){
+			
 			echo 'true';
 		}else{
 			echo 'false';
 		}
+
 	}
 	
 	public function table_qty($product_id)

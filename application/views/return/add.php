@@ -307,6 +307,7 @@
 							<thead>
 								<tr>
 									<!-- <th>#</th> -->
+									<th></th>
 									<th>Product ID</th>
 									<th class="text-center">คลัง</th>
 									<th class="text-center">ดี</th>
@@ -321,7 +322,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<td colspan="7" id="total_record" class="text-left">ยังไม่มีรายการที่ถูกบันทึก</td>
+									<td colspan="8" id="total_record" class="text-left">ยังไม่มีรายการที่ถูกบันทึก</td>
 								</tr>
 								
 							</tfoot>

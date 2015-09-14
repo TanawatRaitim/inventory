@@ -114,6 +114,15 @@ $(function() {
 										},
 										beforeSend: function(){
 											
+											var loading = noty({
+												layout: 'center',
+												text: "<h1>กำลังดำเนินการ....</h1>",
+												type: 'information',
+												dismissQueue: false,
+												modal: true,
+												closeWith: ['']
+											});
+											
 											},
 										complete: function(){
 											}

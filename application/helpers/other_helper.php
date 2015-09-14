@@ -22,16 +22,15 @@ if ( ! function_exists('pre_close'))
 	
 }//end if
 
+
 if ( ! function_exists('gen_product_internal_barcode'))
 {
 		
 	function gen_product_internal_barcode($product_id)
 	{
 		$ci =& get_instance();
-		
 		$barcode_path = $ci->config->item('product_internal_barcode_path');
 		$file = $barcode_path.$product_id.'.gif';
-		
 		
 		if(file_exists($file))
 		{
@@ -41,8 +40,7 @@ if ( ! function_exists('gen_product_internal_barcode'))
 		}else{
 			
 			$ci->load->library('Barcode39');
-			
-			
+		
 			// set Barcode39 object 
 			$bc = new Barcode39($product_id); 
 			
@@ -52,9 +50,37 @@ if ( ! function_exists('gen_product_internal_barcode'))
 			return $file;
 			
 		}
+	}
+	
+}//end if
+
+if ( ! function_exists('gen_customer_barcode'))
+{
 		
-
-
+	function gen_customer_barcode($customer_id)
+	{
+		$ci =& get_instance();
+		$barcode_path = $ci->config->item('customer_barcode_path');
+		$file = $barcode_path.$customer_id.'.gif';
+		
+		if(file_exists($file))
+		{
+			//already have barcode
+			return $file;
+			
+		}else{
+			
+			$ci->load->library('Barcode39');
+		
+			// set Barcode39 object 
+			$bc = new Barcode39($customer_id); 
+			
+			// display new barcode 
+			$bar = $bc->draw('assets/customer_barcode/'.$customer_id.'.gif');
+			
+			return $file;
+			
+		}
 	}
 	
 }//end if

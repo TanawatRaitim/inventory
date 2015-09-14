@@ -727,8 +727,7 @@
 				return $query;
 				
 			}elseif($rollback_type == 'CutOut'){
-
-				$code = array('SA','SS','SC','SZ','SM','SD','SE','FR','TT','ZZ','MO','XS');
+				$code = array('SA','SS','SC','SZ','SM','SD','SE','SU','FR','TT','ZZ','MO','XS');
 				
 				$this->db->where('TK_ID',$tk_id);
 				$this->db->where('IsUsed', 1);

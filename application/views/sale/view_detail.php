@@ -50,6 +50,12 @@
 									<td><?php echo $transaction['created_date'];?></td>
 								</tr>
 								<tr>
+									<th class="info text-right">เลขที่ Invoice</th>
+									<td><?php echo $transaction['Invoice_No'];?></td>
+									<th class="info text-right">วันที่ Invoice</th>
+									<td><?php echo date('d-m-Y',strtotime($transaction['Invoice_Date']));?></td>
+								</tr>
+								<tr>
 									<th class="info text-right">สถานะ</th>
 									<td colspan="3"><?php echo $description;?></td>
 								</tr>

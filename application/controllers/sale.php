@@ -662,6 +662,25 @@ class Sale extends CI_Controller {
 		}
 		
 	}
+	
+	public function check_dup_invoice($invoice_no)
+	{
+		$where = array(
+			'Invoice_No'=>$invoice_no
+		);
+		
+		$rows = $this->db->get_where('Inventory_Transaction', $where)->num_rows();
+		
+		if($rows>0)
+		{
+			//is dup
+			echo 'true';
+		}else{
+			//not dup
+			echo 'false';
+		}
+		
+	}
 
 	public function get_breadcrumb($active_menu = false)
 	{

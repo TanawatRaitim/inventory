@@ -264,6 +264,29 @@
 			}
 	}//end if
 	
+	if ( ! function_exists('get_docref_date'))
+	{
+			
+			function get_docref_date($autoid)
+			{
+				
+				$ci =& get_instance();
+				$ci->db->select('DocRef_Date');
+				$ci->db->where('Transact_AutoID',$autoid);
+				$query = $ci->db->get('Inventory_Transaction');
+				
+				if($query->num_rows() == 0)
+				{
+					return "N/A";
+				}
+				
+				$doc = $query->row_array();
+				
+				return $doc['DocRef_Date'];
+				
+			}
+	}//end if
+	
 	if ( ! function_exists('get_inventory_name'))
 	{
 			

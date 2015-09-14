@@ -61,7 +61,7 @@ $(function(){
         			return meta.tkdescription + " (" + meta.tkfor + ")";
         		}
         	},
-        	// {"data":"count"},
+        	{"data":"Product_ID"},
         	{"data":"QTY_Good"},
         	{"data":"QTY_Waste"},
         	{"data":"QTY_Damage"},

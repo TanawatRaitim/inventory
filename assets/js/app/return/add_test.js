@@ -25,6 +25,77 @@ $(function() {
 	$("#DocRef_Date").mask('00/00/0000',{clearIfNotMatch: true});
 	$("#TK_ID").mask('00-00-0000',{clearIfNotMatch: true});
 	
+	
+	
+
+	$("#test").on('keyup', function(e) {
+	   if(e.keyCode === 13)
+	   {
+	   		alert('big');
+	   } 
+
+	});
+		
+	
+	
+	
+	
+	
+	$("#test_product").select2({
+		placeholder: 'Product ID',
+		// openOnEnter: false,
+		dropdownAutoWidth: true,
+		minimumInputLength: 2,
+		ajax: {
+			url: BASE_URL+'product/select2_product',
+			type: 'POST',
+			dataType: 'json',
+			data: function(term, page){
+				return {
+					q: term
+				};
+			},
+			results: function(data, page){
+				return {
+					results: data
+				};
+			}
+		},
+		formatSelection: format,
+		initSelection: function(element, callback){
+			var id = $(element).data("Product_ID");
+			var text = $(element).data("product_text");
+			callback({id:id, text:text});
+		}
+	}).select2('val', []).on('select2-selecting',function(e){
+		$.ajax({
+			type: 'POST',
+			url: BASE_URL+'product/get_product_json',
+			data: {id: e.val},
+			dataType: 'json',
+			success: function(data){
+				
+				
+				//load product information
+				$("#table_qty").load(BASE_URL+'product/table_qty/'+data.Product_ID);
+				$("#table_premium").load(BASE_URL+'product/table_premium/'+data.Product_ID);
+				//set default stock
+				$("#Effect_Stock_AutoID").val(5);
+				
+			},
+			beforeSend: function(){
+				
+			},
+			complete: function(){
+				
+			}
+		});
+
+	}).on('enter', function(e){
+		//alert('big');
+		
+	});
+	
 	$("#Product_ID").select2({
 		placeholder: 'Product ID',
 		openOnEnter: false,
@@ -52,6 +123,11 @@ $(function() {
 			callback({id:id, text:text});
 		}
 	}).select2('val', []).on('select2-selecting',function(e){
+		
+	
+		
+		
+		
 		$.ajax({
 			type: 'POST',
 			url: BASE_URL+'product/get_product_json',
@@ -128,7 +204,7 @@ $(function() {
 	});
 	
 	
-	$("input:text").keydown( function (event) { //event==Keyevent
+	$("input:text").not("input#product_barcode").keydown( function (event) { //event==Keyevent
 		    if(event.which == 13) {
 		        var inputs = $(this).closest('form').find(':input:visible');
 		        inputs.eq( inputs.index(this)+ 1 ).focus();
@@ -137,10 +213,13 @@ $(function() {
 		    // event.preventDefault(); <- Disable all keys  action
 		});
 		// if is not work search on google PlusAs Tab****
-		
+	
 	jQuery.validator.messages.required = "";
 	jQuery.validator.messages.min = "";
 	jQuery.validator.messages.digits = "";
+	
+	
+	
 	
 	
 	$("#btn_add_detail").on('click',function(e){
@@ -451,8 +530,6 @@ $(function() {
 		
 	});
 	
-
-	
 	
 	$("#btn_save_rs").click(function(e){
 		
@@ -518,9 +595,6 @@ $(function() {
 				]
 				
 			});
-		
-		
-		
 	});
 	
 	$(document).on('click',"#btn_save_draft", function(){

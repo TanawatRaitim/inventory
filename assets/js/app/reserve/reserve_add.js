@@ -109,9 +109,16 @@ $(function() {
 			data: {id: e.val},
 			dataType: 'json',
 			success: function(data){
-				var detail = data.Cust_Name + "("+data.Cust_Contact+") <br />";
-				detail += data.Cust_Addr;
-				$("#customer_detail").html(detail);
+				
+				if(data.Cust_ID)
+				{
+					var detail = data.Cust_Name + "("+data.Cust_Contact+") <br />";
+					detail += data.Cust_Addr;
+					$("#customer_detail").html(detail);	
+				}else{
+					alert('คุณระบุรหัสลูกค้าไม่ถูกต้อง');
+				}
+				
 			},
 			beforeSend: function(){
 			},

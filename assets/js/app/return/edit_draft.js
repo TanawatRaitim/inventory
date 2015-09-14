@@ -278,7 +278,14 @@ $(function() {
 							var QTY_Damage = parseInt($("#QTY_Damage").val());
 							var total = parseInt($("#product_receive").val());
 							
-							var row_data = '<tr title="'+data.Product_Name+'"><td>'+product_name+'</td><td class="text-center">';
+							if(data.return_status)
+							{
+								var row_data = '<tr><td title="'+data.return_message+'"></td><td title="'+data.Product_Name+'">'+product_name+'</td><td class="text-center">';	
+							}else{
+								var row_data = '<tr class="'+data.return_color+'"><td class="text-center" title="'+data.return_message+'"><span style="color: '+ data.return_color +';" class="glyphicon glyphicon-exclamation-sign cursor-pointer" aria-hidden="true"></span></td><td title="'+data.Product_Name+'">'+product_name+'</td><td class="text-center">';
+							}
+							
+							//var row_data = '<tr title="'+data.Product_Name+'"><td>'+product_name+'</td><td class="text-center">';
 							row_data += Effect_Stock_AutoID+'</td><td class="text-center">'+QTY_Good;
 							row_data += '</td><td class="text-center">'+QTY_Waste+'</td><td class="text-center">';
 							row_data += ''+QTY_Damage+'</td><td class="text-center" id="record_toal">'+total;

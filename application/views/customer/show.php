@@ -54,6 +54,7 @@
 						        	<tr>
 						                <th>Ticket</th>
 						                <th>กิจกรรม</th>
+						                <th>สินค้า</th>
 						                <th>ดี</th>
 						                <th>เสีย</th>
 						                <th>ชำรุด</th>
@@ -68,6 +69,7 @@
 						            <tr>
 						                <th id="filter">Ticket</th>
 						                <th id="filter">กิจกรรม</th>
+						                <th id="filter">สินค้า</th>
 						                <th>ดี</th>
 						                <th>เสีย</th>
 						                <th>ชำรุด</th>

@@ -134,6 +134,7 @@
 						<table class="table table-condensed table-border table-striped table-hover">
 							<thead>
 								<tr>
+									<th></th>
 									<th>#</th>
 									<th>Product ID</th>
 									<th>Name</th>
@@ -148,7 +149,18 @@
 						<?php $i = 1;?>								
 						<?php foreach($transaction_detail as $row):?>
 							
-							<tr>
+							<?php if($row['return_status']):?>
+									
+								<tr>
+									<td title="<?php echo $row['return_message'];?>"></td>
+										
+								<?php else:?>
+									
+								<tr class="<?php echo $row['return_color'];?>">
+									<td class="text-center" title="<?php echo $row['return_message'];?>"><span style="color: <?php echo $row['return_color'];?>;" class="glyphicon glyphicon-exclamation-sign cursor-pointer" aria-hidden="true"></span></td>
+								
+								<?php endif;?>
+									
 								<td><?php echo $i;?></td>
 								<td><?php echo $row['Product_ID'];?></td>
 								<td><?php echo $row['Product_Name'];?> # <?php echo $row['Product_Vol'];?></td>
@@ -183,7 +195,8 @@
 					</div>
 					<div class="panel-body">
 						<!-- <form class="form-horizontal" role="form"> -->
-						<form method="post" action="<?php echo site_url();?>reserve/set_reject" id='form_reject'>	
+						<!-- <form method="post" action="<?php echo site_url();?>reserve/set_reject" id='form_reject'>	 -->
+						<form method="post" id='form_reject'>	
 							<input type="hidden" name="rsid" id="rsid" value="<?php echo $transaction['TK_ID'];?>" />
 							<input type="hidden" name="autoid" id="autoid" value="<?php echo $transaction['Transact_AutoID'];?>" />
 							<div class="col-md-12">

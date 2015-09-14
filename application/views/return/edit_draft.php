@@ -307,6 +307,7 @@
 							<thead>
 								<tr>
 									<!-- <th>#</th> -->
+									<th></th>
 									<th>Product ID</th>
 									<th class="text-center">คลัง</th>
 									<th class="text-center">ดี</th>
@@ -317,9 +318,24 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach($transaction_detail as $row):?>			
-								<tr title="<?php echo get_product_name($row['Product_ID']); ?>">
-									<td><?php echo $row['Product_ID']; ?></td>
+								<?php foreach($transaction_detail as $row):?>
+								
+									
+								
+								<?php if($row['return_status']):?>
+									
+								<tr>
+									<td title="<?php echo $row['return_message'];?>"></td>
+										
+								<?php else:?>
+									
+								<tr class="<?php echo $row['return_color'];?>">
+									<td class="text-center" title="<?php echo $row['return_message'];?>"><span style="color: <?php echo $row['return_color'];?>;" class="glyphicon glyphicon-exclamation-sign cursor-pointer" aria-hidden="true"></span></td>
+								
+								<?php endif;?>		
+												
+								
+									<td title="<?php echo get_product_name($row['Product_ID']); ?>"><?php echo $row['Product_ID']; ?></td>
 									<td class="text-center"><?php echo get_inventory_name($row['Effect_Stock_AutoID']); ?></td>
 									<td class="text-center"><?php echo $row['QTY_Good']; ?></td>
 									<td class="text-center"><?php echo $row['QTY_Waste']; ?></td>
@@ -334,7 +350,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<td colspan="7" id="total_record" class="text-left"></td>
+									<td colspan="8" id="total_record" class="text-left"></td>
 								</tr>
 								<!-- <tr>
 									<td colspan="2" class="text-center">รวม</td>

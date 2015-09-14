@@ -279,7 +279,7 @@ if ( ! function_exists('inventory_return_dropdown'))
 			
 			$query = $ci->db->get('Inventory');
 			$dropdown = "";
-			$dropdown .= "<option value='0'>-คลัง -</option>";
+			//$dropdown .= "<option value='0'>-คลัง -</option>";
 			
 			if($selected != "")
 			{
