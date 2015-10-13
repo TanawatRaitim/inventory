@@ -17,7 +17,8 @@ class Auth2
 	
 	public function check()
 	{
-
+		
+		$admin_type_id = $this->ci->config->item('admin_type_id');
 		$query = $this->ci->db->get_where('Employees',
 									array('Inven_User'=>$_POST['identity'],
 										  'Inven_Pass'=>$_POST['password']	
@@ -26,7 +27,22 @@ class Auth2
 								);
 		
 		if($query->num_rows()==1){
-			$this->ci->session->set_userdata($query->row_array());			
+			
+			$result = $query->row_array();
+			
+			$this->ci->session->set_userdata($result);
+			
+			if($this->ci->session->userdata('UserGroup') == $admin_type_id)
+			{
+				$this->ci->session->set_userdata('is_admin', TRUE);
+				//$result['is_admin'] = TRUE;
+				
+			}else{
+				//$result['is_admin'] = FALSE;	
+				$this->ci->session->set_userdata('is_admin', FALSE);
+				
+			}
+			
 			return TRUE;
 		}
 		

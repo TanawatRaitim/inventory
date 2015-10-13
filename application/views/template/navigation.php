@@ -14,13 +14,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<?php echo site_url('reserve/all')?>">จอง</a></li>
+        <li class="active"><a href="<?php echo site_url('reserve/no_appv')?>">จอง</a></li>
         <li class="active"><a href="<?php echo site_url('sale/all')?>">ตัดขาย</a></li>
         <li class="active"><a href="<?php echo site_url('cut/all')?>">ตัดจ่าย</a></li>
-        <li class="active"><a href="<?php echo site_url('in/all')?>">นำเข้า</a></li>
-        <li class="active"><a href="<?php echo site_url('return_p/all')?>">รับคืน</a></li>
-        <li class="active"><a href="<?php echo site_url('move/all')?>">โอนย้าย</a></li>
-        <li class="active"><a href="<?php echo site_url('adjust/all')?>">ปรับยอด</a></li>
+        <li class="active"><a href="<?php echo site_url('in/no_appv')?>">นำเข้า</a></li>
+        <li class="active"><a href="<?php echo site_url('return_p/no_appv')?>">รับคืน</a></li>
+        <li class="active"><a href="<?php echo site_url('move/no_appv')?>">โอนย้าย</a></li>
+        <li class="active"><a href="<?php echo site_url('adjust/no_appv')?>">ปรับยอด</a></li>
         <!-- <li class="active"><a href="<?php echo site_url('search/main')?>">ค้นหา</a></li> -->
         <li class="active"><a href="http://172.168.1.109/IMS_Reporting58/index.aspx?empID=<?php echo trim($this->session->userdata('Emp_ID'));?>&empGroup=<?php echo $this->session->userdata('UserGroup');?>" target="_blank">รายงาน</a></li>
         <li class="dropdown active">

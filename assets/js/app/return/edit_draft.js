@@ -587,6 +587,82 @@ $(function() {
 
 	});
 	
+	$(document).on('click',"#btn_refresh", function(){
+		
+		var btn_refresh = $(this);
+		var tkid = $("#TK_ID").val();
+		var autoid = $("#Transaction_AutoID").val();
+		
+		if(autoid=="")
+		{
+			$("#refresh_message").noty({
+				text: "ไม่สามารถ ปรับปรุงรายการสินค้าได้",
+				type: 'error',
+				dismissQueue: true,
+				//killer: true,
+				timeout: 4000
+			});
+			return false;
+		}
+		btn_refresh.attr('disabled','disabled');
+		
+		$("#refresh_message").noty({
+			// layout: 'top',
+			text: "กดยืนยันการปรับปรุงรายการสินค้า",
+			type: 'confirm',
+			dismissQueue: false,
+			force: true,
+			maxVisible: 1,
+			buttons     : [
+				{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+					$noty.close();
+					
+					$.ajax({
+						type: 'POST',
+						url: BASE_URL+'transaction/save_draft_return',
+						data: {
+							main_ticket: $("#main_ticket").serialize()
+							// ticket_detail: $("#ticket_detail").serialize()
+						},
+						dataType: 'json',
+						success: function(data){
+							if(data.result == true){
+								btn_refresh.removeAttr('disabled');
+								//alert('บันทึกแบบร่างเรียบร้อยแล้ว');
+								// window.location.href = BASE_URL+'return_p/add';
+								window.location.href = BASE_URL+'return_p/edit_draft/'+autoid;
+							}else{
+								btn_refresh.removeAttr('disabled');
+								alert('ไม่สามารถปรับปรุงข้อมูลได้ โปรดติดต่อผู้ดูแลระบบ');
+								
+							}
+							
+							},
+						beforeSend: function(){
+				
+						},
+						complete: function(){
+							
+							
+						}
+					});
+					
+					}
+				},
+				{addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
+
+						$noty.close();
+						btn_refresh.removeAttr('disabled');
+
+					}
+				}
+			]
+			
+		});
+		
+
+	});
+	
 	$("#btn_cancel_all").click(function(){
 
 		var btn_cancel = $(this);

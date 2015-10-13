@@ -1753,10 +1753,42 @@ class Return_p extends CI_Controller {
 		$this->return_p_model->save_edit_reject($main);
 	}
 	
+	public function refresh_product_list()
+	{
+		parse_str($_POST['main_ticket'], $main);
+		
+		$auto_id = $main['Transaction_AutoID'];
+		unset($main['Transaction_AutoID']);
+		
+		//print_r($main);
+		//exit();
+		
+		
+		//$main['Reject_Remark'] = '';
+		$main['RowUpdatedDate'] = date("Y/m/d h:i:s");
+		//$main['RowUpdatedPerson'] = $this->session->userdata('Emp_ID');
+		$main['DocRef_Date'] = convert_date_to_mssql($main['DocRef_Date']);
+		//$main['IsApproved'] = 0;
+		//$main['IsReject'] = 0;
+		//$main['IsDraft'] = 0;
+		
+		$this->db->where('Transact_AutoID', $auto_id);
+		$this->db->update('Inventory_Transaction', $main);
+	}
+	
 	public function get_all()
 	{
 		
 		$result = $this->return_p_model->get_all();
+		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		/*
 		
 		$result2 = $this->return_p_model->count_transaction_detail();
 		
@@ -1775,7 +1807,7 @@ class Return_p extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -1788,6 +1820,14 @@ class Return_p extends CI_Controller {
 		
 		$result = $this->return_p_model->get_no_appv_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		/*
 		$result2 = $this->return_p_model->count_transaction_detail();
 		
 		$count = array();
@@ -1805,7 +1845,7 @@ class Return_p extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -1817,6 +1857,15 @@ class Return_p extends CI_Controller {
 	{
 		$result = $this->return_p_model->get_yes_appv_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->return_p_model->count_transaction_detail();
 		
 		$count = array();
@@ -1834,7 +1883,7 @@ class Return_p extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -1845,6 +1894,16 @@ class Return_p extends CI_Controller {
 	public function get_reject_all()
 	{
 		$result = $this->return_p_model->get_reject_all();
+		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->return_p_model->count_transaction_detail();
 		
 		$count = array();
@@ -1862,7 +1921,7 @@ class Return_p extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -2397,11 +2456,38 @@ class Return_p extends CI_Controller {
 	{
 		parse_str($_POST['reject'], $reject);
 		
+		
+		//print_r($reject);
+		//exit();
+		//print_r($_POST['reject']);
+		//exit();
+		
 		$autoid = $reject['autoid'];
+		
+		//check approve
+		$this->db->where(array('Transact_AutoID'=>$autoid));
+		$query = $this->db->get('Inventory_Transaction');
+		$check_approve = $query->row_array();
+		
+		
+		if($check_approve['IsApproved'] == 1)
+		{
+			echo 'true';
+			exit();
+		}
+		
+		//echo $check_approve['IsApproved'];
+		//exit();
 		
 		$result = $this->return_p_model->set_reject_approve($reject);
 		
-		$this->check_wrong_return($autoid);
+		if(!$reject['is_rejected'])
+		{
+			//reject
+			$this->check_wrong_return($autoid);
+			
+		}
+		
 		
 		if($result){
 			

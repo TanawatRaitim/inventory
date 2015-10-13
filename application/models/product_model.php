@@ -125,7 +125,13 @@
 		
 		public function has_history_age_inventory($product_id)
 		{
+			// $this->db->order_by('RecNo');
 			$query = $this->db->get_where('Extend_ExpireInventory', array('Product_ID'=>$product_id));
+			
+			
+			//echo $this->db->last_query();
+			
+			//exit();
 			
 			if($query->num_rows() == 0)
 			{
@@ -164,6 +170,7 @@
 		
 		public function inventory_age_form($product_id)
 		{
+			// $this->db->order_by('RecNo');
 			$query = $this->db->get_where('Products', array('Product_ID'=>$product_id))->row_array();
 			
 			$status = TRUE;

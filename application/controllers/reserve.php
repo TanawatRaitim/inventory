@@ -863,12 +863,13 @@ class Reserve extends CI_Controller {
 		
 		$result = $this->reserve_model->get_rs_all();
 		
+		
+		/*
 		$result2 = $this->reserve_model->count_transaction_detail();
 		
 		$count = array();
 		
 		foreach ($result2 as $key => $value) {
-			//$count
 			$count[$value['Transact_AutoID']] = $value['count_a'];
 		}
 		
@@ -880,6 +881,15 @@ class Reserve extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
+		*/
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
 		
 		$json = array(
 			'data'=>$result
@@ -888,13 +898,43 @@ class Reserve extends CI_Controller {
 		echo json_encode($json);
 	}
 	
+	public function test_rs()
+	{
+		$result = $this->reserve_model->get_rs_all();	
+		echo pre();
+		//print_r($result);
+		echo pre_close();
+		//$i = 1;
+		foreach($result as $key=>$value)
+		{
+			//echo $value['Transact_AutoID'];
+			
+			
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			echo $result[$key]['count'];
+			echo br();
+			
+			
+			
+		}
+	}
 	
 	
 	public function get_no_appv_all()
 	{
 		
 		$result = $this->reserve_model->get_no_appv_all();
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
 		
+		/*
 		$result2 = $this->reserve_model->count_transaction_detail();
 		
 		$count = array();
@@ -912,6 +952,8 @@ class Reserve extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
+		 * 
+		 * */
 		
 		$json = array(
 			'data'=>$result
@@ -924,6 +966,15 @@ class Reserve extends CI_Controller {
 	{
 		$result = $this->reserve_model->get_yes_appv_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->reserve_model->count_transaction_detail();
 		
 		$count = array();
@@ -941,7 +992,7 @@ class Reserve extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -952,6 +1003,15 @@ class Reserve extends CI_Controller {
 	public function get_reject_all()
 	{
 		$result = $this->reserve_model->get_reject_all();
+		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		/*
 		$result2 = $this->reserve_model->count_transaction_detail();
 		
 		$count = array();
@@ -970,6 +1030,8 @@ class Reserve extends CI_Controller {
 			}
 		}
 		
+		 * 
+		 * */
 		$json = array(
 			'data'=>$result
 		);

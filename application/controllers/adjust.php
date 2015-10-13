@@ -704,6 +704,15 @@ class Adjust extends CI_Controller {
 		
 		$result = $this->adjust_model->get_adjust_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->adjust_model->count_transaction_detail();
 		
 		$count = array();
@@ -721,7 +730,7 @@ class Adjust extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -734,6 +743,15 @@ class Adjust extends CI_Controller {
 		
 		$result = $this->adjust_model->get_no_appv_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->adjust_model->count_transaction_detail();
 		
 		$count = array();
@@ -752,6 +770,7 @@ class Adjust extends CI_Controller {
 			}
 		}
 		
+		 * */
 		$json = array(
 			'data'=>$result
 		);
@@ -763,6 +782,15 @@ class Adjust extends CI_Controller {
 	{
 		$result = $this->adjust_model->get_yes_appv_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->adjust_model->count_transaction_detail();
 		
 		$count = array();
@@ -781,6 +809,7 @@ class Adjust extends CI_Controller {
 			}
 		}
 		
+		 * */
 		$json = array(
 			'data'=>$result
 		);
@@ -791,6 +820,16 @@ class Adjust extends CI_Controller {
 	public function get_reject_all()
 	{
 		$result = $this->adjust_model->get_reject_all();
+		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->adjust_model->count_transaction_detail();
 		
 		$count = array();
@@ -808,6 +847,10 @@ class Adjust extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
+		*/
+		
+		
+		
 		
 		$json = array(
 			'data'=>$result

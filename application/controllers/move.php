@@ -72,7 +72,7 @@ class Move extends CI_Controller {
 
 	public function no_appv()
 	{
-		$content['title'] = 'ข้อมูลการรับคืน [รออนุมัติ]';
+		$content['title'] = 'ข้อมูลการโอนย้าย [รออนุมัติ]';
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -125,7 +125,7 @@ class Move extends CI_Controller {
 
 	public function yes_appv()
 	{
-		$content['title'] = 'ข้อมูลการรับคืน [ผ่านอนุมัติ]';
+		$content['title'] = 'ข้อมูลการโอนย้าย [ผ่านอนุมัติ]';
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -178,7 +178,7 @@ class Move extends CI_Controller {
 
 	public function reject()
 	{
-		$content['title'] = 'ข้อมูลการรับคืน [ถูกปฏิเสธ]';
+		$content['title'] = 'ข้อมูลการโอนย้าย [ถูกปฏิเสธ]';
 		$notification = $this->get_notification();
 		$content['breadcrumb'] = array(
 									0 => array(
@@ -695,6 +695,15 @@ class Move extends CI_Controller {
 		
 		$result = $this->move_model->get_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->move_model->count_transaction_detail();
 		
 		$count = array();
@@ -712,7 +721,7 @@ class Move extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -725,6 +734,15 @@ class Move extends CI_Controller {
 		
 		$result = $this->move_model->get_no_appv_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->move_model->count_transaction_detail();
 		
 		$count = array();
@@ -742,7 +760,7 @@ class Move extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -754,6 +772,15 @@ class Move extends CI_Controller {
 	{
 		$result = $this->move_model->get_yes_appv_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->move_model->count_transaction_detail();
 		
 		$count = array();
@@ -771,7 +798,7 @@ class Move extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -782,6 +809,16 @@ class Move extends CI_Controller {
 	public function get_reject_all()
 	{
 		$result = $this->move_model->get_reject_all();
+		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->move_model->count_transaction_detail();
 		
 		$count = array();
@@ -799,7 +836,7 @@ class Move extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);

@@ -1232,8 +1232,11 @@ class Product extends CI_Controller {
 								
 		$product = $this->db->get_where('Products', array('Product_AutoID'=>$id))->result_array();
 		$premium = $this->db->get_where('Product_Premium', array('Product_ID'=> $product[0]['Product_ID']));
+		$this->db->order_by('RecNo');
 		$age_inventory_history = $this->db->get_where('Extend_ExpireInventory', array('Product_ID'=> $product[0]['Product_ID']));
+		$this->db->order_by('RecNo');
 		$age_return_history = $this->db->get_where('Extend_ExpireReturn', array('Product_ID'=> $product[0]['Product_ID']));
+		$this->db->order_by('RecNo');
 		$age_sale_history = $this->db->get_where('Extend_ExpireSale', array('Product_ID'=> $product[0]['Product_ID']));
 		
 		$content['status_end_date'] = TRUE;
@@ -1812,7 +1815,20 @@ class Product extends CI_Controller {
 			echo 'true';
 		}	
 	}
-
+	
+	public function test()
+	{
+		echo $this->input->post('IsNew');
+		
+		if($this->input->post('IsNew'))
+		{
+			echo $this->input->post('IsNew');
+		}else{
+			echo 'false';
+		}
+		
+		$this->load->view('product/test');
+	}
 	
 	
 

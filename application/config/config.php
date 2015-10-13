@@ -110,6 +110,8 @@ $config['css'] = 'css/style.css';
  */
 $config['system_name'] = 'IMS';
 
+$config['admin_type_id'] = 1;
+
 
 /*
 |--------------------------------------------------------------------------

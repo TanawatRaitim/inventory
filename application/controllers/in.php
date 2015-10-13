@@ -592,6 +592,15 @@ class In extends CI_Controller {
 		
 		$result = $this->in_model->get_in_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->in_model->count_transaction_detail();
 		
 		$count = array();
@@ -609,6 +618,7 @@ class In extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
+		*/
 		
 		$json = array(
 			'data'=>$result
@@ -622,6 +632,15 @@ class In extends CI_Controller {
 		
 		$result = $this->in_model->get_no_appv_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+
+		/*
 		$result2 = $this->in_model->count_transaction_detail();
 		
 		$count = array();
@@ -639,7 +658,7 @@ class In extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);
@@ -651,6 +670,14 @@ class In extends CI_Controller {
 	{
 		$result = $this->in_model->get_yes_appv_all();
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		/*
 		$result2 = $this->in_model->count_transaction_detail();
 		
 		$count = array();
@@ -668,6 +695,9 @@ class In extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
+		*/
+		
+		
 		
 		$json = array(
 			'data'=>$result
@@ -679,6 +709,16 @@ class In extends CI_Controller {
 	public function get_reject_all()
 	{
 		$result = $this->in_model->get_reject_all();
+		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->in_model->count_transaction_detail();
 		
 		$count = array();
@@ -696,6 +736,7 @@ class In extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
+		 * */
 		
 		$json = array(
 			'data'=>$result

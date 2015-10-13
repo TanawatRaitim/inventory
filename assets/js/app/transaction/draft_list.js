@@ -93,7 +93,7 @@ $(function(){
         		// "width": "10%",
         		"render": function(data, type, row){
         			//return "button";
-        			console.log(row);
+        			//console.log(row);
         			return "<a data-toggle='tooltip' class='btn btn-xs btn-danger' href='"+BASE_URL+"transaction/edit_draft/"+row.Transact_AutoID+"'>แก้ไข</a>";
         		}
         	}

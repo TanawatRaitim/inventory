@@ -424,6 +424,15 @@ class Transaction extends CI_Controller {
 		
 		$result = $this->transaction_model->get_draft_by_emp($this->session->userdata('Emp_ID'));
 		
+		foreach($result as $key=>$value)
+		{
+			$this->db->where(array('Transact_AutoID'=>$value['Transact_AutoID']));
+			$this->db->from('Inventory_Transaction_Detail');
+			$result[$key]['count']= $this->db->count_all_results();
+			
+		}
+		
+		/*
 		$result2 = $this->transaction_model->count_transaction_detail();
 		
 		$count = array();
@@ -441,7 +450,7 @@ class Transaction extends CI_Controller {
 				$result[$key]['count'] = 0;
 			}
 		}
-		
+		*/
 		$json = array(
 			'data'=>$result
 		);

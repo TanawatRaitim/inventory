@@ -238,6 +238,7 @@ if ( ! function_exists('inventory_dropdown'))
 			//id = 3 คลังพิเศษ
 			$ci->db->where('Inventory_TypeID','1');
 			$ci->db->or_where('Inventory_TypeID','3');
+			$ci->db->order_by('Stock_Name');
 			
 			$query = $ci->db->get('Inventory');
 			$dropdown = "";
@@ -312,7 +313,9 @@ if ( ! function_exists('all_inventory_dropdown'))
 		function all_inventory_dropdown($selected = "")
 		{
 			$ci =& get_instance();
+			$ci->db->order_by('Stock_Name');
 			$query = $ci->db->get('Inventory');
+			
 			$dropdown = "";
 			$dropdown .= "<option value='0'>-คลัง -</option>";
 			
@@ -603,7 +606,8 @@ if ( ! function_exists('product_status_dropdown'))
 		
 		$select = array(
 			'ACTIVE'=>'ACTIVE',
-			'DISCONTINUE'=>'DISCONTINUE'
+			'DISCONTINUE'=>'DISCONTINUE',
+			'INACTIVE'=>'INACTIVE'
 		);
 		
 		if($selected != "")

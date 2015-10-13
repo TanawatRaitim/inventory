@@ -442,6 +442,73 @@ $(function() {
 	});
 	
 
+
+	
+	$("#btn_refresh").click(function(e){
+		
+		var tkid = $("#TK_ID").val();
+		var autoid = $("#Transaction_AutoID").val();
+// 		
+		// alert(autoid);
+		// alert(tkid);
+		// return false;
+		
+		
+		
+		$("#refresh_message").noty({
+			// layout: 'top',
+			text: "กดยืนยันการปรับปรุงรายการสินค้า",
+			type: 'confirm',
+			dismissQueue: false,
+			buttons     : [
+				{addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
+					
+					$(this).attr('disabled','disabled');
+					
+					$noty.close();
+					
+					$.ajax({
+						type: 'POST',
+						// url: BASE_URL+'return_p/save_edit_reject',
+						url: BASE_URL+'return_p/refresh_product_list',
+						data: {
+							main_ticket: $("#main_ticket").serialize(),
+							ticket_detail: $("#ticket_detail").serialize()
+							},
+						dataType: 'json',
+						success: function(data){
+							},
+						beforeSend: function(){
+
+								var loading = noty({
+									layout: 'center',
+									text: "<h1>กำลังดำเนินการ....</h1>",
+									type: 'information',
+									dismissQueue: false,
+									modal: true,
+									closeWith: ['']
+								});
+							},
+							complete: function(){
+								
+								//alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+								window.location.href = BASE_URL+'return_p/edit_reject/'+autoid;
+							}
+						});
+					}
+				},
+				{addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
+					$noty.close();
+					}
+				}
+			]
+			
+		});
+		
+		
+		
+	});
+
 	
 	
 	$("#btn_save_rs").click(function(e){
@@ -586,6 +653,7 @@ $(function() {
 		
 
 	});
+	
 	
 	$("#btn_cancel_all").click(function(){
 

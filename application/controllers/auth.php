@@ -32,6 +32,7 @@ class Auth extends CI_Controller {
 		$css = array(
 					'css/signin.css'
 					);
+					
 		$js = array(
 					'js/jquery_validation/dist/jquery.validate.min.js'
 					);
@@ -57,6 +58,18 @@ class Auth extends CI_Controller {
 			
 			redirect('auth/login');
 		}
+	}
+	
+	public function is_admin()
+	{
+		
+		echo $this->session->userdata('is_admin');
+		
+		echo br();
+		
+		echo pre();
+		print_r($this->session->all_userdata());
+		echo pre_close();
 	}
 	
 	public function logout()

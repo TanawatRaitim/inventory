@@ -648,13 +648,17 @@
 			$this->db->from('Inventory_Transaction');
 			$this->db->join('Employees','Employees.Emp_ID = Inventory_Transaction.RowCreatedPerson','left');
 			$this->db->join('Ticket_Type','Ticket_Type.TK_Code = Inventory_Transaction.Transaction_For','left');
-			// $this->db->where('Inventory_Transaction.TK_Code', 'RS');
 			$this->db->where('IsDraft', 1);
-			$this->db->where('Inventory_Transaction.RowCreatedPerson', $emp_id);
-			//$this->db->where('Inventory_Transaction.IsUsed', NULL);
+			
+			if(!$this->session->userdata('is_admin'))
+			{
+				$this->db->where('Inventory_Transaction.RowCreatedPerson', $emp_id);	
+			}
+			
 			$this->db->order_by('Inventory_Transaction.RowCreatedDate','desc');
 			
 			$query = $this->db->get();
+			
 			
 			return $query->result_array();
 		}

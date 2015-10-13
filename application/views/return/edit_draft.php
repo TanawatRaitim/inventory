@@ -128,7 +128,7 @@
 							 -->
 						</div>
 						<div class="col-md-12 text-danger" id="customer_detail">
-							
+							<?php echo get_customer_address($transaction['Cust_ID']);?>
 						</div>
 
 						
@@ -299,9 +299,10 @@
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">รายการที่บันทึก</h3>
+					<h3 class="panel-title">รายการที่บันทึก&nbsp;<a href="#" id="btn_refresh" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-refresh" title="refresh"></i></a></h3>
 				</div>
 				<div class="panel-body">
+					<div id="refresh_message"></div>
 					<div class="table-responsive">
 						<table class="table table-condensed table-border table-striped table-hover" id="record_saved">
 							<thead>

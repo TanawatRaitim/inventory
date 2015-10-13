@@ -13,6 +13,42 @@ function format(state)
 
 $(function() {
 	
+	
+	
+	//var my_date = new Date();
+	
+	//console.log(my_date);
+	
+	// alert(my_date.getFullYear());
+	/*
+	
+	$("#DocRef_Date, #Transport_Date").on('blur',function(e){
+		
+		var doc_date = $(this).val();
+		
+		var doc_arr = doc_date.split("/");
+		
+		var input_year = doc_arr[2];
+		
+		var current_date = new Date();
+		var current_year = current_date.getFullYear();
+		
+		alert(current_year + 5);
+		
+		// console.log(doc_date);
+		
+		alert(input_year);
+		
+
+		
+	});
+	
+	*/
+	
+	
+	//alert(new Date() + 20);
+	//return false;
+	
 	$.ajaxSetup({
 		cache: false
 	});
