@@ -280,9 +280,9 @@ $(function() {
 							
 							if(data.return_status)
 							{
-								var row_data = '<tr><td title="'+data.return_message+'"></td><td title="'+data.Product_Name+'">'+product_name+'</td><td class="text-center">';	
+								var row_data = '<tr><td title="'+data.return_message+'"></td><td title="'+product_name+'">'+data.Product_Name+'</td><td class="text-center">';	
 							}else{
-								var row_data = '<tr class="'+data.return_color+'"><td class="text-center" title="'+data.return_message+'"><span style="color: '+ data.return_color +';" class="glyphicon glyphicon-exclamation-sign cursor-pointer" aria-hidden="true"></span></td><td title="'+data.Product_Name+'">'+product_name+'</td><td class="text-center">';
+								var row_data = '<tr class="'+data.return_color+'"><td class="text-center" title="'+data.return_message+'"><span style="color: '+ data.return_color +';" class="glyphicon glyphicon-exclamation-sign cursor-pointer" aria-hidden="true"></span></td><td title="'+product_name+'">'+data.Product_Name+'</td><td class="text-center">';
 							}
 							
 							//var row_data = '<tr title="'+data.Product_Name+'"><td>'+product_name+'</td><td class="text-center">';

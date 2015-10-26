@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-6">
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายละเอียดหลักของ Ticket</h3>
@@ -308,7 +308,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายการที่บันทึก&nbsp;<a href="#" id="btn_refresh" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-refresh" title="refresh"></i></a></h3>
@@ -321,7 +321,7 @@
 								<tr>
 									<!-- <th>#</th> -->
 									<th></th>
-									<th>Product ID</th>
+									<th>Product</th>
 									<th class="text-center">คลัง</th>
 									<th class="text-center">ดี</th>
 									<th class="text-center">เสีย</th>
@@ -344,8 +344,8 @@
 										<td class="text-center" title="<?php echo $row['return_message'];?>"><span style="color: <?php echo $row['return_color'];?>;" class="glyphicon glyphicon-exclamation-sign cursor-pointer" aria-hidden="true"></span></td>
 									
 									<?php endif;?>
-									
-									<td><?php echo $row['Product_ID']; ?></td>
+									<td title="<?php echo $row['Product_ID']; ?>"><?php echo get_product_name($row['Product_ID']); ?></td>
+									<!-- <td><?php echo $row['Product_ID']; ?></td> -->
 									<td class="text-center"><?php echo get_inventory_name($row['Effect_Stock_AutoID']); ?></td>
 									<td class="text-center"><?php echo $row['QTY_Good']; ?></td>
 									<td class="text-center"><?php echo $row['QTY_Waste']; ?></td>

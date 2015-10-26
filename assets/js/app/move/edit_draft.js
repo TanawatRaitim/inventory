@@ -695,7 +695,7 @@ $(function() {
 						},
 						complete: function(){
 							alert('ยกเลิกการจองสินค้าทั้งหมดเรียบร้อยแล้ว');
-							window.location.href = BASE_URL+'move/add';
+							window.location.href = BASE_URL+'transaction/draft_list';
 						}
 						});
 					}
