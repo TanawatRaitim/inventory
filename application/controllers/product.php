@@ -1587,7 +1587,54 @@ class Product extends CI_Controller {
 		
 		$query = $this->product_model->get_product($id);
 		
+		
 		$result = $query->row_array();
+		
+		echo json_encode($result);
+	}
+	
+	public function get_product_json_rl()
+	{
+		
+		$id = $this->input->post('id');
+		$sr_ref = $this->input->post('sr_ref');
+		
+		$query = $this->product_model->get_product($id);
+		$result = $query->row_array();
+		
+		
+		if($sr_ref != "")
+		{
+			$where = array(
+				'TK_Code'=>'SR',
+				'TK_ID'=>$sr_ref,
+				'Product_ID'=>$id
+			);
+			
+			$this->db->select('Inventory_Transaction.Transact_AutoID, Inventory_Transaction.TK_Code, Inventory_Transaction.TK_ID');
+			$this->db->select('Inventory_Transaction_Detail.Product_ID, Inventory_Transaction_Detail.QTY_Good');
+			$this->db->from('Inventory_Transaction_Detail');
+			$this->db->join('Inventory_Transaction','Inventory_Transaction.Transact_AutoID = Inventory_Transaction_Detail.Transact_AutoID','left');
+			$this->db->where($where);
+			$result_sr = $this->db->get();
+			
+			if($result_sr->num_rows()>0)
+			{
+				$sr_detail = $result_sr->row_array();
+				
+				$result['QTY_Good'] = $sr_detail['QTY_Good'];
+				$result['Has_SR'] = TRUE;
+				
+			}else{
+				$result['QTY_Good'] = 0;
+				$result['Has_SR'] = FALSE;
+			}
+			
+						
+		}
+		
+		
+		
 		
 		echo json_encode($result);
 	}
@@ -1814,6 +1861,119 @@ class Product extends CI_Controller {
 		}else{
 			echo 'true';
 		}	
+	}
+	
+	public function check_stock($bar)
+	{
+		
+		$content['title'] = 'Inventory Mentanance';
+		//$content['create_text'] = "เพิ่มข้อมูล";
+		//$content['create_link'] = site_url('product/add');
+		
+		$content['breadcrumb'] = array(
+									0 => array(
+										'name'=>'menu1',
+										'link'=>'',
+										'class'=>''
+									),
+									1 => array(
+										'name'=>'menu2',
+										'link'=>'',
+										'class'=>'active'
+									),
+									2 => array(
+										'name'=>'menu3',
+										'link'=>'',
+										'class'=>''
+									),
+									3 => array(
+										'name'=>'menu4',
+										'link'=>'',
+										'class'=>''
+									)
+								);
+								
+		$this->db->order_by('Product_Vol', 'DESC');		
+		$content['product_result'] = $this->db->get_where('Products',array('Barcode_Main'=>$bar));
+		$content['bar'] = $bar;
+		
+		/*
+		if($result->num_rows()>0)
+		{
+			$products = $result->result_array();
+			
+			foreach($products as $key=>$value)
+			{
+				echo $value['Product_Name']."#".$value['Product_Vol']." ราคา ".$value['Price']." บาท";
+				echo br();
+			}
+			
+			
+		}else{
+			
+			echo 'ไม่สามารถค้นหาข้อมูลได้ ทางระบบจะบันทึก เฉพาะ บาร์โคด กรุณาระบุรายละเอียดเกี่ยวกับหนังสือเล่มนี้';
+			
+		}						
+		*/						
+								
+		
+		$data['content'] = $this->load->view('product/check_stock', $content,TRUE);
+			
+		//initail template	
+		$css = array(
+				// 'datatable/media/css/dataTables.bootstrap.css',
+				// 'datatable/extensions/TableTools/css/dataTables.tableTools.min.css'
+		);
+		
+		$js = array(
+				// 'datatable/media/js/jquery.dataTables.min.js',
+				// 'datatable/media/js/dataTables.bootstrap.js',
+				// 'datatable/extensions/TableTools/js/dataTables.tableTools.min.js',
+				'js/app/product/check_stock.js'
+		);
+				
+		$data['css'] = $this->assets->get_css($css);
+		$data['js'] = $this->assets->get_js($js);
+		$data['navigation'] = $this->load->view('template/navigation_checkstock','',TRUE);
+		
+		$this->load->view('template/main',$data);
+		
+		
+		
+		
+		
+		/*
+		
+		$this->db->order_by('Product_Vol', 'DESC');		
+		$result = $this->db->get_where('Products',array('Barcode_Main'=>$bar));
+		
+		if($result->num_rows()>0)
+		{
+			$products = $result->result_array();
+			
+			foreach($products as $key=>$value)
+			{
+				echo $value['Product_Name']."#".$value['Product_Vol']." ราคา ".$value['Price']." บาท";
+				echo br();
+			}
+			
+			
+		}else{
+			
+			echo 'ไม่สามารถค้นหาข้อมูลได้ ทางระบบจะบันทึก เฉพาะ บาร์โคด กรุณาระบุรายละเอียดเกี่ยวกับหนังสือเล่มนี้';
+			
+		}
+		*/
+		
+			
+		
+		//print_r($result);
+		
+	}
+
+	public function check_stock_post()
+	{
+		print_r($_POST);
 	}
 	
 	public function test()

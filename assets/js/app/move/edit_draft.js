@@ -282,7 +282,7 @@ $(function() {
 							var QTY_Damage = parseInt($("#QTY_Damage").val());
 							var total = parseInt($("#product_receive").val());
 							
-							var row_data = '<tr title="'+data.Product_Name+'"><td>'+product_name+'</td><td class="text-center">';
+							var row_data = '<tr title="'+product_name+'"><td>'+data.Product_Name+'</td><td class="text-center">';
 							row_data += Effect_Stock_AutoID+'=>'+Effect_Stock_Des+'</td><td class="text-center">'+QTY_Good;
 							row_data += '</td><td class="text-center">'+QTY_Waste+'</td><td class="text-center">';
 							row_data += ''+QTY_Damage+'</td><td class="text-center" id="record_toal">'+total;
@@ -452,6 +452,23 @@ $(function() {
 		
 		//var tkid = $("#TK_ID").val();
 		var autoid =$("#Transaction_AutoID").val();
+		var check_doc_ref = $("#DocRef_No").val();
+		var check_tk_id = $("#TK_ID").val();
+		
+		
+		if(check_tk_id == "")
+		{
+			alert('กรุณาระบุเลข RL ก่อน');
+			$("#TK_ID").focus();
+			return false;
+		}
+		
+		if(check_doc_ref == "")
+		{
+			alert('กรุณาระบุเลขที่เอกสารอ้างอิงก่อน');
+			$("#DocRef_No").focus();
+			return false;
+		}
 		//alert(autoid);
 		//return false;
 		
@@ -481,10 +498,11 @@ $(function() {
 					$noty.close();
 
 					var autoid =$("#Transaction_AutoID").val();
+					var check_tk_id = $("#TK_ID").val();
 					
 					$.ajax({
 						type: 'GET',
-						url: BASE_URL+'move/check_save/'+ autoid,		//check before save
+						url: BASE_URL+'move/check_save2/'+ autoid +'/' + check_tk_id,		//check before save
 						data: {
 							},
 						dataType: 'json',

@@ -5,7 +5,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-6">
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายละเอียดหลักของ Ticket</h3>
@@ -21,7 +21,12 @@
 									
 								</div>
 								<div class="col-sm-7">
-									<input type="text" value="<?php echo $transaction['TK_ID']; ?>" class="form-control input-sm" id="TK_ID" name="TK_ID" placeholder="Ticket ID" readonly autofocus>
+									<?php if(!$transaction['TK_ID'] || $transaction['TK_ID'] == "" || strlen($transaction['TK_ID'])<10):?>
+										<input type="text" value="<?php echo $transaction['TK_ID']; ?>" class="form-control input-sm" id="TK_ID" name="TK_ID" placeholder="Ticket ID"autofocus>
+									<?php else:?>
+										<input type="text" value="<?php echo $transaction['TK_ID']; ?>" class="form-control input-sm" id="TK_ID" name="TK_ID" placeholder="Ticket ID" readonly autofocus>	
+									<?php endif;?>		
+									
 								</div>
 							</div>
 						</div>
@@ -268,7 +273,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายการที่บันทึก</h3>
@@ -290,8 +295,8 @@
 							</thead>
 							<tbody>			
 								<?php foreach($transaction_detail as $row):?>			
-								<tr title="<?php echo get_product_name($row['Product_ID']); ?>">
-									<td><?php echo $row['Product_ID']; ?></td>
+								<tr title="<?php echo $row['Product_ID']; ?>">
+									<td><?php echo get_product_name($row['Product_ID']); ?></td>
 									<td class="text-center"><?php echo get_inventory_name($row['Effect_Stock_AutoID']); ?>-><?php echo get_inventory_name($row['Effect_Stock_Des']); ?></td>
 									<td class="text-center"><?php echo $row['QTY_Good']; ?></td>
 									<td class="text-center"><?php echo $row['QTY_Waste']; ?></td>

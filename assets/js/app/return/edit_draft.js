@@ -496,7 +496,7 @@ $(function() {
 								complete: function(){
 									
 									alert('บันทึกข้อมูลเรียบร้อยแล้ว');
-									window.location.href = BASE_URL+'return_p/reject';
+									window.location.href = BASE_URL+'transaction/draft_list';
 								}
 							});
 						}

@@ -13,6 +13,7 @@
 			
 			unset($main['Transaction_AutoID']);
 			
+			
 			$main['TK_Code'] = $tkcode;
 			$main['TK_ID'] = $tkid;
 			$main['Transaction_For'] = $tkcode;

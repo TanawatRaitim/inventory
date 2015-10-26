@@ -74,6 +74,7 @@ $(function(){
         		}
         		
         	},
+        	{"data":"Transact_Remark"},
         	{"data":"Emp_FnameTH"},
         	{
         		"data":"IsApproved",

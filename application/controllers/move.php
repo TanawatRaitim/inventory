@@ -374,10 +374,46 @@ class Move extends CI_Controller {
 		$detail['Transact_AutoID'] = $autoid;
 		
 		//here
-
-			//check dup transaction
-			if($this->check_tran_dup_rl($autoid, $product_id, $stock_id, $stock_to)){
+		
+		$check_tkcode = $this->db->get_where('Inventory_Transaction', array('Transact_AutoID'=>$autoid))->row_array();
+		//echo $check_tkcode['TK_ID'];
+		
+		
+		
+		if(!$check_tkcode['TK_ID'] || strlen($check_tkcode['TK_ID']) <10 || $check_tkcode['TK_ID'] == "")
+		{
+			if($this->check_dup_tk($tk_code, $tkid)){
 				//not dup
+				$result = array(
+					'status'=>true,
+					'valid'=>''
+				);
+				
+				if($this->check_tran_dup_rl($autoid, $product_id, $stock_id, $stock_to)){
+					//not dup
+					$result = array(
+						'status'=>true,
+						'valid'=>''
+					);
+				}else{
+					//dup
+					$result = array(
+						'status'=>false,
+						'valid'=>'ไม่สามารถบันทึกข้อมูลได้ เนื่องจากคุณบันทึกรายการซ้ำ'
+					);
+				}
+				
+				
+			}else{
+				//dup
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่สามารถใช้เลข Ticket นี้ได้ เนื่องจากมีการใช้เลขนี้ไปแล้ว'
+				);
+			}
+		}else{
+			if($this->check_tran_dup_rl($autoid, $product_id, $stock_id, $stock_to)){
+					//not dup
 				$result = array(
 					'status'=>true,
 					'valid'=>''
@@ -389,6 +425,12 @@ class Move extends CI_Controller {
 					'valid'=>'ไม่สามารถบันทึกข้อมูลได้ เนื่องจากคุณบันทึกรายการซ้ำ'
 				);
 			}
+		}
+				
+		//exit();
+
+			//check dup transaction
+		
 
 		
 		/*
@@ -625,6 +667,7 @@ class Move extends CI_Controller {
 	public function check_save($autoid)
 	{
 		//$auto_id = $this->find_tid($tkid);
+		// $check_tkcode = $this->db->get_where('Inventory_Transaction', array('Transact_AutoID'=>$autoid))->row_array();
 		$query = $this->db->get_where('Inventory_Transaction_Detail', array('Transact_AutoID'=>$autoid));
 		$trans = $query->result_array();
 		$result = array(
@@ -632,13 +675,71 @@ class Move extends CI_Controller {
 				'valid'=>''
 			);
 			
-		if(!$this->transaction_model->has_detail($autoid))
-		{
-			$result = array(
-				'status'=>false,
-				'valid'=>'ไม่พบรายการที่ต้องการส่งขออนุมัติ กรุณาตรวจสอบข้อมูลอีกครั้ง !!!'
+			if(!$this->transaction_model->has_detail($autoid))
+			{
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่พบรายการที่ต้องการส่งขออนุมัติ กรุณาตรวจสอบข้อมูลอีกครั้ง !!!'
+				);
+			}	
+		/*
+		foreach ($trans as $key => $value) {
+			
+			if(!$this->check_tran_qty2($trans[$key])){
+				$result['status'] = false;
+				$result['valid'] = 'ไม่สามารถบันทักข้อมูลได้เนื่องสินค้า '.$value['Product_ID'].'ไม่จำนวนไม่พอสำหรับจอง';
+			}
+			
+		}
+		*/
+		echo json_encode($result);
+	}
+	
+	public function check_save2($autoid,$tkid)
+	{
+		//$auto_id = $this->find_tid($tkid);
+		$tk_code = 'RL';
+		$check_tkcode = $this->db->get_where('Inventory_Transaction', array('Transact_AutoID'=>$autoid))->row_array();
+		$query = $this->db->get_where('Inventory_Transaction_Detail', array('Transact_AutoID'=>$autoid));
+		$trans = $query->result_array();
+		$result = array(
+				'status'=>true,
+				'valid'=>''
 			);
+			
+			
+		if(!$check_tkcode['TK_ID'] || strlen($check_tkcode['TK_ID']) <10 || $check_tkcode['TK_ID'] == "")
+		{
+			if($this->check_dup_tk($tk_code, $tkid)){
+				//not dup
+				$result = array(
+					'status'=>true,
+					'valid'=>''
+				);
+				
+				
+				
+			}else{
+				//dup
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่สามารถใช้เลข Ticket นี้ได้ เนื่องจากมีการใช้เลขนี้ไปแล้ว'
+				);
+			}
+		}else{
+			
+			if(!$this->transaction_model->has_detail($autoid))
+			{
+				$result = array(
+					'status'=>false,
+					'valid'=>'ไม่พบรายการที่ต้องการส่งขออนุมัติ กรุณาตรวจสอบข้อมูลอีกครั้ง !!!'
+				);
+			}	
 		}	
+			
+		
+		
+			
 		
 		
 		/*

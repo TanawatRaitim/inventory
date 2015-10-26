@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-6">
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายละเอียดหลักของ Ticket</h3>
@@ -45,6 +45,12 @@
 								<!-- <label class="col-sm-7 control-label" id="TK_ID_Present"  style="text-align: left;">XX-XX-XXXX</label> -->
 								<!-- <input type="hidden" name="TK_ID" id="TK_ID" value="" /> -->
 								<!-- <input type="hidden" name="TK_Code" id="TK_Code" value="RS" /> -->
+								<!--
+								<label for="SR_Ref" class="col-sm-5 control-label">อ้างอิง SR เลขที่</label>
+								<div class="col-sm-7">
+									<input type="text" value="<?php echo $transaction['SR_Ref'];?>" class="form-control input-sm" id="SR_Ref" name="SR_Ref" placeholder="อ้างอิง SR เลขที่">
+								</div>
+								-->
 								<input type="hidden" name="Transaction_AutoID" id="Transaction_AutoID" value="<?php echo $transaction['Transact_AutoID']; ?>" />
 
 							</div>
@@ -281,7 +287,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">รายการที่บันทึก</h3>
@@ -303,8 +309,8 @@
 							</thead>
 							<tbody>			
 								<?php foreach($transaction_detail as $row):?>			
-								<tr title="<?php echo get_product_name($row['Product_ID']); ?>">
-									<td><?php echo $row['Product_ID']; ?></td>
+								<tr title="<?php echo $row['Product_ID']; ?>">
+									<td><?php echo get_product_name($row['Product_ID']); ?></td>
 									<td class="text-center"><?php echo get_inventory_name($row['Effect_Stock_AutoID']); ?>-><?php echo get_inventory_name($row['Effect_Stock_Des']); ?></td>
 									<td class="text-center"><?php echo $row['QTY_Good']; ?></td>
 									<td class="text-center"><?php echo $row['QTY_Waste']; ?></td>

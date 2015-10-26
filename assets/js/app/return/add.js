@@ -493,7 +493,7 @@ $(function() {
 							success: function(data){
 								},
 							beforeSend: function(){
-
+									
 									var loading = noty({
 										layout: 'center',
 										text: "<h1>กำลังดำเนินการ....</h1>",
@@ -502,6 +502,8 @@ $(function() {
 										modal: true,
 										closeWith: ['']
 									});
+									
+									
 								},
 								complete: function(){
 									

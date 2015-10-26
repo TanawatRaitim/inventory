@@ -1742,7 +1742,65 @@ class Return_p extends CI_Controller {
 	{
 		parse_str($_POST['main_ticket'], $main);
 		
+		$sr_main_id = $main['Transaction_AutoID'];
+		
 		$this->return_p_model->save($main);
+		
+		$sr_main = $this->db->get_where('Inventory_Transaction',array('Transact_AutoID'=>$sr_main_id))->row_array();
+		unset($sr_main['Transact_AutoID']);
+		$sr_id = $sr_main['TK_Code'].$sr_main['TK_ID'];
+		$sr_main['TK_Code'] = 'RL';
+		$sr_main['TK_ID'] = '';
+		$sr_main['Transaction_For'] = 'RL';
+		$sr_main['DocRef_AutoID'] = 7;
+		$sr_main['DocRef_No'] = '';
+		$sr_main['DocRef_Other'] = '';
+		$sr_main['Cust_ID'] = NULL;
+		$sr_main['Transact_Remark'] = $sr_id;
+		$sr_main['IsDraft'] = 1;
+		$sr_main['IsApproved'] = NULL;
+		$sr_main['IsReject'] = NULL;
+		
+		
+		$stock_query = $this->db->get_where('Inventory',array('Inventory_TypeID'=>1))->result_array();
+		
+		//foreach Stock
+		foreach($stock_query as $key=>$value)
+		{
+			$this->db->select('Inventory_Transaction_Detail.Product_ID, Inventory_Transaction_Detail.Effect_Stock_AutoID, Inventory_Transaction_Detail.Effect_Stock_Des');
+			$this->db->select('Inventory_Transaction_Detail.QTY_Good, Inventory_Transaction_Detail.QTY_Waste, Inventory_Transaction_Detail.QTY_Damage');
+			$this->db->from('Inventory_Transaction_Detail');
+			$this->db->join('Products','Products.Product_ID = Inventory_Transaction_Detail.Product_ID','left');
+			$this->db->where(array(
+				'Transact_AutoID'=>$sr_main_id,
+				'Products.Main_Inventory'=>$value['Stock_AutoID']			
+			));
+			$result_rl = $this->db->get();
+			
+			
+			if($result_rl->num_rows()>0)
+			{
+				$this->db->insert('Inventory_Transaction',$sr_main);
+				$rl_main_id = $this->db->insert_id();
+				
+				foreach($result_rl->result_array() as $key2=>$value2)
+				{
+					
+					$value2['Transact_AutoID'] = $rl_main_id;
+					$value2['Effect_Stock_Des'] = $value['Stock_AutoID'];
+					$value2['QTY_Waste'] = 0;
+					$value2['QTY_Damage'] = 0;
+					
+					$this->db->insert('Inventory_Transaction_Detail', $value2);
+					
+				}
+			}
+			
+		}//end foreach stock
+	}
+	
+	public function gen_rl()
+	{
 		
 	}
 	

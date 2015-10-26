@@ -55,6 +55,7 @@ $(function() {
 	
 	$("#DocRef_Date").mask('00/00/0000',{clearIfNotMatch: true});
 	$("#TK_ID").mask('00-00-0000',{clearIfNotMatch: true});
+	// $("#SR_Ref").mask('00-00-0000',{clearIfNotMatch: true});
 	
 	$("#Product_ID").select2({
 		placeholder: 'Product ID',
@@ -86,7 +87,9 @@ $(function() {
 		$.ajax({
 			type: 'POST',
 			url: BASE_URL+'product/get_product_json',
-			data: {id: e.val},
+			data: {
+				id: e.val
+				},
 			dataType: 'json',
 			success: function(data){
 				//load product information
@@ -97,6 +100,28 @@ $(function() {
 				$("#Effect_Stock_AutoID").val(5);
 				$("#Effect_Stock_Des").val(data.Main_Inventory);
 				$("#Effect_Stock_Des").data('main_inventory', data.Main_Inventory);
+				
+				/*
+				if($("#SR_Ref").val() != "")
+				{
+					if(data.Has_SR)
+					{
+						
+						$("#QTY_Good").val(data.QTY_Good);
+						$("#QTY_Good").focus();
+						
+					}else{
+						
+						var err_text = 'ไม่มีรายการ '+ data.Product_Name + '#' + data.Product_Vol + " ราคา " + data.Price + "บาท " + "("+ data.Product_ID +") ในเลขที่ SR"+ $("#SR_Ref").val();
+						
+						alert(err_text);
+						$("#QTY_Good").val(0);
+						$("#QTY_Good").focus();
+					}	
+				}
+				*/
+				
+				
 				
 			},
 			beforeSend: function(){
@@ -283,7 +308,8 @@ $(function() {
 							var QTY_Damage = parseInt($("#QTY_Damage").val());
 							var total = parseInt($("#product_receive").val());
 							
-							var row_data = '<tr title="'+data.Product_Name+'"><td>'+product_name+'</td><td class="text-center">';
+							// var row_data = '<tr title="'+data.Product_Name+'"><td>'+product_name+'</td><td class="text-center">';
+							var row_data = '<tr title="'+product_name+'"><td>'+data.Product_Name+'</td><td class="text-center">';
 							row_data += Effect_Stock_AutoID+'=>'+Effect_Stock_Des+'</td><td class="text-center">'+QTY_Good;
 							row_data += '</td><td class="text-center">'+QTY_Waste+'</td><td class="text-center">';
 							row_data += ''+QTY_Damage+'</td><td class="text-center" id="record_toal">'+total;
